@@ -21,6 +21,10 @@ export {
   type QuestionType,
   answerKeySchema,
   type AnswerKey,
+  testOpSchema,
+  type TestOp,
+  testItemRowSchema,
+  type TestItemRow,
 } from './schemas';
 export {
   NUMERIC_ENTITLEMENT_KEYS,

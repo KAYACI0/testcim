@@ -8,6 +8,91 @@
     "appHomeTitle": "Testler",
     "newTestAction": "Yeni test"
   },
+  "tests": {
+    "new": {
+      "title": "Yeni test",
+      "titleLabel": "Test adı",
+      "titlePlaceholder": "Örnek: 8. sınıf matematik yazılısı",
+      "typeLabel": "Test türü",
+      "types": {
+        "exam": "Sınav",
+        "testPaper": "Test kâğıdı",
+        "mock": "Deneme",
+        "written": "Yazılı",
+        "worksheet": "Çalışma kâğıdı",
+        "quiz": "Quiz"
+      },
+      "createError": "Test oluşturulamadı. Yeniden deneyin.",
+      "create": "Oluştur"
+    },
+    "list": {
+      "title": "Testler",
+      "newTestAction": "Yeni test",
+      "empty": "Henüz test yok.",
+      "columns": {
+        "name": "Ad",
+        "type": "Tür",
+        "questionCount": "Soru sayısı",
+        "lastEdited": "Son düzenleme"
+      },
+      "types": {
+        "exam": "Sınav",
+        "test_paper": "Test kâğıdı",
+        "mock": "Deneme",
+        "written": "Yazılı",
+        "worksheet": "Çalışma kâğıdı",
+        "quiz": "Quiz"
+      }
+    }
+  },
+  "editor": {
+    "topBar": {
+      "titleLabel": "Test adı",
+      "preview": "Önizle",
+      "export": "Çıktı al",
+      "saveStatus": {
+        "saved": "Kaydedildi",
+        "saving": "Kaydediliyor",
+        "offline": "Bağlantı yok, değişiklikler bekletiliyor",
+        "error": "Kaydedilemedi"
+      }
+    },
+    "strip": {
+      "empty": "Bu testte henüz soru yok. Bir ekran alıntısı kopyalayıp Ctrl+V ile yapıştırın.",
+      "statusPending": "Ekleniyor",
+      "statusUploading": "Yükleniyor",
+      "statusProcessing": "İşleniyor",
+      "statusError": "Yüklenemedi",
+      "duplicateNotice": "Bu soru testte zaten var",
+      "correctAnswerLabel": "Doğru cevap",
+      "removeLabel": "Kaldır"
+    },
+    "preview": {
+      "empty": "Bu testte henüz soru yok."
+    },
+    "inspector": {
+      "page": "Sayfa",
+      "booklets": "Kitapçıklar",
+      "answers": "Cevaplar",
+      "output": "Çıktı",
+      "answersEmpty": "Cevap işaretlemek için önce soru ekleyin.",
+      "correctAnswerFor": "{number}. sorunun doğru cevabı"
+    },
+    "pasteBar": {
+      "status": "{count} soru",
+      "statusWithLastAdded": "{count} soru. Son eklenen: soru {number}.",
+      "captureMode": "Yakalama modu",
+      "chooseFile": "Dosya seç",
+      "quotaExceeded": "Plan sınırınıza ulaştığınız için {count} görsel eklenmedi."
+    },
+    "bulkAnswers": {
+      "trigger": "Cevapları toplu gir",
+      "title": "Cevapları toplu gir",
+      "placeholder": "ABCDDCBA... veya 1-A 2-C 3-B",
+      "mismatch": "{parsed} cevap ayrıştırıldı, testte {total} soru var.",
+      "apply": "Uygula"
+    }
+  },
   "auth": {
     "title": "Giriş yapın",
     "subtitle": "E-posta adresinize gönderilen bağlantıyla veya Google hesabınızla devam edin.",

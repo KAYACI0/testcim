@@ -153,6 +153,149 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['usage_counters']['Row']>;
         Relationships: [];
       };
+      assets: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          owner_id: string | null;
+          bucket: 'assets' | 'exports' | 'branding';
+          path: string;
+          kind: 'image' | 'thumb' | 'pdf' | 'render' | 'logo' | 'export';
+          mime: string;
+          bytes: number;
+          width: number | null;
+          height: number | null;
+          sha256: string | null;
+          phash: string | null;
+          source: 'paste' | 'drop' | 'pdf_crop' | 'mobile' | 'extension' | 'ai' | 'upload';
+          created_at: Timestamp;
+          updated_at: Timestamp;
+          deleted_at: Timestamp | null;
+        };
+        Insert: Partial<Database['public']['Tables']['assets']['Row']> & {
+          workspace_id: string;
+          bucket: 'assets' | 'exports' | 'branding';
+          path: string;
+          kind: 'image' | 'thumb' | 'pdf' | 'render' | 'logo' | 'export';
+          mime: string;
+          bytes: number;
+          source: 'paste' | 'drop' | 'pdf_crop' | 'mobile' | 'extension' | 'ai' | 'upload';
+        };
+        Update: Partial<Database['public']['Tables']['assets']['Row']>;
+        Relationships: [];
+      };
+      questions: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          folder_id: string | null;
+          created_by: string | null;
+          kind: 'image' | 'rich';
+          question_type: 'mcq' | 'tf' | 'fill' | 'match' | 'open' | 'numeric' | 'order';
+          stem_asset_id: string | null;
+          stem_rich: Record<string, unknown> | null;
+          stem_text: string | null;
+          options: unknown[];
+          option_count: number | null;
+          correct: unknown;
+          points: number;
+          difficulty: number | null;
+          difficulty_observed: number | null;
+          subject_id: string | null;
+          topic_id: string | null;
+          explanation_rich: Record<string, unknown> | null;
+          explanation_asset_id: string | null;
+          source_meta: Record<string, unknown>;
+          lang: string;
+          ai_generated: boolean;
+          ai_review_status: 'draft' | 'approved' | null;
+          status: 'active' | 'archived';
+          current_revision: number;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+          deleted_at: Timestamp | null;
+        };
+        Insert: Partial<Database['public']['Tables']['questions']['Row']> & {
+          workspace_id: string;
+          kind: 'image' | 'rich';
+          question_type: 'mcq' | 'tf' | 'fill' | 'match' | 'open' | 'numeric' | 'order';
+        };
+        Update: Partial<Database['public']['Tables']['questions']['Row']>;
+        Relationships: [];
+      };
+      question_revisions: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          question_id: string;
+          revision: number;
+          snapshot: Record<string, unknown>;
+          created_by: string | null;
+          created_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['question_revisions']['Row']> & {
+          workspace_id: string;
+          question_id: string;
+          revision: number;
+          snapshot: Record<string, unknown>;
+        };
+        Update: Partial<Database['public']['Tables']['question_revisions']['Row']>;
+        Relationships: [];
+      };
+      tests: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          folder_id: string | null;
+          created_by: string | null;
+          title: string;
+          type: 'exam' | 'test_paper' | 'mock' | 'written' | 'worksheet' | 'quiz';
+          status: 'draft' | 'ready' | 'archived';
+          settings: Record<string, unknown>;
+          settings_version: number;
+          version_count: number;
+          seed: number | null;
+          question_count: number;
+          revision: number;
+          last_exported_at: Timestamp | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+          deleted_at: Timestamp | null;
+        };
+        Insert: Partial<Database['public']['Tables']['tests']['Row']> & {
+          workspace_id: string;
+          title: string;
+          type: 'exam' | 'test_paper' | 'mock' | 'written' | 'worksheet' | 'quiz';
+        };
+        Update: Partial<Database['public']['Tables']['tests']['Row']>;
+        Relationships: [];
+      };
+      test_items: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          test_id: string;
+          section_id: string | null;
+          group_id: string | null;
+          question_id: string;
+          question_revision_id: string;
+          position: string;
+          points_override: number | null;
+          correct_override: unknown;
+          pinned: boolean;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['test_items']['Row']> & {
+          workspace_id: string;
+          test_id: string;
+          question_id: string;
+          question_revision_id: string;
+          position: string;
+        };
+        Update: Partial<Database['public']['Tables']['test_items']['Row']>;
+        Relationships: [];
+      };
       jobs: {
         Row: {
           id: string;
@@ -205,6 +348,10 @@ export interface Database {
       has_role: {
         Args: { ws: string; roles: string[] };
         Returns: boolean;
+      };
+      apply_test_ops: {
+        Args: { p_test_id: string; p_base_revision: number; p_ops: unknown };
+        Returns: unknown;
       };
     };
     Enums: Record<string, never>;

@@ -117,3 +117,56 @@ export const answerKeySchema = z.discriminatedUnion('question_type', [
 ]);
 
 export type AnswerKey = z.infer<typeof answerKeySchema>;
+
+/**
+ * `apply_test_ops` RPC ops (supabase/migrations `..._tests.sql` and the
+ * Prompt 04 quota patch). One client-authored batch = one array of these,
+ * sent with a `base_revision` for optimistic concurrency.
+ */
+export const testOpSchema = z.discriminatedUnion('type', [
+  z.object({
+    type: z.literal('add_item'),
+    item_id: uuidSchema,
+    question_id: uuidSchema,
+    question_revision_id: uuidSchema,
+    position: z.string(),
+    section_id: uuidSchema.optional(),
+    group_id: uuidSchema.optional(),
+    points_override: z.number().optional(),
+    correct_override: z.unknown().optional(),
+    pinned: z.boolean().optional(),
+  }),
+  z.object({ type: z.literal('remove_item'), item_id: uuidSchema }),
+  z.object({
+    type: z.literal('move_item'),
+    item_id: uuidSchema,
+    position: z.string(),
+    section_id: uuidSchema.optional(),
+  }),
+  z.object({
+    type: z.literal('set_correct'),
+    item_id: uuidSchema,
+    correct: answerKeySchema.nullable(),
+  }),
+  z.object({ type: z.literal('set_points'), item_id: uuidSchema, points: z.number() }),
+  z.object({ type: z.literal('set_group'), item_id: uuidSchema, group_id: uuidSchema.optional() }),
+  z.object({ type: z.literal('update_settings'), settings: testSettingsSchema }),
+  z.object({ type: z.literal('update_title'), title: z.string().min(1) }),
+]);
+
+export type TestOp = z.infer<typeof testOpSchema>;
+
+/** One row of `test_items`, as read back from Supabase for the editor. */
+export const testItemRowSchema = z.object({
+  id: uuidSchema,
+  section_id: uuidSchema.nullable(),
+  group_id: uuidSchema.nullable(),
+  question_id: uuidSchema,
+  question_revision_id: uuidSchema,
+  position: z.string(),
+  points_override: z.number().nullable(),
+  correct_override: answerKeySchema.nullable(),
+  pinned: z.boolean(),
+});
+
+export type TestItemRow = z.infer<typeof testItemRowSchema>;

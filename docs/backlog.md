@@ -92,6 +92,44 @@ söyler.
 - **Gizlilik/kullanım şartları sayfaları yer tutucu.** Hukuki metinler bekleniyor
   (docs/prompts/03 madde 6).
 
+## Dilim 04'ten kalanlar
+
+- **Docker olmadığı için doğrulanamayanlar.** `20250101000013_apply_test_ops_quota.sql`
+  migrasyonu ve `supabase/tests/075_apply_test_ops_quota.sql` pgTAP testi gerçek bir
+  Postgres'e karşı hiç çalıştırılmadı; `apps/web/src/lib/supabase/types.ts` bu dilimde
+  `tests`/`test_items`/`questions`/`question_revisions`/`assets` tablolarıyla genişletildi
+  ama yine elle yazıldı (dilim 03'ten kalan not hâlâ geçerli).
+- **Uçtan uca (Playwright) yakalama testi yazılmadı.** docs/prompts/04 "ClipboardEvent +
+  DataTransfer ile yapıştırma simülasyonu" istiyor, ama gerçek bir Supabase projesi
+  (auth + storage + RPC) olmadan bu testi yazıp da çalıştığını doğrulamak mümkün değildi;
+  yanlış/kırık bir test dosyası bırakmaktansa hiç yazmamayı tercih ettim. Docker/canlı proje
+  geldiğinde eklenmeli. Saf mantık (autoTrim, hash, op-log, undo/redo, kuyruk, eşzamanlılık
+  sınırlayıcı, yinelenen tespiti, toplu cevap ayrıştırma) birim testleriyle kapsandı.
+- **"Kayıpsız orijinal: PNG veya WebP, hangisi küçükse" tam uygulanmadı.** Tarayıcı
+  `OffscreenCanvas.convertToBlob` WebP için gerçek kayıpsız modu desteklemiyor (yalnızca
+  kalite parametresi var); bu yüzden orijinal her zaman PNG olarak kaydediliyor
+  (`apps/web/src/features/capture/worker/encode.ts`). Gerçek kayıpsız WebP gerekiyorsa
+  bir WASM kodlayıcı (örn. Squoosh'un webp kodeği) eklenmeli.
+- **480px WebP küçük resim Storage'a yüklenmiyor.** `questions` tablosunda küçük resme
+  ayrı bir referans kolonu yok (yalnızca `stem_asset_id`); küçük resim yalnızca istemcide
+  o oturum için tutuluyor, sayfa yenilenince orijinalin imzalı URL'i kullanılıyor. Soru
+  bankası ızgara görünümü (dilim 08) küçük resmi gerçekten önemli kılarsa, `questions`'a
+  bir `thumb_asset_id` eklenmeli.
+- **Yinelenen tespiti yalnızca geçerli test oturumundaki sorularla sınırlı.** docs/02
+  §5.1 çalışma alanı genelini ima ediyor olabilir; tüm soru bankasına karşı kontrol dilim
+  08'in (soru bankası) kapsamına daha uygun.
+- **`apply_test_ops` artık `questions_per_test` kotasını kontrol ediyor** ama
+  `storage_mb` kontrolü yalnızca `registerCapturedQuestion` sunucu eyleminde (görsel
+  kaydı sırasında) yapılıyor; PDF kırpma (dilim 06) veya başka bir yükleme yolu eklenirse
+  aynı kontrol oraya da taşınmalı.
+- **Odağa dönünce otomatik ekleme (`navigator.clipboard.read()`) eklenmedi.** docs/prompts/04
+  bunu "isteğe bağlı ayar" olarak işaretliyor; kapsam dışı bırakıldı.
+- **Tarayıcı uzantısı, telefon QR, masaüstü yardımcı yakalama yolları eklenmedi** —
+  bunlar dilim 14'ün (yakalama ekosistemi) kapsamı.
+- **Ekran görüntüleri alınamadı.** `/tests`, `/tests/new`, `/tests/[id]` oturum
+  gerektiriyor; dilim 03'te olduğu gibi canlı bir Supabase projesi olmadan giriş
+  yapılamadığından 1440/1024/390 ekran görüntüleri bu dilimde üretilemedi.
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.

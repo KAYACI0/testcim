@@ -8,6 +8,91 @@
     "appHomeTitle": "Tests",
     "newTestAction": "New test"
   },
+  "tests": {
+    "new": {
+      "title": "New test",
+      "titleLabel": "Test name",
+      "titlePlaceholder": "E.g. Grade 8 math test",
+      "typeLabel": "Test type",
+      "types": {
+        "exam": "Exam",
+        "testPaper": "Test paper",
+        "mock": "Mock exam",
+        "written": "Written exam",
+        "worksheet": "Worksheet",
+        "quiz": "Quiz"
+      },
+      "createError": "Could not create the test. Try again.",
+      "create": "Create"
+    },
+    "list": {
+      "title": "Tests",
+      "newTestAction": "New test",
+      "empty": "No tests yet.",
+      "columns": {
+        "name": "Name",
+        "type": "Type",
+        "questionCount": "Questions",
+        "lastEdited": "Last edited"
+      },
+      "types": {
+        "exam": "Exam",
+        "test_paper": "Test paper",
+        "mock": "Mock exam",
+        "written": "Written exam",
+        "worksheet": "Worksheet",
+        "quiz": "Quiz"
+      }
+    }
+  },
+  "editor": {
+    "topBar": {
+      "titleLabel": "Test name",
+      "preview": "Preview",
+      "export": "Export",
+      "saveStatus": {
+        "saved": "Saved",
+        "saving": "Saving",
+        "offline": "Offline, changes are queued",
+        "error": "Could not save"
+      }
+    },
+    "strip": {
+      "empty": "This test has no questions yet. Copy a screenshot and paste it with Ctrl+V.",
+      "statusPending": "Adding",
+      "statusUploading": "Uploading",
+      "statusProcessing": "Processing",
+      "statusError": "Failed to upload",
+      "duplicateNotice": "This question is already in the test",
+      "correctAnswerLabel": "Correct answer",
+      "removeLabel": "Remove"
+    },
+    "preview": {
+      "empty": "This test has no questions yet."
+    },
+    "inspector": {
+      "page": "Page",
+      "booklets": "Booklets",
+      "answers": "Answers",
+      "output": "Output",
+      "answersEmpty": "Add a question before marking answers.",
+      "correctAnswerFor": "Correct answer for question {number}"
+    },
+    "pasteBar": {
+      "status": "{count} questions",
+      "statusWithLastAdded": "{count} questions. Last added: question {number}.",
+      "captureMode": "Capture mode",
+      "chooseFile": "Choose file",
+      "quotaExceeded": "{count} images weren't added — you've reached your plan limit."
+    },
+    "bulkAnswers": {
+      "trigger": "Bulk-enter answers",
+      "title": "Bulk-enter answers",
+      "placeholder": "ABCDDCBA... or 1-A 2-C 3-B",
+      "mismatch": "Parsed {parsed} answers, but the test has {total} questions.",
+      "apply": "Apply"
+    }
+  },
   "auth": {
     "title": "Sign in",
     "subtitle": "Continue with a link sent to your email, or with Google.",
