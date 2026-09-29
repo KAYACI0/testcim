@@ -197,6 +197,87 @@
       "cancel": "Cancel"
     }
   },
+  "bank": {
+    "title": "Question bank",
+    "description": "Every question added to a test collects here — search, tag, and reuse it.",
+    "quotaWarning": "You're close to your bank quota. Check storage and question limits on your plan.",
+    "folders": {
+      "inbox": "Inbox",
+      "newFolder": "New folder",
+      "newFolderPlaceholder": "Folder name",
+      "renameLabel": "Rename"
+    },
+    "filters": {
+      "searchPlaceholder": "Search question text",
+      "subjectPlaceholder": "Subject",
+      "topicPlaceholder": "Topic",
+      "outcomePlaceholder": "Outcome",
+      "typePlaceholder": "Type",
+      "types": {
+        "mcq": "Multiple choice",
+        "tf": "True / False",
+        "fill": "Fill in the blank",
+        "match": "Matching",
+        "open": "Open-ended",
+        "numeric": "Numeric",
+        "order": "Ordering"
+      },
+      "difficultyLabel": "Difficulty",
+      "difficultyAny": "Any",
+      "tagPlaceholder": "Tag",
+      "aiStatusPlaceholder": "AI status",
+      "aiStatusDraft": "Draft",
+      "aiStatusApproved": "Approved",
+      "emptyOptions": "No results"
+    },
+    "list": {
+      "columns": {
+        "question": "Question",
+        "type": "Type",
+        "difficulty": "Difficulty",
+        "aiStatus": "AI",
+        "createdAt": "Added"
+      },
+      "empty": "No questions in this folder.",
+      "noPreview": "No preview",
+      "selectAll": "Select all",
+      "selectRow": "Select question",
+      "selectedCount": "{count} questions selected",
+      "bulkTagPlaceholder": "Add tag",
+      "moveTo": "Move to folder",
+      "closeDialog": "Close",
+      "viewToggleLabel": "View",
+      "viewList": "List",
+      "viewGrid": "Grid",
+      "loading": "Loading…",
+      "newTagPlaceholder": "New tag name, press Enter to add",
+      "alreadyInTest": "In test",
+      "addToTest": "Add to test",
+      "addedToTest": "{count} questions added",
+      "addToTestFailed": "Could not add, try again."
+    },
+    "inspector": {
+      "title": "Details",
+      "noSelection": "Select a question",
+      "loading": "Loading…",
+      "tabs": {
+        "preview": "Preview",
+        "tags": "Tags",
+        "usage": "Usage",
+        "history": "History"
+      },
+      "noPreview": "No preview",
+      "difficulty": "Difficulty",
+      "tagsLabel": "Tags",
+      "noTags": "No tags",
+      "outcomesLabel": "Outcomes",
+      "noOutcomes": "No outcomes added",
+      "addOutcomePlaceholder": "Add outcome",
+      "noOutcomeMatches": "No matching outcomes",
+      "noUsage": "Not used in any test yet",
+      "revisionLabel": "Revision {revision}"
+    }
+  },
   "auth": {
     "title": "Sign in",
     "subtitle": "Continue with a link sent to your email, or with Google.",

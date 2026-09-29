@@ -197,6 +197,87 @@
       "cancel": "Vazgeç"
     }
   },
+  "bank": {
+    "title": "Soru bankası",
+    "description": "Testlere eklenen her soru burada birikir; arayın, etiketleyin, yeniden kullanın.",
+    "quotaWarning": "Banka kotanıza yaklaştınız. Depolama ve soru sınırlarını planınızdan kontrol edin.",
+    "folders": {
+      "inbox": "Gelen kutusu",
+      "newFolder": "Yeni klasör",
+      "newFolderPlaceholder": "Klasör adı",
+      "renameLabel": "Yeniden adlandır"
+    },
+    "filters": {
+      "searchPlaceholder": "Soru metninde ara",
+      "subjectPlaceholder": "Ders",
+      "topicPlaceholder": "Konu",
+      "outcomePlaceholder": "Kazanım",
+      "typePlaceholder": "Tür",
+      "types": {
+        "mcq": "Çoktan seçmeli",
+        "tf": "Doğru / Yanlış",
+        "fill": "Boşluk doldurma",
+        "match": "Eşleştirme",
+        "open": "Açık uçlu",
+        "numeric": "Sayısal",
+        "order": "Sıralama"
+      },
+      "difficultyLabel": "Zorluk",
+      "difficultyAny": "Tümü",
+      "tagPlaceholder": "Etiket",
+      "aiStatusPlaceholder": "Yapay zekâ durumu",
+      "aiStatusDraft": "Taslak",
+      "aiStatusApproved": "Onaylı",
+      "emptyOptions": "Sonuç yok"
+    },
+    "list": {
+      "columns": {
+        "question": "Soru",
+        "type": "Tür",
+        "difficulty": "Zorluk",
+        "aiStatus": "Yapay zekâ",
+        "createdAt": "Eklenme tarihi"
+      },
+      "empty": "Bu klasörde soru yok.",
+      "noPreview": "Önizleme yok",
+      "selectAll": "Tümünü seç",
+      "selectRow": "Soruyu seç",
+      "selectedCount": "{count} soru seçili",
+      "bulkTagPlaceholder": "Etiket ekle",
+      "moveTo": "Klasöre taşı",
+      "closeDialog": "Kapat",
+      "viewToggleLabel": "Görünüm",
+      "viewList": "Liste",
+      "viewGrid": "Izgara",
+      "loading": "Yükleniyor…",
+      "newTagPlaceholder": "Yeni etiket adı, Enter ile ekle",
+      "alreadyInTest": "Testte var",
+      "addToTest": "Teste ekle",
+      "addedToTest": "{count} soru eklendi",
+      "addToTestFailed": "Eklenemedi, tekrar deneyin."
+    },
+    "inspector": {
+      "title": "Ayrıntılar",
+      "noSelection": "Bir soru seçin",
+      "loading": "Yükleniyor…",
+      "tabs": {
+        "preview": "Önizleme",
+        "tags": "Etiketler",
+        "usage": "Kullanım",
+        "history": "Sürümler"
+      },
+      "noPreview": "Önizleme yok",
+      "difficulty": "Zorluk",
+      "tagsLabel": "Etiketler",
+      "noTags": "Etiket yok",
+      "outcomesLabel": "Kazanımlar",
+      "noOutcomes": "Kazanım eklenmedi",
+      "addOutcomePlaceholder": "Kazanım ekle",
+      "noOutcomeMatches": "Eşleşen kazanım yok",
+      "noUsage": "Henüz bir testte kullanılmadı",
+      "revisionLabel": "Sürüm {revision}"
+    }
+  },
   "auth": {
     "title": "Giriş yapın",
     "subtitle": "E-posta adresinize gönderilen bağlantıyla veya Google hesabınızla devam edin.",
