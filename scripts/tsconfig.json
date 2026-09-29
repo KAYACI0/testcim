@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    // The scripts run through tsx, which resolves .ts specifiers directly.
+    "allowImportingTsExtensions": true
+  },
+  "include": ["*.ts", "src/**/*.ts"]
+}

@@ -1,0 +1,6 @@
+{
+  "$comment": "Exceptions to the design rules in docs/03-tasarim-sistemi.md section 4. Every entry needs a reason.",
+  "tokenFiles": ["apps/web/src/styles/tokens.css"],
+  "ignoredPaths": ["**/*.test.ts", "**/*.test.tsx"],
+  "exceptions": []
+}
