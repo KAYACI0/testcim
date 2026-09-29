@@ -150,6 +150,18 @@ export const testOpSchema = z.discriminatedUnion('type', [
   }),
   z.object({ type: z.literal('set_points'), item_id: uuidSchema, points: z.number() }),
   z.object({ type: z.literal('set_group'), item_id: uuidSchema, group_id: uuidSchema.optional() }),
+  z.object({
+    type: z.literal('add_group'),
+    group_id: uuidSchema,
+    passage_rich: z.unknown().optional(),
+    passage_asset_id: uuidSchema.optional(),
+  }),
+  z.object({
+    type: z.literal('update_group'),
+    group_id: uuidSchema,
+    passage_rich: z.unknown().optional(),
+    passage_asset_id: uuidSchema.optional(),
+  }),
   z.object({ type: z.literal('update_settings'), settings: testSettingsSchema }),
   z.object({ type: z.literal('update_title'), title: z.string().min(1) }),
 ]);
@@ -170,3 +182,59 @@ export const testItemRowSchema = z.object({
 });
 
 export type TestItemRow = z.infer<typeof testItemRowSchema>;
+
+/**
+ * `questions.stem_rich` / `options[].richText` / `explanation_rich` /
+ * `test_groups.passage_rich` shape (Prompt 07). These are TipTap
+ * (ProseMirror) documents: deeply validating every node/mark with Zod would
+ * duplicate ProseMirror's own schema and drift from it on every TipTap
+ * upgrade, so this only checks the outer envelope (`{type: 'doc', content}`)
+ * and a byte-size ceiling. TipTap's own schema is the source of truth for
+ * node/mark shape; the equation and drawing node `attrs` below are the only
+ * parts Testcim code reads directly, so those get their own strict schemas.
+ */
+export const RICH_DOC_MAX_BYTES = 200_000;
+
+export const richDocSchema = z
+  .object({ type: z.literal('doc'), content: z.array(z.unknown()) })
+  .loose()
+  .refine((doc) => JSON.stringify(doc).length <= RICH_DOC_MAX_BYTES, {
+    message: `rich document exceeds ${RICH_DOC_MAX_BYTES} bytes`,
+  });
+
+export type RichDoc = z.infer<typeof richDocSchema>;
+
+/** Attrs of the TipTap `equation` node (inline atom): LaTeX source + a11y text. */
+export const equationAttrsSchema = z.object({
+  latex: z.string().min(1).max(4000),
+  altText: z.string().max(500).optional(),
+});
+
+export type EquationAttrs = z.infer<typeof equationAttrsSchema>;
+
+/**
+ * One shape in a `drawing` node's Konva scene. Deliberately loose (`z.unknown()`
+ * for tool-specific fields) since each tool (line, polygon, circle, arc,
+ * angle-mark, ...) has its own attribute set; `drawing/serialize.ts` in
+ * `apps/web` owns the authoritative per-tool shape and this only guards the
+ * envelope every object shares.
+ */
+export const drawingSceneObjectSchema = z.object({ id: z.string(), tool: z.string() }).loose();
+
+export const drawingSceneSchema = z.object({
+  version: z.number().int().positive().default(1),
+  width: z.number().positive(),
+  height: z.number().positive(),
+  objects: z.array(drawingSceneObjectSchema),
+});
+
+export type DrawingScene = z.infer<typeof drawingSceneSchema>;
+
+/** Attrs of the TipTap `drawing` node (block atom): editable scene + its SVG render + a11y text. */
+export const drawingAttrsSchema = z.object({
+  scene: drawingSceneSchema,
+  svg: z.string().min(1),
+  altText: z.string().max(500).optional(),
+});
+
+export type DrawingAttrs = z.infer<typeof drawingAttrsSchema>;

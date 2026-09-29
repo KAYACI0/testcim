@@ -25,6 +25,16 @@ export {
   type TestOp,
   testItemRowSchema,
   type TestItemRow,
+  RICH_DOC_MAX_BYTES,
+  richDocSchema,
+  type RichDoc,
+  equationAttrsSchema,
+  type EquationAttrs,
+  drawingSceneObjectSchema,
+  drawingSceneSchema,
+  type DrawingScene,
+  drawingAttrsSchema,
+  type DrawingAttrs,
 } from './schemas';
 export {
   NUMERIC_ENTITLEMENT_KEYS,

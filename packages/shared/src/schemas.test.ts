@@ -4,9 +4,14 @@ import { DEFAULT_LOCALE, isLocale } from './locale';
 import {
   answerKeySchema,
   brandingSchema,
+  drawingAttrsSchema,
   entitlementsSchema,
+  equationAttrsSchema,
   questionOptionsSchema,
+  RICH_DOC_MAX_BYTES,
+  richDocSchema,
   roleSchema,
+  testOpSchema,
   testSettingsSchema,
   uuidSchema,
 } from './schemas';
@@ -118,6 +123,83 @@ describe('answerKeySchema', () => {
 
   it('rejects a mismatched shape for the given question_type', () => {
     expect(answerKeySchema.safeParse({ question_type: 'tf', option_id: 'b' }).success).toBe(false);
+  });
+});
+
+describe('testOpSchema', () => {
+  it('accepts add_group with a passage_rich doc', () => {
+    const op = {
+      type: 'add_group',
+      group_id: '1f5b0d9e-6a3c-4f2e-8b7a-9c0d1e2f3a4b',
+      passage_rich: { type: 'doc', content: [] },
+    };
+    expect(testOpSchema.safeParse(op).success).toBe(true);
+  });
+
+  it('accepts update_group with only passage_asset_id', () => {
+    const op = {
+      type: 'update_group',
+      group_id: '1f5b0d9e-6a3c-4f2e-8b7a-9c0d1e2f3a4b',
+      passage_asset_id: '1f5b0d9e-6a3c-4f2e-8b7a-9c0d1e2f3a4b',
+    };
+    expect(testOpSchema.safeParse(op).success).toBe(true);
+  });
+});
+
+describe('richDocSchema', () => {
+  it('accepts a minimal TipTap doc and keeps unknown node fields (loose envelope)', () => {
+    const doc = {
+      type: 'doc',
+      content: [{ type: 'paragraph', content: [{ type: 'text', text: 'Soru' }] }],
+    };
+    const result = richDocSchema.parse(doc);
+    expect(result.content).toHaveLength(1);
+  });
+
+  it('rejects a document over the byte ceiling', () => {
+    const doc = { type: 'doc', content: [{ type: 'text', text: 'x'.repeat(RICH_DOC_MAX_BYTES) }] };
+    expect(richDocSchema.safeParse(doc).success).toBe(false);
+  });
+
+  it('rejects a non-doc envelope', () => {
+    expect(richDocSchema.safeParse({ type: 'paragraph', content: [] }).success).toBe(false);
+  });
+});
+
+describe('equationAttrsSchema', () => {
+  it('round-trips a LaTeX fraction', () => {
+    const attrs = { latex: '\\frac{1}{2}', altText: 'bir bölü iki' };
+    expect(equationAttrsSchema.parse(attrs)).toEqual(attrs);
+  });
+
+  it('rejects an empty latex string', () => {
+    expect(equationAttrsSchema.safeParse({ latex: '' }).success).toBe(false);
+  });
+});
+
+describe('drawingAttrsSchema', () => {
+  it('accepts a scene with a couple of tool objects', () => {
+    const attrs = {
+      scene: {
+        version: 1,
+        width: 400,
+        height: 300,
+        objects: [
+          { id: 'o1', tool: 'line', points: [0, 0, 100, 100] },
+          { id: 'o2', tool: 'point-label', x: 10, y: 10, label: 'A' },
+        ],
+      },
+      svg: '<svg></svg>',
+    };
+    expect(drawingAttrsSchema.safeParse(attrs).success).toBe(true);
+  });
+
+  it('rejects a scene object missing its tool discriminant', () => {
+    const attrs = {
+      scene: { version: 1, width: 100, height: 100, objects: [{ id: 'o1' }] },
+      svg: '<svg></svg>',
+    };
+    expect(drawingAttrsSchema.safeParse(attrs).success).toBe(false);
   });
 });
 
