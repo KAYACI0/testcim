@@ -9,10 +9,13 @@
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "generate:fixtures": "node fixtures/generate.mjs"
   },
   "devDependencies": {
     "fast-check": "4.10.2",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^6.3.289",
     "typescript": "6.0.3",
     "vitest": "5.0.2"
   }
