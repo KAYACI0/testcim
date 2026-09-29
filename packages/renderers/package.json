@@ -1,0 +1,21 @@
+{
+  "name": "@testcim/renderers",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Renderers turning a LayoutDocument into PDF, DOCX, PPTX and HTML",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vitest": "5.0.2"
+  },
+  "dependencies": {
+    "@testcim/layout-engine": "workspace:*"
+  }
+}
