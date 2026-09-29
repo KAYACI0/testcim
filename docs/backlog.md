@@ -189,9 +189,38 @@ söyler.
   200 KB tavanı. Sunucu tarafında kötü biçimli bir düğüm türü sessizce yutulabilir
   (render aşamasında `doc-to-html.ts`'in `default` dalı çocuklarını basar).
 
+## Dilim 08'den kalanlar
+
+- **Müfredat kapsamı yalnızca Matematik + Fen Bilimleri, 5-8. sınıf.** Diğer düzey/dersler
+  (ilkokul, lise, diğer branşlar) bu dilimde eklenmedi; kullanıcı onayı bu şekildeydi
+  ("ileride diğerlerini ekleriz"). `scripts/curriculum/parse-source.mjs` + elle gözden
+  geçirme akışı diğer dersler için de kullanılabilir.
+- **Kazanım açıklamaları yalnızca öğrenme çıktısı başlığı.** Her `MAT.5.1.1` gibi kodun
+  altındaki a/b/c... süreç bileşenleri ve "İçerik Çerçevesi" (anahtar kavramlar, sembol
+  ve gösterimler) alınmadı — yalnızca başlık metni `curriculum_outcomes.description`'a
+  girdi. İhtiyaç olursa `scripts/curriculum/data/*.json`'a `processComponents` gibi bir
+  alan eklenip yeniden içe aktarılabilir.
+- **MEB PDF'lerinde açık bir lisans/kullanım koşulu ibaresi bulunamadı.** mufredat.meb.gov.tr
+  üzerindeki resmi öğretim programı PDF'leri kamu kurumu yayını olarak serbestçe
+  erişilebilir durumda, ancak sayfa/PDF üzerinde CC-BY vb. açık bir lisans etiketi
+  görülmedi; ticari kullanım öncesi MEB'e doğrulatılması önerilir.
+- **pHash tabanlı yakın-mükerrer tespiti yok.** `findDuplicates` yalnızca `assets.sha256`
+  (görsel sorular) ve tam `stem_text` eşleşmesi (zengin sorular) kontrol ediyor;
+  `assets.phash` bit-mesafesi karşılaştırması ayrı bir RPC gerektirir (bkz.
+  `apps/web/src/features/bank/actions.server.ts` içindeki not).
+- **pgTAP ve Playwright e2e bu oturumda çalıştırılamadı.** Yerel ortamda Docker/Supabase
+  CLI yok (dilim 04/06/07'deki aynı bilinen kısıt); `supabase/tests/085_question_bank.sql`
+  ve `apps/web/e2e/bank.spec.ts` yazıldı ama `pnpm db:test`/`pnpm test:e2e` ile
+  doğrulanmadı. `bank.spec.ts` ayrıca projede hâlâ eksik olan bir kimlik doğrulama/tohum
+  fixture'ına bağımlı olduğu için `test.skip` ile işaretli.
+- **`/bank`'ın 1440/1024/390 ekran görüntüleri ve docs/03 öz eleştirisi alınmadı**
+  (tarayıcı çalıştırma ortamı bu oturumda kullanılmadı — zaman bütçesi).
+- **5.000 soruluk sentetik banka üzerinde gerçek `EXPLAIN ANALYZE` ölçümü yapılmadı**
+  (yerel Supabase yok); `questions_workspace_id_idx` + `stem_text` trigram indeksi zaten
+  var, 300ms hedefi tasarım gereği karşılanmalı ama ölçülmedi.
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.
-- MEB kazanım verisinin resmi kaynaktan alınma biçimi ve lisans durumu.
 - Vektör PDF için ayrı bir Chromium servisi gerekir mi.
 - Masaüstü yardımcı: Tauri mi Electron mu.
