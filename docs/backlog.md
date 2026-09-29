@@ -155,10 +155,43 @@ söyler.
   `20250101000014_source_document_upload_limit.sql` — assets kovası 25 MB'tan 50 MB'a
   çıkarıldı); farklı bir tavan isteniyorsa değiştirilebilir.
 
+## Dilim 07'den kalanlar
+
+- **Grup/pasaj gruplama UX'i tam değil.** `GroupPanel` bir grup oluşturup passage_rich
+  yazabiliyor (`add_group` op), ama soru şeridinden (question-strip.tsx) var olan bir
+  soruyu o gruba atayan arayüz yok — `set_group` op'u ve RPC desteği zaten var (dilim
+  01/08'den), yalnızca şerit satırına bir "gruba ata" seçici eklenmedi. `editor/store.ts`'e
+  de bir `setGroup` action'ı eklenmedi.
+- **MCQ şık sayısı 2–6 değil, 2–5.** Mevcut `AnswerSelector` (dilim 04) A–E (5) harfle
+  sınırlı; `QuestionEditorPanel` bunu olduğu gibi kullandı. docs/prompts/07 "2–6 şık"
+  istiyor; F şıkkı eklemek `AnswerSelector`'ı da güncellemeyi gerektirir, kapsam dışı
+  bırakıldı.
+- **Render varlığı `phash` içermiyor.** Yakalama hattındaki yinelenen tespiti pasaj
+  ekran görüntüleri için `sha256`+`phash` kullanıyor; elle yazılan bir sorunun render
+  PNG'si için `phash` hesaplanmadı (aynı soru iki kez yazılırsa `sha256` eşleşmesi zaten
+  yakalar, yalnızca "görsel olarak çok benzer" tespiti eksik — düşük öncelik).
+- **`renderElementToPng` (docs/02 §5.2 render hattı) canlı bir tarayıcıda hiç
+  çalıştırılmadı.** SVG `foreignObject` tekniği yaygın ve KaTeX/Konva SVG çıktısıyla
+  uyumlu olmalı, ama Playwright E2E olmadan (bkz. altta) doğrulanmadı; cross-origin
+  stylesheet varsa (bugün yok) sessizce atlanıyor — kod içindeki not bunu işaretliyor.
+- **E2E ve ekran görüntüleri yok.** docs/prompts/07 kabul kriteri "yaz → denklem ekle →
+  şekil çiz → teste ekle → PDF'te piksel karşılaştırma" senaryosunu Playwright'la istiyor;
+  bu oturumda yazılmadı (dilim 00/02'deki bilinen yerel `next dev` HMR sorunu + zaman
+  bütçesi). Birim testler (LaTeX/drawing-attrs şema, SVG serileştirme, mm→px, TipTap-JSON
+  → HTML) yazıldı ve yeşil; 1440/1024/390 ekran görüntüleri ve docs/03 öz eleştirisi
+  alınmadı.
+- **Çizim aracının bazı jestleri basitleştirildi:** dik açı işareti sabit boyut/dönüşle
+  tek tıkla yerleşiyor (yeniden boyutlandırma yok), yay/açı işareti başlangıç açısı 0'da
+  sabit (yalnızca bitiş açısı sürüklemeyle belirleniyor), tam hizalama kılavuzları
+  (başka nesnelere yapışma) yok — yalnızca ızgaraya yakalama var.
+- **`packages/shared`'ın `richDocSchema`'sı TipTap düğüm/mark şemasını derinlemesine
+  doğrulamıyor** (kasıtlı, bkz. kod yorumu): yalnızca `{type:'doc', content}` zarfı ve
+  200 KB tavanı. Sunucu tarafında kötü biçimli bir düğüm türü sessizce yutulabilir
+  (render aşamasında `doc-to-html.ts`'in `default` dalı çocuklarını basar).
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.
 - MEB kazanım verisinin resmi kaynaktan alınma biçimi ve lisans durumu.
-- Çizim aracı: Konva mı, JSXGraph hibrit mi (lisans doğrulanarak).
 - Vektör PDF için ayrı bir Chromium servisi gerekir mi.
 - Masaüstü yardımcı: Tauri mi Electron mu.
