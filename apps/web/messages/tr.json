@@ -182,7 +182,10 @@
       "numericValue": "Değer",
       "numericTolerance": "Tolerans",
       "fillValuesLabel": "Boşluk cevapları (virgülle ayırın)",
-      "orderSequenceLabel": "Doğru sıra (virgülle ayırın)"
+      "orderSequenceLabel": "Doğru sıra (virgülle ayırın)",
+      "matchLeftLabel": "Sol sütun (virgülle ayırın)",
+      "matchRightLabel": "Sağ sütun, sırayla eşleşir (virgülle ayırın)",
+      "openRubricLabel": "Değerlendirme ölçütü (isteğe bağlı)"
     },
     "group": {
       "panelTitle": "Grup paragrafı",
@@ -190,7 +193,8 @@
       "passageLabel": "Ortak paragraf",
       "assignLabel": "Bu soruyu gruba ata",
       "noGroup": "Grupsuz",
-      "save": "Kaydet"
+      "save": "Kaydet",
+      "cancel": "Vazgeç"
     }
   },
   "auth": {

@@ -48,6 +48,10 @@ export const Drawing = Node.create({
     return ReactNodeViewRenderer(DrawingNodeView);
   },
 
+  addKeyboardShortcuts() {
+    return { 'Mod-d': () => this.editor.commands.insertDrawing() };
+  },
+
   addCommands() {
     return {
       insertDrawing:

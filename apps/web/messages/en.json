@@ -182,7 +182,10 @@
       "numericValue": "Value",
       "numericTolerance": "Tolerance",
       "fillValuesLabel": "Blank answers (comma-separated)",
-      "orderSequenceLabel": "Correct order (comma-separated)"
+      "orderSequenceLabel": "Correct order (comma-separated)",
+      "matchLeftLabel": "Left column (comma-separated)",
+      "matchRightLabel": "Right column, matches by order (comma-separated)",
+      "openRubricLabel": "Grading rubric (optional)"
     },
     "group": {
       "panelTitle": "Group passage",
@@ -190,7 +193,8 @@
       "passageLabel": "Shared passage",
       "assignLabel": "Assign this question to the group",
       "noGroup": "No group",
-      "save": "Save"
+      "save": "Save",
+      "cancel": "Cancel"
     }
   },
   "auth": {

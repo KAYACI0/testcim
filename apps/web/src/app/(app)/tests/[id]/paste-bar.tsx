@@ -15,13 +15,18 @@ import { BulkAnswersPopover } from '@/features/editor/bulk-answers-popover';
 export function PasteBar({
   store,
   captureFiles,
+  onWriteQuestion,
+  onAddGroup,
 }: {
   readonly store: EditorStore;
   readonly captureFiles: (files: readonly File[]) => CaptureResult;
+  readonly onWriteQuestion: () => void;
+  readonly onAddGroup: () => void;
 }) {
   const items = useStore(store, (s) => s.items);
   const captureMode = useStore(store, (s) => s.captureMode);
   const t = useTranslations('editor.pasteBar');
+  const tRich = useTranslations('richEditor');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const readyCount = items.filter((item) => item.status === 'ready').length;
@@ -62,6 +67,12 @@ export function PasteBar({
         />
         <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()}>
           {t('chooseFile')}
+        </Button>
+        <Button variant="secondary" size="sm" onClick={onWriteQuestion}>
+          {tRich('newQuestion')}
+        </Button>
+        <Button variant="secondary" size="sm" onClick={onAddGroup}>
+          {tRich('group.addGroup')}
         </Button>
       </div>
     </div>

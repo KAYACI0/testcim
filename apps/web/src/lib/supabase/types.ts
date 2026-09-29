@@ -167,7 +167,15 @@ export interface Database {
           height: number | null;
           sha256: string | null;
           phash: string | null;
-          source: 'paste' | 'drop' | 'pdf_crop' | 'mobile' | 'extension' | 'ai' | 'upload';
+          source:
+            | 'paste'
+            | 'drop'
+            | 'pdf_crop'
+            | 'mobile'
+            | 'extension'
+            | 'ai'
+            | 'upload'
+            | 'rich_render';
           created_at: Timestamp;
           updated_at: Timestamp;
           deleted_at: Timestamp | null;
@@ -179,7 +187,15 @@ export interface Database {
           kind: 'image' | 'thumb' | 'pdf' | 'render' | 'logo' | 'export';
           mime: string;
           bytes: number;
-          source: 'paste' | 'drop' | 'pdf_crop' | 'mobile' | 'extension' | 'ai' | 'upload';
+          source:
+            | 'paste'
+            | 'drop'
+            | 'pdf_crop'
+            | 'mobile'
+            | 'extension'
+            | 'ai'
+            | 'upload'
+            | 'rich_render';
         };
         Update: Partial<Database['public']['Tables']['assets']['Row']>;
         Relationships: [];

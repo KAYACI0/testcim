@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useStore } from 'zustand';
 
 import { EditorTopBar } from './editor-top-bar';
@@ -15,6 +15,15 @@ import { useCapture } from '@/features/capture/use-capture';
 import { applyOpsAction, type EditorData } from '@/features/editor/actions.server';
 import { createEditorStore } from '@/features/editor/store';
 import { useEditorKeyboard } from '@/features/editor/use-editor-keyboard';
+import { GroupPanel } from '@/features/rich-editor/question-editor/group-panel';
+import { QuestionEditorPanel } from '@/features/rich-editor/question-editor/panel';
+
+function isTypingTarget(target: EventTarget | null): boolean {
+  return (
+    target instanceof HTMLElement &&
+    (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)
+  );
+}
 
 function toEditorItems(data: EditorData): EditorItem[] {
   return data.items.map((item) => ({
@@ -62,6 +71,22 @@ export function EditorClient({
   useEditorKeyboard(store);
 
   const [rejectedByQuota, setRejectedByQuota] = useState(0);
+  const [richEditorOpen, setRichEditorOpen] = useState(false);
+  const [groupPanelOpen, setGroupPanelOpen] = useState(false);
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (isTypingTarget(event.target)) {
+        return;
+      }
+      if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
+        event.preventDefault();
+        setRichEditorOpen(true);
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const handleCaptureFiles = useMemo(
     () => (files: readonly File[]) => {
@@ -87,7 +112,20 @@ export function EditorClient({
         </div>
       </div>
       <QuotaNotice rejectedByQuota={rejectedByQuota} />
-      <PasteBar store={store} captureFiles={handleCaptureFiles} />
+      <PasteBar
+        store={store}
+        captureFiles={handleCaptureFiles}
+        onWriteQuestion={() => setRichEditorOpen(true)}
+        onAddGroup={() => setGroupPanelOpen(true)}
+      />
+      <QuestionEditorPanel
+        open={richEditorOpen}
+        onOpenChange={setRichEditorOpen}
+        store={store}
+        testId={data.testId}
+        workspaceId={workspaceId}
+      />
+      <GroupPanel open={groupPanelOpen} onOpenChange={setGroupPanelOpen} testId={data.testId} />
     </div>
   );
 }

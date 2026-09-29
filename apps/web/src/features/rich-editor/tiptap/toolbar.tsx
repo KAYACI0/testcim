@@ -27,11 +27,11 @@ export interface RichEditorToolbarProps {
 }
 
 /**
- * Formatting bar for `RichTextEditor` (docs/prompts/07 §2). Every button
- * mirrors design-system icon buttons + tooltips + `Kbd`-visible shortcuts
- * (Ctrl+M for equation, Ctrl+D for drawing are also bound globally in
- * `use-rich-editor-keyboard.ts` so they work while the caret is anywhere in
- * the document, not only when this toolbar has focus).
+ * Formatting bar for `RichTextEditor` (docs/prompts/07 §2, §6). Ctrl+M
+ * (equation) and Ctrl+D (drawing) are bound as TipTap keyboard shortcuts on
+ * the node extensions themselves (`extensions/equation.ts`,
+ * `extensions/drawing.ts`) so they fire from anywhere the caret is in the
+ * document, not only when a toolbar button has focus.
  */
 export function RichEditorToolbar({ editor, variant }: RichEditorToolbarProps) {
   const t = useTranslations('richEditor.toolbar');

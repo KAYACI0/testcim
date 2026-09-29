@@ -53,6 +53,10 @@ export const Equation = Node.create({
     return ReactNodeViewRenderer(EquationNodeView);
   },
 
+  addKeyboardShortcuts() {
+    return { 'Mod-m': () => this.editor.commands.insertEquation() };
+  },
+
   addCommands() {
     return {
       insertEquation:
