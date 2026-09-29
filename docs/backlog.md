@@ -24,6 +24,18 @@ söyler.
   kullanılıyor; bu depoda hiçbir şey değiştirilmedi. CI, temiz bir kapsayıcıda bu sorunu
   yaşamaz.
 
+## Dilim 01'den kalanlar
+
+- **CI'da `pnpm db:test` / `pnpm db:start` çalıştırma.** docs/02-mimari.md bölüm 9
+  bunu istiyor ama şema bu dilimde geldiği için kapsam dışı bırakıldı (dilim = dal = PR
+  kuralı); ayrı bir PR'da eklenmeli (Supabase CLI + Docker gerektiren bir GitHub Actions
+  job'u).
+- **Migrasyon lint.** Şema artık var; hangi aracın (örn. `supabase db lint` veya özel bir
+  script) kullanılacağına karar verilip CI'a eklenmeli.
+- **`embedding vector(1536)` boyutu.** Yapay zekâ sağlayıcısı henüz seçilmedi
+  (docs/01 bölüm 10, açık soru); 1536 OpenAI `text-embedding-3-small` varsayımıyla
+  konuldu, dilim 11'de gerçek sağlayıcıya göre değişebilir.
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.
