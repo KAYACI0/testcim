@@ -64,10 +64,13 @@ export function applyOpsToItems(
         break;
       }
       case 'set_group':
+      case 'add_group':
+      case 'update_group':
       case 'update_settings':
       case 'update_title':
         // Test-level or grouping ops the strip doesn't render; store.ts
-        // handles `update_title`/`update_settings` directly on its own state.
+        // handles `update_title`/`update_settings` directly on its own state,
+        // and group passages live in their own panel (see rich-editor).
         break;
       default:
         op satisfies never;
