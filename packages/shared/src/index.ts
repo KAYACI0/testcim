@@ -22,3 +22,14 @@ export {
   answerKeySchema,
   type AnswerKey,
 } from './schemas';
+export {
+  NUMERIC_ENTITLEMENT_KEYS,
+  type NumericEntitlementKey,
+  BOOLEAN_ENTITLEMENT_KEYS,
+  type BooleanEntitlementKey,
+  UNLIMITED,
+  can,
+  limit,
+  isWithinLimit,
+  remainingRatio,
+} from './entitlements';

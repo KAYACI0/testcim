@@ -4,7 +4,151 @@
   },
   "home": {
     "title": "Testcim",
-    "tagline": "Ekran alıntısını yapıştırın, baskıya hazır test alın."
+    "tagline": "Ekran alıntısını yapıştırın, baskıya hazır test alın.",
+    "appHomeTitle": "Testler",
+    "newTestAction": "Yeni test"
+  },
+  "auth": {
+    "title": "Giriş yapın",
+    "subtitle": "E-posta adresinize gönderilen bağlantıyla veya Google hesabınızla devam edin.",
+    "emailLabel": "E-posta",
+    "continueWithEmail": "E-posta ile devam et",
+    "otpSent": "Giriş bağlantısını e-postanıza gönderdik. Gelen kutunuzu kontrol edin.",
+    "or": "veya",
+    "continueWithGoogle": "Google ile devam et",
+    "errors": {
+      "authFailed": "Giriş tamamlanamadı. Bağlantının süresi dolmuş olabilir, yeniden deneyin.",
+      "invalidEmail": "Geçerli bir e-posta adresi girin."
+    }
+  },
+  "onboarding": {
+    "title": "Birkaç kısa soru",
+    "subtitle": "İstediğiniz zaman atlayabilirsiniz.",
+    "roleLabel": "Rolünüz",
+    "rolePlaceholder": "Seçin",
+    "roles": {
+      "teacher": "Öğretmen",
+      "institution": "Kurum"
+    },
+    "subjectLabel": "Ders",
+    "subjectPlaceholder": "Seçin",
+    "subjects": {
+      "math": "Matematik",
+      "turkish": "Türkçe",
+      "science": "Fen bilimleri",
+      "social": "Sosyal bilgiler",
+      "english": "İngilizce",
+      "other": "Diğer"
+    },
+    "gradeLevelLabel": "Sınıf düzeyi",
+    "gradeLevelPlaceholder": "Seçin",
+    "gradeLevels": {
+      "primary": "İlkokul",
+      "middle": "Ortaokul",
+      "high": "Lise"
+    },
+    "skip": "Atla",
+    "continue": "Devam et"
+  },
+  "workspace": {
+    "switcherLabel": "Çalışma alanı seçin",
+    "accountMenuLabel": "Hesap menüsü",
+    "profileMenuItem": "Profil",
+    "workspaceMenuItem": "Çalışma alanı",
+    "signOut": "Çıkış yap",
+    "invite": {
+      "title": "Davete katılın",
+      "description": "Bu çalışma alanına katılmak için daveti kabul edin.",
+      "accept": "Daveti kabul et",
+      "errors": {
+        "invite_not_found": "Davet bulunamadı veya bağlantı geçersiz.",
+        "invite_already_used": "Bu davet daha önce kullanılmış.",
+        "invite_expired": "Bu davetin süresi dolmuş.",
+        "already_member": "Bu çalışma alanına zaten üyesiniz."
+      }
+    }
+  },
+  "settings": {
+    "title": "Ayarlar",
+    "nav": {
+      "label": "Ayarlar bölümleri",
+      "profile": "Profil",
+      "workspace": "Çalışma alanı",
+      "members": "Üyeler",
+      "plan": "Plan ve kullanım"
+    },
+    "profile": {
+      "title": "Profil",
+      "fullNameLabel": "Ad soyad",
+      "saved": "Değişiklikler kaydedildi.",
+      "saveError": "Kaydedilemedi. Yeniden deneyin.",
+      "save": "Kaydet",
+      "kvkkTitle": "Veri talepleri",
+      "kvkkDescription": "Verilerinizin bir kopyasını isteyebilir veya hesabınızın silinmesini talep edebilirsiniz.",
+      "requestExport": "Verilerimi dışa aktar",
+      "requestDeletion": "Hesabımı sil"
+    },
+    "workspace": {
+      "title": "Çalışma alanı",
+      "nameLabel": "Çalışma alanı adı",
+      "schoolNameLabel": "Kurum adı",
+      "schoolNameHint": "Çıktılarda üst bilgide görünür.",
+      "saved": "Değişiklikler kaydedildi.",
+      "saveError": "Kaydedilemedi. Yeniden deneyin.",
+      "save": "Kaydet",
+      "createTeamTitle": "Ekip çalışma alanı oluştur",
+      "createTeamDescription": "Ekibinizle birlikte çalışmak için ayrı bir çalışma alanı açın.",
+      "newTeamNameLabel": "Çalışma alanı adı",
+      "createTeamAction": "Oluştur",
+      "createTeamError": "Çalışma alanı oluşturulamadı. Yeniden deneyin."
+    },
+    "members": {
+      "title": "Üyeler",
+      "columns": {
+        "name": "Ad",
+        "role": "Rol",
+        "actions": "İşlemler"
+      },
+      "unnamed": "Adsız üye",
+      "remove": "Kaldır",
+      "removeDialogTitle": "Üyeyi kaldır",
+      "removeDialogDescription": "Bu üye çalışma alanına erişimini kaybeder. Bu işlem geri alınamaz.",
+      "closeLabel": "Kapat",
+      "roles": {
+        "owner": "Sahip",
+        "admin": "Yönetici",
+        "editor": "Düzenleyen",
+        "viewer": "Görüntüleyen"
+      },
+      "inviteTitle": "Üye davet et",
+      "inviteEmailLabel": "E-posta",
+      "inviteRoleLabel": "Rol",
+      "inviteAction": "Davet gönder",
+      "inviteError": "Davet oluşturulamadı. Yeniden deneyin.",
+      "inviteCreated": "Davet oluşturuldu. Bu bağlantıyı davet ettiğiniz kişiyle paylaşın:",
+      "pendingInvites": "{count, plural, one {# bekleyen davet var.} other {# bekleyen davet var.}}"
+    },
+    "plan": {
+      "title": "Plan ve kullanım",
+      "currentPlan": "Mevcut planınız: {plan}",
+      "metrics": {
+        "pdf_exports_per_month": "Aylık PDF çıktısı",
+        "ai_credits_per_month": "Yapay zekâ kredisi",
+        "omr_scans_per_month": "Aylık optik okuma"
+      },
+      "unlimited": "Sınırsız",
+      "upgradeMessage": "Plan sınırınıza yaklaştınız. Daha fazlası için planınızı yükseltin."
+    }
+  },
+  "legal": {
+    "privacyTitle": "Gizlilik politikası",
+    "termsTitle": "Kullanım şartları",
+    "pendingNotice": "Hukuki metin bekleniyor."
+  },
+  "cookieConsent": {
+    "message": "Deneyiminizi iyileştirmek için zorunlu olmayan analitik çerezler kullanıyoruz.",
+    "necessaryOnly": "Yalnızca zorunlu",
+    "accept": "Kabul et"
   },
   "errors": {
     "globalTitle": "Sayfa yüklenemedi",

@@ -4,6 +4,8 @@ import { getTranslations } from 'next-intl/server';
 
 import type { Metadata } from 'next';
 
+import { CookieConsent } from '@/components/patterns/cookie-consent';
+
 import './globals.css';
 
 const plexSans = IBM_Plex_Sans({
@@ -25,7 +27,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="tr" className={plexSans.variable}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <NextIntlClientProvider>
+          {children}
+          <CookieConsent />
+        </NextIntlClientProvider>
       </body>
     </html>
   );

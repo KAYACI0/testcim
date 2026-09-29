@@ -4,7 +4,151 @@
   },
   "home": {
     "title": "Testcim",
-    "tagline": "Paste a screenshot, get a print-ready test."
+    "tagline": "Paste a screenshot, get a print-ready test.",
+    "appHomeTitle": "Tests",
+    "newTestAction": "New test"
+  },
+  "auth": {
+    "title": "Sign in",
+    "subtitle": "Continue with a link sent to your email, or with Google.",
+    "emailLabel": "Email",
+    "continueWithEmail": "Continue with email",
+    "otpSent": "We sent a sign-in link to your email. Check your inbox.",
+    "or": "or",
+    "continueWithGoogle": "Continue with Google",
+    "errors": {
+      "authFailed": "Sign-in could not be completed. The link may have expired; try again.",
+      "invalidEmail": "Enter a valid email address."
+    }
+  },
+  "onboarding": {
+    "title": "A few short questions",
+    "subtitle": "You can skip these at any time.",
+    "roleLabel": "Your role",
+    "rolePlaceholder": "Select",
+    "roles": {
+      "teacher": "Teacher",
+      "institution": "Institution"
+    },
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "Select",
+    "subjects": {
+      "math": "Math",
+      "turkish": "Turkish",
+      "science": "Science",
+      "social": "Social studies",
+      "english": "English",
+      "other": "Other"
+    },
+    "gradeLevelLabel": "Grade level",
+    "gradeLevelPlaceholder": "Select",
+    "gradeLevels": {
+      "primary": "Primary school",
+      "middle": "Middle school",
+      "high": "High school"
+    },
+    "skip": "Skip",
+    "continue": "Continue"
+  },
+  "workspace": {
+    "switcherLabel": "Select a workspace",
+    "accountMenuLabel": "Account menu",
+    "profileMenuItem": "Profile",
+    "workspaceMenuItem": "Workspace",
+    "signOut": "Sign out",
+    "invite": {
+      "title": "Join the invite",
+      "description": "Accept the invite to join this workspace.",
+      "accept": "Accept invite",
+      "errors": {
+        "invite_not_found": "Invite not found, or the link is invalid.",
+        "invite_already_used": "This invite has already been used.",
+        "invite_expired": "This invite has expired.",
+        "already_member": "You're already a member of this workspace."
+      }
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "nav": {
+      "label": "Settings sections",
+      "profile": "Profile",
+      "workspace": "Workspace",
+      "members": "Members",
+      "plan": "Plan & usage"
+    },
+    "profile": {
+      "title": "Profile",
+      "fullNameLabel": "Full name",
+      "saved": "Changes saved.",
+      "saveError": "Could not save. Try again.",
+      "save": "Save",
+      "kvkkTitle": "Data requests",
+      "kvkkDescription": "Request a copy of your data, or request that your account be deleted.",
+      "requestExport": "Export my data",
+      "requestDeletion": "Delete my account"
+    },
+    "workspace": {
+      "title": "Workspace",
+      "nameLabel": "Workspace name",
+      "schoolNameLabel": "Institution name",
+      "schoolNameHint": "Shown in the header of exported documents.",
+      "saved": "Changes saved.",
+      "saveError": "Could not save. Try again.",
+      "save": "Save",
+      "createTeamTitle": "Create a team workspace",
+      "createTeamDescription": "Open a separate workspace to work with your team.",
+      "newTeamNameLabel": "Workspace name",
+      "createTeamAction": "Create",
+      "createTeamError": "Could not create the workspace. Try again."
+    },
+    "members": {
+      "title": "Members",
+      "columns": {
+        "name": "Name",
+        "role": "Role",
+        "actions": "Actions"
+      },
+      "unnamed": "Unnamed member",
+      "remove": "Remove",
+      "removeDialogTitle": "Remove member",
+      "removeDialogDescription": "This member loses access to the workspace. This cannot be undone.",
+      "closeLabel": "Close",
+      "roles": {
+        "owner": "Owner",
+        "admin": "Admin",
+        "editor": "Editor",
+        "viewer": "Viewer"
+      },
+      "inviteTitle": "Invite a member",
+      "inviteEmailLabel": "Email",
+      "inviteRoleLabel": "Role",
+      "inviteAction": "Send invite",
+      "inviteError": "Could not create the invite. Try again.",
+      "inviteCreated": "Invite created. Share this link with the person you invited:",
+      "pendingInvites": "{count, plural, one {# pending invite.} other {# pending invites.}}"
+    },
+    "plan": {
+      "title": "Plan & usage",
+      "currentPlan": "Current plan: {plan}",
+      "metrics": {
+        "pdf_exports_per_month": "PDF exports this month",
+        "ai_credits_per_month": "AI credits",
+        "omr_scans_per_month": "Optical scans this month"
+      },
+      "unlimited": "Unlimited",
+      "upgradeMessage": "You're close to your plan limit. Upgrade for more."
+    }
+  },
+  "legal": {
+    "privacyTitle": "Privacy policy",
+    "termsTitle": "Terms of use",
+    "pendingNotice": "Legal text pending."
+  },
+  "cookieConsent": {
+    "message": "We use non-essential analytics cookies to improve your experience.",
+    "necessaryOnly": "Necessary only",
+    "accept": "Accept"
   },
   "errors": {
     "globalTitle": "The page could not be loaded",

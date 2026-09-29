@@ -9,7 +9,7 @@ import { cn } from '@/lib/cn';
 export interface FormFieldProps {
   readonly label: string;
   readonly hint?: string;
-  readonly error?: string;
+  readonly error?: string | undefined;
   readonly required?: boolean;
   readonly children: (fieldProps: {
     id: string;

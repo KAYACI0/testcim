@@ -60,6 +60,38 @@ söyler.
   gerekiyor (`design-system-client.tsx`'teki `Test türü` alanına bakın). Bileşen
   dokümantasyonuna (`/design-system` sayfası) bu not eklenebilir.
 
+## Dilim 03'ten kalanlar
+
+- **`packages/shared/src/database.types.ts` henüz `pnpm db:types` ile üretilmedi.** Bu
+  makinede Docker yok, dolayısıyla `pnpm db:start`/`db:reset`/`db:types`/`db:test`
+  çalıştırılamadı. Yerine `apps/web/src/lib/supabase/types.ts` elle yazıldı — yalnızca bu
+  dilimin dokunduğu tablo/RPC'leri kapsıyor, gerçek şemadan üretilmedi. Docker mevcut
+  olduğunda `db:types` çalıştırılıp bu dosya silinmeli/gerçek dosyaya yönlendirilmeli.
+- **Davet e-postası gönderimi (Resend) bağlanmadı.** `inviteMember` daveti oluşturuyor ve
+  kabul bağlantısını (`/invite/[token]`) ekranda gösteriyor; davet eden kişi bağlantıyı
+  elle paylaşıyor. docs/02-mimari.md bölüm 2 Resend'i işlemsel e-posta sağlayıcısı olarak
+  belirliyor; e-posta gönderimi ayrı bir küçük dilimde eklenmeli.
+- **Auth ve davet akışlarının Playwright E2E'si yok.** Gerçek bir Supabase projesi
+  (Inbucket/e-posta yakalama, Google OAuth test hesabı) olmadan e-posta bağlantısı ve
+  OAuth akışını uçtan uca simüle etmek bu ortamda mümkün olmadı. `pnpm typecheck && lint
+  && check:design && test` yeşil ve `next build`/`next dev` ile rota derlemesi ve statik
+  sayfa render'ı (giriş, kullanım şartları) doğrulandı; canlı Supabase ile manuel/E2E
+  doğrulama gerekiyor.
+- **pgTAP bu dilimde çalıştırılamadı** (aynı Docker eksikliği). Bu dilim yeni tablo
+  eklemedi (hepsi Prompt 01'den), dolayısıyla yeni çapraz kiracı testi gerekmiyor; ama
+  mevcut `supabase/tests/030_identity_and_tenancy.sql` ve `040_usage_and_billing.sql`
+  paketlerinin bu dilimin RPC kullanım şekliyle (`get_entitlements`, `has_role`) hâlâ
+  uyumlu olduğu Docker geldiğinde doğrulanmalı.
+- **Çalışma alanı logosu yükleme.** docs/prompts/03 madde 4 "logo yükleme: imzalı URL ile
+  `branding` kovasına" istiyor; bu dilimde yalnızca kurum adı (`branding.schoolName`)
+  eklendi. Dosya yükleme akışı imzalı URL altyapısı gerektirdiğinden (birden çok dilimde
+  tekrar kullanılacak ortak bir yapı) ayrı ele alınmalı.
+- **KVKK "hesabı sil" / "veri dışa aktar" talepleri yalnızca `jobs` tablosuna kayıt
+  düşüyor** (docs/prompts/03 madde 6'nın istediği gibi, "şimdilik iş kaydı oluşturur").
+  Talebi gerçekten işleyen bir cron/worker henüz yok.
+- **Gizlilik/kullanım şartları sayfaları yer tutucu.** Hukuki metinler bekleniyor
+  (docs/prompts/03 madde 6).
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.
