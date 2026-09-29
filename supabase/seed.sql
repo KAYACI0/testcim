@@ -1,0 +1,2 @@
+-- Local seed data. Applied by `pnpm db:reset` after every migration.
+-- Empty for now: the schema arrives in slice 01 (docs/prompts/01-veritabani.md).
