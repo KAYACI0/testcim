@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+.next/
+out/
+dist/
+build/
+*.tsbuildinfo
+next-env.d.ts
+
+# Turborepo
+.turbo/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Test output
+coverage/
+playwright-report/
+test-results/
+blob-report/
+.playwright/
+
+# Supabase local state
+supabase/.branches/
+supabase/.temp/
+
+# Editor and OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# Sentry
+.sentryclirc
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
