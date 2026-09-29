@@ -118,10 +118,9 @@ söyler.
 - **Yinelenen tespiti yalnızca geçerli test oturumundaki sorularla sınırlı.** docs/02
   §5.1 çalışma alanı genelini ima ediyor olabilir; tüm soru bankasına karşı kontrol dilim
   08'in (soru bankası) kapsamına daha uygun.
-- **`apply_test_ops` artık `questions_per_test` kotasını kontrol ediyor** ama
-  `storage_mb` kontrolü yalnızca `registerCapturedQuestion` sunucu eyleminde (görsel
-  kaydı sırasında) yapılıyor; PDF kırpma (dilim 06) veya başka bir yükleme yolu eklenirse
-  aynı kontrol oraya da taşınmalı.
+- **`apply_test_ops` artık `questions_per_test` kotasını kontrol ediyor**; `storage_mb`
+  kontrolü `registerCapturedQuestion`'da (görsel yakalama) zaten vardı, dilim 06'da
+  `beginSourceDocumentUpload`'a da taşındı (bkz. "Dilim 06'dan kalanlar").
 - **Odağa dönünce otomatik ekleme (`navigator.clipboard.read()`) eklenmedi.** docs/prompts/04
   bunu "isteğe bağlı ayar" olarak işaretliyor; kapsam dışı bırakıldı.
 - **Tarayıcı uzantısı, telefon QR, masaüstü yardımcı yakalama yolları eklenmedi** —
@@ -129,6 +128,32 @@ söyler.
 - **Ekran görüntüleri alınamadı.** `/tests`, `/tests/new`, `/tests/[id]` oturum
   gerektiriyor; dilim 03'te olduğu gibi canlı bir Supabase projesi olmadan giriş
   yapılamadığından 1440/1024/390 ekran görüntüleri bu dilimde üretilemedi.
+
+## Dilim 06'dan kalanlar
+
+- **Kırpma stüdyosu arayüzü (`/tests/[id]/crop`) henüz yok.** Bu oturumda yalnızca
+  docs/adr/0003 §A-C tamamlandı: `pdfjs-dist` kurulumu, saf bölme/maskeleme algoritmaları
+  (`packages/image-tools`) ve yükleme + sunucu doğrulaması
+  (`apps/web/src/features/crop/{actions.server,pdf-validate,use-source-document-upload,limits}.ts`).
+  Sol küçük resim şeridi, orta pdf.js/OffscreenCanvas çizimi, sağ soru listesi, elle
+  kırpma, "sayfayı otomatik böl", numara maskeleme arayüzü ve cevap anahtarı eşleme
+  ekranı (§D) hâlâ kapsam dışı — sıradaki adım.
+- **E2E ve ekran görüntüleri yok (§E).** Arayüz gelmeden mümkün değil.
+- **`apps/web/src/lib/supabase/types.ts`'e `source_documents`/`crop_sessions` elle
+  eklendi** (dilim 03'ten kalan not hâlâ geçerli: Docker yok, `pnpm db:types`
+  çalıştırılamadı). Docker geldiğinde gerçek şemadan yeniden üretilmeli.
+- **`finalizeSourceDocument` yüklenen dosyayı `sha256` ile tekilleştirmiyor**
+  (`registerCapturedQuestion`'daki `assets_workspace_sha256_kind_unique_idx` çakışma
+  kurtarma mantığının aksine). Aynı PDF'in iki kez yüklenmesi iki ayrı `source_documents`
+  satırı üretir — veri kaybı değil ama gereksiz depolama; küçük bir iyileştirme olarak
+  bırakıldı, kapsam dışı değildi ama zaman bütçesi bu oturumda §D'ye ayrıldı.
+- **TUS ve doğrudan yükleme yolları canlı bir Supabase projesine karşı hiç denenmedi**
+  (yine Docker/canlı proje eksikliği); yalnızca `readPdfPageCount` gerçek fixture PDF'lere
+  karşı test edildi (`pdf-validate.test.ts`).
+- **`docs/adr/0003` §"Açık kalan ve onay istenen noktalar" madde 1** (60 sayfa/50 MB
+  sınırları) bu oturumda onaylanmış kabul edilip uygulandı (`limits.ts`,
+  `20250101000014_source_document_upload_limit.sql` — assets kovası 25 MB'tan 50 MB'a
+  çıkarıldı); farklı bir tavan isteniyorsa değiştirilebilir.
 
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 

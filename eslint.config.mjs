@@ -35,6 +35,9 @@ export default defineConfig([
     '**/test-results/**',
     '**/next-env.d.ts',
     'packages/shared/src/database.types.ts',
+    // Copied verbatim from pdfjs-dist by scripts/copy-pdf-worker.mjs
+    // (predev/prebuild) — gitignored, not our source (docs/adr/0003 §1).
+    'apps/web/public/pdf/**',
   ]),
 
   js.configs.recommended,

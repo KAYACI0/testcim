@@ -184,6 +184,39 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['assets']['Row']>;
         Relationships: [];
       };
+      source_documents: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          asset_id: string;
+          name: string | null;
+          page_count: number | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['source_documents']['Row']> & {
+          workspace_id: string;
+          asset_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['source_documents']['Row']>;
+        Relationships: [];
+      };
+      crop_sessions: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          source_document_id: string;
+          state: Record<string, unknown>;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['crop_sessions']['Row']> & {
+          workspace_id: string;
+          source_document_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['crop_sessions']['Row']>;
+        Relationships: [];
+      };
       questions: {
         Row: {
           id: string;
