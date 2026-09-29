@@ -1,0 +1,33 @@
+/*
+ * Design tokens. This is the only file in the repository allowed to contain hex colour
+ * values; scripts/check-design-rules.ts enforces that. Values come from
+ * docs/03-tasarim-sistemi.md section 2. Light theme only for now; the token names are
+ * written so a dark theme can redefine them later.
+ */
+@theme {
+  --color-surface: #ffffff;
+  --color-canvas: #f5f6f8;
+  --color-ink: #1c2230;
+  --color-ink-2: #556070;
+  --color-ink-3: #6b7686;
+  --color-line: #e5e8ed;
+  --color-line-strong: #cdd3dc;
+  --color-accent: #23408f;
+  --color-accent-hover: #1a3170;
+  --color-accent-tint: #eef1fa;
+  --color-ok: #1d7a4b;
+  --color-err: #b4322a;
+  --color-warn: #9a6100;
+
+  /* Hierarchical radii: controls, panels, dialogs, paper, thumbnails. */
+  --radius-control: 6px;
+  --radius-panel: 8px;
+  --radius-dialog: 12px;
+  --radius-paper: 2px;
+  --radius-thumb: 3px;
+
+  /* Depth is drawn with lines. This is the single elevation, for floating layers. */
+  --shadow-float: 0 8px 24px rgb(20 28 45 / 0.08);
+
+  --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+}

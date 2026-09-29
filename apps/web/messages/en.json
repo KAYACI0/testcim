@@ -1,0 +1,14 @@
+{
+  "common": {
+    "appName": "Testcim"
+  },
+  "home": {
+    "title": "Testcim",
+    "tagline": "Paste a screenshot, get a print-ready test."
+  },
+  "errors": {
+    "globalTitle": "The page could not be loaded",
+    "globalBody": "Reload the page. If the problem continues, try again in a few minutes.",
+    "retry": "Reload the page"
+  }
+}

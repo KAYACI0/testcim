@@ -1,0 +1,14 @@
+{
+  "common": {
+    "appName": "Testcim"
+  },
+  "home": {
+    "title": "Testcim",
+    "tagline": "Ekran alıntısını yapıştırın, baskıya hazır test alın."
+  },
+  "errors": {
+    "globalTitle": "Sayfa yüklenemedi",
+    "globalBody": "Sayfayı yenileyin. Sorun sürerse birkaç dakika sonra yeniden deneyin.",
+    "retry": "Sayfayı yenile"
+  }
+}
