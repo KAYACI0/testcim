@@ -5,8 +5,12 @@
   "type": "module",
   "scripts": {
     "check:design": "tsx check-design-rules.ts",
+    "curriculum:import": "tsx curriculum/import.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.117.2"
   },
   "devDependencies": {
     "@types/node": "26.6.3",

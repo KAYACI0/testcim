@@ -1,0 +1,1035 @@
+{
+  "subject": {
+    "code": "FB",
+    "name": "Fen Bilimleri",
+    "grade_from": 5,
+    "grade_to": 8
+  },
+  "topics": [
+    {
+      "code": "FB.5.1",
+      "name": "Gökyüzündeki Komşularımız ve Biz",
+      "grade": 5,
+      "parent_code": null
+    },
+    {
+      "code": "FB.5.2",
+      "name": "Kuvveti Tanıyalım",
+      "grade": 5,
+      "parent_code": null
+    },
+    {
+      "code": "FB.5.3",
+      "name": "Canlıların Yapısına Yolculuk",
+      "grade": 5,
+      "parent_code": null
+    },
+    {
+      "code": "FB.5.4",
+      "name": "Işığın Dünyası",
+      "grade": 5,
+      "parent_code": null
+    },
+    {
+      "code": "FB.5.5",
+      "name": "Maddenin Doğası",
+      "grade": 5,
+      "parent_code": null
+    },
+    {
+      "code": "FB.5.6",
+      "name": "Yaşamımızdaki Elektrik",
+      "grade": 5,
+      "parent_code": null
+    },
+    {
+      "code": "FB.5.7",
+      "name": "Sürdürülebilir Yaşam ve Geri Dönüşüm",
+      "grade": 5,
+      "parent_code": null
+    },
+    {
+      "code": "FB.6.1",
+      "name": "Güneş Sistemi ve Tutulmalar",
+      "grade": 6,
+      "parent_code": null
+    },
+    {
+      "code": "FB.6.2",
+      "name": "Kuvvetin Etkisinde Hareket",
+      "grade": 6,
+      "parent_code": null
+    },
+    {
+      "code": "FB.6.3",
+      "name": "Canlılarda Sistemler",
+      "grade": 6,
+      "parent_code": null
+    },
+    {
+      "code": "FB.6.4",
+      "name": "Işığın Yansıması ve Renkler",
+      "grade": 6,
+      "parent_code": null
+    },
+    {
+      "code": "FB.6.5",
+      "name": "Maddenin Ayırt Edici Özellikleri",
+      "grade": 6,
+      "parent_code": null
+    },
+    {
+      "code": "FB.6.6",
+      "name": "Elektriğin İletimi ve Direnç",
+      "grade": 6,
+      "parent_code": null
+    },
+    {
+      "code": "FB.6.7",
+      "name": "Sürdürülebilir Yaşam ve Etkileşim",
+      "grade": 6,
+      "parent_code": null
+    },
+    {
+      "code": "FB.7.1",
+      "name": "Uzay Çağı",
+      "grade": 7,
+      "parent_code": null
+    },
+    {
+      "code": "FB.7.2",
+      "name": "Kuvvet ve Enerjiyi Keşfedelim",
+      "grade": 7,
+      "parent_code": null
+    },
+    {
+      "code": "FB.7.3",
+      "name": "Vücudumuzdaki Sistemler",
+      "grade": 7,
+      "parent_code": null
+    },
+    {
+      "code": "FB.7.4",
+      "name": "Işığın Kırılması ve Mercekler",
+      "grade": 7,
+      "parent_code": null
+    },
+    {
+      "code": "FB.7.5",
+      "name": "Maddenin Doğasına Yolculuk",
+      "grade": 7,
+      "parent_code": null
+    },
+    {
+      "code": "FB.7.6",
+      "name": "Elektriklenme",
+      "grade": 7,
+      "parent_code": null
+    },
+    {
+      "code": "FB.7.7",
+      "name": "Sürdürülebilir Yaşam ve Enerji",
+      "grade": 7,
+      "parent_code": null
+    },
+    {
+      "code": "FB.8.1",
+      "name": "Mevsimler ve İklim",
+      "grade": 8,
+      "parent_code": null
+    },
+    {
+      "code": "FB.8.2",
+      "name": "Yaşamı Kolaylaştıran Kuvvet",
+      "grade": 8,
+      "parent_code": null
+    },
+    {
+      "code": "FB.8.3",
+      "name": "Yaşamın Gizemi",
+      "grade": 8,
+      "parent_code": null
+    },
+    {
+      "code": "FB.8.4",
+      "name": "Sesin Dünyası",
+      "grade": 8,
+      "parent_code": null
+    },
+    {
+      "code": "FB.8.5",
+      "name": "Periyodik Tablo ve Maddenin Etkileşimi",
+      "grade": 8,
+      "parent_code": null
+    },
+    {
+      "code": "FB.8.6",
+      "name": "Elektriğin Yolculuğu",
+      "grade": 8,
+      "parent_code": null
+    },
+    {
+      "code": "FB.8.7",
+      "name": "Sürdürülebilir Yaşam ve Madde Döngüleri",
+      "grade": 8,
+      "parent_code": null
+    }
+  ],
+  "outcomes": [
+    {
+      "code": "FB.5.1.1",
+      "grade": 5,
+      "topic_code": "FB.5.1",
+      "description": "Güneş’in yapısı ve dönme hareketi ile ilgili bilgi toplayabilme"
+    },
+    {
+      "code": "FB.5.1.2",
+      "grade": 5,
+      "topic_code": "FB.5.1",
+      "description": "Ay’ın özellikleri, dönme ve dolanma hareketleri ile ilgili bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.5.1.3",
+      "grade": 5,
+      "topic_code": "FB.5.1",
+      "description": "Ay’ın evrelerini temsil eden bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.5.1.4",
+      "grade": 5,
+      "topic_code": "FB.5.1",
+      "description": "Güneş, Dünya ve Ay’ın birbirlerine göre hareketlerini ve hacimsel büyüklüklerini temsil eden bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.5.2.1",
+      "grade": 5,
+      "topic_code": "FB.5.2",
+      "description": "Kuvveti büyüklüğü ile operasyonel tanımlayabilme"
+    },
+    {
+      "code": "FB.5.2.2",
+      "grade": 5,
+      "topic_code": "FB.5.2",
+      "description": "Basit araç gereçle bilimsel bir dinamometre modeli oluşturabilme"
+    },
+    {
+      "code": "FB.5.2.3",
+      "grade": 5,
+      "topic_code": "FB.5.2",
+      "description": "Kütle ve ağırlık kavramlarını karşılaştırabilme"
+    },
+    {
+      "code": "FB.5.2.4",
+      "grade": 5,
+      "topic_code": "FB.5.2",
+      "description": "Sürtünme kuvvetinin çeşitli ortamlardaki etkilerine yönelik tümevarımsal akıl yürütebilme"
+    },
+    {
+      "code": "FB.5.3.1",
+      "grade": 5,
+      "topic_code": "FB.5.3",
+      "description": "Bitki ve hayvan hücrelerini temel kısımları ve özellikleri açısından karşılaştırabilme"
+    },
+    {
+      "code": "FB.5.3.2",
+      "grade": 5,
+      "topic_code": "FB.5.3",
+      "description": "Hücre-doku-organ-sistem-organizma kavramlarını yapılandırabilme"
+    },
+    {
+      "code": "FB.5.3.3",
+      "grade": 5,
+      "topic_code": "FB.5.3",
+      "description": "Destek ve hareket sistemine ait yapıları sınıflandırabilme"
+    },
+    {
+      "code": "FB.5.3.4",
+      "grade": 5,
+      "topic_code": "FB.5.3",
+      "description": "Destek ve hareket sisteminin sağlığı için yapılması gerekenler konusunda bilgi toplayabilme"
+    },
+    {
+      "code": "FB.5.4.1",
+      "grade": 5,
+      "topic_code": "FB.5.4",
+      "description": "Bir kaynaktan çıkan ışığın her yönde doğrusal bir yol izlediğini bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.5.4.2",
+      "grade": 5,
+      "topic_code": "FB.5.4",
+      "description": "Maddeleri ışığı geçirme durumlarına göre sınıflandırabilme"
+    },
+    {
+      "code": "FB.5.4.3",
+      "grade": 5,
+      "topic_code": "FB.5.4",
+      "description": "Tam gölgeyi bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.5.5.1",
+      "grade": 5,
+      "topic_code": "FB.5.5",
+      "description": "Maddeleri tanecikli, boşluklu ve hareketli yapısına göre sınıflandırabilme"
+    },
+    {
+      "code": "FB.5.5.2",
+      "grade": 5,
+      "topic_code": "FB.5.5",
+      "description": "Isı ve sıcaklık kavramlarını karşılaştırabilme"
+    },
+    {
+      "code": "FB.5.5.3",
+      "grade": 5,
+      "topic_code": "FB.5.5",
+      "description": "Sıcaklığı farklı olan sıvıların karıştırılması sonucu ısı alışverişi olduğuna yönelik bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.5.5.4",
+      "grade": 5,
+      "topic_code": "FB.5.5",
+      "description": "Maddenin ısı etkisiyle hâl değiştirebileceğini bilimsel gözleme dayalı tahmin edebilme"
+    },
+    {
+      "code": "FB.5.5.5",
+      "grade": 5,
+      "topic_code": "FB.5.5",
+      "description": "Maddeleri ısı iletimi bakımından sınıflandırabilme"
+    },
+    {
+      "code": "FB.5.5.6",
+      "grade": 5,
+      "topic_code": "FB.5.5",
+      "description": "Isı yalıtımını gösteren bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.5.6.1",
+      "grade": 5,
+      "topic_code": "FB.5.6",
+      "description": "Bir elektrik devresindeki elemanları sembollerinin olup olmamasına göre sınıflandırabilme"
+    },
+    {
+      "code": "FB.5.6.2",
+      "grade": 5,
+      "topic_code": "FB.5.6",
+      "description": "Şemasını çizdiği elektrik devresine uygun deney yapabilme"
+    },
+    {
+      "code": "FB.5.6.3",
+      "grade": 5,
+      "topic_code": "FB.5.6",
+      "description": "Bir elektrik devresindeki ampul parlaklığını etkileyen değişkenlerin neler olduğuna ilişkin hipotez oluşturabilme"
+    },
+    {
+      "code": "FB.5.7.1",
+      "grade": 5,
+      "topic_code": "FB.5.7",
+      "description": "Evsel atıklarda geri dönüştürülebilen ve dönüştürülemeyen maddeleri sınıflandırabilme"
+    },
+    {
+      "code": "FB.5.7.2",
+      "grade": 5,
+      "topic_code": "FB.5.7",
+      "description": "Kaynakların etkili kullanımı konusunda geri dönüşümün önemli olduğuna yönelik bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.5.7.3",
+      "grade": 5,
+      "topic_code": "FB.5.7",
+      "description": "Yakın çevresinde atık yönetiminin uygulanabilirliğine ilişkin deneyimlerini yansıtabilme"
+    },
+    {
+      "code": "FB.6.1.1",
+      "grade": 6,
+      "topic_code": "FB.6.1",
+      "description": "Güneş sistemindeki gezegenleri niteliklerine göre sınıflandırabilme"
+    },
+    {
+      "code": "FB.6.1.2",
+      "grade": 6,
+      "topic_code": "FB.6.1",
+      "description": "Güneş sistemi ile ilgili bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.6.1.3",
+      "grade": 6,
+      "topic_code": "FB.6.1",
+      "description": "Güneş ve Ay tutulması ile ilgili bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.6.1.4",
+      "grade": 6,
+      "topic_code": "FB.6.1",
+      "description": "Güneş ve Ay tutulması ile ilgili bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.6.2.1",
+      "grade": 6,
+      "topic_code": "FB.6.2",
+      "description": "Bir cisme etki eden aynı doğrultudaki kuvvetler arasındaki ilişkileri açıklayarak bileşke kuvveti yapılandırabilme"
+    },
+    {
+      "code": "FB.6.2.2",
+      "grade": 6,
+      "topic_code": "FB.6.2",
+      "description": "Dengelenmiş ve dengelenmemiş kuvvetlerin etkisi altındaki bir cismin hareketine yönelik deney yapabilme"
+    },
+    {
+      "code": "FB.6.2.3",
+      "grade": 6,
+      "topic_code": "FB.6.2",
+      "description": "Sürat ve hız kavramlarını karşılaştırabilme"
+    },
+    {
+      "code": "FB.6.3.1",
+      "grade": 6,
+      "topic_code": "FB.6.3",
+      "description": "Eşeyli ve eşeysiz üremeyi karşılaştırabilme"
+    },
+    {
+      "code": "FB.6.3.2",
+      "grade": 6,
+      "topic_code": "FB.6.3",
+      "description": "Bitkilerde üreme, büyüme ve gelişme hakkında bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.6.3.3",
+      "grade": 6,
+      "topic_code": "FB.6.3",
+      "description": "Tohumun çimlenmesine etki eden faktörlere ilişkin hipotez oluşturabilme"
+    },
+    {
+      "code": "FB.6.3.4",
+      "grade": 6,
+      "topic_code": "FB.6.3",
+      "description": "Hayvanlarda üreme, büyüme ve gelişme hakkında bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.6.3.5",
+      "grade": 6,
+      "topic_code": "FB.6.3",
+      "description": "İnsanda üremeyi sağlayan yapı ve organlar arasındaki ilişkileri çözümleyebilme"
+    },
+    {
+      "code": "FB.6.3.6",
+      "grade": 6,
+      "topic_code": "FB.6.3",
+      "description": "Sinir sisteminin görevlerini model üzerinde bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.6.3.7",
+      "grade": 6,
+      "topic_code": "FB.6.3",
+      "description": "İç salgı bezlerinin vücut için önemini yapılandırabilme"
+    },
+    {
+      "code": "FB.6.3.8",
+      "grade": 6,
+      "topic_code": "FB.6.3",
+      "description": "Çocukluktan ergenliğe geçişte oluşan bedensel ve ruhsal değişimleri genelleyebilme"
+    },
+    {
+      "code": "FB.6.3.9",
+      "grade": 6,
+      "topic_code": "FB.6.3",
+      "description": "Denetleyici ve düzenleyici sistemlerin sağlığı için yapılması gerekenlerle ilgili bilgi toplayabilme"
+    },
+    {
+      "code": "FB.6.4.1",
+      "grade": 6,
+      "topic_code": "FB.6.4",
+      "description": "Işığın farklı yüzeylerdeki yansıma olaylarına ilişkin bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.6.4.2",
+      "grade": 6,
+      "topic_code": "FB.6.4",
+      "description": "Işığın yansımasında gelen ışın, yansıyan ışın ve yüzeyin normali arasındaki ilişki ile ilgili kanıt kullanabilme"
+    },
+    {
+      "code": "FB.6.4.3",
+      "grade": 6,
+      "topic_code": "FB.6.4",
+      "description": "Günlük hayattaki ayna çeşitlerine ilişkin bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.6.4.4",
+      "grade": 6,
+      "topic_code": "FB.6.4",
+      "description": "Işığın madde ile etkileşimi sonucunda soğurulabileceğini bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.6.4.5",
+      "grade": 6,
+      "topic_code": "FB.6.4",
+      "description": "Beyaz ışığın tüm ışık renklerinin bileşiminden oluştuğuna ilişkin bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.6.4.6",
+      "grade": 6,
+      "topic_code": "FB.6.4",
+      "description": "Cisimlerin siyah, beyaz ve renkli görünmesini bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.6.4.7",
+      "grade": 6,
+      "topic_code": "FB.6.4",
+      "description": "Güneş enerjisinin günlük hayat ve teknolojideki yenilikçi uygulamalarına ilişkin eleştirel düşünebilme"
+    },
+    {
+      "code": "FB.6.5.1",
+      "grade": 6,
+      "topic_code": "FB.6.5",
+      "description": "Isı etkisiyle maddelerin genleşip büzüleceğine yönelik bilimsel gözleme dayalı tahmin edebilme"
+    },
+    {
+      "code": "FB.6.5.2",
+      "grade": 6,
+      "topic_code": "FB.6.5",
+      "description": "Maddelerin erime, donma ve kaynama noktasını gösteren deney yapabilme"
+    },
+    {
+      "code": "FB.6.5.3",
+      "grade": 6,
+      "topic_code": "FB.6.5",
+      "description": "Yoğunluğa ilişkin hesaplamalar yaparak bilimsel veriye dayalı tahmin edebilme"
+    },
+    {
+      "code": "FB.6.5.4",
+      "grade": 6,
+      "topic_code": "FB.6.5",
+      "description": "Deneyler sonucunda çeşitli maddelerin yoğunluklarına ilişkin tümdengelimsel akıl yürütebilme"
+    },
+    {
+      "code": "FB.6.5.5",
+      "grade": 6,
+      "topic_code": "FB.6.5",
+      "description": "Suyun katı ve sıvı hâllerine ait yoğunlukları karşılaştırarak bu durumun canlılar için önemi hakkında bilimsel çıkarımlar yapabilme"
+    },
+    {
+      "code": "FB.6.5.6",
+      "grade": 6,
+      "topic_code": "FB.6.5",
+      "description": "Yoğunluk ile ilgili bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.6.6.1",
+      "grade": 6,
+      "topic_code": "FB.6.6",
+      "description": "Maddelerin elektriği iletme durumlarını gösteren deney yapabilme"
+    },
+    {
+      "code": "FB.6.6.2",
+      "grade": 6,
+      "topic_code": "FB.6.6",
+      "description": "Elektrik devresindeki ampulün parlaklığının bağlı olduğu değişkenleri belirlemeye yönelik deney yapabilme"
+    },
+    {
+      "code": "FB.6.6.3",
+      "grade": 6,
+      "topic_code": "FB.6.6",
+      "description": "Ayarlanabilir direncin ampulün parlaklığına etkilerine yönelik bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.6.7.1",
+      "grade": 6,
+      "topic_code": "FB.6.7",
+      "description": "Biyoçeşitliliğin doğal yaşam için önemini sorgulayabilme"
+    },
+    {
+      "code": "FB.6.7.2",
+      "grade": 6,
+      "topic_code": "FB.6.7",
+      "description": "Biyoçeşitliliği tehdit eden faktörleri araştırma verilerine dayalı tahmin edebilme"
+    },
+    {
+      "code": "FB.6.7.3",
+      "grade": 6,
+      "topic_code": "FB.6.7",
+      "description": "Isınma amaçlı yakıt kullanımının insan ve çevre üzerine etkilerini tartışabilme"
+    },
+    {
+      "code": "FB.6.7.4",
+      "grade": 6,
+      "topic_code": "FB.6.7",
+      "description": "Yakın çevresindeki veya ülkemizdeki bir çevre problemini çözebilme"
+    },
+    {
+      "code": "FB.7.1.1",
+      "grade": 7,
+      "topic_code": "FB.7.1",
+      "description": "Uzay araştırmaları için geliştirilen teknolojileri karşılaştırabilme"
+    },
+    {
+      "code": "FB.7.1.2",
+      "grade": 7,
+      "topic_code": "FB.7.1",
+      "description": "Uzay gözlem araçları ile ilgili bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.7.1.3",
+      "grade": 7,
+      "topic_code": "FB.7.1",
+      "description": "Uzay araştırmalarının yol açabileceği problemleri çözebilme"
+    },
+    {
+      "code": "FB.7.1.4",
+      "grade": 7,
+      "topic_code": "FB.7.1",
+      "description": "Yıldızların yaşamını açıklayarak yapılandırabilme"
+    },
+    {
+      "code": "FB.7.1.5",
+      "grade": 7,
+      "topic_code": "FB.7.1",
+      "description": "Yıldız, galaksi ve evren kavramlarını açıklayarak yapılandırabilme"
+    },
+    {
+      "code": "FB.7.2.1",
+      "grade": 7,
+      "topic_code": "FB.7.2",
+      "description": "Fiziksel anlamda yapılan işin bağlı olduğu faktörlere ilişkin bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.7.2.2",
+      "grade": 7,
+      "topic_code": "FB.7.2",
+      "description": "Enerji çeşitlerinden kinetik ve potansiyel enerjiyi karşılaştırabilme"
+    },
+    {
+      "code": "FB.7.2.3",
+      "grade": 7,
+      "topic_code": "FB.7.2",
+      "description": "Enerji dönüşümünden hareketle enerjinin korunduğuna yönelik tümevarımsal akıl yürütebilme"
+    },
+    {
+      "code": "FB.7.3.1",
+      "grade": 7,
+      "topic_code": "FB.7.3",
+      "description": "Sindirim sistemini oluşturan yapı ve organların görevlerini model üzerinde bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.7.3.2",
+      "grade": 7,
+      "topic_code": "FB.7.3",
+      "description": "Sindirim sisteminin sağlığı için yapılması gerekenler konusunda bilgi toplayabilme"
+    },
+    {
+      "code": "FB.7.3.3",
+      "grade": 7,
+      "topic_code": "FB.7.3",
+      "description": "Dolaşım sistemini oluşturan yapı ve organların görevlerini model üzerinde bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.7.3.4",
+      "grade": 7,
+      "topic_code": "FB.7.3",
+      "description": "Kan bağışının toplumsal dayanışma açısından önemini tartışabilme"
+    },
+    {
+      "code": "FB.7.3.5",
+      "grade": 7,
+      "topic_code": "FB.7.3",
+      "description": "Dolaşım sisteminin sağlığı için yapılması gerekenler konusunda bilgi toplayabilme"
+    },
+    {
+      "code": "FB.7.3.6",
+      "grade": 7,
+      "topic_code": "FB.7.3",
+      "description": "Solunum sistemini oluşturan yapı ve organların görevlerini model üzerinde bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.7.3.7",
+      "grade": 7,
+      "topic_code": "FB.7.3",
+      "description": "Solunum sisteminin sağlığı için yapılması gerekenler konusunda bilgi toplayabilme"
+    },
+    {
+      "code": "FB.7.3.8",
+      "grade": 7,
+      "topic_code": "FB.7.3",
+      "description": "Boşaltım sistemini oluşturan yapı ve organları model üzerinde bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.7.3.9",
+      "grade": 7,
+      "topic_code": "FB.7.3",
+      "description": "Boşaltım sisteminin sağlığı için yapılması gerekenler konusunda bilgi toplayabilme"
+    },
+    {
+      "code": "FB.7.4.1",
+      "grade": 7,
+      "topic_code": "FB.7.4",
+      "description": "Ortam değiştiren ışığın izlediği yolu gözlemleyerek kırılma olayına yönelik bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.7.4.2",
+      "grade": 7,
+      "topic_code": "FB.7.4",
+      "description": "Mercek çeşitlerine yönelik bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.7.4.3",
+      "grade": 7,
+      "topic_code": "FB.7.4",
+      "description": "Merceklerin günlük hayatta kullanım alanlarını örneklerle sınıflandırabilme"
+    },
+    {
+      "code": "FB.7.5.1",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Atomun yapısını ve yapısındaki temel parçacıkları çözümleyebilme"
+    },
+    {
+      "code": "FB.7.5.2",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Geçmişten günümüze atom kavramı ile ilgili bilimsel bilgilerin değişebileceğini sorgulayabilme"
+    },
+    {
+      "code": "FB.7.5.3",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Farklı moleküllere ait bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.7.5.4",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Saf maddeleri element ve bileşik olarak sınıflandırabilme"
+    },
+    {
+      "code": "FB.7.5.5",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Periyodik tablodaki ilk 18 elementin isimlerini sembolleriyle yapılandırabilme"
+    },
+    {
+      "code": "FB.7.5.6",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Periyodik tabloda grup ve periyotları karşılaştırabilme"
+    },
+    {
+      "code": "FB.7.5.7",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Bileşiklerin isimlerini formülleriyle yapılandırabilme"
+    },
+    {
+      "code": "FB.7.5.8",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Karışımları homojen ve heterojen olarak sını fl andırabilme"
+    },
+    {
+      "code": "FB.7.5.9",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Çözünme hızına etki eden faktörler ile ilgili hipotez oluşturabilme"
+    },
+    {
+      "code": "FB.7.5.10",
+      "grade": 7,
+      "topic_code": "FB.7.5",
+      "description": "Karışımları ayırmak için deney yapabilme"
+    },
+    {
+      "code": "FB.7.6.1",
+      "grade": 7,
+      "topic_code": "FB.7.6",
+      "description": "Elektriklenme ile ilgili bilgi toplayabilme"
+    },
+    {
+      "code": "FB.7.6.2",
+      "grade": 7,
+      "topic_code": "FB.7.6",
+      "description": "Elektriklenme çeşitlerini belirlemeye yönelik deney yapabilme"
+    },
+    {
+      "code": "FB.7.6.3",
+      "grade": 7,
+      "topic_code": "FB.7.6",
+      "description": "Cisimlerin elektrik yüklerini sınıflandırabilme"
+    },
+    {
+      "code": "FB.7.7.1",
+      "grade": 7,
+      "topic_code": "FB.7.7",
+      "description": "Besin zincirindeki canlılar arasındaki ilişkileri yapılandırabilme"
+    },
+    {
+      "code": "FB.7.7.2",
+      "grade": 7,
+      "topic_code": "FB.7.7",
+      "description": "Kaynakların tasarruflu kullanımının önemini sorgulayabilme"
+    },
+    {
+      "code": "FB.8.1.1",
+      "grade": 8,
+      "topic_code": "FB.8.1",
+      "description": "Dünya’nın Güneş etrafındaki hareketi ve eksen eğikliğinin sonuçları ile ilgili bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.8.1.2",
+      "grade": 8,
+      "topic_code": "FB.8.1",
+      "description": "İklim ve hava olaylarını karşılaştırabilme"
+    },
+    {
+      "code": "FB.8.2.1",
+      "grade": 8,
+      "topic_code": "FB.8.2",
+      "description": "Basit makineleri sınıflandırabilme"
+    },
+    {
+      "code": "FB.8.2.2",
+      "grade": 8,
+      "topic_code": "FB.8.2",
+      "description": "Günlük yaşamda iş kolaylığı sağlayacak bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.8.3.1",
+      "grade": 8,
+      "topic_code": "FB.8.3",
+      "description": "Nükleotid, gen, DNA ve kromozom kavramları arasındaki ilişkiyi yapılandırabilme"
+    },
+    {
+      "code": "FB.8.3.2",
+      "grade": 8,
+      "topic_code": "FB.8.3",
+      "description": "DNA’nın yapısını model üzerinde bilimsel olarak gözlemleyebilme"
+    },
+    {
+      "code": "FB.8.3.3",
+      "grade": 8,
+      "topic_code": "FB.8.3",
+      "description": "Mitoz ve mayoz kavramları arasındaki ilişkiyi karşılaştırabilme"
+    },
+    {
+      "code": "FB.8.3.4",
+      "grade": 8,
+      "topic_code": "FB.8.3",
+      "description": "Kalıtımla ilgili kavramları yapılandırabilme"
+    },
+    {
+      "code": "FB.8.3.5",
+      "grade": 8,
+      "topic_code": "FB.8.3",
+      "description": "Tek karakter çaprazlamaları ile ilgili problemler çözerek sonuçlarına ilişkin bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.8.3.6",
+      "grade": 8,
+      "topic_code": "FB.8.3",
+      "description": "Akraba evliliklerinin genetik sonuçlarını tartışabilme"
+    },
+    {
+      "code": "FB.8.3.7",
+      "grade": 8,
+      "topic_code": "FB.8.3",
+      "description": "Mutasyonla ilgili bilgi toplayabilme"
+    },
+    {
+      "code": "FB.8.3.8",
+      "grade": 8,
+      "topic_code": "FB.8.3",
+      "description": "Canlıların yaşadıkları çevreye uyumlarına ilişkin bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.8.4.1",
+      "grade": 8,
+      "topic_code": "FB.8.4",
+      "description": "Sesin oluşumuna yönelik bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.8.4.2",
+      "grade": 8,
+      "topic_code": "FB.8.4",
+      "description": "Sesin yayılabildiği ortamlara yönelik deney yapabilme"
+    },
+    {
+      "code": "FB.8.4.3",
+      "grade": 8,
+      "topic_code": "FB.8.4",
+      "description": "Sesin frekansına göre ince veya kalın olarak işitilmesine neden olan ses özellikleri ile ilgili deney yapabilme"
+    },
+    {
+      "code": "FB.8.4.4",
+      "grade": 8,
+      "topic_code": "FB.8.4",
+      "description": "Ses ile ilgili değişkenlerin işitmeye etkisi hakkında hipotez oluşturabilme"
+    },
+    {
+      "code": "FB.8.4.5",
+      "grade": 8,
+      "topic_code": "FB.8.4",
+      "description": "Farklı maddeler ile etkileşimi sonucunda sesin iletilmesi, yansıması ve soğurulmasına ilişkin bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.8.4.6",
+      "grade": 8,
+      "topic_code": "FB.8.4",
+      "description": "Ses kirliliğini önlemeye yönelik önlemleri bilimsel olarak sorgulayabilme"
+    },
+    {
+      "code": "FB.8.5.1",
+      "grade": 8,
+      "topic_code": "FB.8.5",
+      "description": "Elementleri periyodik tablo üzerinde metal, ametal, yarı metal ve soy gaz olarak sınıflandırabilme"
+    },
+    {
+      "code": "FB.8.5.2",
+      "grade": 8,
+      "topic_code": "FB.8.5",
+      "description": "Fiziksel ve kimyasal değişimler ile ilgili bilimsel gözleme dayalı tahmin edebilme"
+    },
+    {
+      "code": "FB.8.5.3",
+      "grade": 8,
+      "topic_code": "FB.8.5",
+      "description": "Kimyasal tepkimelerle ilgili bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.8.5.4",
+      "grade": 8,
+      "topic_code": "FB.8.5",
+      "description": "Kimyasal tepkimelerin günlük yaşamdaki etkilerine yönelik bilgi toplayabilme"
+    },
+    {
+      "code": "FB.8.5.5",
+      "grade": 8,
+      "topic_code": "FB.8.5",
+      "description": "Asit ve bazların genel özelliklerini karşılaştırabilme"
+    },
+    {
+      "code": "FB.8.5.6",
+      "grade": 8,
+      "topic_code": "FB.8.5",
+      "description": "Maddelerin asit veya baz olduğunu çeşitli ayıraçlar kullanarak bilimsel gözleme dayalı tahmin edebilme"
+    },
+    {
+      "code": "FB.8.5.7",
+      "grade": 8,
+      "topic_code": "FB.8.5",
+      "description": "Maddelerin asitlik ve bazlık durumlarına ilişkin “pH“ değerlerini kullanarak tümevarımsal akıl yürütebilme"
+    },
+    {
+      "code": "FB.8.5.8",
+      "grade": 8,
+      "topic_code": "FB.8.5",
+      "description": "Asit ve bazların çeşitli maddeler üzerindeki etkilerine yönelik deney yapabilme"
+    },
+    {
+      "code": "FB.8.6.1",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Ampullerin bağlanma durumunun ampul parlaklığına etkisine yönelik deney yapabilme"
+    },
+    {
+      "code": "FB.8.6.2",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Elektrik akımını operasyonel olarak tanımlayabilme"
+    },
+    {
+      "code": "FB.8.6.3",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Bir devre elemanının uçları arasındaki potansiyel farkı (gerilimi) operasyonel olarak tanımlayabilme"
+    },
+    {
+      "code": "FB.8.6.4",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Bir devre elemanının uçları arasındaki gerilim ile üzerinden geçen akım ilişkisine yönelik tümevarımsal akıl yürütebilme"
+    },
+    {
+      "code": "FB.8.6.5",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Özgün bir aydınlatma aracı modeli oluşturabilme"
+    },
+    {
+      "code": "FB.8.6.6",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Elektrik enerjisinin dönüştüğü enerjileri sınıflandırabilme"
+    },
+    {
+      "code": "FB.8.6.7",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Elektrik enerjisinin ısı, ışık, ses veya hareket enerjisine dönüşümüne yönelik bilimsel model oluşturabilme"
+    },
+    {
+      "code": "FB.8.6.8",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Elektrik enerjisi üretim santrallerini sınıflandırabilme"
+    },
+    {
+      "code": "FB.8.6.9",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Elektrik enerjisi üretim santrallerinin avantaj ve dezavantajlarını tartışabilme"
+    },
+    {
+      "code": "FB.8.6.10",
+      "grade": 8,
+      "topic_code": "FB.8.6",
+      "description": "Elektrik enerjisinin bilinçli ve tasarruflu kullanılmasının önemini tartışabilme"
+    },
+    {
+      "code": "FB.8.7.1",
+      "grade": 8,
+      "topic_code": "FB.8.7",
+      "description": "Bitkilerde besin üretiminde fotosentezin önemini yapılandırabilme"
+    },
+    {
+      "code": "FB.8.7.2",
+      "grade": 8,
+      "topic_code": "FB.8.7",
+      "description": "Fotosentez hızını etkileyen faktörler ile ilgili hipotez oluşturabilme"
+    },
+    {
+      "code": "FB.8.7.3",
+      "grade": 8,
+      "topic_code": "FB.8.7",
+      "description": "Canlılarda solunumun önemini yapılandırabilme"
+    },
+    {
+      "code": "FB.8.7.4",
+      "grade": 8,
+      "topic_code": "FB.8.7",
+      "description": "Madde döngülerine ilişkin şema üzerinden bilimsel çıkarım yapabilme"
+    },
+    {
+      "code": "FB.8.7.5",
+      "grade": 8,
+      "topic_code": "FB.8.7",
+      "description": "Madde döngülerinin yaşam açısından önemini yapılandırabilme"
+    },
+    {
+      "code": "FB.8.7.6",
+      "grade": 8,
+      "topic_code": "FB.8.7",
+      "description": "Küresel iklim değişikliklerinin nedenlerini ve olası sonuçlarını tartışabilme"
+    },
+    {
+      "code": "FB.8.7.7",
+      "grade": 8,
+      "topic_code": "FB.8.7",
+      "description": "Ülkemizdeki küresel iklim değişikliğinin sebep olduğu bir problemi çözebilme"
+    }
+  ],
+  "source": {
+    "title": "[TYMM] Fen Bilimleri Dersi Öğretim Programı (3, 4, 5, 6, 7 ve 8. Sınıflar), Türkiye Yüzyılı Maarif Modeli 2026",
+    "publisher": "T.C. Millî Eğitim Bakanlığı, Talim ve Terbiye Kurulu Başkanlığı",
+    "url": "https://mufredat.meb.gov.tr/ProgramDetay.aspx?PID=2334",
+    "pdf_url": "https://mufredat.meb.gov.tr/Dosyalar/20268149031570-Fen Bilimleri (3-8) DÖP.pdf",
+    "accessed_at": "2026-09-30",
+    "extraction_method": "pdfjs-dist text extraction + regex-assisted manual review (scripts/curriculum/parse-source.mjs)",
+    "coverage_note": "Bu dosya yalnızca 5-8. sınıf düzeylerini içerir (kaynak PDF 3-4. sınıfları da kapsıyor, kapsam dışı bırakıldı). Öğrenme çıktısı başlıkları tam alınmıştır; süreç bileşenleri (a/b/c...) ve içerik çerçevesi ayrıntıları bu ilk sürümde alınmamıştır."
+  }
+}
