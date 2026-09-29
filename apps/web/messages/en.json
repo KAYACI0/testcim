@@ -10,5 +10,158 @@
     "globalTitle": "The page could not be loaded",
     "globalBody": "Reload the page. If the problem continues, try again in a few minutes.",
     "retry": "Reload the page"
+  },
+  "nav": {
+    "tests": "Tests",
+    "bank": "Question bank",
+    "classes": "Classes",
+    "omr": "Optical scan",
+    "exams": "Online exams",
+    "reports": "Reports",
+    "settings": "Settings"
+  },
+  "designSystem": {
+    "title": "Design system",
+    "description": "Development only. States of the components and patterns from docs/03.",
+    "workspaceName": "Fatih Middle School",
+    "railToggleLabel": "Expand or collapse the sidebar",
+    "closeLabel": "Close",
+    "sections": {
+      "typography": "Typography",
+      "buttons": "Buttons",
+      "formControls": "Form controls",
+      "feedback": "Feedback",
+      "overlays": "Overlays",
+      "tabs": "Tabs",
+      "table": "Table",
+      "patterns": "Patterns"
+    },
+    "typography": {
+      "sample": "Students in Istanbul are working; we build strong, original questions.",
+      "scaleLabel": "Scale {size} px"
+    },
+    "buttons": {
+      "primary": "Save test",
+      "secondary": "Preview",
+      "tertiary": "Cancel",
+      "loading": "Saving",
+      "disabled": "Disabled"
+    },
+    "iconButton": {
+      "addLabel": "Add question",
+      "deleteLabel": "Delete",
+      "settingsLabel": "Settings"
+    },
+    "form": {
+      "titleLabel": "Test name",
+      "titleHint": "Teachers and students see this name.",
+      "titlePlaceholder": "Example: grade 8 math quiz",
+      "titleErrorLabel": "Test name (error example)",
+      "titleError": "Test name must be at least 3 characters.",
+      "descriptionLabel": "Description",
+      "descriptionPlaceholder": "A short note about this test",
+      "typeLabel": "Test type",
+      "typeOptions": {
+        "exam": "Exam",
+        "testPaper": "Test paper",
+        "mock": "Mock exam",
+        "written": "Written exam",
+        "worksheet": "Worksheet",
+        "quiz": "Quiz"
+      },
+      "subjectLabel": "Subject",
+      "subjectPlaceholder": "Choose a subject",
+      "subjectSearchPlaceholder": "Search subjects",
+      "subjectEmpty": "No results found.",
+      "subjects": {
+        "math": "Math",
+        "turkish": "Turkish",
+        "science": "Science",
+        "social": "Social studies",
+        "english": "English"
+      },
+      "correctAnswerLabel": "Correct answer",
+      "captureModeLabel": "Capture mode",
+      "layoutLabel": "Layout",
+      "layoutOptions": {
+        "strict": "Strict",
+        "flexible": "Flexible",
+        "fitPages": "Fit pages"
+      }
+    },
+    "feedback": {
+      "badgeNeutral": "Draft",
+      "badgeOk": "Approved",
+      "badgeErr": "Error",
+      "badgeWarn": "Near limit",
+      "badgeAccent": "New",
+      "noticeNeutral": "This test has 12 questions.",
+      "noticeOk": "Changes saved.",
+      "noticeErr": "The file exceeds the 20 MB limit. Choose a smaller file.",
+      "noticeWarn": "You have used 92% of your question quota this month.",
+      "progressLabel": "Question quota",
+      "emptyMessage": "This test has no questions yet. Copy a screenshot and paste it with Ctrl+V."
+    },
+    "overlays": {
+      "tooltipContent": "Search with Ctrl+K",
+      "popoverTrigger": "Filter",
+      "popoverTitle": "Difficulty level",
+      "menuTrigger": "Row actions",
+      "menuEdit": "Edit",
+      "menuDuplicate": "Duplicate",
+      "menuDelete": "Delete",
+      "dialogTrigger": "Delete test",
+      "dialogTitle": "Delete test",
+      "dialogDescription": "This cannot be undone. The test and all its questions are deleted.",
+      "dialogCancel": "Cancel",
+      "dialogConfirm": "Delete test",
+      "sheetTrigger": "Output settings",
+      "sheetTitle": "Output settings",
+      "sheetBody": "Page size, margins and watermark are set here.",
+      "toastTrigger": "Show notification",
+      "toastTitle": "Changes saved",
+      "toastDescription": "Test saved at 12:14."
+    },
+    "tabs": {
+      "page": "Page",
+      "booklets": "Booklets",
+      "answers": "Answers",
+      "output": "Output",
+      "pageContent": "Page size, margins and column count are set here.",
+      "answersContent": "Mark the correct answer for each question here."
+    },
+    "table": {
+      "name": "Name",
+      "type": "Type",
+      "questionCount": "Questions",
+      "lastEdited": "Last edited",
+      "selectAll": "Select all rows",
+      "selectRow": "Select row {name}",
+      "empty": "No tests yet."
+    },
+    "patterns": {
+      "pageHeaderAction": "New test",
+      "inspectorTitle": "Inspector",
+      "usageLabel": "Question bank",
+      "usageSummary": "184 / 200 questions",
+      "upgradeMessage": "You are close to your plan limit. Upgrade your plan for more questions.",
+      "upgradeAction": "See plans",
+      "commandPaletteLabel": "Command palette",
+      "commandPalettePlaceholder": "Go to a page",
+      "commandPaletteEmpty": "No results found."
+    },
+    "critique": {
+      "title": "Self critique",
+      "items": [
+        "White dominates; colour only appears for action, selection and state (buttons, active tab, correct/wrong badges).",
+        "No card grid; the test list is a lined DataTable.",
+        "Radii are hierarchical: controls 6px, panels 8px, dialog 12px.",
+        "No emoji, forbidden icons, all-caps labels or blended colour fills; Phosphor Light weight only.",
+        "Motion only answers a user action (button transition, tab/dialog opening); no decorative animation.",
+        "Copy is action-oriented and exclamation-free (\"Save test\", \"This cannot be undone\").",
+        "The rail collapses at 390px, every control is keyboard-reachable, and focus rings stay visible.",
+        "The ornament I removed: the first draft grew the shadow on button hover; docs/03 allows a single elevation level (floating layers only), so I dropped it."
+      ]
+    }
   }
 }

@@ -10,5 +10,158 @@
     "globalTitle": "Sayfa yüklenemedi",
     "globalBody": "Sayfayı yenileyin. Sorun sürerse birkaç dakika sonra yeniden deneyin.",
     "retry": "Sayfayı yenile"
+  },
+  "nav": {
+    "tests": "Testler",
+    "bank": "Soru bankası",
+    "classes": "Sınıflar",
+    "omr": "Optik",
+    "exams": "Çevrimiçi sınavlar",
+    "reports": "Raporlar",
+    "settings": "Ayarlar"
+  },
+  "designSystem": {
+    "title": "Tasarım sistemi",
+    "description": "Yalnızca geliştirme ortamında görünür. docs/03'teki bileşen ve desenlerin durumları.",
+    "workspaceName": "Fatih Ortaokulu",
+    "railToggleLabel": "Kenar çubuğunu genişlet veya daralt",
+    "closeLabel": "Kapat",
+    "sections": {
+      "typography": "Tipografi",
+      "buttons": "Butonlar",
+      "formControls": "Form kontrolleri",
+      "feedback": "Bildirimler",
+      "overlays": "Katmanlar",
+      "tabs": "Sekmeler",
+      "table": "Tablo",
+      "patterns": "Desenler"
+    },
+    "typography": {
+      "sample": "İstanbul'da öğrenciler çalışıyor, güçlü ve özgün sorular üretiyoruz.",
+      "scaleLabel": "Ölçek {size} px"
+    },
+    "buttons": {
+      "primary": "Testi kaydet",
+      "secondary": "Önizle",
+      "tertiary": "Vazgeç",
+      "loading": "Kaydediliyor",
+      "disabled": "Devre dışı"
+    },
+    "iconButton": {
+      "addLabel": "Soru ekle",
+      "deleteLabel": "Sil",
+      "settingsLabel": "Ayarlar"
+    },
+    "form": {
+      "titleLabel": "Test adı",
+      "titleHint": "Öğretmenlere ve öğrencilere bu ad görünür.",
+      "titlePlaceholder": "Örnek: 8. sınıf matematik yazılısı",
+      "titleErrorLabel": "Test adı (hata örneği)",
+      "titleError": "Test adı en az 3 karakter olmalı.",
+      "descriptionLabel": "Açıklama",
+      "descriptionPlaceholder": "Bu test hakkında kısa bir not",
+      "typeLabel": "Test türü",
+      "typeOptions": {
+        "exam": "Sınav",
+        "testPaper": "Test kâğıdı",
+        "mock": "Deneme",
+        "written": "Yazılı",
+        "worksheet": "Çalışma kâğıdı",
+        "quiz": "Quiz"
+      },
+      "subjectLabel": "Ders",
+      "subjectPlaceholder": "Ders seçin",
+      "subjectSearchPlaceholder": "Ders ara",
+      "subjectEmpty": "Sonuç bulunamadı.",
+      "subjects": {
+        "math": "Matematik",
+        "turkish": "Türkçe",
+        "science": "Fen bilimleri",
+        "social": "Sosyal bilgiler",
+        "english": "İngilizce"
+      },
+      "correctAnswerLabel": "Doğru cevap",
+      "captureModeLabel": "Yakalama modu",
+      "layoutLabel": "Yerleşim",
+      "layoutOptions": {
+        "strict": "Sıralı",
+        "flexible": "Esnek",
+        "fitPages": "Sayfaya sığdır"
+      }
+    },
+    "feedback": {
+      "badgeNeutral": "Taslak",
+      "badgeOk": "Onaylandı",
+      "badgeErr": "Hata",
+      "badgeWarn": "Sınıra yakın",
+      "badgeAccent": "Yeni",
+      "noticeNeutral": "Bu testte 12 soru var.",
+      "noticeOk": "Değişiklikler kaydedildi.",
+      "noticeErr": "Dosya 20 MB sınırını aşıyor. Daha küçük bir dosya seçin.",
+      "noticeWarn": "Bu ay soru kotanızın %92'sini kullandınız.",
+      "progressLabel": "Soru kotası",
+      "emptyMessage": "Bu testte henüz soru yok. Bir ekran alıntısı kopyalayıp Ctrl+V ile yapıştırın."
+    },
+    "overlays": {
+      "tooltipContent": "Ctrl+K ile ara",
+      "popoverTrigger": "Filtre",
+      "popoverTitle": "Zorluk düzeyi",
+      "menuTrigger": "Satır eylemleri",
+      "menuEdit": "Düzenle",
+      "menuDuplicate": "Çoğalt",
+      "menuDelete": "Sil",
+      "dialogTrigger": "Testi sil",
+      "dialogTitle": "Testi sil",
+      "dialogDescription": "Bu işlem geri alınamaz. Test ve içindeki tüm sorular silinir.",
+      "dialogCancel": "Vazgeç",
+      "dialogConfirm": "Testi sil",
+      "sheetTrigger": "Çıktı ayarları",
+      "sheetTitle": "Çıktı ayarları",
+      "sheetBody": "Sayfa boyutu, kenar boşlukları ve filigran burada ayarlanır.",
+      "toastTrigger": "Bildirim göster",
+      "toastTitle": "Değişiklikler kaydedildi",
+      "toastDescription": "Test 12.14'te kaydedildi."
+    },
+    "tabs": {
+      "page": "Sayfa",
+      "booklets": "Kitapçıklar",
+      "answers": "Cevaplar",
+      "output": "Çıktı",
+      "pageContent": "Sayfa boyutu, kenar boşlukları ve sütun sayısı burada ayarlanır.",
+      "answersContent": "Her sorunun doğru cevabını burada işaretlersiniz."
+    },
+    "table": {
+      "name": "Ad",
+      "type": "Tür",
+      "questionCount": "Soru sayısı",
+      "lastEdited": "Son düzenleme",
+      "selectAll": "Tüm satırları seç",
+      "selectRow": "{name} satırını seç",
+      "empty": "Henüz test yok."
+    },
+    "patterns": {
+      "pageHeaderAction": "Yeni test",
+      "inspectorTitle": "Denetçi",
+      "usageLabel": "Soru bankası",
+      "usageSummary": "184 / 200 soru",
+      "upgradeMessage": "Plan sınırınıza yaklaştınız. Daha fazla soru için planınızı yükseltin.",
+      "upgradeAction": "Planları gör",
+      "commandPaletteLabel": "Komut paleti",
+      "commandPalettePlaceholder": "Bir sayfaya git",
+      "commandPaletteEmpty": "Sonuç bulunamadı."
+    },
+    "critique": {
+      "title": "Kendi eleştirim",
+      "items": [
+        "Beyaz baskın, renk yalnızca eylem/seçim/durumda görünüyor (buton, seçili sekme, doğru/yanlış rozetleri).",
+        "Kart ızgarası yok; testler listesi çizgili DataTable.",
+        "Yarıçaplar hiyerarşik: kontroller 6px, paneller 8px, diyalog 12px.",
+        "Emoji, yasak ikon, büyük harf, gradyan yok; Phosphor Light ağırlık.",
+        "Hareket yalnızca kullanıcı eylemine yanıt veriyor (buton geçişi, sekme/diyalog açılışı); süs animasyonu yok.",
+        "Metinler eylem odaklı ve ünlemsiz (\"Testi kaydet\", \"Bu işlem geri alınamaz\").",
+        "390px'te ray daralıyor, klavye ile tüm kontroller kullanılabiliyor, odak halkası görünür.",
+        "Çıkardığım süs: ilk taslakta buton geçişlerinde gölge büyütme vardı; docs/03 tek gölge düzeyini (yalnızca yüzen katmanlar) istiyor, bu yüzden kaldırdım."
+      ]
+    }
   }
 }

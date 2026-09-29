@@ -36,6 +36,30 @@ söyler.
   (docs/01 bölüm 10, açık soru); 1536 OpenAI `text-embedding-3-small` varsayımıyla
   konuldu, dilim 11'de gerçek sağlayıcıya göre değişebilir.
 
+## Dilim 02'den kalanlar
+
+- **`design-system.spec.ts` referans görüntülerinin bu makinede üretilememesi.** Playwright
+  `webServer`, dilim 00'ın notundaki aynı sebeple (3000 portu ilgisiz `test-maker`
+  projesince kullanılıyor) yerelde `pnpm dev`'i başlatamıyor. İlk CI çalıştırması
+  `--update-snapshots` ile taban görüntüleri üretmeli.
+- **Bu makinede `next dev` (Turbopack) HMR WebSocket'i el sıkışamıyor ve bu durumda istemci
+  hiç hidrate olmuyor (hiçbir buton/diyalog tepki vermiyor).** Kod hatası değil: aynı
+  bileşenler `next build && next start` ile denendiğinde (diyalog, açılır menü, sekme,
+  komut paleti, tost) sorunsuz çalıştı — ekran görüntüleriyle doğrulandı. Muhtemelen bu
+  makineye özgü bir proxy/güvenlik yazılımı WebSocket yükseltmesini bozuyor. CI'da ve
+  normal geliştirici makinelerinde beklenmiyor; yine de biri aynı belirtiyi görürse
+  (butonlar tepkisiz, `ws://.../_next/hmr` el sıkışma hatası) önce prod derlemesiyle
+  doğrulasın.
+- **`DataTable` sanallaştırma taşımıyor.** docs/03 bölüm 5 "DataTable (sıralama, seçim,
+  sanal kaydırma)" diyor; bu dilimin kapsamı (Prompt 02) yalnızca "sıralama, seçim, boş
+  durum" istiyor. Gerçek büyük listeler (yüzlerce test/soru) dilim 04/08'de TanStack
+  Virtual ile eklenmeli.
+- **`Combobox`/`Select` bileşenlerinde başlangıç değeri gösterimi.** Radix Select,
+  `SelectValue`'nun metnini yalnızca `Content` en az bir kez mount olduktan sonra
+  hesaplıyor; bu yüzden kontrollü kullanımda etiketi `children` olarak elle geçirmek
+  gerekiyor (`design-system-client.tsx`'teki `Test türü` alanına bakın). Bileşen
+  dokümantasyonuna (`/design-system` sayfası) bu not eklenebilir.
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.
