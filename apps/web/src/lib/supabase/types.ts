@@ -252,6 +252,7 @@ export interface Database {
           difficulty_observed: number | null;
           subject_id: string | null;
           topic_id: string | null;
+          thumb_asset_id: string | null;
           explanation_rich: Record<string, unknown> | null;
           explanation_asset_id: string | null;
           source_meta: Record<string, unknown>;
@@ -270,6 +271,110 @@ export interface Database {
           question_type: 'mcq' | 'tf' | 'fill' | 'match' | 'open' | 'numeric' | 'order';
         };
         Update: Partial<Database['public']['Tables']['questions']['Row']>;
+        Relationships: [];
+      };
+      folders: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          parent_id: string | null;
+          kind: 'questions' | 'tests';
+          name: string;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['folders']['Row']> & {
+          workspace_id: string;
+          kind: 'questions' | 'tests';
+          name: string;
+        };
+        Update: Partial<Database['public']['Tables']['folders']['Row']>;
+        Relationships: [];
+      };
+      tags: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          name: string;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['tags']['Row']> & {
+          workspace_id: string;
+          name: string;
+        };
+        Update: Partial<Database['public']['Tables']['tags']['Row']>;
+        Relationships: [];
+      };
+      question_tags: {
+        Row: {
+          workspace_id: string;
+          question_id: string;
+          tag_id: string;
+        };
+        Insert: Database['public']['Tables']['question_tags']['Row'];
+        Update: Partial<Database['public']['Tables']['question_tags']['Row']>;
+        Relationships: [];
+      };
+      question_outcomes: {
+        Row: {
+          workspace_id: string;
+          question_id: string;
+          outcome_id: string;
+        };
+        Insert: Database['public']['Tables']['question_outcomes']['Row'];
+        Update: Partial<Database['public']['Tables']['question_outcomes']['Row']>;
+        Relationships: [];
+      };
+      curriculum_subjects: {
+        Row: {
+          id: string;
+          code: string;
+          name: string;
+          grade_from: number | null;
+          grade_to: number | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['curriculum_subjects']['Row']> & {
+          code: string;
+          name: string;
+        };
+        Update: Partial<Database['public']['Tables']['curriculum_subjects']['Row']>;
+        Relationships: [];
+      };
+      curriculum_topics: {
+        Row: {
+          id: string;
+          subject_id: string;
+          parent_id: string | null;
+          name: string;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['curriculum_topics']['Row']> & {
+          subject_id: string;
+          name: string;
+        };
+        Update: Partial<Database['public']['Tables']['curriculum_topics']['Row']>;
+        Relationships: [];
+      };
+      curriculum_outcomes: {
+        Row: {
+          id: string;
+          subject_id: string;
+          topic_id: string | null;
+          grade: number | null;
+          code: string | null;
+          description: string;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['curriculum_outcomes']['Row']> & {
+          subject_id: string;
+          description: string;
+        };
+        Update: Partial<Database['public']['Tables']['curriculum_outcomes']['Row']>;
         Relationships: [];
       };
       question_revisions: {

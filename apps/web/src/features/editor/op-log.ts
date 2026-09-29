@@ -63,6 +63,13 @@ export function applyOpsToItems(
         next = next.map((item) => (item.id === op.item_id ? { ...item, points: op.points } : item));
         break;
       }
+      case 'upgrade_revision': {
+        // The reducer only mirrors what the strip renders (position, points,
+        // correct, thumbnail); it doesn't track question_revision_id at all,
+        // so there is nothing local to update — the server is authoritative
+        // and the next read-back reflects the new revision.
+        break;
+      }
       case 'set_group':
       case 'add_group':
       case 'update_group':

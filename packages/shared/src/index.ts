@@ -35,6 +35,16 @@ export {
   type DrawingScene,
   drawingAttrsSchema,
   type DrawingAttrs,
+  curriculumSubjectSchema,
+  type CurriculumSubject,
+  curriculumTopicSchema,
+  type CurriculumTopic,
+  curriculumOutcomeSchema,
+  type CurriculumOutcome,
+  bankFilterSchema,
+  type BankFilter,
+  bulkTagInputSchema,
+  type BulkTagInput,
 } from './schemas';
 export {
   NUMERIC_ENTITLEMENT_KEYS,

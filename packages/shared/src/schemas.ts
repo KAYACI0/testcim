@@ -164,6 +164,8 @@ export const testOpSchema = z.discriminatedUnion('type', [
   }),
   z.object({ type: z.literal('update_settings'), settings: testSettingsSchema }),
   z.object({ type: z.literal('update_title'), title: z.string().min(1) }),
+  /** Moves an unpinned item onto its question's current revision (Prompt 08). */
+  z.object({ type: z.literal('upgrade_revision'), item_id: uuidSchema }),
 ]);
 
 export type TestOp = z.infer<typeof testOpSchema>;
@@ -238,3 +240,63 @@ export const drawingAttrsSchema = z.object({
 });
 
 export type DrawingAttrs = z.infer<typeof drawingAttrsSchema>;
+
+/**
+ * Prompt 08 (soru bankası ve müfredat): curriculum tables are tenant-less
+ * system data (docs/02 §6), read-only to clients, written only by
+ * `scripts/curriculum/import.ts`.
+ */
+export const curriculumSubjectSchema = z.object({
+  id: uuidSchema,
+  code: z.string(),
+  name: z.string(),
+  grade_from: z.number().int().nullable(),
+  grade_to: z.number().int().nullable(),
+});
+
+export type CurriculumSubject = z.infer<typeof curriculumSubjectSchema>;
+
+export const curriculumTopicSchema = z.object({
+  id: uuidSchema,
+  subject_id: uuidSchema,
+  parent_id: uuidSchema.nullable(),
+  name: z.string(),
+});
+
+export type CurriculumTopic = z.infer<typeof curriculumTopicSchema>;
+
+export const curriculumOutcomeSchema = z.object({
+  id: uuidSchema,
+  subject_id: uuidSchema,
+  topic_id: uuidSchema.nullable(),
+  grade: z.number().int().nullable(),
+  code: z.string().nullable(),
+  description: z.string(),
+});
+
+export type CurriculumOutcome = z.infer<typeof curriculumOutcomeSchema>;
+
+/** `/bank` filter bar state (docs/prompts/08 item 2): one row, all optional. */
+export const bankFilterSchema = z.object({
+  folderId: uuidSchema.nullable().optional(),
+  search: z.string().max(200).optional(),
+  subjectId: uuidSchema.optional(),
+  topicId: uuidSchema.optional(),
+  outcomeId: uuidSchema.optional(),
+  difficulty: z.number().int().min(1).max(5).optional(),
+  questionType: z.enum(QUESTION_TYPES).optional(),
+  tagIds: z.array(uuidSchema).optional(),
+  createdBy: uuidSchema.optional(),
+  aiStatus: z.enum(['draft', 'approved']).optional(),
+  createdFrom: z.iso.date().optional(),
+  createdTo: z.iso.date().optional(),
+});
+
+export type BankFilter = z.infer<typeof bankFilterSchema>;
+
+export const bulkTagInputSchema = z.object({
+  questionIds: z.array(uuidSchema).min(1).max(500),
+  tagIds: z.array(uuidSchema).min(1),
+});
+
+export type BulkTagInput = z.infer<typeof bulkTagInputSchema>;
