@@ -1,5 +1,8 @@
 # Testcim: Claude Code proje belleği
 
+benimle konuşurken her zaman türkçe konuş.
+ve her propmttan sonra isteneni yapınca githuba push et.
+
 Ürün: Testcim, öğretmenler için hızlı ve profesyonel test/sınav hazırlama platformu. Çekirdek vaat: ekran alıntısını yapıştır (Ctrl+V), saniyeler içinde baskıya hazır PDF.
 
 Tek doğruluk kaynakları (her oturumda ilgili olanı oku):
@@ -9,7 +12,7 @@ Tek doğruluk kaynakları (her oturumda ilgili olanı oku):
 - docs/prompts/ : dilim dilim uygulama promptları
 
 Bu belgelerle çelişen bir karar gerekiyorsa DUR ve kullanıcıya sor. Sessizce sapma.
-
+github repom: https://github.com/KAYACI0/testcim
 ## Dil
 - Kod, yorumlar, commit mesajları, dosya ve değişken adları: İngilizce.
 - Kullanıcıya görünen HER metin Türkçe olup `apps/web/messages/tr.json` üzerinden gelir (İngilizce `en.json` de tutulur). JSX içinde sabit metin yazma.
