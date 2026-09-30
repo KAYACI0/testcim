@@ -752,6 +752,22 @@ export interface Database {
         Args: { p_workspace_id: string; p_id: string };
         Returns: void;
       };
+      get_class_report: {
+        Args: { p_workspace_id: string; p_class_id: string };
+        Returns: unknown;
+      };
+      get_outcome_report: {
+        Args: { p_workspace_id: string; p_class_id: string; p_student_id?: string | null };
+        Returns: unknown;
+      };
+      get_student_progress: {
+        Args: { p_workspace_id: string; p_student_id: string };
+        Returns: unknown;
+      };
+      get_weak_topics: {
+        Args: { p_workspace_id: string; p_class_id: string };
+        Returns: unknown;
+      };
       apply_test_ops: {
         Args: { p_test_id: string; p_base_revision: number; p_ops: unknown };
         Returns: unknown;

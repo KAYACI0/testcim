@@ -341,3 +341,60 @@ export const linkResultsInputSchema = z.object({
 });
 
 export type LinkResultsInput = z.infer<typeof linkResultsInputSchema>;
+
+/**
+ * `docs/prompts/12` PR5 report RPC outputs. Only `exam_attempts`/
+ * `attempt_answers` are aggregated — OMR results need a position→question_id
+ * mapping that isn't built yet (see the migration's scope note).
+ */
+export const classReportSchema = z.object({
+  student_count: z.number().int().min(0),
+  attempt_count: z.number().int().min(0),
+  average_percent: z.number().nullable(),
+  score_distribution: z.array(z.object({ student_id: uuidSchema, percent: z.number() })),
+  hardest_questions: z.array(
+    z.object({
+      item_id: uuidSchema,
+      question_id: uuidSchema,
+      stem_preview: z.string(),
+      correct_rate_percent: z.number(),
+    }),
+  ),
+});
+
+export type ClassReport = z.infer<typeof classReportSchema>;
+
+export const outcomeReportRowSchema = z.object({
+  outcome_id: uuidSchema,
+  description: z.string(),
+  correct_count: z.number().int().min(0),
+  total_count: z.number().int().min(0),
+  correct_rate_percent: z.number(),
+});
+
+export const outcomeReportSchema = z.array(outcomeReportRowSchema);
+
+export type OutcomeReportRow = z.infer<typeof outcomeReportRowSchema>;
+
+export const studentProgressRowSchema = z.object({
+  exam_title: z.string(),
+  score: z.number(),
+  max_score: z.number(),
+  submitted_at: z.string(),
+});
+
+export const studentProgressSchema = z.array(studentProgressRowSchema);
+
+export type StudentProgressRow = z.infer<typeof studentProgressRowSchema>;
+
+export const weakTopicRowSchema = z.object({
+  topic_id: uuidSchema,
+  name: z.string(),
+  correct_count: z.number().int().min(0),
+  total_count: z.number().int().min(0),
+  correct_rate_percent: z.number(),
+});
+
+export const weakTopicsSchema = z.array(weakTopicRowSchema);
+
+export type WeakTopicRow = z.infer<typeof weakTopicRowSchema>;

@@ -383,6 +383,17 @@ söyler.
   `features/report-cards/build-scores.ts`, `omr_scans.score`'u zaten 0-100
   normalize edilmiş kabul ediyor; PR5'in rapor RPC'leri tek bir paylaşılan
   puanlama modeli tanımladığında bu varsayım gözden geçirilmeli.
+- **PR5'in rapor RPC'leri (`get_class_report`, `get_outcome_report`,
+  `get_student_progress`, `get_weak_topics`) yalnızca çevrimiçi sınav
+  sonuçlarını (`exam_attempts`/`attempt_answers`) topluyor; optik okuma
+  sonuçları hariç.** `omr_scans.answers` baloncuk pozisyonuyla anahtarlanıyor,
+  `test_items.id`'ye eşlenmiyor — bu eşleme `omr_forms.template` +
+  `test_versions.item_order` gerektiriyor ve gerçek OMR verisiyle
+  doğrulanmadan yazılmamalı (planın kendi işaret ettiği en riskli madde,
+  bkz. migration'ın kapsam notu). Bir sınıfın kazanım/konu raporları şu an
+  yalnızca o sınıfın öğrencilerinin çevrimiçi sınav sonuçlarını yansıtıyor.
+- **Toplu karne üretimi sayfası (`reports/[classId]/report-cards`) kurulmadı**
+  — PR4'ün backlog notuyla aynı Worker/ZIP bağımlılığı.
 - **Sürüm geçmişi geri yükleme (test_snapshots kontrol noktaları) yapılmadı** —
   plandaki en riskli madde, ayrı bir spike/PR gerektiriyor (PR6).
 - **`supabase/tests/120_result_linking.sql` ve `080_classes.sql`'e eklenen PR1/PR2

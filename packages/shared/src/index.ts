@@ -55,6 +55,17 @@ export {
   MAX_RESULT_LINKS,
   linkResultsInputSchema,
   type LinkResultsInput,
+  classReportSchema,
+  type ClassReport,
+  outcomeReportRowSchema,
+  outcomeReportSchema,
+  type OutcomeReportRow,
+  studentProgressRowSchema,
+  studentProgressSchema,
+  type StudentProgressRow,
+  weakTopicRowSchema,
+  weakTopicsSchema,
+  type WeakTopicRow,
 } from './schemas';
 export { scoreAnswer, totalScore, type ScoredItem } from './scoring';
 export {

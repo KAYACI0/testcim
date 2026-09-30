@@ -548,6 +548,44 @@
       "importError": "İçe aktarma başarısız oldu."
     }
   },
+  "reports": {
+    "list": {
+      "title": "Raporlar",
+      "description": "Bir sınıf seçin.",
+      "empty": "Henüz bir sınıf yok."
+    },
+    "class": {
+      "description": "Sınıfın çevrimiçi sınav sonuçlarına dayalı özeti.",
+      "averagePercentLabel": "Ortalama",
+      "attemptCountLabel": "Değerlendirilen sınav sayısı",
+      "distributionTitle": "Öğrenci dağılımı",
+      "hardestQuestionsTitle": "En çok yanlış yapılan sorular",
+      "weakTopicsTitle": "Zayıf konular",
+      "untitledQuestion": "Başlıksız soru",
+      "empty": "Veri yok.",
+      "columns": {
+        "student": "Öğrenci",
+        "percent": "Yüzde",
+        "question": "Soru",
+        "correctRate": "Doğru oranı",
+        "topic": "Konu"
+      }
+    },
+    "student": {
+      "description": "Öğrencinin zaman içindeki sınav performansı.",
+      "progressChartTitle": "Gelişim grafiği",
+      "progressTableTitle": "Sınav sonuçları",
+      "outcomesTableTitle": "Kazanım bazlı performans",
+      "empty": "Veri yok.",
+      "columns": {
+        "exam": "Sınav",
+        "score": "Puan",
+        "date": "Tarih",
+        "outcome": "Kazanım",
+        "correctRate": "Doğru oranı"
+      }
+    }
+  },
   "exams": {
     "list": {
       "title": "Çevrimiçi sınavlar",

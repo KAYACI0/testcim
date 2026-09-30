@@ -548,6 +548,44 @@
       "importError": "Import failed."
     }
   },
+  "reports": {
+    "list": {
+      "title": "Reports",
+      "description": "Pick a class.",
+      "empty": "No classes yet."
+    },
+    "class": {
+      "description": "Class summary based on online-exam results.",
+      "averagePercentLabel": "Average",
+      "attemptCountLabel": "Scored exams",
+      "distributionTitle": "Student distribution",
+      "hardestQuestionsTitle": "Most-missed questions",
+      "weakTopicsTitle": "Weak topics",
+      "untitledQuestion": "Untitled question",
+      "empty": "No data.",
+      "columns": {
+        "student": "Student",
+        "percent": "Percent",
+        "question": "Question",
+        "correctRate": "Correct rate",
+        "topic": "Topic"
+      }
+    },
+    "student": {
+      "description": "This student's exam performance over time.",
+      "progressChartTitle": "Progress chart",
+      "progressTableTitle": "Exam results",
+      "outcomesTableTitle": "Performance by outcome",
+      "empty": "No data.",
+      "columns": {
+        "exam": "Exam",
+        "score": "Score",
+        "date": "Date",
+        "outcome": "Outcome",
+        "correctRate": "Correct rate"
+      }
+    }
+  },
   "exams": {
     "list": {
       "title": "Online exams",
