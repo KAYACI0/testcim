@@ -48,6 +48,7 @@
   "editor": {
     "topBar": {
       "titleLabel": "Test name",
+      "collaboration": "Collaboration",
       "preview": "Preview",
       "export": "Export",
       "saveStatus": {
@@ -92,6 +93,39 @@
       "mismatch": "Parsed {parsed} answers, but the test has {total} questions.",
       "apply": "Apply"
     }
+  },
+  "collaboration": {
+    "title": "Collaboration",
+    "close": "Close",
+    "tabs": {
+      "comments": "Comments",
+      "approval": "Approval",
+      "history": "Version history"
+    },
+    "noComments": "No comments yet.",
+    "commentPlaceholder": "Write a comment. Use @Full Name to mention someone.",
+    "addCommentAction": "Add comment",
+    "resolveAction": "Mark resolved",
+    "resolved": "Resolved",
+    "commentError": "Could not add the comment.",
+    "approvalHint": "Change this test's approval status. Only an owner/admin can approve it.",
+    "approvalError": "Could not change the approval status.",
+    "status": {
+      "draft": "Draft",
+      "in_review": "In review",
+      "approved": "Approved"
+    },
+    "noHistory": "No version history yet.",
+    "revisionLabel": "Revision {revision}",
+    "restoreAction": "Restore this version",
+    "restoreError": "Could not restore the version."
+  },
+  "notifications": {
+    "bellLabel": "Notifications",
+    "empty": "No notifications.",
+    "newBadge": "New",
+    "mentionLabel": "You were mentioned in a comment",
+    "approvalRequestLabel": "Approval requested"
   },
   "richEditor": {
     "newQuestion": "Write a new question",

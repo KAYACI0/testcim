@@ -8,6 +8,7 @@ import type { EditorStore } from '@/features/editor/store';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { CollaborationPanel } from '@/features/collaboration/components/collaboration-panel';
 import { PublishExamDialog } from '@/features/online-exam/publish-dialog';
 
 const SAVE_STATUS_KEY = {
@@ -17,12 +18,19 @@ const SAVE_STATUS_KEY = {
   error: 'error',
 } as const;
 
-export function EditorTopBar({ store }: { readonly store: EditorStore }) {
+export function EditorTopBar({
+  store,
+  approvalStatus,
+}: {
+  readonly store: EditorStore;
+  readonly approvalStatus: 'draft' | 'in_review' | 'approved';
+}) {
   const title = useStore(store, (s) => s.title);
   const testId = useStore(store, (s) => s.testId);
   const saveStatus = useStore(store, (s) => s.saveStatus);
   const t = useTranslations('editor.topBar');
   const [draftTitle, setDraftTitle] = useState(title);
+  const [collaborationOpen, setCollaborationOpen] = useState(false);
 
   return (
     <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
@@ -46,6 +54,9 @@ export function EditorTopBar({ store }: { readonly store: EditorStore }) {
       </div>
 
       <div className="flex shrink-0 items-center gap-2">
+        <Button variant="secondary" size="sm" onClick={() => setCollaborationOpen(true)}>
+          {t('collaboration')}
+        </Button>
         <Button variant="secondary" size="sm" disabled>
           {t('preview')}
         </Button>
@@ -54,6 +65,12 @@ export function EditorTopBar({ store }: { readonly store: EditorStore }) {
         </Button>
         <PublishExamDialog testId={testId} defaultTitle={title} />
       </div>
+      <CollaborationPanel
+        open={collaborationOpen}
+        onOpenChange={setCollaborationOpen}
+        testId={testId}
+        approvalStatus={approvalStatus}
+      />
     </div>
   );
 }

@@ -99,7 +99,7 @@ export function EditorClient({
 
   return (
     <div className="flex h-[calc(100vh-3.5rem)] flex-col">
-      <EditorTopBar store={store} />
+      <EditorTopBar store={store} approvalStatus={data.approvalStatus} />
       <div className="flex min-h-0 flex-1">
         <div className="w-80 shrink-0 border-r border-line">
           <QuestionStrip store={store} />

@@ -405,6 +405,7 @@ export interface Database {
           title: string;
           type: 'exam' | 'test_paper' | 'mock' | 'written' | 'worksheet' | 'quiz';
           status: 'draft' | 'ready' | 'archived';
+          approval_status: 'draft' | 'in_review' | 'approved';
           settings: Record<string, unknown>;
           settings_version: number;
           version_count: number;
@@ -448,6 +449,66 @@ export interface Database {
           position: string;
         };
         Update: Partial<Database['public']['Tables']['test_items']['Row']>;
+        Relationships: [];
+      };
+      test_snapshots: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          test_id: string;
+          revision: number;
+          snapshot: Record<string, unknown>;
+          full_state: Record<string, unknown> | null;
+          reason: string | null;
+          created_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['test_snapshots']['Row']> & {
+          workspace_id: string;
+          test_id: string;
+          revision: number;
+          snapshot: Record<string, unknown>;
+        };
+        Update: Partial<Database['public']['Tables']['test_snapshots']['Row']>;
+        Relationships: [];
+      };
+      comments: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          resource_type: 'question' | 'test';
+          resource_id: string;
+          author_id: string | null;
+          body: string;
+          resolved_at: Timestamp | null;
+          resolved_by: string | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['comments']['Row']> & {
+          workspace_id: string;
+          resource_type: 'question' | 'test';
+          resource_id: string;
+          body: string;
+        };
+        Update: Partial<Database['public']['Tables']['comments']['Row']>;
+        Relationships: [];
+      };
+      notifications: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          user_id: string;
+          kind: 'mention' | 'approval_request';
+          payload: Record<string, unknown>;
+          read_at: Timestamp | null;
+          created_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['notifications']['Row']> & {
+          workspace_id: string;
+          user_id: string;
+          kind: 'mention' | 'approval_request';
+        };
+        Update: Partial<Database['public']['Tables']['notifications']['Row']>;
         Relationships: [];
       };
       students: {
@@ -767,6 +828,18 @@ export interface Database {
       get_weak_topics: {
         Args: { p_workspace_id: string; p_class_id: string };
         Returns: unknown;
+      };
+      notify_comment_mentions: {
+        Args: { p_workspace_id: string; p_comment_id: string; p_mentioned_user_ids: string[] };
+        Returns: void;
+      };
+      set_test_approval_status: {
+        Args: { p_test_id: string; p_status: string };
+        Returns: void;
+      };
+      restore_test_snapshot: {
+        Args: { p_test_id: string; p_revision: number };
+        Returns: { ok: boolean; current_revision: number };
       };
       apply_test_ops: {
         Args: { p_test_id: string; p_base_revision: number; p_ops: unknown };

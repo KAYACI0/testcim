@@ -48,6 +48,7 @@
   "editor": {
     "topBar": {
       "titleLabel": "Test adı",
+      "collaboration": "İşbirliği",
       "preview": "Önizle",
       "export": "Çıktı al",
       "saveStatus": {
@@ -92,6 +93,39 @@
       "mismatch": "{parsed} cevap ayrıştırıldı, testte {total} soru var.",
       "apply": "Uygula"
     }
+  },
+  "collaboration": {
+    "title": "İşbirliği",
+    "close": "Kapat",
+    "tabs": {
+      "comments": "Yorumlar",
+      "approval": "Onay",
+      "history": "Sürüm geçmişi"
+    },
+    "noComments": "Henüz yorum yok.",
+    "commentPlaceholder": "Bir yorum yazın. @Ad Soyad ile bir kişiyi belirtebilirsiniz.",
+    "addCommentAction": "Yorum ekle",
+    "resolveAction": "Çözüldü işaretle",
+    "resolved": "Çözüldü",
+    "commentError": "Yorum eklenemedi.",
+    "approvalHint": "Bu testin onay durumunu değiştirin. Yalnızca sahip/yönetici onaylayabilir.",
+    "approvalError": "Onay durumu değiştirilemedi.",
+    "status": {
+      "draft": "Taslak",
+      "in_review": "İncelemede",
+      "approved": "Onaylandı"
+    },
+    "noHistory": "Henüz sürüm geçmişi yok.",
+    "revisionLabel": "Sürüm {revision}",
+    "restoreAction": "Bu sürüme geri dön",
+    "restoreError": "Sürüm geri yüklenemedi."
+  },
+  "notifications": {
+    "bellLabel": "Bildirimler",
+    "empty": "Bildirim yok.",
+    "newBadge": "Yeni",
+    "mentionLabel": "Bir yorumda sizden bahsedildi",
+    "approvalRequestLabel": "Onay isteniyor"
   },
   "richEditor": {
     "newQuestion": "Yeni soru yaz",

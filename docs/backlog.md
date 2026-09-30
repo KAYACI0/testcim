@@ -394,8 +394,27 @@ söyler.
   yalnızca o sınıfın öğrencilerinin çevrimiçi sınav sonuçlarını yansıtıyor.
 - **Toplu karne üretimi sayfası (`reports/[classId]/report-cards`) kurulmadı**
   — PR4'ün backlog notuyla aynı Worker/ZIP bağımlılığı.
-- **Sürüm geçmişi geri yükleme (test_snapshots kontrol noktaları) yapılmadı** —
-  plandaki en riskli madde, ayrı bir spike/PR gerektiriyor (PR6).
+- **Sürüm geçmişi geri yükleme yapıldı ama planın önerdiği "periyodik kontrol
+  noktası + replay" tasarımıyla değil.** PR6, her `apply_test_ops` çağrısında
+  tam durumu (`test_snapshots.full_state`) kaydetme yaklaşımını seçti —
+  replay mantığı canlı veritabanı testi olmadan güvenilir yazılamazdı. Bkz.
+  docs/adr/0008. Depolama maliyeti şu an kabul edilebilir varsayılıyor;
+  büyük testler/sık düzenleme gerçek kullanımda sorun çıkarırsa periyodik
+  kontrol noktasına geçilebilir (full_state nullable, geriye uyumlu).
+- **Resend e-posta entegrasyonu hâlâ yok.** PR6'nın mention/onay-isteği
+  bildirimleri yalnızca uygulama içi `notifications` tablosu + zil ikonu
+  üzerinden çalışıyor; gerçek e-posta gönderimi yapılmıyor (bkz. docs/adr/0008).
+  Prompt 03'ten kalan `inviteMember` e-posta borcuyla (yukarıda, "Dilim 03'ten
+  kalanlar") aynı nedenle (kimlik bilgisi/ağ erişimi yok) aynı kapsamda
+  bırakıldı; gerçek Resend kimlik bilgileriyle ikisi birlikte kurulmalı.
+- **`apply_test_ops`'un `add_group`/`update_group` op tiplerini hiç işlememesi
+  (mevcut, bu PR'dan önceki bir tutarsızlık) `full_state` geri yüklemesinin
+  kapsamını da etkiliyor** — yalnızca `test_items` + başlık/ayarlar geri
+  yükleniyor, bölüm/grup yapısı değil (bkz. docs/adr/0008 "Kapsam sınırı").
+- **`comments`/`notifications` UI'ı yalnızca test seviyesinde (`resource_type
+  = 'test'`) bağlandı.** `resource_type = 'question'` şeması ve RLS'i var
+  ama soru editörüne bir yorum paneli eklenmedi — v1 kapsamı test editörüyle
+  sınırlı tutuldu.
 - **`supabase/tests/120_result_linking.sql` ve `080_classes.sql`'e eklenen PR1/PR2
   testleri bu oturumda çalıştırılamadı** (önceki dilimlerdeki aynı bilinen
   kısıt: yerel Docker/Supabase CLI yok).

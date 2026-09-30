@@ -72,6 +72,7 @@ export interface EditorData {
   readonly testId: string;
   readonly title: string;
   readonly baseRevision: number;
+  readonly approvalStatus: 'draft' | 'in_review' | 'approved';
   readonly items: {
     id: string;
     position: string;
@@ -89,7 +90,7 @@ export async function fetchEditorData(testId: string): Promise<EditorData> {
 
   const { data: test, error: testError } = await supabase
     .from('tests')
-    .select('id, title, revision')
+    .select('id, title, revision, approval_status')
     .eq('id', testId)
     .single();
 
@@ -142,6 +143,7 @@ export async function fetchEditorData(testId: string): Promise<EditorData> {
     testId: test.id,
     title: test.title,
     baseRevision: test.revision,
+    approvalStatus: test.approval_status,
     items: items.map((item) => {
       const assetId = stemAssetByQuestionId.get(item.question_id);
       const location = assetId ? pathByAssetId.get(assetId) : undefined;

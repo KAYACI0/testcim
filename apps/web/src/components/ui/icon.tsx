@@ -1,5 +1,6 @@
 import {
   ArrowsDownUp,
+  Bell,
   CaretDown,
   CaretLeft,
   CaretRight,
@@ -51,6 +52,7 @@ import type { Icon as PhosphorIcon, IconWeight } from '@phosphor-icons/react';
  */
 const ICONS = {
   'arrows-down-up': ArrowsDownUp,
+  bell: Bell,
   'caret-down': CaretDown,
   'caret-left': CaretLeft,
   'caret-right': CaretRight,

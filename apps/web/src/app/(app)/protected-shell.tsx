@@ -12,6 +12,7 @@ import { AppShell } from '@/components/patterns/app-shell';
 import { Logo, LogoMark } from '@/components/patterns/logo';
 import { Icon } from '@/components/ui/icon';
 import { Menu, MenuContent, MenuItem, MenuSeparator, MenuTrigger } from '@/components/ui/menu';
+import { NotificationBell } from '@/features/notifications/components/notification-bell';
 import { signOut } from '@/lib/auth/actions';
 import { switchWorkspace } from '@/lib/workspace/actions';
 
@@ -71,6 +72,7 @@ export function ProtectedShell({
               </select>
             </form>
           )}
+          <NotificationBell />
           <Menu>
             <MenuTrigger asChild>
               <button
