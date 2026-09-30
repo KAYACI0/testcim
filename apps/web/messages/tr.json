@@ -482,7 +482,22 @@
       },
       "actions": {
         "edit": "Düzenle",
+        "reportCard": "Karne",
         "archive": "Arşivle"
+      },
+      "reportCard": {
+        "title": "{name} - Karne",
+        "close": "Kapat",
+        "summarySectionTitle": "Öğretmen değerlendirmesi",
+        "noSummary": "Henüz bir değerlendirme oluşturulmadı.",
+        "statusDraft": "Taslak - karnede görünmeden önce onaylanmalı",
+        "statusApproved": "Onaylandı - karnede görünür",
+        "requestSummaryAction": "Yapay zeka ile taslak oluştur",
+        "approveAction": "Onayla",
+        "downloadAction": "Karneyi indir (PDF)",
+        "summaryError": "Değerlendirme oluşturulamadı.",
+        "approveError": "Onaylama başarısız oldu.",
+        "downloadError": "Karne oluşturulamadı."
       },
       "addStudent": {
         "studentNoLabel": "Numara",

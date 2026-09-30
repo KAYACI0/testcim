@@ -482,7 +482,22 @@
       },
       "actions": {
         "edit": "Edit",
+        "reportCard": "Report card",
         "archive": "Archive"
+      },
+      "reportCard": {
+        "title": "{name} - Report card",
+        "close": "Close",
+        "summarySectionTitle": "Teacher's assessment",
+        "noSummary": "No assessment generated yet.",
+        "statusDraft": "Draft - must be approved before it appears on the report card",
+        "statusApproved": "Approved - appears on the report card",
+        "requestSummaryAction": "Draft with AI",
+        "approveAction": "Approve",
+        "downloadAction": "Download report card (PDF)",
+        "summaryError": "Could not generate the assessment.",
+        "approveError": "Approval failed.",
+        "downloadError": "Could not generate the report card."
       },
       "addStudent": {
         "studentNoLabel": "Number",

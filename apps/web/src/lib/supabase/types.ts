@@ -655,6 +655,30 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['omr_scans']['Row']>;
         Relationships: [];
       };
+      report_card_summaries: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          student_id: string;
+          class_id: string;
+          source_report: Record<string, unknown>;
+          summary_text: string;
+          status: 'draft' | 'approved';
+          approved_by: string | null;
+          approved_at: Timestamp | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['report_card_summaries']['Row']> & {
+          workspace_id: string;
+          student_id: string;
+          class_id: string;
+          source_report: Record<string, unknown>;
+          summary_text: string;
+        };
+        Update: Partial<Database['public']['Tables']['report_card_summaries']['Row']>;
+        Relationships: [];
+      };
       jobs: {
         Row: {
           id: string;
@@ -723,6 +747,10 @@ export interface Database {
       link_attempts_to_students: {
         Args: { p_workspace_id: string; p_links: unknown };
         Returns: { linked: number };
+      };
+      approve_report_card_summary: {
+        Args: { p_workspace_id: string; p_id: string };
+        Returns: void;
       };
       apply_test_ops: {
         Args: { p_test_id: string; p_base_revision: number; p_ops: unknown };

@@ -368,6 +368,21 @@ söyler.
   alınmalı.
 - **QTI vs Moodle XML kararı verilmedi** (plandaki ADR 12.2 uygulayıcıya
   bırakılmıştı, henüz araştırılmadı).
+- **Toplu karne/kişisel baskı üretimi (Web Worker + ilerleme + ZIP) yapılmadı.**
+  PR4'te yalnızca tek öğrenci karne PDF'i (`generateReportCardPdf`) ve AI özet
+  taslak/onay akışı kuruldu (`features/report-cards/`). Planın 0.3 bölümündeki
+  "tüm sınıf için toplu üretim, Worker'da, ilerleme mesajlı, ZIP çıktı" akışı
+  ayrı bir iş olarak kalmalı — `features/capture/worker/client.ts`'in
+  request/response deseni temel alınabilir, ama Worker-güvenli bir zip
+  kütüphanesi (`fflate` vb.) seçimi güncel belgeye bakılmadan yapılmamalı.
+- **Kişiye özel baskı (`addPersonalizedCoverPage`) hiçbir UI'a bağlanmadı.**
+  PR3'te yazılan fonksiyon PR4'te de kullanılmadı — gerçek bir sınav PDF'i
+  üreten bir kaynağa (Prompt 05/09 render çıktısı) ihtiyaç duyuyor, bu da genel
+  yerleşim motoruyla aynı bağımlılık zincirine giriyor.
+- **Karne puan satırlarında OMR "maxScore=100" varsayımı doğrulanmadı.**
+  `features/report-cards/build-scores.ts`, `omr_scans.score`'u zaten 0-100
+  normalize edilmiş kabul ediyor; PR5'in rapor RPC'leri tek bir paylaşılan
+  puanlama modeli tanımladığında bu varsayım gözden geçirilmeli.
 - **Sürüm geçmişi geri yükleme (test_snapshots kontrol noktaları) yapılmadı** —
   plandaki en riskli madde, ayrı bir spike/PR gerektiriyor (PR6).
 - **`supabase/tests/120_result_linking.sql` ve `080_classes.sql`'e eklenen PR1/PR2

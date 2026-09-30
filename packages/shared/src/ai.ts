@@ -17,6 +17,7 @@ export const AI_JOB_KINDS = [
   'auto_tag',
   'page_split',
   'nl_command',
+  'report_card_summary',
 ] as const;
 
 export type AiJobKind = (typeof AI_JOB_KINDS)[number];
@@ -40,6 +41,7 @@ export const AI_CREDIT_COSTS: Record<AiJobKind, number> = {
   auto_tag: 1,
   page_split: 1,
   nl_command: 1,
+  report_card_summary: 1,
 };
 
 /**
@@ -60,6 +62,7 @@ export const AI_JOB_DEFAULT_QUALITY: Record<AiJobKind, AiModelQuality> = {
   auto_tag: 'fast',
   page_split: 'fast',
   nl_command: 'quality',
+  report_card_summary: 'quality',
 };
 
 export const AI_JOB_STATUSES = ['queued', 'running', 'succeeded', 'failed'] as const;

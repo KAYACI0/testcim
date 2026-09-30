@@ -17,6 +17,7 @@ import {
 } from '@/features/classes/actions.server';
 import { ImportRosterDialog } from '@/features/classes/components/import-roster-dialog';
 import { StudentForm } from '@/features/classes/components/student-form';
+import { ReportCardDialog } from '@/features/report-cards/components/report-card-dialog';
 
 export function RosterClient({
   classId,
@@ -37,6 +38,7 @@ export function RosterClient({
   const [retentionPending, startRetentionTransition] = useTransition();
   const [editingStudent, setEditingStudent] = useState<StudentRow | null>(null);
   const [archivePending, startArchiveTransition] = useTransition();
+  const [reportCardStudent, setReportCardStudent] = useState<StudentRow | null>(null);
 
   function handleRetentionSave() {
     startRetentionTransition(async () => {
@@ -78,6 +80,13 @@ export function RosterClient({
             onClick={() => setEditingStudent(row)}
           >
             {t('actions.edit')}
+          </button>
+          <button
+            type="button"
+            className="text-ink-2 hover:text-accent"
+            onClick={() => setReportCardStudent(row)}
+          >
+            {t('actions.reportCard')}
           </button>
           <button
             type="button"
@@ -161,6 +170,19 @@ export function RosterClient({
             setEditingStudent(null);
             router.refresh();
           }}
+        />
+      )}
+
+      {reportCardStudent && (
+        <ReportCardDialog
+          key={reportCardStudent.id}
+          open={reportCardStudent !== null}
+          onOpenChange={(next) => {
+            if (!next) setReportCardStudent(null);
+          }}
+          studentId={reportCardStudent.id}
+          studentName={reportCardStudent.full_name}
+          classId={classId}
         />
       )}
 
