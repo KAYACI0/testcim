@@ -219,6 +219,38 @@ söyler.
   (yerel Supabase yok); `questions_workspace_id_idx` + `stem_text` trigram indeksi zaten
   var, 300ms hedefi tasarım gereği karşılanmalı ama ölçülmedi.
 
+## Dilim 09'dan kalanlar
+
+- **Canlı (live) mod arayüzü yok.** Şema (`online_exams.mode='live'`) ve tehdit modeli
+  kararı (docs/adr/0004 §9) hazır, ama öğretmen paneli için Realtime Presence tabanlı
+  lobi/ilerleme ekranı uygulanmadı. `async` mod uçtan uca çalışıyor.
+- **300 eşzamanlı öğrenci yük testi (k6) çalıştırılmadı.** Bu ortamda k6, Docker veya
+  gerçek bir Supabase/Vercel dağıtımı yok; betik yazılıp gerçek bir ortama karşı
+  çalıştırılmalı.
+- **Hız sınırı Upstash yerine Postgres tabanlı.** `check_exam_rate_limit()` RPC'si aynı
+  true/false sözleşmesini sağlıyor ama dağıtık Redis'e göre daha az hassas (bkz.
+  docs/adr/0004 §5). Gerçek Upstash kimlik bilgileri eklenirse değiştirilebilir.
+- **Öğretmen tarafında açık uçlu soru elle puanlama arayüzü yok.** `regradeOpenAnswer`
+  server action'ı ve `ensureAttemptScored`'ın "elle verilen puan kalıcıdır" mantığı
+  yazılıp test edildi, ama `/exams/[id]` sonuç ekranında bunu tetikleyen bir arayüz
+  (soru bazlı açık uçlu cevap görüntüleme + puan girişi) henüz yok.
+- **`roster` erişim modu, sınıf listesine karşı doğrulanmıyor.** Öğrenci serbest metin
+  olarak ad/numara giriyor; `students`/`class_students` tablolarına karşı eşleşme
+  kontrolü yapılmıyor (yalnızca `max_attempts` için serbest metnin hash'i tekilleştirme
+  amacıyla kullanılıyor).
+- **`fill`/`match`/`order` öğrenci arayüzü basitleştirildi.** `mcq`/`tf`/`numeric` tam;
+  `fill` yalnızca boşluk sayısını (`blankCount`, içeriği değil) güvenle açığa çıkarıp
+  metin kutuları gösteriyor; `match` her seçenek için serbest metin eşleştirmesi
+  istiyor (büyük/küçük harf duyarlı, tam eşleşme); `order` yukarı/aşağı düğmeleriyle
+  sıralanıyor (sürükle-bırak yok).
+- **iframe gömme (Pro) ertelendi.** CSP `frame-ancestors` `next.config.ts`'de sabit
+  `'none'`; çalışma alanına özel dinamik değer bir middleware gerektirir.
+- **E2E ve pgTAP bu oturumda çalıştırılamadı** (dilim 08'deki aynı bilinen kısıt: yerel
+  Docker/Supabase CLI yok). `supabase/tests/095_online_exam_runtime.sql` ve
+  `apps/web/e2e/online-exam.spec.ts` (`test.skip`, kimlik doğrulama fixture'ı eksik)
+  yazıldı ama doğrulanmadı; birim testler (puanlama, KR-20/ayırt edicilik, süre hesabı,
+  belirteç hash'i) 228 testle yeşil.
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.
