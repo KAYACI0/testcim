@@ -20,6 +20,10 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: t('appName'),
+    icons: {
+      icon: '/brand/logo.png',
+      apple: '/brand/logo.png',
+    },
   };
 }
 

@@ -5,12 +5,10 @@ import { useState } from 'react';
 import { cn } from '@/lib/cn';
 
 /**
- * Brand SVGs are optional (docs/03 section 7: the brand owner supplies them later).
- * Existence can't be checked with node:fs here — reading `public/` at request time isn't
- * reliable once this runs as a Vercel serverless function, and bundling fs into this
- * module also breaks the client build for any client component that renders it. An
- * `onError` fallback is the standard, environment-independent way to detect a missing
- * static asset.
+ * `onError` fallback handles the case where the brand asset is ever removed from
+ * `public/brand` — reading the filesystem at request time isn't reliable once this
+ * runs as a Vercel serverless function, and bundling fs into this module also breaks
+ * the client build for any client component that renders it.
  */
 
 export interface LogoProps {
@@ -25,11 +23,11 @@ export function Logo({ className }: LogoProps) {
   }
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- brand SVG, not an optimizable photo
+    // eslint-disable-next-line @next/next/no-img-element -- brand raster, not an optimizable photo
     <img
-      src="/brand/logo.svg"
+      src="/brand/logo.png"
       alt="Testcim"
-      className={cn('h-6', className)}
+      className={cn('h-9 w-auto', className)}
       onError={() => setMissing(true)}
     />
   );
@@ -57,12 +55,14 @@ export function LogoMark({ className }: LogoMarkProps) {
   }
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- brand SVG, not an optimizable photo
-    <img
-      src="/brand/mark.svg"
-      alt="Testcim"
-      className={cn('h-6 w-6', className)}
-      onError={() => setMissing(true)}
-    />
+    <span className={cn('block h-6 w-6 overflow-hidden', className)}>
+      {/* eslint-disable-next-line @next/next/no-img-element -- brand raster, cropped to the icon mark */}
+      <img
+        src="/brand/logo.png"
+        alt="Testcim"
+        className="h-[420%] w-[420%] max-w-none -translate-y-[8%]"
+        onError={() => setMissing(true)}
+      />
+    </span>
   );
 }
