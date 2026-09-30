@@ -23,9 +23,9 @@ export function Logo({ className }: LogoProps) {
   }
 
   return (
-    // eslint-disable-next-line @next/next/no-img-element -- brand raster, not an optimizable photo
+    // eslint-disable-next-line @next/next/no-img-element -- brand svg, not an optimizable photo
     <img
-      src="/brand/logo.png"
+      src="/brand/logo.svg"
       alt="Testcim"
       className={cn('h-9 w-auto', className)}
       onError={() => setMissing(true)}
@@ -56,11 +56,11 @@ export function LogoMark({ className }: LogoMarkProps) {
 
   return (
     <span className={cn('block h-6 w-6 overflow-hidden', className)}>
-      {/* eslint-disable-next-line @next/next/no-img-element -- brand raster, cropped to the icon mark */}
+      {/* eslint-disable-next-line @next/next/no-img-element -- brand svg, pre-cropped to the icon mark */}
       <img
-        src="/brand/logo.png"
+        src="/brand/icon-mark.svg"
         alt="Testcim"
-        className="h-[420%] w-[420%] max-w-none -translate-y-[8%]"
+        className="h-full w-full object-contain"
         onError={() => setMissing(true)}
       />
     </span>

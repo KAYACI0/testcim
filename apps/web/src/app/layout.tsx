@@ -21,8 +21,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t('appName'),
     icons: {
-      icon: '/brand/logo.png',
-      apple: '/brand/logo.png',
+      icon: [{ url: '/brand/icon-mark.svg', type: 'image/svg+xml' }],
+      apple: '/brand/icon-mark.svg',
     },
   };
 }
