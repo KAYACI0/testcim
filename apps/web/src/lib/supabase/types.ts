@@ -456,6 +456,8 @@ export interface Database {
           workspace_id: string;
           full_name: string;
           student_no: string | null;
+          external_ref: string | null;
+          archived_at: Timestamp | null;
           created_at: Timestamp;
           updated_at: Timestamp;
         };
@@ -464,6 +466,40 @@ export interface Database {
           full_name: string;
         };
         Update: Partial<Database['public']['Tables']['students']['Row']>;
+        Relationships: [];
+      };
+      classes: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          name: string;
+          grade: number | null;
+          school_year: string | null;
+          archived: boolean;
+          retention_until: string | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['classes']['Row']> & {
+          workspace_id: string;
+          name: string;
+        };
+        Update: Partial<Database['public']['Tables']['classes']['Row']>;
+        Relationships: [];
+      };
+      class_students: {
+        Row: {
+          workspace_id: string;
+          class_id: string;
+          student_id: string;
+          created_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['class_students']['Row']> & {
+          workspace_id: string;
+          class_id: string;
+          student_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['class_students']['Row']>;
         Relationships: [];
       };
       online_exams: {
@@ -634,6 +670,14 @@ export interface Database {
       has_role: {
         Args: { ws: string; roles: string[] };
         Returns: boolean;
+      };
+      bulk_import_students: {
+        Args: { p_workspace_id: string; p_class_id: string; p_rows: unknown };
+        Returns: { inserted: number; linked: number };
+      };
+      bulk_delete_students: {
+        Args: { p_workspace_id: string; p_student_ids: string[] };
+        Returns: void;
       };
       apply_test_ops: {
         Args: { p_test_id: string; p_base_revision: number; p_ops: unknown };

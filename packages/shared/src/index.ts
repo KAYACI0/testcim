@@ -45,6 +45,11 @@ export {
   type BankFilter,
   bulkTagInputSchema,
   type BulkTagInput,
+  rosterImportRowSchema,
+  type RosterImportRow,
+  MAX_ROSTER_IMPORT_ROWS,
+  rosterImportInputSchema,
+  type RosterImportInput,
 } from './schemas';
 export { scoreAnswer, totalScore, type ScoredItem } from './scoring';
 export {

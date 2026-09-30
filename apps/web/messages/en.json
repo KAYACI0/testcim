@@ -443,6 +443,82 @@
       "upgradeMessage": "You're close to your plan limit. Upgrade for more."
     }
   },
+  "classes": {
+    "list": {
+      "title": "Classes",
+      "description": "Manage your classes and student rosters.",
+      "empty": "No classes yet. Create one.",
+      "create": "New class",
+      "columns": {
+        "name": "Class",
+        "grade": "Grade",
+        "schoolYear": "School year",
+        "studentCount": "Students",
+        "retention": "Retention"
+      },
+      "retentionIndefinite": "Indefinite",
+      "archived": "Archived",
+      "archiveAction": "Archive"
+    },
+    "new": {
+      "title": "New class",
+      "nameLabel": "Class name",
+      "namePlaceholder": "9-A",
+      "gradeLabel": "Grade",
+      "gradePlaceholder": "9",
+      "schoolYearLabel": "School year",
+      "schoolYearPlaceholder": "2025-2026",
+      "schoolYearHint": "Retention defaults to one year past this year's end; change it anytime.",
+      "create": "Create",
+      "createError": "Couldn't create the class. Check the details and try again."
+    },
+    "roster": {
+      "studentsTitle": "Students",
+      "empty": "No students in this class yet. Import a roster.",
+      "columns": {
+        "studentNo": "No.",
+        "fullName": "Full name",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "archive": "Archive"
+      },
+      "addStudent": {
+        "studentNoLabel": "Number",
+        "fullNameLabel": "Full name",
+        "add": "Add",
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+      "importTrigger": "Import student roster",
+      "bulkDeleteTrigger": "Delete selected",
+      "bulkDeleteConfirmTitle": "Permanently delete students",
+      "bulkDeleteConfirmMessage": "This cannot be undone. Selected students are permanently deleted; past exam and OMR results remain, only the student link is removed.",
+      "bulkDeleteConfirm": "Delete permanently",
+      "cancel": "Cancel",
+      "retentionLabel": "Retention",
+      "retentionHint": "After this date the class's student links are removed automatically; the student record itself is not deleted.",
+      "retentionSave": "Save"
+    },
+    "import": {
+      "title": "Import student roster",
+      "fileLabel": "Excel or CSV file",
+      "fileHint": "The first row is used as the column header.",
+      "mapStepTitle": "Map columns",
+      "studentNoColumnLabel": "Number column (optional)",
+      "fullNameColumnLabel": "Full name column",
+      "noColumn": "Don't use",
+      "previewTitle": "Preview",
+      "rowError": "Row {row}: {reason}",
+      "reasonFullNameRequired": "missing full name",
+      "reasonDuplicateStudentNo": "duplicate number",
+      "confirm": "Import",
+      "cancel": "Cancel",
+      "successMessage": "{inserted} students imported.",
+      "importError": "Import failed."
+    }
+  },
   "exams": {
     "list": {
       "title": "Online exams",

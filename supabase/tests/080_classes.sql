@@ -1,5 +1,5 @@
 begin;
-select plan(5);
+select plan(9);
 
 create temporary table fx (key text primary key, id uuid);
 insert into fx (key, id) values
@@ -62,6 +62,51 @@ select tests.as_service_role();
 select is(
   (select name from public.classes where id = (select id from fx where key = 'class_a')),
   '9A', 'cross-tenant: owner_b''s update to ws_a''s class affects 0 rows'
+);
+
+-- Prompt 12 (PR1): bulk_import_students / bulk_delete_students.
+select tests.as_user((select id from fx where key = 'owner_a'));
+
+select is(
+  (
+    select (public.bulk_import_students(
+      (select id from fx where key = 'ws_a'),
+      (select id from fx where key = 'class_a'),
+      '[{"student_no": "101", "full_name": "Grace Kelly"}]'::jsonb
+    ) ->> 'inserted')::int
+  ),
+  1, 'bulk_import_students inserts a student and links it to the class'
+);
+
+select tests.as_user((select id from fx where key = 'owner_b'));
+select throws_ok(
+  format(
+    $sql$select public.bulk_import_students(%L, %L, '[{"full_name": "x"}]'::jsonb)$sql$,
+    (select id from fx where key = 'ws_a'),
+    (select id from fx where key = 'class_a')
+  ),
+  '42501',
+  'cross-tenant: owner_b cannot import students into ws_a''s class'
+);
+
+select throws_ok(
+  format(
+    $sql$select public.bulk_delete_students(%L, array[%L]::uuid[])$sql$,
+    (select id from fx where key = 'ws_a'),
+    (select id from fx where key = 'student_a')
+  ),
+  '42501',
+  'cross-tenant: owner_b cannot bulk_delete_students in ws_a'
+);
+
+select tests.as_user((select id from fx where key = 'owner_a'));
+select public.bulk_delete_students(
+  (select id from fx where key = 'ws_a'),
+  array[(select id from fx where key = 'student_a')]::uuid[]
+);
+select is(
+  (select count(*)::int from public.students where id = (select id from fx where key = 'student_a')),
+  0, 'bulk_delete_students permanently removes the student row'
 );
 
 select * from finish();

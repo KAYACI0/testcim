@@ -443,6 +443,82 @@
       "upgradeMessage": "Plan sınırınıza yaklaştınız. Daha fazlası için planınızı yükseltin."
     }
   },
+  "classes": {
+    "list": {
+      "title": "Sınıflar",
+      "description": "Sınıflarınızı ve öğrenci listelerinizi yönetin.",
+      "empty": "Henüz sınıf yok. Bir sınıf oluşturun.",
+      "create": "Yeni sınıf",
+      "columns": {
+        "name": "Sınıf",
+        "grade": "Düzey",
+        "schoolYear": "Öğretim yılı",
+        "studentCount": "Öğrenci sayısı",
+        "retention": "Saklama süresi"
+      },
+      "retentionIndefinite": "Süresiz",
+      "archived": "Arşivlendi",
+      "archiveAction": "Arşivle"
+    },
+    "new": {
+      "title": "Yeni sınıf",
+      "nameLabel": "Sınıf adı",
+      "namePlaceholder": "9-A",
+      "gradeLabel": "Sınıf düzeyi",
+      "gradePlaceholder": "9",
+      "schoolYearLabel": "Öğretim yılı",
+      "schoolYearPlaceholder": "2025-2026",
+      "schoolYearHint": "Saklama süresi bu yılın bitişinden 1 yıl sonrasına ayarlanır, dilediğiniz zaman değiştirebilirsiniz.",
+      "create": "Oluştur",
+      "createError": "Sınıf oluşturulamadı. Bilgileri kontrol edip tekrar deneyin."
+    },
+    "roster": {
+      "studentsTitle": "Öğrenciler",
+      "empty": "Bu sınıfta henüz öğrenci yok. Bir öğrenci listesi içe aktarın.",
+      "columns": {
+        "studentNo": "Numara",
+        "fullName": "Ad soyad",
+        "actions": "İşlemler"
+      },
+      "actions": {
+        "edit": "Düzenle",
+        "archive": "Arşivle"
+      },
+      "addStudent": {
+        "studentNoLabel": "Numara",
+        "fullNameLabel": "Ad soyad",
+        "add": "Ekle",
+        "save": "Kaydet",
+        "cancel": "Vazgeç"
+      },
+      "importTrigger": "Öğrenci listesi içe aktar",
+      "bulkDeleteTrigger": "Seçilenleri sil",
+      "bulkDeleteConfirmTitle": "Öğrencileri kalıcı olarak sil",
+      "bulkDeleteConfirmMessage": "Bu işlem geri alınamaz. Seçilen öğrenciler kalıcı olarak silinir; geçmiş sınav ve optik sonuçları kalır, yalnızca öğrenciyle bağlantısı kalkar.",
+      "bulkDeleteConfirm": "Kalıcı olarak sil",
+      "cancel": "Vazgeç",
+      "retentionLabel": "Saklama süresi",
+      "retentionHint": "Bu tarihten sonra sınıfın öğrenci bağlantıları otomatik kaldırılır; öğrenci kaydı silinmez.",
+      "retentionSave": "Kaydet"
+    },
+    "import": {
+      "title": "Öğrenci listesi içe aktar",
+      "fileLabel": "Excel veya CSV dosyası",
+      "fileHint": "İlk satır kolon başlığı olarak kullanılır.",
+      "mapStepTitle": "Kolonları eşleştir",
+      "studentNoColumnLabel": "Numara kolonu (isteğe bağlı)",
+      "fullNameColumnLabel": "Ad soyad kolonu",
+      "noColumn": "Kullanma",
+      "previewTitle": "Önizleme",
+      "rowError": "Satır {row}: {reason}",
+      "reasonFullNameRequired": "ad soyad eksik",
+      "reasonDuplicateStudentNo": "tekrarlanan numara",
+      "confirm": "İçe aktar",
+      "cancel": "Vazgeç",
+      "successMessage": "{inserted} öğrenci içe aktarıldı.",
+      "importError": "İçe aktarma başarısız oldu."
+    }
+  },
   "exams": {
     "list": {
       "title": "Çevrimiçi sınavlar",

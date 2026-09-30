@@ -300,3 +300,24 @@ export const bulkTagInputSchema = z.object({
 });
 
 export type BulkTagInput = z.infer<typeof bulkTagInputSchema>;
+
+/**
+ * `docs/prompts/12` roster import: one validated row, after the client's
+ * column-mapping step resolved which spreadsheet column is which. KVKK
+ * binding rule — never add fields beyond number + full name.
+ */
+export const rosterImportRowSchema = z.object({
+  studentNo: z.string().trim().max(50).optional(),
+  fullName: z.string().trim().min(1).max(200),
+});
+
+export type RosterImportRow = z.infer<typeof rosterImportRowSchema>;
+
+export const MAX_ROSTER_IMPORT_ROWS = 300;
+
+export const rosterImportInputSchema = z.object({
+  classId: uuidSchema,
+  rows: z.array(rosterImportRowSchema).min(1).max(MAX_ROSTER_IMPORT_ROWS),
+});
+
+export type RosterImportInput = z.infer<typeof rosterImportInputSchema>;
