@@ -13,7 +13,7 @@ export interface OtpFormState {
 
 const emailSchema = z.email();
 
-/** Sends a magic-link/OTP email. Supabase's confirmation link lands on `/auth/confirm`. */
+/** Sends a magic-link/OTP email. Supabase's confirmation link lands on `/auth/callback`. */
 export async function requestOtp(_prev: OtpFormState, formData: FormData): Promise<OtpFormState> {
   const email = emailSchema.safeParse(formData.get('email'));
 
@@ -25,7 +25,7 @@ export async function requestOtp(_prev: OtpFormState, formData: FormData): Promi
   const { error } = await supabase.auth.signInWithOtp({
     email: email.data,
     options: {
-      emailRedirectTo: `${clientEnv.NEXT_PUBLIC_SITE_URL}/auth/confirm`,
+      emailRedirectTo: `${clientEnv.NEXT_PUBLIC_SITE_URL}/auth/callback`,
       shouldCreateUser: true,
     },
   });
