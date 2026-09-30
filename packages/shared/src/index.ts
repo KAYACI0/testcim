@@ -50,6 +50,11 @@ export {
   MAX_ROSTER_IMPORT_ROWS,
   rosterImportInputSchema,
   type RosterImportInput,
+  resultLinkSchema,
+  type ResultLink,
+  MAX_RESULT_LINKS,
+  linkResultsInputSchema,
+  type LinkResultsInput,
 } from './schemas';
 export { scoreAnswer, totalScore, type ScoredItem } from './scoring';
 export {

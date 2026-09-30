@@ -321,3 +321,23 @@ export const rosterImportInputSchema = z.object({
 });
 
 export type RosterImportInput = z.infer<typeof rosterImportInputSchema>;
+
+/**
+ * `docs/prompts/12` result linking: bulk-attach exam_attempts/omr_scans rows
+ * to student records via `link_attempts_to_students`.
+ */
+export const resultLinkSchema = z.object({
+  kind: z.enum(['exam_attempt', 'omr_scan']),
+  id: uuidSchema,
+  studentId: uuidSchema,
+});
+
+export type ResultLink = z.infer<typeof resultLinkSchema>;
+
+export const MAX_RESULT_LINKS = 300;
+
+export const linkResultsInputSchema = z.object({
+  links: z.array(resultLinkSchema).min(1).max(MAX_RESULT_LINKS),
+});
+
+export type LinkResultsInput = z.infer<typeof linkResultsInputSchema>;

@@ -499,7 +499,21 @@
       "cancel": "Cancel",
       "retentionLabel": "Retention",
       "retentionHint": "After this date the class's student links are removed automatically; the student record itself is not deleted.",
-      "retentionSave": "Save"
+      "retentionSave": "Save",
+      "linkResultsAction": "Link results"
+    },
+    "linkResults": {
+      "pageDescription": "Link unmatched online-exam and OMR results to students on this class's roster.",
+      "omrSectionTitle": "OMR results",
+      "examSectionTitle": "Online exam results",
+      "empty": "No results to link.",
+      "pickStudent": "Pick a student",
+      "columns": {
+        "source": "Exam",
+        "studentNo": "Read number",
+        "student": "Student"
+      },
+      "applyAction": "Link selected ({count})"
     },
     "import": {
       "title": "Import student roster",

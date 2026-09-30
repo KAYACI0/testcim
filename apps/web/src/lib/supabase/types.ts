@@ -614,6 +614,47 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['attempt_answers']['Row']>;
         Relationships: [];
       };
+      omr_sessions: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          test_id: string;
+          class_id: string | null;
+          status: 'pending' | 'scanning' | 'completed';
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['omr_sessions']['Row']> & {
+          workspace_id: string;
+          test_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['omr_sessions']['Row']>;
+        Relationships: [];
+      };
+      omr_scans: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          session_id: string;
+          asset_id: string | null;
+          student_id: string | null;
+          student_no_read: string | null;
+          version_code: string | null;
+          answers: Record<string, unknown>;
+          confidence: Record<string, unknown>;
+          needs_review: boolean;
+          reviewed_by: string | null;
+          score: number | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['omr_scans']['Row']> & {
+          workspace_id: string;
+          session_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['omr_scans']['Row']>;
+        Relationships: [];
+      };
       jobs: {
         Row: {
           id: string;
@@ -678,6 +719,10 @@ export interface Database {
       bulk_delete_students: {
         Args: { p_workspace_id: string; p_student_ids: string[] };
         Returns: void;
+      };
+      link_attempts_to_students: {
+        Args: { p_workspace_id: string; p_links: unknown };
+        Returns: { linked: number };
       };
       apply_test_ops: {
         Args: { p_test_id: string; p_base_revision: number; p_ops: unknown };

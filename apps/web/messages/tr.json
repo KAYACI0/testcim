@@ -499,7 +499,21 @@
       "cancel": "Vazgeç",
       "retentionLabel": "Saklama süresi",
       "retentionHint": "Bu tarihten sonra sınıfın öğrenci bağlantıları otomatik kaldırılır; öğrenci kaydı silinmez.",
-      "retentionSave": "Kaydet"
+      "retentionSave": "Kaydet",
+      "linkResultsAction": "Sonuçları eşleştir"
+    },
+    "linkResults": {
+      "pageDescription": "Öğrenciyle eşleşmemiş sınav ve optik okuma sonuçlarını sınıf listesindeki öğrencilerle ilişkilendirin.",
+      "omrSectionTitle": "Optik okuma sonuçları",
+      "examSectionTitle": "Çevrimiçi sınav sonuçları",
+      "empty": "Eşleştirilecek sonuç yok.",
+      "pickStudent": "Öğrenci seçin",
+      "columns": {
+        "source": "Sınav",
+        "studentNo": "Okunan numara",
+        "student": "Öğrenci"
+      },
+      "applyAction": "Seçilenleri eşleştir ({count})"
     },
     "import": {
       "title": "Öğrenci listesi içe aktar",
