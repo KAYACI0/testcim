@@ -46,6 +46,18 @@ export {
   bulkTagInputSchema,
   type BulkTagInput,
 } from './schemas';
+export { scoreAnswer, totalScore, type ScoredItem } from './scoring';
+export {
+  difficultyP,
+  discriminationIndex,
+  optionDistribution,
+  kr20,
+  mean,
+  standardDeviation,
+  type AttemptItemScore,
+} from './item-analysis';
+export { computeDeadline, isPastDeadline, isWithinExamWindow } from './exam-timing';
+export { seededShuffle } from './seeded-shuffle';
 export {
   NUMERIC_ENTITLEMENT_KEYS,
   type NumericEntitlementKey,
