@@ -278,6 +278,39 @@
       "revisionLabel": "Revision {revision}"
     }
   },
+  "onlineExam": {
+    "loading": "Loading…",
+    "errors": {
+      "generic": "Something went wrong ({reason}). Reload the page."
+    },
+    "joinDescription": "Enter your details to join.",
+    "fields": {
+      "displayName": "Full name",
+      "studentNo": "Student number",
+      "classLabel": "Class",
+      "joinCode": "Join code"
+    },
+    "joinButton": "Start exam",
+    "submitted": {
+      "title": "Your answers were saved",
+      "score": "Your score: {score} / {maxScore}",
+      "resultsHidden": "Results will be shared by your teacher."
+    },
+    "timeRemaining": "Time remaining",
+    "tabSwitchNotice": "Tab switches are recorded.",
+    "submitButton": "Submit exam",
+    "tf": {
+      "true": "True",
+      "false": "False"
+    },
+    "fill": {
+      "blankPlaceholder": "Blank {n}"
+    },
+    "order": {
+      "moveUp": "Move up",
+      "moveDown": "Move down"
+    }
+  },
   "auth": {
     "title": "Sign in",
     "subtitle": "Continue with a link sent to your email, or with Google.",
@@ -408,6 +441,91 @@
       },
       "unlimited": "Unlimited",
       "upgradeMessage": "You're close to your plan limit. Upgrade for more."
+    }
+  },
+  "exams": {
+    "list": {
+      "title": "Online exams",
+      "description": "All published online exams.",
+      "empty": "No exams published yet.",
+      "columns": {
+        "title": "Title",
+        "mode": "Mode",
+        "status": "Status",
+        "createdAt": "Published"
+      },
+      "mode": {
+        "async": "Self-paced",
+        "live": "Live"
+      },
+      "status": {
+        "draft": "Draft",
+        "scheduled": "Scheduled",
+        "open": "Open",
+        "closed": "Closed"
+      }
+    },
+    "publish": {
+      "trigger": "Publish online",
+      "title": "Publish online exam",
+      "close": "Close",
+      "titlePlaceholder": "Exam title",
+      "modeLabel": "Mode",
+      "modeAsync": "Self-paced (open-close window)",
+      "modeLive": "Live (teacher starts)",
+      "accessLabel": "Access",
+      "accessLink": "By link",
+      "accessCode": "By code",
+      "accessRoster": "By roster",
+      "durationPlaceholder": "Duration (minutes, optional)",
+      "showResultsLabel": "Result visibility",
+      "showResultsNever": "Never",
+      "showResultsAfterSubmit": "After submit",
+      "showResultsAfterClose": "After close",
+      "shuffleNote": "Questions and options are shuffled per student",
+      "publishButton": "Publish",
+      "publishing": "Publishing…",
+      "publishFailed": "Could not publish: {reason}",
+      "publishedMessage": "Exam published. Share the link with your students."
+    },
+    "results": {
+      "title": "Exam results",
+      "empty": "No participants yet.",
+      "exportCsv": "Download CSV",
+      "exportExcel": "Download Excel",
+      "closeNow": "Close now",
+      "tabSwitchCount": "{count} tab switches",
+      "columns": {
+        "name": "Name",
+        "studentNo": "Student no",
+        "status": "Status",
+        "score": "Score",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "blank": "Blank",
+        "duration": "Duration",
+        "flags": "Flags"
+      },
+      "status": {
+        "in_progress": "In progress",
+        "submitted": "Submitted",
+        "expired": "Expired"
+      },
+      "summary": {
+        "participants": "{count} participants",
+        "mean": "Mean: {value}",
+        "stdDev": "Std. deviation: {value}",
+        "kr20": "KR-20: {value}"
+      },
+      "analysis": {
+        "title": "Item analysis",
+        "empty": "Not enough data for analysis.",
+        "columns": {
+          "item": "Item",
+          "difficulty": "Difficulty (p)",
+          "discrimination": "Discrimination"
+        }
+      }
     }
   },
   "legal": {

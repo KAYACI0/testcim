@@ -278,6 +278,39 @@
       "revisionLabel": "Sürüm {revision}"
     }
   },
+  "onlineExam": {
+    "loading": "Yükleniyor…",
+    "errors": {
+      "generic": "Bir sorun oluştu ({reason}). Sayfayı yenileyin."
+    },
+    "joinDescription": "Katılmak için bilgilerinizi girin.",
+    "fields": {
+      "displayName": "Ad Soyad",
+      "studentNo": "Numara",
+      "classLabel": "Sınıf",
+      "joinCode": "Katılım kodu"
+    },
+    "joinButton": "Sınava başla",
+    "submitted": {
+      "title": "Cevaplarınız kaydedildi",
+      "score": "Puanınız: {score} / {maxScore}",
+      "resultsHidden": "Sonuçlar öğretmeniniz tarafından paylaşılacak."
+    },
+    "timeRemaining": "Kalan süre",
+    "tabSwitchNotice": "Sekme değiştirme sayısı kaydedilir.",
+    "submitButton": "Sınavı teslim et",
+    "tf": {
+      "true": "Doğru",
+      "false": "Yanlış"
+    },
+    "fill": {
+      "blankPlaceholder": "{n}. boşluk"
+    },
+    "order": {
+      "moveUp": "Yukarı taşı",
+      "moveDown": "Aşağı taşı"
+    }
+  },
   "auth": {
     "title": "Giriş yapın",
     "subtitle": "E-posta adresinize gönderilen bağlantıyla veya Google hesabınızla devam edin.",
@@ -408,6 +441,91 @@
       },
       "unlimited": "Sınırsız",
       "upgradeMessage": "Plan sınırınıza yaklaştınız. Daha fazlası için planınızı yükseltin."
+    }
+  },
+  "exams": {
+    "list": {
+      "title": "Çevrimiçi sınavlar",
+      "description": "Yayınlanan tüm çevrimiçi sınavlar.",
+      "empty": "Henüz yayınlanmış sınav yok.",
+      "columns": {
+        "title": "Başlık",
+        "mode": "Mod",
+        "status": "Durum",
+        "createdAt": "Yayın tarihi"
+      },
+      "mode": {
+        "async": "Kendi hızında",
+        "live": "Canlı"
+      },
+      "status": {
+        "draft": "Taslak",
+        "scheduled": "Zamanlanmış",
+        "open": "Açık",
+        "closed": "Kapalı"
+      }
+    },
+    "publish": {
+      "trigger": "Çevrimiçi yayınla",
+      "title": "Çevrimiçi sınav yayınla",
+      "close": "Kapat",
+      "titlePlaceholder": "Sınav başlığı",
+      "modeLabel": "Mod",
+      "modeAsync": "Kendi hızında (açılış-kapanış penceresi)",
+      "modeLive": "Canlı (öğretmen başlatır)",
+      "accessLabel": "Erişim",
+      "accessLink": "Bağlantı ile",
+      "accessCode": "Kod ile",
+      "accessRoster": "Sınıf listesiyle",
+      "durationPlaceholder": "Süre (dakika, isteğe bağlı)",
+      "showResultsLabel": "Sonuç gösterimi",
+      "showResultsNever": "Asla",
+      "showResultsAfterSubmit": "Teslimden sonra",
+      "showResultsAfterClose": "Kapanışta",
+      "shuffleNote": "Soru ve şıklar her öğrenci için karıştırılır",
+      "publishButton": "Yayınla",
+      "publishing": "Yayınlanıyor…",
+      "publishFailed": "Yayınlanamadı: {reason}",
+      "publishedMessage": "Sınav yayınlandı. Bağlantıyı öğrencilerinizle paylaşın."
+    },
+    "results": {
+      "title": "Sınav sonuçları",
+      "empty": "Henüz katılım yok.",
+      "exportCsv": "CSV indir",
+      "exportExcel": "Excel indir",
+      "closeNow": "Şimdi kapat",
+      "tabSwitchCount": "{count} sekme değişimi",
+      "columns": {
+        "name": "Ad Soyad",
+        "studentNo": "Numara",
+        "status": "Durum",
+        "score": "Puan",
+        "correct": "Doğru",
+        "incorrect": "Yanlış",
+        "blank": "Boş",
+        "duration": "Süre",
+        "flags": "Uyarılar"
+      },
+      "status": {
+        "in_progress": "Devam ediyor",
+        "submitted": "Teslim edildi",
+        "expired": "Süresi doldu"
+      },
+      "summary": {
+        "participants": "{count} katılımcı",
+        "mean": "Ortalama: {value}",
+        "stdDev": "Standart sapma: {value}",
+        "kr20": "KR-20: {value}"
+      },
+      "analysis": {
+        "title": "Madde analizi",
+        "empty": "Analiz için yeterli veri yok.",
+        "columns": {
+          "item": "Soru",
+          "difficulty": "Zorluk (p)",
+          "discrimination": "Ayırt edicilik"
+        }
+      }
     }
   },
   "legal": {

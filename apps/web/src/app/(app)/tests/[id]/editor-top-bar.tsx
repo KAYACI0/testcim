@@ -8,6 +8,7 @@ import type { EditorStore } from '@/features/editor/store';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { PublishExamDialog } from '@/features/online-exam/publish-dialog';
 
 const SAVE_STATUS_KEY = {
   saved: 'saved',
@@ -18,6 +19,7 @@ const SAVE_STATUS_KEY = {
 
 export function EditorTopBar({ store }: { readonly store: EditorStore }) {
   const title = useStore(store, (s) => s.title);
+  const testId = useStore(store, (s) => s.testId);
   const saveStatus = useStore(store, (s) => s.saveStatus);
   const t = useTranslations('editor.topBar');
   const [draftTitle, setDraftTitle] = useState(title);
@@ -50,6 +52,7 @@ export function EditorTopBar({ store }: { readonly store: EditorStore }) {
         <Button size="sm" disabled>
           {t('export')}
         </Button>
+        <PublishExamDialog testId={testId} defaultTitle={title} />
       </div>
     </div>
   );
