@@ -332,6 +332,48 @@ söyler.
   faturayla kuruş hassasiyetinde eşleşmez, yalnızca panelde yön göstermek
   için.
 
+## Dilim 12'den kalanlar (sınıflar, raporlar, işbirliği)
+
+- **Prompt 05 seviyesinde tam genel amaçlı yerleşim motoru yok.**
+  `packages/layout-engine` hâlâ yalnızca tip iskeleti (`LayoutDocument` gerçek
+  soru/blok içeriği taşımıyor). PR3'teki karne/kişisel baskı/DOCX/PPTX
+  renderer'ları bu yüzden `LayoutDocument`'ı hiç okumuyor; kendi dar amaçlı
+  girdi tiplerini alıyorlar (rapor/fatura üretici deseni, `packages/omr/src/pdf.ts`
+  örnek alınarak). Çoklu sütun/kitapçık/soru karıştırma gerektiren tam genel
+  motor ayrı bir iş (muhtemelen Prompt 05) olarak kalmalı.
+- **"Kişiye özel baskı" dar yorumlandı.** `docs/prompts/12` § 5, öğrenci başına
+  tam soru kağıdını yeniden dizmek olarak da okunabilir; bu, genel yerleşim
+  motorunu gerektirir ve yapılmadı. Bunun yerine `addPersonalizedCoverPage`
+  mevcut sınav PDF'inin başına öğrenci adı/numarası + QR yer tutuculu bir kapak
+  sayfası ekliyor, tüm sayfalara filigran döşüyor. Kullanıcıyla konuşulup
+  onaylanan yorum buydu; genel motor kurulursa yeniden değerlendirilmeli.
+- **PDF'lerde Türkçe karakter sorunu karneleri de etkiliyor.** `renderReportCardPdf`
+  ve `addPersonalizedCoverPage`, `renderOmrFormPdf` ile aynı bilinen kısıtı
+  miras alıyor (yukarı bakınız, "Dilim 00'den kalanlar"): pdf-lib'in yerleşik
+  WinAnsi Helvetica'sı ı/İ/ğ/Ğ/ş/Ş'yi kodlayamıyor. OMR formunda bu çoğunlukla
+  sayı/baloncuktu; karnede gerçek öğrenci/sınıf adları olduğu için etkisi çok
+  daha büyük. Gerçek bir OFL Unicode font (`@pdf-lib/fontkit` ile) bundle
+  edilip embed edilmeden çözülmeyecek; bu oturumda internet erişimi
+  olmadığından gerçek bir font dosyası indirilemedi.
+- **DOCX/PPTX export'un gerçek soru verisiyle bağlanması yapılmadı.**
+  `features/exports/actions.server.ts`, `requireFlag('docx_pptx_export')`'ı
+  gerçek bir çağrı noktasına bağlıyor ve `@testcim/renderers`'ın
+  `renderTestDocx`/`renderTestPptx` fonksiyonlarını çağırıyor, ama
+  `test_items`/`questions` satırlarını renderer'ın beklediği dar
+  `ExportQuestion`/`PptxQuestion` şekline (zengin/formül/görsel içerik için
+  render edilmiş PNG dahil) çeviren kod yok. Bu, `rich-editor`'ın HTML render
+  yolunu (yalnızca tarayıcı içi önizleme için var) bir HTML→görsel
+  rasterizasyon hattına (muhtemelen headless tarayıcı) genişletmeyi
+  gerektiriyor — API'sini doğrulamadan uydurmamak için ayrı bir dilimde ele
+  alınmalı.
+- **QTI vs Moodle XML kararı verilmedi** (plandaki ADR 12.2 uygulayıcıya
+  bırakılmıştı, henüz araştırılmadı).
+- **Sürüm geçmişi geri yükleme (test_snapshots kontrol noktaları) yapılmadı** —
+  plandaki en riskli madde, ayrı bir spike/PR gerektiriyor (PR6).
+- **`supabase/tests/120_result_linking.sql` ve `080_classes.sql`'e eklenen PR1/PR2
+  testleri bu oturumda çalıştırılamadı** (önceki dilimlerdeki aynı bilinen
+  kısıt: yerel Docker/Supabase CLI yok).
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.
