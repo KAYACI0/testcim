@@ -17,13 +17,6 @@ export interface BubbleGridSpec {
   readonly diameter: number;
 }
 
-export interface OmrFormTemplate {
-  readonly version: number;
-  readonly answers: BubbleGridSpec;
-  readonly studentNumber: BubbleGridSpec;
-  readonly bookletCode: BubbleGridSpec;
-}
-
 /**
  * Lays out a bubble grid. Pure geometry: the reader and the form generator share it so a
  * scanned sheet is measured against exactly the coordinates that were printed.

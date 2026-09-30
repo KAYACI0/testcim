@@ -11,6 +11,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },
+  "dependencies": {
+    "@testcim/image-tools": "workspace:*",
+    "pdf-lib": "^1.17.1"
+  },
   "devDependencies": {
     "fast-check": "4.10.2",
     "typescript": "6.0.3",

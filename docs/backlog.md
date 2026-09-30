@@ -251,6 +251,45 @@ söyler.
   yazıldı ama doğrulanmadı; birim testler (puanlama, KR-20/ayırt edicilik, süre hesabı,
   belirteç hash'i) 228 testle yeşil.
 
+## Dilim 10'dan kalanlar
+
+- **Sunucu uçları ve arayüz uygulanmadı.** Bu dilimde yalnızca `packages/omr` çekirdeği
+  (form geometrisi, PDF üretimi, saf TypeScript okuyucu: köşe bulma, homografi, doluluk
+  skorlama, belirsizlik sınıflandırması) yazıldı ve test edildi (25 test, doğruluk
+  regresyonu dahil, hepsi yeşil). `apps/web/src/features/omr/actions.server.ts`
+  (form/oturum/tarama server action'ları), Worker sarmalayıcısı
+  (`apps/web/src/features/omr/worker/`), form oluşturma/okuma oturumu/inceleme
+  kuyruğu/sonuçlar ekranları ve `messages/tr.json`+`en.json` metinleri henüz yok.
+  `docs/adr/0005-optik-okuma.md`'de planlanan mimari hazır; uygulama sonraki bir
+  PR'da yapılmalı.
+- **Canlı kamera yakalama yok.** ADR 0005'te bilinçli kapsam dışı (kullanıcıyla
+  netleşti): köşe algılanınca çerçeve gösterip otomatik yakalayan canlı mod, toplu
+  yükleme akışı oturduktan sonra ayrı bir dilimde eklenmeli.
+- **Gerçek QR üretimi/okuma yok.** Form üzerinde yalnızca form kimliğinin yazılı olduğu
+  bir yer tutucu kutu var; `qrcode` (üretim) ve `jsqr` (okuma) gibi bağımlılıklar
+  eklenip gerçek bir barkod akışı kurulmadı. Öğrenci no baloncuk ızgarası otomatik
+  eşleme için zaten yeterli olduğundan bu, kapsam dışı bırakıldı.
+- **Gerçek taranmış/fotoğraflanmış kâğıtla doğrulanmadı.** Doğruluk regresyonu yalnızca
+  `packages/omr/src/fixtures/synthetic.ts`'in ürettiği sentetik piksel görüntüleriyle
+  çalışıyor (gürültü ve gölge fikstürleri var, gerçek eğik/döndürülmüş bir fotoğraf
+  fikstürü yok — homografi matematiği eğimi doğru tolere eder ama bu ayrıca sentetik
+  bir fikstürle kanıtlanmadı). `docs/omr-manual-test.md` (gerçek cihaz test kontrol
+  listesi) henüz yazılmadı.
+- **PDF'lerde Türkçe karakter (ı/İ/ğ/Ğ/ş/Ş) desteği yok.** `renderOmrFormPdf` pdf-lib'in
+  yerleşik WinAnsi Helvetica fontunu kullanıyor; bu karakterleri kodlayamıyor. Bu yüzden
+  paket hiçbir Türkçe metni kendi içinde sabit yazmıyor (etiketler çağırandan parametre
+  olarak gelir), ama gerçek Unicode font + `@pdf-lib/fontkit` entegrasyonu yapılmadı.
+  `packages/renderers`'ın ana PDF motoru da aynı çözülmemiş soruyu taşıyor (docs/adr/0002);
+  ikisi için ortak bir font kararı (hangi OFL lisanslı font, nereden bundle edilecek)
+  ayrı bir iş kalemi olarak ele alınmalı.
+- **Çok sütunlu cevap ızgarası yok.** 200 soruya kadar tek sütun + otomatik çok sayfa ile
+  destekleniyor; yan yana sütunlarla daha az sayfa kullanan bir yerleşim ileride eklenebilir.
+- **pgTAP ve Playwright bu oturumda çalıştırılamadı** (önceki dilimlerdeki aynı bilinen
+  kısıt: yerel Docker/Supabase CLI yok). Şema zaten değişmedi (mevcut
+  `supabase/tests/100_omr.sql` çapraz kiracı testini geçiyor); yeni sunucu uçları
+  yazıldığında aynı testin gerekirse genişletilmesi ve `pnpm db:test`/`pnpm test:e2e`
+  ile doğrulanması gerekiyor.
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.
