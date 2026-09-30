@@ -450,6 +450,134 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['test_items']['Row']>;
         Relationships: [];
       };
+      students: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          full_name: string;
+          student_no: string | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['students']['Row']> & {
+          workspace_id: string;
+          full_name: string;
+        };
+        Update: Partial<Database['public']['Tables']['students']['Row']>;
+        Relationships: [];
+      };
+      online_exams: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          test_id: string;
+          test_snapshot_id: string | null;
+          title: string;
+          mode: 'async' | 'live';
+          access: 'link' | 'code' | 'roster';
+          join_code: string | null;
+          slug: string;
+          opens_at: Timestamp | null;
+          closes_at: Timestamp | null;
+          duration_sec: number | null;
+          max_attempts: number | null;
+          shuffle_questions: boolean;
+          shuffle_options: boolean;
+          show_results: 'never' | 'after_submit' | 'after_close';
+          show_answers: boolean;
+          required_fields: Record<string, unknown>;
+          status: 'draft' | 'scheduled' | 'open' | 'closed';
+          participant_cap: number | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['online_exams']['Row']> & {
+          workspace_id: string;
+          test_id: string;
+          title: string;
+          mode: 'async' | 'live';
+          access: 'link' | 'code' | 'roster';
+          slug: string;
+        };
+        Update: Partial<Database['public']['Tables']['online_exams']['Row']>;
+        Relationships: [];
+      };
+      online_exam_items: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          online_exam_id: string;
+          test_item_id: string | null;
+          question_id: string;
+          question_revision_id: string;
+          section_id: string | null;
+          group_id: string | null;
+          position: string;
+          points_override: number | null;
+          correct_override: unknown;
+          created_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['online_exam_items']['Row']> & {
+          workspace_id: string;
+          online_exam_id: string;
+          question_id: string;
+          question_revision_id: string;
+          position: string;
+        };
+        Update: Partial<Database['public']['Tables']['online_exam_items']['Row']>;
+        Relationships: [];
+      };
+      exam_attempts: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          online_exam_id: string;
+          student_id: string | null;
+          display_name: string | null;
+          student_no: string | null;
+          class_label: string | null;
+          token_hash: string;
+          started_at: Timestamp | null;
+          deadline_at: Timestamp | null;
+          submitted_at: Timestamp | null;
+          status: 'in_progress' | 'submitted' | 'expired';
+          ip_hash: string | null;
+          ua_hash: string | null;
+          flags: Record<string, unknown>;
+          score: number | null;
+          max_score: number | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['exam_attempts']['Row']> & {
+          workspace_id: string;
+          online_exam_id: string;
+          token_hash: string;
+        };
+        Update: Partial<Database['public']['Tables']['exam_attempts']['Row']>;
+        Relationships: [];
+      };
+      attempt_answers: {
+        Row: {
+          workspace_id: string;
+          attempt_id: string;
+          item_id: string;
+          answer: unknown;
+          is_correct: boolean | null;
+          points: number | null;
+          answered_at: Timestamp | null;
+          time_spent_ms: number | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['attempt_answers']['Row']> & {
+          workspace_id: string;
+          attempt_id: string;
+          item_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['attempt_answers']['Row']>;
+        Relationships: [];
+      };
       jobs: {
         Row: {
           id: string;
@@ -487,6 +615,10 @@ export interface Database {
     };
     Views: Record<string, never>;
     Functions: {
+      check_exam_rate_limit: {
+        Args: { p_key: string; p_limit: number; p_window_sec: number };
+        Returns: boolean;
+      };
       get_entitlements: {
         Args: { p_ws: string };
         Returns: Record<string, unknown>;
