@@ -639,6 +639,46 @@ export interface Database {
         Args: { p_test_id: string; p_base_revision: number; p_ops: unknown };
         Returns: unknown;
       };
+      spend_credits: {
+        Args: {
+          p_ws: string;
+          p_amount: number;
+          p_reason: string;
+          p_ref_type?: string | null;
+          p_ref_id?: string | null;
+        };
+        Returns: number;
+      };
+      refund_credits: {
+        Args: {
+          p_ws: string;
+          p_amount: number;
+          p_reason: string;
+          p_ref_type?: string | null;
+          p_ref_id?: string | null;
+        };
+        Returns: number;
+      };
+      create_ai_job: {
+        Args: { p_ws: string; p_kind: string; p_input?: unknown };
+        Returns: string;
+      };
+      complete_ai_job: {
+        Args: {
+          p_job_id: string;
+          p_output: unknown;
+          p_model: string;
+          p_tokens_in: number;
+          p_tokens_out: number;
+          p_cost_micro: number;
+          p_credits_charged: number;
+        };
+        Returns: null;
+      };
+      fail_ai_job: {
+        Args: { p_job_id: string; p_error: string };
+        Returns: null;
+      };
     };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;

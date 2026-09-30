@@ -23,6 +23,18 @@ export const serverEnvSchema = z.object({
   SENTRY_ORG: z.string().min(1).optional(),
   SENTRY_PROJECT: z.string().min(1).optional(),
   SENTRY_AUTH_TOKEN: z.string().min(1).optional(),
+  /**
+   * AI package (Prompt 11). The API key is optional at parse time so the app
+   * still boots in environments/slices that never call the AI pipeline;
+   * `getClaudeApiKey()` throws a clear error the moment a call is attempted
+   * without one. Model ids are env-selected per docs/02-mimari.md § 5.5.
+   */
+  ANTHROPIC_API_KEY: z.string().min(1).optional(),
+  AI_MODEL_QUALITY: z.string().min(1).default('claude-opus-5'),
+  AI_MODEL_FAST: z.string().min(1).default('claude-haiku-4-5'),
+  /** Optional: unset in dev/test falls back to an in-memory rate limiter. */
+  UPSTASH_REDIS_REST_URL: optionalUrl,
+  UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),
 });
 
 export type ClientEnv = z.infer<typeof clientEnvSchema>;

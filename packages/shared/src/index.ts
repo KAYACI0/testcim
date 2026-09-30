@@ -69,3 +69,12 @@ export {
   isWithinLimit,
   remainingRatio,
 } from './entitlements';
+export {
+  AI_JOB_KINDS,
+  type AiJobKind,
+  type AiModelQuality,
+  AI_CREDIT_COSTS,
+  AI_JOB_DEFAULT_QUALITY,
+  AI_JOB_STATUSES,
+  type AiJobStatus,
+} from './ai';

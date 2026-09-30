@@ -290,6 +290,48 @@ söyler.
   yazıldığında aynı testin gerekirse genişletilmesi ve `pnpm db:test`/`pnpm test:e2e`
   ile doğrulanması gerekiyor.
 
+## Dilim 11'den kalanlar (yapay zekâ altyapısı)
+
+- **Hiçbir gerçek özellik promptu yok.** Bu dilim yalnızca altyapıyı
+  (`AiProvider`, kredi/hız sınırı/kayıt hattı, model seçimi, prompt
+  sürümleme mekanizması) kurdu. docs/prompts/11-yapay-zeka-paketi.md § 2'deki
+  11 özellik (soru üret, görselden metne, çeldirici, çözüm, benzer soru,
+  metinden soru, kalite kontrolü, cevap anahtarı okuma, otomatik etiketleme,
+  sayfa bölme, doğal dil komutu) hâlâ ayrı dilimler; "inceleme tepsisi"
+  (taslak onay akışı) ve kredi/`UsageMeter` arayüzü de dahil.
+- **`@anthropic-ai/sdk@0.70.1`'de yapılandırılmış çıktı yalnızca beta ad
+  alanında.** `ClaudeAiProvider`, `client.beta.messages.parse()` +
+  `betaZodOutputFormat` kullanıyor (bkz. docs/adr/0006 § 2). SDK
+  yükseltildiğinde `client.messages.parse` beta olmayan yola taşınabilir mi
+  kontrol edilmeli.
+- **Gerçek bir Claude API çağrısı hiç yapılmadı.** `ANTHROPIC_API_KEY`
+  yoktu (bu ortamda ağ/kimlik bilgisi yok); `ClaudeAiProvider` yalnızca
+  tip kontrolünden geçti, `FakeAiProvider` ile birim testleri yazıldı.
+  Gerçek bir anahtarla en az bir manuel doğrulama (`pnpm test:ai-live`
+  tarzı, docs/prompts/11 § Testler'in istediği gibi) henüz yok.
+- **Upstash Redis bağlı değil.** `UPSTASH_REDIS_REST_URL`/`TOKEN` yok;
+  `InMemoryAiRateLimiter`'a düşülüyor (bkz. docs/adr/0006 § 6). Üretime
+  çıkmadan önce gerçek Upstash kimlik bilgileriyle `UpstashAiRateLimiter`
+  yolu doğrulanmalı.
+- **`supabase/tests/115_ai_pipeline.sql` bu oturumda çalıştırılamadı**
+  (önceki tüm dilimlerdeki aynı bilinen kısıt: yerel Docker/Supabase CLI
+  yok). `refund_credits`/`create_ai_job`/`complete_ai_job`/`fail_ai_job`
+  RPC'leri ve çapraz kiracı reddi testleri yazıldı ama `pnpm db:test` ile
+  doğrulanmadı.
+- **`apps/web/src/lib/supabase/types.ts`'e dört yeni RPC (`refund_credits`,
+  `create_ai_job`, `complete_ai_job`, `fail_ai_job`) ve eksik olan
+  `spend_credits` elle eklendi** (dilim 03'ten kalan not hâlâ geçerli:
+  Docker yok, `pnpm db:types` çalıştırılamadı).
+- **Embedding/vektör arama sağlayıcısı seçilmedi.** Anthropic'in embedding
+  uç noktası yok; docs/prompts/11 § 6 (vektör arama) için ayrı bir
+  sağlayıcı (örn. Voyage AI) o dilimde seçilmeli.
+- **Aylık kredi yükleme cron'u yok.** `ai_credits_per_month` kadar otomatik
+  `credit_ledger` girişi Prompt 13 (faturalandırma) kapsamına ait.
+- **Maliyet tahmini yaklaşık.** `ai_jobs.cost_micro`, statik bir
+  USD/1M-token tablosundan hesaplanıyor (`features/ai/models.ts`); gerçek
+  faturayla kuruş hassasiyetinde eşleşmez, yalnızca panelde yön göstermek
+  için.
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.

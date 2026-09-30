@@ -53,6 +53,14 @@ describe('server environment', () => {
     expect(() => parseEnv(serverEnvSchema, {}, 'server')).toThrow(/SUPABASE_SERVICE_ROLE_KEY/);
   });
 
+  it('defaults the AI model ids and leaves the API key optional', () => {
+    const parsed = parseEnv(serverEnvSchema, { SUPABASE_SERVICE_ROLE_KEY: 'secret' }, 'server');
+
+    expect(parsed.AI_MODEL_QUALITY).toBe('claude-opus-5');
+    expect(parsed.AI_MODEL_FAST).toBe('claude-haiku-4-5');
+    expect(parsed.ANTHROPIC_API_KEY).toBeUndefined();
+  });
+
   it('does not describe any public variable', () => {
     // Guards against a secret schema drifting into the client bundle by accident.
     expect(Object.keys(serverEnvSchema.shape).some((key) => key.startsWith('NEXT_PUBLIC_'))).toBe(
