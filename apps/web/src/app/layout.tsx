@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 
 import type { Metadata } from 'next';
 
+import { Analytics } from '@/components/patterns/analytics';
 import { CookieConsent } from '@/components/patterns/cookie-consent';
 
 import './globals.css';
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <NextIntlClientProvider>
           {children}
           <CookieConsent />
+          <Analytics />
         </NextIntlClientProvider>
       </body>
     </html>

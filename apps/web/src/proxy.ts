@@ -1,8 +1,14 @@
-import type { NextRequest } from 'next/server';
+import { NextResponse, type NextRequest } from 'next/server';
 
+import { isMarketingPath } from '@/lib/site';
 import { updateSession } from '@/lib/supabase/proxy';
 
 export function proxy(request: NextRequest) {
+  // Public marketing pages stay cookie-free so they can be cached as static output.
+  if (isMarketingPath(request.nextUrl.pathname)) {
+    return NextResponse.next();
+  }
+
   return updateSession(request);
 }
 

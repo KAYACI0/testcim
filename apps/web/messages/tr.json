@@ -412,7 +412,8 @@
       "profile": "Profil",
       "workspace": "Çalışma alanı",
       "members": "Üyeler",
-      "plan": "Plan ve kullanım"
+      "plan": "Plan ve kullanım",
+      "billing": "Plan ve fatura"
     },
     "profile": {
       "title": "Profil",
@@ -475,6 +476,97 @@
       },
       "unlimited": "Sınırsız",
       "upgradeMessage": "Plan sınırınıza yaklaştınız. Daha fazlası için planınızı yükseltin."
+    },
+    "billing": {
+      "title": "Plan ve fatura",
+      "currentPlan": "Mevcut plan",
+      "status": {
+        "trialing": "Deneme",
+        "active": "Etkin",
+        "past_due": "Ödeme bekleniyor",
+        "canceled": "İptal edildi"
+      },
+      "trialEnds": "Deneme süreniz {date} tarihinde bitiyor.",
+      "renewal": "Sonraki yenileme: {date}",
+      "cancelScheduled": "Aboneliğiniz {date} tarihinde sona erecek. O tarihe kadar planınızın tüm özellikleri açık kalır.",
+      "pastDue": "Son ödeme alınamadı. Ödeme sağlayıcısı yeniden deneyecek; bu sürede planınız açık kalır.",
+      "downgradeNote": "Planınız ücretsiz plana döndü. Mevcut testleriniz, sorularınız ve dosyalarınız silinmez. Yalnızca yeni içerik oluştururken ücretsiz planın sınırları geçerli olur.",
+      "readOnlyRole": "Plan ve fatura değişikliklerini yalnızca sahip ve yöneticiler yapabilir.",
+      "billingDisabled": "Ödeme bu ortamda henüz etkin değil. Plan değişikliği şimdilik yapılamıyor.",
+      "usageTitle": "Kullanım",
+      "seats": {
+        "title": "Koltuklar",
+        "summary": "{used} / {total} koltuk kullanımda",
+        "overLimit": "Üye sayınız koltuk sınırını aşıyor. Mevcut üyeler korunur, yeni üye davet edilemez.",
+        "manage": "Üyeleri yönetin"
+      },
+      "choosePlanTitle": "Plan seçin",
+      "changePlanTitle": "Planı değiştirin",
+      "intervalLabel": "Faturalama dönemi",
+      "interval": {
+        "month": "Aylık",
+        "year": "Yıllık"
+      },
+      "pricePerMonth": "{price} / ay",
+      "pricePerYear": "{price} / yıl",
+      "priceTbd": "Fiyat henüz açıklanmadı",
+      "current": "Mevcut plan",
+      "chooseTo": "{plan} planını seçin",
+      "switchTo": "{plan} planına geçin",
+      "planChanged": "Plan değişikliği alındı.",
+      "cancel": "Aboneliği iptal et",
+      "cancelHint": "İptal, ödenen dönemin sonunda geçerli olur. Kalan sürede özellikleriniz açık kalır.",
+      "resume": "İptali geri al",
+      "coupon": {
+        "title": "Kupon kodu",
+        "description": "Deneme veya indirim kuponunuz varsa kodu girin.",
+        "label": "Kupon kodu",
+        "apply": "Kodu uygula",
+        "applied": "Kupon uygulandı."
+      },
+      "profile": {
+        "title": "Fatura bilgileri",
+        "description": "Kurumsal fatura için unvan ve vergi bilgilerinizi girin.",
+        "legalName": "Unvan",
+        "taxOffice": "Vergi dairesi",
+        "taxNumber": "Vergi kimlik numarası",
+        "taxNumberHint": "10 haneli vergi numarası veya 11 haneli T.C. kimlik numarası",
+        "address": "Adres",
+        "invoiceEmail": "Fatura e-postası",
+        "save": "Bilgileri kaydet",
+        "saved": "Fatura bilgileri kaydedildi."
+      },
+      "invoices": {
+        "title": "Fatura geçmişi",
+        "empty": "Henüz fatura yok.",
+        "date": "Tarih",
+        "amount": "Tutar",
+        "status": "Durum",
+        "document": "Belge",
+        "view": "Görüntüle",
+        "statuses": {
+          "paid": "Ödendi",
+          "failed": "Başarısız",
+          "refunded": "İade edildi"
+        }
+      },
+      "errors": {
+        "invalid_input": "Girdiğiniz bilgileri kontrol edip yeniden deneyin.",
+        "billing_disabled": "Ödeme bu ortamda henüz etkin değil.",
+        "price_unavailable": "Bu planın fiyatı henüz açıklanmadı.",
+        "no_subscription": "Değiştirilecek etkin bir abonelik yok.",
+        "coupon_invalid": "Kupon kodu geçersiz veya süresi dolmuş.",
+        "coupon_already_used": "Bu kupon bu çalışma alanında daha önce kullanıldı.",
+        "trial_not_available": "Etkin aboneliği olan çalışma alanları deneme başlatamaz.",
+        "failed": "İşlem tamamlanamadı. Biraz sonra yeniden deneyin."
+      },
+      "fakeCheckout": {
+        "title": "Test ödeme sayfası",
+        "description": "Bu sayfa yalnızca geliştirme ortamında ödeme sağlayıcısının yerini tutar. Kart bilgisi istenmez.",
+        "summary": "Seçilen plan: {plan}, dönem: {interval}",
+        "complete": "Ödemeyi tamamla",
+        "back": "Vazgeç"
+      }
     }
   },
   "classes": {
@@ -708,7 +800,11 @@
   "legal": {
     "privacyTitle": "Gizlilik politikası",
     "termsTitle": "Kullanım şartları",
-    "pendingNotice": "Hukuki metin bekleniyor."
+    "pendingNotice": "Hukuki metin bekleniyor.",
+    "kvkkTitle": "KVKK aydınlatma metni",
+    "refundTitle": "İptal ve iade",
+    "copyrightTitle": "Telif bildirimi",
+    "pendingDetail": "Bu sayfanın metni avukat tarafından hazırlanıp yayına alınmadan önce buraya eklenecek."
   },
   "cookieConsent": {
     "message": "Deneyiminizi iyileştirmek için zorunlu olmayan analitik çerezler kullanıyoruz.",
@@ -871,6 +967,318 @@
         "390px'te ray daralıyor, klavye ile tüm kontroller kullanılabiliyor, odak halkası görünür.",
         "Çıkardığım süs: ilk taslakta buton geçişlerinde gölge büyütme vardı; docs/03 tek gölge düzeyini (yalnızca yüzen katmanlar) istiyor, bu yüzden kaldırdım."
       ]
+    }
+  },
+  "marketing": {
+    "skipToContent": "Ana içeriğe geç",
+    "nav": {
+      "label": "Ana gezinme",
+      "features": "Özellikler",
+      "pricing": "Fiyatlandırma",
+      "help": "Yardım",
+      "login": "Giriş yapın",
+      "signup": "Ücretsiz başlayın"
+    },
+    "footer": {
+      "label": "Alt bağlantılar",
+      "productTitle": "Ürün",
+      "companyTitle": "Testcim",
+      "legalTitle": "Hukuki",
+      "note": "Testcim, öğretmenler için test ve sınav hazırlama aracıdır."
+    },
+    "pages": {
+      "home": {
+        "title": "Testcim: ekran alıntısından baskıya hazır test",
+        "description": "Online test hazırlama aracı. Ekran alıntısını yapıştırın, saniyeler içinde baskıya hazır PDF test alın. Soru kırpma, optik okuma ve çevrimiçi sınav tek yerde."
+      },
+      "features": {
+        "title": "Özellikler: soru yakalama, kırpma, çıktı ve optik okuma",
+        "description": "PDF'ten soru kırpma, kitapçık hazırlama, PDF, Word ve PowerPoint çıktısı, optik okuma ve çevrimiçi sınav. Testcim özelliklerinin ayrıntıları."
+      },
+      "pricing": {
+        "title": "Fiyatlandırma ve plan karşılaştırması",
+        "description": "Ücretsiz, Plus, Pro ve Kurum planlarının sınırlarını ve özelliklerini tek tabloda karşılaştırın. Aylık veya yıllık ödeme seçin."
+      },
+      "help": {
+        "title": "Yardım merkezi: kullanım kılavuzu ve sık sorulanlar",
+        "description": "Testcim kullanım kılavuzu: soru yakalama, test hazırlama, çıktı alma, optik okuma ve çevrimiçi sınav hakkında adım adım yardım."
+      },
+      "about": {
+        "title": "Hakkımızda",
+        "description": "Testcim, öğretmenlerin test ve sınav hazırlığını hızlandırmak için geliştirilen bir üründür. Ürünün amacı ve çalışma ilkeleri."
+      },
+      "contact": {
+        "title": "İletişim",
+        "description": "Testcim ekibine soru, öneri veya destek talebi gönderin. Formu doldurun, size e-posta ile dönelim."
+      },
+      "privacy": {
+        "title": "Gizlilik politikası",
+        "description": "Testcim gizlilik politikası. Hangi verilerin neden işlendiği ve nasıl korunduğu."
+      },
+      "kvkk": {
+        "title": "KVKK aydınlatma metni",
+        "description": "Kişisel Verilerin Korunması Kanunu kapsamında Testcim aydınlatma metni."
+      },
+      "terms": {
+        "title": "Kullanım şartları",
+        "description": "Testcim hizmetinin kullanım şartları."
+      },
+      "refund": {
+        "title": "İptal ve iade koşulları",
+        "description": "Testcim aboneliğinin nasıl iptal edileceği ve iade koşulları."
+      },
+      "copyright": {
+        "title": "Telif bildirimi",
+        "description": "Telif hakkınızın ihlal edildiğini düşünüyorsanız Testcim'e bildirim gönderin."
+      }
+    },
+    "home": {
+      "title": "Sorunuzu yapıştırın, testiniz hazır olsun",
+      "lead": "Ekran alıntısı alın, Ctrl+V yapın. Soru kâğıda yerleşir; PDF çıktısı almaya hazır olur.",
+      "demo": {
+        "prompt": "Bir görsel yapıştırın",
+        "choose": "Dosya seçin",
+        "paperTitle": "Örnek test",
+        "empty": "Ekran alıntınızı panoya kopyalayın ve Ctrl+V ile yapıştırın.",
+        "questionAlt": "{number}. soru",
+        "remove": "Kaldır",
+        "full": "Bu örnekte en fazla {max} soru yerleştirilir.",
+        "unsupported": "Yalnızca PNG, JPEG, GIF veya WebP görseller yapıştırılabilir.",
+        "privacy": "Görseller yalnızca bu sekmede, tarayıcınızda kalır. Sunucuya gönderilmez.",
+        "signup": "Kaydetmek için ücretsiz hesap açın."
+      },
+      "featuresTitle": "Test hazırlığının tamamı tek yerde",
+      "featuresMore": "Tüm özellikleri inceleyin",
+      "pricingLink": "Fiyatlandırmayı inceleyin",
+      "closingTitle": "İlk testinizi şimdi hazırlayın",
+      "closingAction": "Ücretsiz hesap açın"
+    },
+    "featureItems": {
+      "capture": {
+        "title": "Soru yakalama",
+        "summary": "Ekran alıntısını yapıştırın; soru soru bankasına ve teste girer.",
+        "detail": "Ekran alıntısını Ctrl+V ile yapıştırın. Soru kırpılır, sıkıştırılır ve teste yerleşir. Tarayıcı eklentisi, telefon ve masaüstü ile yakalama ücretsizdir."
+      },
+      "crop": {
+        "title": "PDF'ten soru kırpma",
+        "summary": "Bir PDF'i açın, soruları işaretleyin, hepsini tek seferde alın.",
+        "detail": "Kitap veya çıkmış soru PDF'lerini açın, soruların etrafına kutu çizin. Kırpılan sorular numaralarıyla soru bankasına gider."
+      },
+      "layout": {
+        "title": "Kâğıt yerleşimi",
+        "summary": "Sayfa düzeni, sütunlar ve numaralandırma otomatik kurulur.",
+        "detail": "Önizleme, PDF ve diğer çıktılar aynı yerleşimden üretilir; ekranda gördüğünüz, kâğıda çıkan olur."
+      },
+      "export": {
+        "title": "PDF, Word ve PowerPoint çıktısı",
+        "summary": "Baskıya hazır PDF; Plus ve üzerinde Word ve PowerPoint.",
+        "detail": "Testi baskıya hazır PDF olarak alın. Plus ve üzeri planlarda aynı testi Word veya PowerPoint dosyası olarak da indirebilirsiniz."
+      },
+      "bank": {
+        "title": "Soru bankası",
+        "summary": "Sorularınızı klasörlere ve kazanımlara göre düzenleyin.",
+        "detail": "Yakaladığınız her soru bankada saklanır. Klasörlere ayırın, kazanıma göre filtreleyin, yeni testlerde yeniden kullanın."
+      },
+      "booklets": {
+        "title": "Kitapçıklar",
+        "summary": "A, B, C, D kitapçıkları tek testten, cevap anahtarıyla birlikte.",
+        "detail": "Aynı testten soru sırası karıştırılmış kitapçıklar üretin. Her kitapçığın cevap anahtarı ayrı tutulur."
+      },
+      "omr": {
+        "title": "Optik okuma",
+        "summary": "Cevap kâğıtlarını kamerayla okutun, sonuçlar otomatik gelsin.",
+        "detail": "Optik formu yazdırın, cevap kâğıtlarını telefonunuzun kamerasıyla okutun. Belirsiz kâğıtlar inceleme kuyruğuna düşer."
+      },
+      "online": {
+        "title": "Çevrimiçi sınav",
+        "summary": "Testi bağlantıyla paylaşın; öğrenciler hesap açmadan çözsün.",
+        "detail": "Sınavı bir bağlantıyla paylaşın. Öğrenciler tarayıcıdan çözer; süre, karıştırma ve katılımcı sınırı sınav ayarlarından yönetilir."
+      },
+      "reports": {
+        "title": "Sonuç ve raporlar",
+        "summary": "Sınıf ve öğrenci raporları, madde analizi ve karne PDF'i.",
+        "detail": "Kâğıt ve çevrimiçi sınav sonuçlarını sınıfa bağlayın. Sınıf raporunu, soru bazında analizi ve öğrenci karnesini PDF olarak alın."
+      },
+      "team": {
+        "title": "Ekip çalışması",
+        "summary": "Yorum, onay durumu ve kayıtlı sürümlerle birlikte çalışın.",
+        "detail": "Soru ve testlere yorum yazın, birini anın, onay durumunu izleyin. Eski bir kayıtlı sürüme istediğiniz an dönün."
+      }
+    },
+    "features": {
+      "title": "Test hazırlığının her adımı için bir özellik",
+      "lead": "Yakalamadan çıktıya, sınavdan rapora kadar Testcim'in yaptıkları.",
+      "aiTitle": "Yapay zekâ taslakları",
+      "aiBody": "Yapay zekâ çıktısı her zaman taslak olarak gelir. Siz onaylamadan teste girmez.",
+      "cta": "Ücretsiz hesap açın",
+      "bookletDemo": {
+        "caption": "Kitapçık türünü seçin; aynı sorular karıştırılmış sırada görünür.",
+        "label": "Kitapçık türü",
+        "booklet": "Kitapçık {name}",
+        "originalNumber": "Asıl soru {number}",
+        "questions": {
+          "1": "Dünya'nın Güneş etrafındaki dönüşü",
+          "2": "Dörtgenlerin iç açıları toplamı",
+          "3": "Hücrenin enerji merkezi",
+          "4": "Noktalama işaretlerinin kullanımı",
+          "5": "Basit makinelerde kazanç"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Fiyatlandırma",
+      "lead": "Ücretsiz başlayın, ihtiyacınız büyüdükçe plan değiştirin.",
+      "intervalLabel": "Faturalama dönemi",
+      "month": "Aylık",
+      "year": "Yıllık",
+      "tableCaption": "Planların sınırları ve özellikleri",
+      "featureColumn": "Sınır veya özellik",
+      "freePrice": "Ücretsiz",
+      "perMonth": "{price} / ay",
+      "perYear": "{price} / yıl",
+      "yearlyPerMonth": "Aylık karşılığı {price}",
+      "priceTbd": "Fiyat henüz açıklanmadı",
+      "startFree": "Ücretsiz başlayın",
+      "startWith": "{plan} ile başlayın",
+      "unavailable": "Plan bilgileri şu anda yüklenemedi. Biraz sonra sayfayı yenileyin.",
+      "rows": {
+        "questions_per_test": "Testte soru sayısı",
+        "pdf_exports_per_month": "Aylık PDF çıktısı",
+        "versions_per_test": "Testte kitapçık sayısı",
+        "bank_questions": "Soru bankası kapasitesi",
+        "storage_mb": "Depolama",
+        "ai_credits_per_month": "Aylık yapay zekâ kredisi",
+        "omr_scans_per_month": "Aylık optik okuma",
+        "online_participants_per_exam": "Sınavda katılımcı sayısı",
+        "live_exams_concurrent": "Aynı anda açık sınav",
+        "advanced_layout": "Sayfa yerleşimi",
+        "remove_branding": "Çıktıdan Testcim işaretini kaldırma",
+        "docx_pptx_export": "Word ve PowerPoint çıktısı",
+        "iframe_embed": "Sınavı kendi sayfanıza gömme",
+        "seats": "Koltuk",
+        "api_webhooks": "Bildirim bağlantıları"
+      },
+      "cells": {
+        "unlimited": "Sınırsız",
+        "pooled": "Ortak havuz",
+        "fairUse": "Adil kullanım",
+        "yes": "Var",
+        "no": "Yok",
+        "basic": "Temel",
+        "full": "Tam",
+        "storageMb": "{value} MB",
+        "storageGb": "{value} GB"
+      },
+      "faqTitle": "Sık sorulanlar",
+      "faq": {
+        "free": {
+          "q": "Ücretsiz plan süreli mi?",
+          "a": "Hayır. Ücretsiz plan süre sınırı olmadan kullanılır; yalnızca tablodaki sınırlar geçerlidir."
+        },
+        "cancel": {
+          "q": "Planımı iptal edersem içeriğim silinir mi?",
+          "a": "Hayır. İptal ödenen dönemin sonunda geçerli olur ve ücretsiz plana dönersiniz. Testleriniz, sorularınız ve dosyalarınız silinmez; yalnızca yeni içerik oluştururken ücretsiz planın sınırları geçerli olur."
+        },
+        "card": {
+          "q": "Kart bilgilerimi siz mi saklıyorsunuz?",
+          "a": "Hayır. Ödeme, ödeme sağlayıcısının kendi sayfasında alınır. Kart bilgileri Testcim sunucularından geçmez ve Testcim'de saklanmaz."
+        },
+        "seats": {
+          "q": "Ekibimle birlikte kullanabilir miyim?",
+          "a": "Pro ve Kurum planları birden fazla koltuk içerir. Koltuk sayıları tabloda yer alır."
+        },
+        "trial": {
+          "q": "Deneme süresi var mı?",
+          "a": "Plus için deneme süresi kupon koduyla tanımlanır. Kupon kodunuz varsa Ayarlar içindeki Plan ve fatura ekranından girebilirsiniz."
+        },
+        "ai": {
+          "q": "Yapay zekâ soruları doğrudan teste giriyor mu?",
+          "a": "Hayır. Yapay zekâ çıktısı her zaman taslak olarak gelir; siz onaylamadan teste girmez."
+        }
+      }
+    },
+    "help": {
+      "title": "Yardım merkezi",
+      "lead": "Kullanım kılavuzu ve sık sorulan sorular.",
+      "guideTitle": "Kullanım kılavuzu",
+      "faqTitle": "Sık sorulanlar",
+      "guide": {
+        "capture": {
+          "title": "Soru yakalama",
+          "body": "Ekranda soruyu seçip panoya kopyalayın. Testcim'de bir testi açın ve Ctrl+V yapın. Soru sıraya girer; yanındaki düğmelerle sırasını değiştirebilir veya silebilirsiniz."
+        },
+        "crop": {
+          "title": "PDF'ten soru kırpma",
+          "body": "Soru bankasında PDF yükleyin, her sorunun etrafına bir kutu çizin ve kırpılan soruları teste ekleyin."
+        },
+        "export": {
+          "title": "Çıktı alma",
+          "body": "Testi açın, Çıktı al düğmesini seçin ve PDF'i indirin. Plus ve üzeri planlarda Word ve PowerPoint de seçilebilir."
+        },
+        "omr": {
+          "title": "Optik okuma",
+          "body": "Testten optik formu yazdırın. Öğrenciler işaretledikten sonra Optik okuma ekranında kamerayı kâğıda tutun. Okunamayan kâğıtlar inceleme kuyruğuna gider."
+        },
+        "online": {
+          "title": "Çevrimiçi sınav",
+          "body": "Bir test için sınav oluşturun, bağlantıyı öğrencilerle paylaşın. Sonuçlar Sınavlar ekranında toplanır."
+        }
+      },
+      "faq": {
+        "paste": {
+          "q": "Ctrl+V çalışmıyor, ne yapmalıyım?",
+          "a": "Görseli panoya kopyaladığınızdan emin olun. Sayfaya bir kez tıklayıp Ctrl+V'yi yeniden deneyin. Yapıştırma yalnızca sayfa odaktayken çalışır."
+        },
+        "formats": {
+          "q": "Hangi görsel biçimleri yapıştırabilirim?",
+          "a": "PNG, JPEG, GIF ve WebP."
+        },
+        "ai": {
+          "q": "Yapay zekâ soruları doğrudan teste giriyor mu?",
+          "a": "Hayır. Yapay zekâ çıktısı her zaman taslak olarak gelir; siz onaylamadan teste girmez."
+        },
+        "cancel": {
+          "q": "Aboneliğimi nasıl iptal ederim?",
+          "a": "Ayarlar içindeki Plan ve fatura ekranından Aboneliği iptal et düğmesini seçin. İptal dönem sonunda geçerli olur."
+        }
+      },
+      "contactPrompt": "Aradığınızı bulamadıysanız",
+      "contactLink": "bize yazın"
+    },
+    "about": {
+      "title": "Hakkımızda",
+      "body1": "Testcim, öğretmenlerin test ve sınav hazırlığını hızlandırmak için geliştirilen bir üründür. Amacımız, bir soruyu ekranda görmekle kâğıtta baskıya hazır görmek arasındaki süreyi saniyelere indirmektir.",
+      "body2": "Ürünü sade tutuyoruz: az ekran, net eylem, gereksiz süs yok. Geri bildiriminiz ürünün yönünü belirler.",
+      "contactLink": "Bize yazın"
+    },
+    "contact": {
+      "title": "İletişim",
+      "lead": "Sorunuzu, önerinizi veya destek talebinizi yazın. Size e-posta ile dönelim."
+    },
+    "forms": {
+      "common": {
+        "name": "Adınız",
+        "email": "E-posta adresiniz",
+        "subject": "Konu",
+        "error": "Mesaj gönderilemedi. Alanları kontrol edip yeniden deneyin.",
+        "rateLimited": "Kısa sürede çok fazla mesaj gönderildi. Birkaç dakika sonra yeniden deneyin."
+      },
+      "contact": {
+        "body": "Mesajınız",
+        "submit": "Mesajı gönder",
+        "sent": "Mesajınız alındı. En kısa sürede e-posta ile döneceğiz."
+      },
+      "copyright": {
+        "contentUrl": "İhlal edildiğini düşündüğünüz içeriğin adresi",
+        "contentUrlHint": "İçeriğin bulunduğu sayfanın tam adresi",
+        "body": "Hak sahipliğinizi ve talebinizi açıklayın",
+        "submit": "Bildirimi gönder",
+        "sent": "Bildiriminiz alındı. İnceleyip e-posta ile döneceğiz."
+      }
+    },
+    "copyright": {
+      "title": "Telif bildirimi",
+      "lead": "Telif hakkınızın ihlal edildiğini düşünüyorsanız aşağıdaki formu doldurun."
     }
   }
 }

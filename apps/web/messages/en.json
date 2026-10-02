@@ -412,7 +412,8 @@
       "profile": "Profile",
       "workspace": "Workspace",
       "members": "Members",
-      "plan": "Plan & usage"
+      "plan": "Plan & usage",
+      "billing": "Plan and billing"
     },
     "profile": {
       "title": "Profile",
@@ -475,6 +476,97 @@
       },
       "unlimited": "Unlimited",
       "upgradeMessage": "You're close to your plan limit. Upgrade for more."
+    },
+    "billing": {
+      "title": "Plan and billing",
+      "currentPlan": "Current plan",
+      "status": {
+        "trialing": "Trial",
+        "active": "Active",
+        "past_due": "Payment due",
+        "canceled": "Canceled"
+      },
+      "trialEnds": "Your trial ends on {date}.",
+      "renewal": "Next renewal: {date}",
+      "cancelScheduled": "Your subscription ends on {date}. All plan features stay on until then.",
+      "pastDue": "The latest payment could not be collected. The payment provider will retry; your plan stays on meanwhile.",
+      "downgradeNote": "Your plan went back to Free. Your existing tests, questions and files are not deleted. Only creating new content follows the Free plan limits.",
+      "readOnlyRole": "Only owners and admins can change the plan and billing.",
+      "billingDisabled": "Payments are not enabled in this environment yet. Plan changes are unavailable for now.",
+      "usageTitle": "Usage",
+      "seats": {
+        "title": "Seats",
+        "summary": "{used} of {total} seats in use",
+        "overLimit": "Your member count is above the seat limit. Existing members are kept, but new members cannot be invited.",
+        "manage": "Manage members"
+      },
+      "choosePlanTitle": "Choose a plan",
+      "changePlanTitle": "Change your plan",
+      "intervalLabel": "Billing period",
+      "interval": {
+        "month": "Monthly",
+        "year": "Yearly"
+      },
+      "pricePerMonth": "{price} / month",
+      "pricePerYear": "{price} / year",
+      "priceTbd": "Price not announced yet",
+      "current": "Current plan",
+      "chooseTo": "Choose {plan}",
+      "switchTo": "Switch to {plan}",
+      "planChanged": "Plan change received.",
+      "cancel": "Cancel subscription",
+      "cancelHint": "Cancellation takes effect at the end of the paid period. Your features stay on until then.",
+      "resume": "Undo cancellation",
+      "coupon": {
+        "title": "Coupon code",
+        "description": "Enter a trial or discount coupon code if you have one.",
+        "label": "Coupon code",
+        "apply": "Apply code",
+        "applied": "Coupon applied."
+      },
+      "profile": {
+        "title": "Billing details",
+        "description": "Enter your company name and tax details for a corporate invoice.",
+        "legalName": "Company name",
+        "taxOffice": "Tax office",
+        "taxNumber": "Tax number",
+        "taxNumberHint": "10-digit tax number or 11-digit national ID number",
+        "address": "Address",
+        "invoiceEmail": "Invoice email",
+        "save": "Save details",
+        "saved": "Billing details saved."
+      },
+      "invoices": {
+        "title": "Invoice history",
+        "empty": "No invoices yet.",
+        "date": "Date",
+        "amount": "Amount",
+        "status": "Status",
+        "document": "Document",
+        "view": "View",
+        "statuses": {
+          "paid": "Paid",
+          "failed": "Failed",
+          "refunded": "Refunded"
+        }
+      },
+      "errors": {
+        "invalid_input": "Check the information you entered and try again.",
+        "billing_disabled": "Payments are not enabled in this environment yet.",
+        "price_unavailable": "This plan does not have a price yet.",
+        "no_subscription": "There is no active subscription to change.",
+        "coupon_invalid": "The coupon code is invalid or expired.",
+        "coupon_already_used": "This coupon was already used in this workspace.",
+        "trial_not_available": "Workspaces with an active subscription cannot start a trial.",
+        "failed": "The action could not be completed. Try again shortly."
+      },
+      "fakeCheckout": {
+        "title": "Test payment page",
+        "description": "This page stands in for the payment provider in development only. No card details are requested.",
+        "summary": "Selected plan: {plan}, period: {interval}",
+        "complete": "Complete payment",
+        "back": "Cancel"
+      }
     }
   },
   "classes": {
@@ -708,7 +800,11 @@
   "legal": {
     "privacyTitle": "Privacy policy",
     "termsTitle": "Terms of use",
-    "pendingNotice": "Legal text pending."
+    "pendingNotice": "Legal text pending.",
+    "kvkkTitle": "Personal data notice (KVKK)",
+    "refundTitle": "Cancellation and refunds",
+    "copyrightTitle": "Copyright notice",
+    "pendingDetail": "The text of this page will be prepared by a lawyer and added here before launch."
   },
   "cookieConsent": {
     "message": "We use non-essential analytics cookies to improve your experience.",
@@ -871,6 +967,318 @@
         "The rail collapses at 390px, every control is keyboard-reachable, and focus rings stay visible.",
         "The ornament I removed: the first draft grew the shadow on button hover; docs/03 allows a single elevation level (floating layers only), so I dropped it."
       ]
+    }
+  },
+  "marketing": {
+    "skipToContent": "Skip to main content",
+    "nav": {
+      "label": "Main navigation",
+      "features": "Features",
+      "pricing": "Pricing",
+      "help": "Help",
+      "login": "Sign in",
+      "signup": "Start free"
+    },
+    "footer": {
+      "label": "Footer links",
+      "productTitle": "Product",
+      "companyTitle": "Testcim",
+      "legalTitle": "Legal",
+      "note": "Testcim is a test and exam preparation tool for teachers."
+    },
+    "pages": {
+      "home": {
+        "title": "Testcim: a print-ready test from a screenshot",
+        "description": "Online test maker. Paste a screenshot and get a print-ready PDF test in seconds. Question cropping, optical reading and online exams in one place."
+      },
+      "features": {
+        "title": "Features: capture, crop, print and optical reading",
+        "description": "PDF question cropping, booklets, PDF, Word and PowerPoint output, optical reading and online exams."
+      },
+      "pricing": {
+        "title": "Pricing and plan comparison",
+        "description": "Compare the limits and features of the Free, Plus, Pro and Team plans in one table."
+      },
+      "help": {
+        "title": "Help center: guide and FAQ",
+        "description": "Step-by-step help for capturing questions, building tests, printing, optical reading and online exams."
+      },
+      "about": {
+        "title": "About",
+        "description": "Testcim is built to speed up test and exam preparation for teachers."
+      },
+      "contact": {
+        "title": "Contact",
+        "description": "Send the Testcim team a question, suggestion or support request."
+      },
+      "privacy": {
+        "title": "Privacy policy",
+        "description": "The Testcim privacy policy."
+      },
+      "kvkk": {
+        "title": "Personal data notice (KVKK)",
+        "description": "The Testcim notice under the Turkish Personal Data Protection Law."
+      },
+      "terms": {
+        "title": "Terms of use",
+        "description": "The terms of use of the Testcim service."
+      },
+      "refund": {
+        "title": "Cancellation and refunds",
+        "description": "How to cancel a Testcim subscription and the refund terms."
+      },
+      "copyright": {
+        "title": "Copyright notice",
+        "description": "Send Testcim a notice if you believe your copyright is infringed."
+      }
+    },
+    "home": {
+      "title": "Paste your question, get your test",
+      "lead": "Take a screenshot and press Ctrl+V. The question lands on the paper and is ready to print as a PDF.",
+      "demo": {
+        "prompt": "Paste an image",
+        "choose": "Choose a file",
+        "paperTitle": "Sample test",
+        "empty": "Copy your screenshot and paste it with Ctrl+V.",
+        "questionAlt": "Question {number}",
+        "remove": "Remove",
+        "full": "This sample holds up to {max} questions.",
+        "unsupported": "Only PNG, JPEG, GIF or WebP images can be pasted.",
+        "privacy": "Images stay in this tab, in your browser. Nothing is sent to a server.",
+        "signup": "Create a free account to save."
+      },
+      "featuresTitle": "All of test preparation in one place",
+      "featuresMore": "See all features",
+      "pricingLink": "See pricing",
+      "closingTitle": "Prepare your first test now",
+      "closingAction": "Create a free account"
+    },
+    "featureItems": {
+      "capture": {
+        "title": "Question capture",
+        "summary": "Paste a screenshot; the question enters the bank and the test.",
+        "detail": "Paste a screenshot with Ctrl+V. The question is cropped, compressed and placed in the test. Capture with the browser extension, phone and desktop is free."
+      },
+      "crop": {
+        "title": "PDF question cropping",
+        "summary": "Open a PDF, mark the questions, take them all at once.",
+        "detail": "Open a book or past-exam PDF and draw a box around each question. Cropped questions go to the bank with their numbers."
+      },
+      "layout": {
+        "title": "Paper layout",
+        "summary": "Page layout, columns and numbering are set up automatically.",
+        "detail": "The preview, the PDF and the other outputs come from the same layout, so what you see is what prints."
+      },
+      "export": {
+        "title": "PDF, Word and PowerPoint output",
+        "summary": "Print-ready PDF; Word and PowerPoint on Plus and above.",
+        "detail": "Get the test as a print-ready PDF. On Plus and above you can also download it as a Word or PowerPoint file."
+      },
+      "bank": {
+        "title": "Question bank",
+        "summary": "Organize your questions by folder and learning outcome.",
+        "detail": "Every captured question is kept in the bank. Sort into folders, filter by outcome, reuse in new tests."
+      },
+      "booklets": {
+        "title": "Booklets",
+        "summary": "A, B, C, D booklets from one test, with answer keys.",
+        "detail": "Produce booklets with shuffled question order from the same test. Each booklet keeps its own answer key."
+      },
+      "omr": {
+        "title": "Optical reading",
+        "summary": "Scan answer sheets with the camera, get results automatically.",
+        "detail": "Print the optical form, scan answer sheets with your phone camera. Unclear sheets go to a review queue."
+      },
+      "online": {
+        "title": "Online exam",
+        "summary": "Share the test by link; students answer without an account.",
+        "detail": "Share the exam with a link. Students answer in the browser; time, shuffling and participant limits are set in the exam settings."
+      },
+      "reports": {
+        "title": "Results and reports",
+        "summary": "Class and student reports, item analysis and report card PDF.",
+        "detail": "Link paper and online results to a class. Get the class report, per-question analysis and the student report card as a PDF."
+      },
+      "team": {
+        "title": "Teamwork",
+        "summary": "Work together with comments, approval status and saved versions.",
+        "detail": "Comment on questions and tests, mention a colleague, follow the approval status. Return to an earlier saved version any time."
+      }
+    },
+    "features": {
+      "title": "A feature for every step of test preparation",
+      "lead": "What Testcim does, from capture to print, from exam to report.",
+      "aiTitle": "AI drafts",
+      "aiBody": "AI output always arrives as a draft. It does not enter a test until you approve it.",
+      "cta": "Create a free account",
+      "bookletDemo": {
+        "caption": "Pick a booklet type; the same questions appear in a shuffled order.",
+        "label": "Booklet type",
+        "booklet": "Booklet {name}",
+        "originalNumber": "Original question {number}",
+        "questions": {
+          "1": "The Earth's orbit around the Sun",
+          "2": "Sum of interior angles of quadrilaterals",
+          "3": "The energy center of the cell",
+          "4": "Using punctuation marks",
+          "5": "Mechanical advantage in simple machines"
+        }
+      }
+    },
+    "pricing": {
+      "title": "Pricing",
+      "lead": "Start free and change plans as your needs grow.",
+      "intervalLabel": "Billing period",
+      "month": "Monthly",
+      "year": "Yearly",
+      "tableCaption": "Plan limits and features",
+      "featureColumn": "Limit or feature",
+      "freePrice": "Free",
+      "perMonth": "{price} / month",
+      "perYear": "{price} / year",
+      "yearlyPerMonth": "{price} per month",
+      "priceTbd": "Price not announced yet",
+      "startFree": "Start free",
+      "startWith": "Start with {plan}",
+      "unavailable": "Plan information could not be loaded right now. Refresh the page shortly.",
+      "rows": {
+        "questions_per_test": "Questions per test",
+        "pdf_exports_per_month": "PDF exports per month",
+        "versions_per_test": "Booklets per test",
+        "bank_questions": "Question bank capacity",
+        "storage_mb": "Storage",
+        "ai_credits_per_month": "AI credits per month",
+        "omr_scans_per_month": "Optical scans per month",
+        "online_participants_per_exam": "Participants per exam",
+        "live_exams_concurrent": "Exams open at once",
+        "advanced_layout": "Page layout",
+        "remove_branding": "Remove Testcim mark from output",
+        "docx_pptx_export": "Word and PowerPoint output",
+        "iframe_embed": "Embed the exam on your own page",
+        "seats": "Seats",
+        "api_webhooks": "Notification links"
+      },
+      "cells": {
+        "unlimited": "Unlimited",
+        "pooled": "Shared pool",
+        "fairUse": "Fair use",
+        "yes": "Included",
+        "no": "Not included",
+        "basic": "Basic",
+        "full": "Full",
+        "storageMb": "{value} MB",
+        "storageGb": "{value} GB"
+      },
+      "faqTitle": "Frequently asked questions",
+      "faq": {
+        "free": {
+          "q": "Is the Free plan time limited?",
+          "a": "No. The Free plan has no time limit; only the limits in the table apply."
+        },
+        "cancel": {
+          "q": "Is my content deleted if I cancel?",
+          "a": "No. Cancellation takes effect at the end of the paid period and you return to Free. Your tests, questions and files are not deleted; only creating new content follows the Free limits."
+        },
+        "card": {
+          "q": "Do you store my card details?",
+          "a": "No. Payment is taken on the payment provider's own page. Card details never pass through or stay on Testcim servers."
+        },
+        "seats": {
+          "q": "Can I use it with my team?",
+          "a": "The Pro and Team plans include several seats. Seat counts are in the table."
+        },
+        "trial": {
+          "q": "Is there a trial?",
+          "a": "A Plus trial is granted with a coupon code. If you have one, enter it on the Plan and billing screen in Settings."
+        },
+        "ai": {
+          "q": "Do AI questions go straight into the test?",
+          "a": "No. AI output always arrives as a draft and does not enter the test until you approve it."
+        }
+      }
+    },
+    "help": {
+      "title": "Help center",
+      "lead": "A user guide and frequently asked questions.",
+      "guideTitle": "User guide",
+      "faqTitle": "Frequently asked questions",
+      "guide": {
+        "capture": {
+          "title": "Question capture",
+          "body": "Select the question on screen and copy it. Open a test in Testcim and press Ctrl+V. The question joins the list; reorder or delete it with the buttons beside it."
+        },
+        "crop": {
+          "title": "PDF question cropping",
+          "body": "Upload a PDF in the question bank, draw a box around each question and add the cropped questions to a test."
+        },
+        "export": {
+          "title": "Printing",
+          "body": "Open the test, choose Print and download the PDF. On Plus and above you can also choose Word and PowerPoint."
+        },
+        "omr": {
+          "title": "Optical reading",
+          "body": "Print the optical form from the test. After students mark it, hold the camera over the sheet on the Optical reading screen. Unreadable sheets go to the review queue."
+        },
+        "online": {
+          "title": "Online exam",
+          "body": "Create an exam for a test and share the link with students. Results are collected on the Exams screen."
+        }
+      },
+      "faq": {
+        "paste": {
+          "q": "Ctrl+V does not work. What should I do?",
+          "a": "Make sure the image is copied. Click the page once and try Ctrl+V again. Pasting only works while the page has focus."
+        },
+        "formats": {
+          "q": "Which image formats can I paste?",
+          "a": "PNG, JPEG, GIF and WebP."
+        },
+        "ai": {
+          "q": "Do AI questions go straight into the test?",
+          "a": "No. AI output always arrives as a draft and does not enter the test until you approve it."
+        },
+        "cancel": {
+          "q": "How do I cancel my subscription?",
+          "a": "On the Plan and billing screen in Settings, choose Cancel subscription. Cancellation takes effect at the end of the period."
+        }
+      },
+      "contactPrompt": "If you did not find what you need,",
+      "contactLink": "write to us"
+    },
+    "about": {
+      "title": "About",
+      "body1": "Testcim is built to speed up test and exam preparation for teachers. Our aim is to cut the time between seeing a question on screen and having it print-ready on paper to seconds.",
+      "body2": "We keep the product plain: few screens, clear actions, no decoration. Your feedback sets its direction.",
+      "contactLink": "Write to us"
+    },
+    "contact": {
+      "title": "Contact",
+      "lead": "Write your question, suggestion or support request. We will reply by email."
+    },
+    "forms": {
+      "common": {
+        "name": "Your name",
+        "email": "Your email address",
+        "subject": "Subject",
+        "error": "The message could not be sent. Check the fields and try again.",
+        "rateLimited": "Too many messages were sent in a short time. Try again in a few minutes."
+      },
+      "contact": {
+        "body": "Your message",
+        "submit": "Send message",
+        "sent": "Your message was received. We will reply by email soon."
+      },
+      "copyright": {
+        "contentUrl": "Address of the content you believe infringes",
+        "contentUrlHint": "The full address of the page that holds the content",
+        "body": "Explain your ownership and your request",
+        "submit": "Send notice",
+        "sent": "Your notice was received. We will review it and reply by email."
+      }
+    },
+    "copyright": {
+      "title": "Copyright notice",
+      "lead": "If you believe your copyright is infringed, fill in the form below."
     }
   }
 }

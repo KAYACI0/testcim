@@ -4,11 +4,15 @@ import { NextResponse, type NextRequest } from 'next/server';
 import type { Database } from './types';
 
 import { clientEnv } from '@/lib/env.client';
+import { isMarketingPath } from '@/lib/site';
 
-const PUBLIC_PATHS = ['/', '/login', '/auth', '/privacy', '/terms', '/design-system'];
+const PUBLIC_PATHS = ['/login', '/auth', '/design-system'];
 
 function isPublicPath(pathname: string): boolean {
-  return PUBLIC_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`));
+  return (
+    isMarketingPath(pathname) ||
+    PUBLIC_PATHS.some((path) => pathname === path || pathname.startsWith(`${path}/`))
+  );
 }
 
 /**

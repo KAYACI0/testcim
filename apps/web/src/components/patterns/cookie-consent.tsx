@@ -7,6 +7,9 @@ import { Button } from '../ui/button';
 
 export const COOKIE_CONSENT_STORAGE_KEY = 'tc_cookie_consent';
 
+/** Fired on `window` when the visitor makes a choice, so analytics can start without a reload. */
+export const COOKIE_CONSENT_EVENT = 'tc:cookie-consent';
+
 type Consent = 'accepted' | 'necessary_only';
 
 /**
@@ -33,6 +36,7 @@ export function CookieConsent() {
   function choose(value: Consent) {
     window.localStorage.setItem(COOKIE_CONSENT_STORAGE_KEY, value);
     setConsent(value);
+    window.dispatchEvent(new Event(COOKIE_CONSENT_EVENT));
   }
 
   return (

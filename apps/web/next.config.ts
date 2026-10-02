@@ -4,6 +4,8 @@ import createNextIntlPlugin from 'next-intl/plugin';
 import type { NextConfig } from 'next';
 
 const isDevelopment = process.env.NODE_ENV === 'development';
+/** Analytics origin, allowed in connect-src only when one is configured (loaded after cookie consent). */
+const analyticsHost = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? '';
 
 /**
  * Draft Content-Security-Policy. Development needs inline and eval for the Next.js dev
@@ -18,7 +20,12 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' blob: data:",
   "font-src 'self' data:",
-  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.sentry.io",
+  [
+    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.sentry.io",
+    analyticsHost,
+  ]
+    .filter(Boolean)
+    .join(' '),
   "worker-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'self'",
