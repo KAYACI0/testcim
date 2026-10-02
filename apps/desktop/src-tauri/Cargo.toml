@@ -1,0 +1,20 @@
+[package]
+name = "testcim-companion"
+version = "1.0.0"
+description = "Testcim Masaustu Yardimci (Sistem Tepsisi Pano Yakalayici)"
+authors = ["Testcim"]
+edition = "2021"
+
+[dependencies]
+tauri = { version = "^2.0.0", features = ["tray-icon"] }
+tauri-plugin-clipboard-manager = "^2.0.0"
+tauri-plugin-notification = "^2.0.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tokio = { version = "1.0", features = ["full"] }
+reqwest = { version = "0.12", features = ["json", "multipart"] }
+sha2 = "0.10"
+image = { version = "0.25", default-features = false, features = ["png"] }
+
+[build-dependencies]
+tauri-build = { version = "^2.0.0", features = [] }

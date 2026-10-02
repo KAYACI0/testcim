@@ -1,0 +1,16 @@
+{
+  "name": "@testcim/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Testcim Masaustu Yardimci (Tauri v2 Sistem Tepsisi ve Pano Yakalayici)",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.3",
+    "typescript": "6.0.3",
+    "vitest": "5.0.2"
+  }
+}
