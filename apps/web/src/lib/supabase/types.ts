@@ -19,6 +19,8 @@
 
 type Timestamp = string;
 
+type BillingProviderId = 'iyzico' | 'paddle' | 'polar' | 'lemonsqueezy' | 'fake' | 'manual';
+
 export interface Database {
   public: {
     Tables: {
@@ -103,6 +105,10 @@ export interface Database {
           name: string;
           entitlements: Record<string, unknown>;
           is_active: boolean;
+          price_monthly_minor: number | null;
+          price_yearly_minor: number | null;
+          currency: string;
+          sort_order: number;
           created_at: Timestamp;
           updated_at: Timestamp;
         };
@@ -118,22 +124,127 @@ export interface Database {
           id: string;
           workspace_id: string;
           plan_id: string;
-          provider: 'iyzico' | 'manual';
+          provider: BillingProviderId;
           provider_ref: string | null;
           status: 'trialing' | 'active' | 'past_due' | 'canceled';
           seats: number;
           current_period_end: Timestamp | null;
           cancel_at_period_end: boolean;
+          last_event_at: Timestamp | null;
+          billing_interval: 'month' | 'year';
+          coupon_code: string | null;
           created_at: Timestamp;
           updated_at: Timestamp;
         };
         Insert: Partial<Database['public']['Tables']['subscriptions']['Row']> & {
           workspace_id: string;
           plan_id: string;
-          provider: 'iyzico' | 'manual';
+          provider: BillingProviderId;
           status: 'trialing' | 'active' | 'past_due' | 'canceled';
         };
         Update: Partial<Database['public']['Tables']['subscriptions']['Row']>;
+        Relationships: [];
+      };
+      billing_events: {
+        Row: {
+          id: string;
+          provider: string;
+          event_id: string;
+          workspace_id: string | null;
+          type: string;
+          occurred_at: Timestamp;
+          outcome: 'applied' | 'stale' | 'ignored';
+          payload: Record<string, unknown>;
+          created_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['billing_events']['Row']> & {
+          provider: string;
+          event_id: string;
+          type: string;
+          occurred_at: Timestamp;
+        };
+        Update: Partial<Database['public']['Tables']['billing_events']['Row']>;
+        Relationships: [];
+      };
+      billing_invoices: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          provider: string;
+          provider_invoice_id: string;
+          amount_minor: number;
+          currency: string;
+          status: 'paid' | 'failed' | 'refunded';
+          period_start: Timestamp | null;
+          period_end: Timestamp | null;
+          document_url: string | null;
+          issued_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['billing_invoices']['Row']> & {
+          workspace_id: string;
+          provider: string;
+          provider_invoice_id: string;
+          amount_minor: number;
+          status: 'paid' | 'failed' | 'refunded';
+        };
+        Update: Partial<Database['public']['Tables']['billing_invoices']['Row']>;
+        Relationships: [];
+      };
+      billing_profiles: {
+        Row: {
+          workspace_id: string;
+          legal_name: string;
+          tax_office: string;
+          tax_number: string;
+          address: string;
+          invoice_email: string;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['billing_profiles']['Row']> & {
+          workspace_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['billing_profiles']['Row']>;
+        Relationships: [];
+      };
+      coupons: {
+        Row: {
+          code: string;
+          kind: 'trial_days' | 'percent';
+          value: number;
+          plan_id: string | null;
+          max_redemptions: number | null;
+          redeemed_count: number;
+          expires_at: Timestamp | null;
+          is_active: boolean;
+          created_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['coupons']['Row']> & {
+          code: string;
+          kind: 'trial_days' | 'percent';
+          value: number;
+        };
+        Update: Partial<Database['public']['Tables']['coupons']['Row']>;
+        Relationships: [];
+      };
+      public_submissions: {
+        Row: {
+          id: string;
+          kind: 'contact' | 'copyright';
+          name: string;
+          email: string;
+          subject: string;
+          body: string;
+          content_url: string | null;
+          created_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['public_submissions']['Row']> & {
+          kind: 'contact' | 'copyright';
+          name: string;
+          email: string;
+          body: string;
+        };
+        Update: Partial<Database['public']['Tables']['public_submissions']['Row']>;
         Relationships: [];
       };
       usage_counters: {
@@ -777,6 +888,14 @@ export interface Database {
     };
     Views: Record<string, never>;
     Functions: {
+      apply_billing_event: {
+        Args: { p_event: Record<string, unknown> };
+        Returns: string;
+      };
+      redeem_coupon: {
+        Args: { p_ws: string; p_code: string };
+        Returns: Record<string, unknown>;
+      };
       check_exam_rate_limit: {
         Args: { p_key: string; p_limit: number; p_window_sec: number };
         Returns: boolean;

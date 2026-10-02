@@ -31,3 +31,11 @@ values (
   'Yer tutucu kazanım açıklaması (şema testleri için).'
 )
 on conflict (id) do nothing;
+
+-- Local development prices only (minor units, TRY). These are placeholders so
+-- the pricing page and the fake checkout have something to show; they are NOT
+-- the real pricing. Production prices are set by a reviewed migration once the
+-- owner decides them.
+update public.plans set price_monthly_minor = 14900, price_yearly_minor = 149000 where id = 'plus';
+update public.plans set price_monthly_minor = 34900, price_yearly_minor = 349000 where id = 'pro';
+update public.plans set price_monthly_minor = 89900, price_yearly_minor = 899000 where id = 'team';
