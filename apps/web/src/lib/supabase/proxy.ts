@@ -22,8 +22,9 @@ function isPublicPath(pathname: string): boolean {
  * "Optimistic checks with Proxy") — real authorization still happens per
  * request via RLS and `requireRole`/`requireEntitlement` on the server.
  */
-export async function updateSession(request: NextRequest) {
-  let response = NextResponse.next({ request });
+export async function updateSession(request: NextRequest, requestHeaders?: Headers) {
+  const headers = requestHeaders ?? request.headers;
+  let response = NextResponse.next({ request: { headers } });
 
   const supabase = createServerClient<Database>(
     clientEnv.NEXT_PUBLIC_SUPABASE_URL,
@@ -37,7 +38,7 @@ export async function updateSession(request: NextRequest) {
           for (const { name, value } of cookiesToSet) {
             request.cookies.set(name, value);
           }
-          response = NextResponse.next({ request });
+          response = NextResponse.next({ request: { headers } });
           for (const { name, value, options } of cookiesToSet) {
             response.cookies.set(name, value, options);
           }

@@ -3,39 +3,8 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 import type { NextConfig } from 'next';
 
-const isDevelopment = process.env.NODE_ENV === 'development';
-/** Analytics origin, allowed in connect-src only when one is configured (loaded after cookie consent). */
-const analyticsHost = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? '';
-
-/**
- * Draft Content-Security-Policy. Development needs inline and eval for the Next.js dev
- * overlay and Turbopack HMR. Production is tightened to a nonce in slice 15; see
- * docs/backlog.md.
- */
-const contentSecurityPolicy = [
-  "default-src 'self'",
-  isDevelopment
-    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
-    : "script-src 'self' 'unsafe-inline'",
-  "style-src 'self' 'unsafe-inline'",
-  "img-src 'self' blob: data:",
-  "font-src 'self' data:",
-  [
-    "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://*.sentry.io",
-    analyticsHost,
-  ]
-    .filter(Boolean)
-    .join(' '),
-  "worker-src 'self' blob:",
-  "object-src 'none'",
-  "base-uri 'self'",
-  "form-action 'self'",
-  "frame-ancestors 'none'",
-  'upgrade-insecure-requests',
-].join('; ');
-
+// Content-Security-Policy with cryptographic per-request nonce is injected by src/middleware.ts.
 const securityHeaders = [
-  { key: 'Content-Security-Policy', value: contentSecurityPolicy },
   { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
   { key: 'X-Content-Type-Options', value: 'nosniff' },
   { key: 'X-Frame-Options', value: 'DENY' },

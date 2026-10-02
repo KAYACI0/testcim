@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 import { getMobileSignedUploadUrlAction } from '@/features/capture/session.server';
+import { checkRateLimit, clientIp } from '@/features/online-exam/anon.server';
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -15,6 +16,14 @@ export function OPTIONS() {
 }
 
 export async function POST(request: NextRequest) {
+  const ip = clientIp(request);
+  if (!(await checkRateLimit(`capture-upload:${ip}`, 30, 60))) {
+    return NextResponse.json(
+      { ok: false, reason: 'rate_limited' },
+      { status: 429, headers: CORS_HEADERS },
+    );
+  }
+
   const body = (await request.json().catch(() => null)) as {
     token?: string;
     ext?: string;

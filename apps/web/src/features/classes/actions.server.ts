@@ -8,7 +8,6 @@ import { rosterImportInputSchema } from '@testcim/shared';
 import { computeDefaultRetentionUntil } from './import';
 
 import { requireSession } from '@/lib/auth/dal';
-import { createAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentWorkspace } from '@/lib/workspace/current';
 import { requireRole } from '@/lib/workspace/entitlements.server';
@@ -245,15 +244,12 @@ export async function listClasses(): Promise<ClassRow[]> {
 
   if (!classes || classes.length === 0) return [];
 
-  const admin = createAdminClient();
-  const { data: links } = await admin
+  const classIds: string[] = classes.map((c) => c.id);
+  const { data: links } = (await supabase
     .from('class_students')
     .select('class_id')
     .eq('workspace_id', workspace.id)
-    .in(
-      'class_id',
-      classes.map((c) => c.id),
-    );
+    .in('class_id', classIds)) as { data: { class_id: string }[] | null };
 
   const countByClassId = new Map<string, number>();
   for (const link of links ?? []) {

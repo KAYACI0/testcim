@@ -18,7 +18,7 @@ const inputSchema = z.object({
   itemId: z.uuid(),
   position: z.string().min(1),
   path: z.string().min(1),
-  mime: z.string().min(1),
+  mime: z.enum(['image/png', 'image/jpeg', 'image/webp']),
   bytes: z.number().int().positive(),
   width: z.number().int().positive(),
   height: z.number().int().positive(),

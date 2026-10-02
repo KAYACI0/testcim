@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "check:design": "tsx check-design-rules.ts",
+    "check:tenancy": "tsx check-cross-tenant-tests.ts",
+    "check:budget": "tsx check-bundle-budget.ts",
     "curriculum:import": "tsx curriculum/import.ts",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
