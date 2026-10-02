@@ -1,15 +1,17 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useStore } from 'zustand';
 
 import type { CaptureResult } from '@/features/capture/use-capture';
 import type { EditorStore } from '@/features/editor/store';
 
 import { Button } from '@/components/ui/button';
+import { Icon } from '@/components/ui/icon';
 import { InlineNotice } from '@/components/ui/inline-notice';
 import { Switch } from '@/components/ui/switch';
+import { PhoneCaptureDialog } from '@/features/capture/phone-capture-dialog';
 import { BulkAnswersPopover } from '@/features/editor/bulk-answers-popover';
 
 export function PasteBar({
@@ -25,9 +27,11 @@ export function PasteBar({
 }) {
   const items = useStore(store, (s) => s.items);
   const captureMode = useStore(store, (s) => s.captureMode);
+  const testId = useStore(store, (s) => s.testId);
   const t = useTranslations('editor.pasteBar');
   const tRich = useTranslations('richEditor');
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [phoneDialogOpen, setPhoneDialogOpen] = useState(false);
 
   const readyCount = items.filter((item) => item.status === 'ready').length;
   const lastAdded = [...items].reverse().find((item) => item.status !== 'error');
@@ -68,6 +72,10 @@ export function PasteBar({
         <Button variant="secondary" size="sm" onClick={() => fileInputRef.current?.click()}>
           {t('chooseFile')}
         </Button>
+        <Button variant="secondary" size="sm" onClick={() => setPhoneDialogOpen(true)}>
+          <Icon name="device-mobile" size={16} className="mr-1.5" />
+          {t('phoneCapture')}
+        </Button>
         <Button variant="secondary" size="sm" onClick={onWriteQuestion}>
           {tRich('newQuestion')}
         </Button>
@@ -75,6 +83,13 @@ export function PasteBar({
           {tRich('group.addGroup')}
         </Button>
       </div>
+
+      <PhoneCaptureDialog
+        open={phoneDialogOpen}
+        onOpenChange={setPhoneDialogOpen}
+        testId={testId}
+        store={store}
+      />
     </div>
   );
 }

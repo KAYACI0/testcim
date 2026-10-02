@@ -43,6 +43,14 @@ export interface EditorState {
   positionForNewItem(beforeId: string | null): string;
 
   addCaptureBatch(placeholders: readonly { id: string; thumbnailUrl: string }[]): void;
+  addExternalCapturedItem(captured: {
+    readonly id: string;
+    readonly position: string;
+    readonly questionId: string;
+    readonly questionRevisionId: string;
+    readonly thumbnailUrl: string;
+    readonly correct?: AnswerKey | null;
+  }): void;
   updatePipeline(id: string, patch: Partial<EditorItem>): void;
   confirmCaptured(id: string, result: { questionId: string; questionRevisionId: string }): void;
   markCaptureError(id: string, message: string): void;
@@ -170,6 +178,34 @@ export function createEditorStore(initial: EditorHydrateInput, deps: EditorStore
             ],
             redoStack: [],
             lastAddedItemId: newItems.at(-1)?.id ?? state.lastAddedItemId,
+            lastAddedAt: Date.now(),
+          };
+        });
+      },
+
+      addExternalCapturedItem(captured) {
+        set((state) => {
+          if (state.items.some((item) => item.id === captured.id)) {
+            return state;
+          }
+          const newItem: EditorItem = {
+            id: captured.id,
+            position: captured.position,
+            status: 'ready',
+            questionId: captured.questionId,
+            questionRevisionId: captured.questionRevisionId,
+            correct: captured.correct ?? null,
+            points: null,
+            thumbnailUrl: captured.thumbnailUrl,
+            sha256: null,
+            phash: null,
+            duplicateOfItemId: null,
+            errorMessage: null,
+          };
+          return {
+            items: sortByPosition([...state.items, newItem]),
+            selectedItemId: captured.id,
+            lastAddedItemId: captured.id,
             lastAddedAt: Date.now(),
           };
         });

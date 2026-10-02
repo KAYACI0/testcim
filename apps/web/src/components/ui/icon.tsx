@@ -1,6 +1,8 @@
 import {
+  ArrowClockwise,
   ArrowsDownUp,
   Bell,
+  Camera,
   CaretDown,
   CaretLeft,
   CaretRight,
@@ -10,6 +12,8 @@ import {
   Circle,
   ClipboardText,
   Clock,
+  Copy,
+  DeviceMobile,
   DotsThreeVertical,
   Exam,
   FileText,
@@ -25,6 +29,7 @@ import {
   PencilSimple,
   Plus,
   Polygon,
+  QrCode,
   ScanSmiley,
   ChartBar,
   SquaresFour,
@@ -51,8 +56,10 @@ import type { Icon as PhosphorIcon, IconWeight } from '@phosphor-icons/react';
  * wrapper.
  */
 const ICONS = {
+  'arrow-clockwise': ArrowClockwise,
   'arrows-down-up': ArrowsDownUp,
   bell: Bell,
+  camera: Camera,
   'caret-down': CaretDown,
   'caret-left': CaretLeft,
   'caret-right': CaretRight,
@@ -62,6 +69,8 @@ const ICONS = {
   circle: Circle,
   'clipboard-text': ClipboardText,
   clock: Clock,
+  copy: Copy,
+  'device-mobile': DeviceMobile,
   'dots-three-vertical': DotsThreeVertical,
   exam: Exam,
   'file-text': FileText,
@@ -77,6 +86,7 @@ const ICONS = {
   'pencil-simple': PencilSimple,
   plus: Plus,
   polygon: Polygon,
+  'qr-code': QrCode,
   'scan-smiley': ScanSmiley,
   'chart-bar': ChartBar,
   'squares-four': SquaresFour,

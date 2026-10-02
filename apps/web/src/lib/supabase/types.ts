@@ -885,9 +885,73 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['audit_log']['Row']>;
         Relationships: [];
       };
+      capture_sessions: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          test_id: string;
+          created_by: string | null;
+          token_hash: string;
+          device_type: 'phone' | 'extension' | 'desktop';
+          status: 'active' | 'closed';
+          expires_at: Timestamp;
+          created_at: Timestamp;
+          last_active_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['capture_sessions']['Row']> & {
+          workspace_id: string;
+          test_id: string;
+          token_hash: string;
+          device_type: 'phone' | 'extension' | 'desktop';
+          expires_at: Timestamp;
+        };
+        Update: Partial<Database['public']['Tables']['capture_sessions']['Row']>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
+      validate_capture_session: {
+        Args: { p_token_hash: string };
+        Returns: {
+          session_id: string | null;
+          workspace_id: string | null;
+          test_id: string | null;
+          test_title: string;
+          device_type: string | null;
+          is_valid: boolean;
+        }[];
+      };
+      submit_capture_question: {
+        Args: {
+          p_token_hash: string;
+          p_item_id: string;
+          p_position: string;
+          p_asset_path: string;
+          p_mime: string;
+          p_bytes: number;
+          p_width: number;
+          p_height: number;
+          p_sha256: string;
+          p_phash: string;
+          p_answer?: string | null;
+        };
+        Returns: {
+          ok: boolean;
+          question_id: string | null;
+          question_revision_id: string | null;
+          asset_id: string | null;
+          item_id: string | null;
+          test_id: string | null;
+          workspace_id: string | null;
+          current_revision: number | null;
+          error: string | null;
+        }[];
+      };
+      close_capture_session: {
+        Args: { p_session_id: string };
+        Returns: boolean;
+      };
       apply_billing_event: {
         Args: { p_event: Record<string, unknown> };
         Returns: string;

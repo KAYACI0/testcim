@@ -119,3 +119,14 @@ export {
 } from './billing';
 
 export { publicSubmissionSchema, type PublicSubmission } from './public-forms';
+
+export {
+  CAPTURE_DEVICE_TYPES,
+  type CaptureDeviceType,
+  createCaptureSessionSchema,
+  type CreateCaptureSessionInput,
+  mobileCaptureSubmitSchema,
+  type MobileCaptureSubmitInput,
+  type CaptureSessionPayload,
+  type RealtimeCaptureQuestionEvent,
+} from './capture-session';

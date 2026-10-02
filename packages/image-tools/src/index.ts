@@ -12,3 +12,11 @@ export { splitByProjection } from './projection-split';
 export type { ProjectionSplitOptions } from './projection-split';
 export { parseAnswerKeyTable, ANSWER_LETTERS } from './answer-key-parse';
 export type { AnswerKeyEntry, AnswerLetter } from './answer-key-parse';
+export {
+  solveHomography,
+  applyHomography,
+  detectDefaultQuad,
+  warpQuad,
+  rotateRawImage,
+} from './perspective';
+export type { Point, Quad } from './perspective';
