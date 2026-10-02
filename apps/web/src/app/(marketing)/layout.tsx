@@ -7,7 +7,7 @@ import { Logo } from '@/components/patterns/logo';
 import { MARKETING_PAGES } from '@/lib/site';
 
 const FOOTER_GROUPS = [
-  { key: 'productTitle', pages: ['features', 'pricing', 'help'] },
+  { key: 'productTitle', pages: ['features', 'pricing', 'help', 'changelog', 'status'] },
   { key: 'companyTitle', pages: ['about', 'contact'] },
   { key: 'legalTitle', pages: ['privacy', 'kvkk', 'terms', 'refund', 'copyright'] },
 ] as const;

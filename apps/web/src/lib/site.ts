@@ -6,6 +6,8 @@ export const MARKETING_PAGES = [
   { path: '/features', key: 'features', priority: 0.9 },
   { path: '/pricing', key: 'pricing', priority: 0.9 },
   { path: '/help', key: 'help', priority: 0.7 },
+  { path: '/changelog', key: 'changelog', priority: 0.6 },
+  { path: '/status', key: 'status', priority: 0.6 },
   { path: '/about', key: 'about', priority: 0.5 },
   { path: '/contact', key: 'contact', priority: 0.5 },
   { path: '/privacy', key: 'privacy', priority: 0.3 },

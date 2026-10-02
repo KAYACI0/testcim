@@ -1003,6 +1003,14 @@
         "title": "Help center: guide and FAQ",
         "description": "Step-by-step help for capturing questions, building tests, printing, optical reading and online exams."
       },
+      "changelog": {
+        "title": "Release notes",
+        "description": "Updates, new features and security enhancements across Testcim."
+      },
+      "status": {
+        "title": "System status",
+        "description": "Live operational status of Testcim services."
+      },
       "about": {
         "title": "About",
         "description": "Testcim is built to speed up test and exam preparation for teachers."
@@ -1279,6 +1287,35 @@
     "copyright": {
       "title": "Copyright notice",
       "lead": "If you believe your copyright is infringed, fill in the form below."
+    },
+    "changelog": {
+      "title": "Release notes",
+      "lead": "Platform updates, new features and security hardening in Testcim.",
+      "versionLabel": "Version 1.0.0 (Public Release)",
+      "dateLabel": "October 2026",
+      "items": [
+        "Instant Ctrl+V capture pipeline and mobile camera capture with homography perspective warp",
+        "Rich question editor: KaTeX equation editor, geometry drawing canvas, and dynamic tables",
+        "PDF cropping studio with automated projection and text-layer splitting",
+        "Print-ready PDF, Word (DOCX) and PowerPoint (PPTX) multi-target export engine",
+        "Online exam delivery, live countdown timer and e-Okul compatible Excel/CSV export",
+        "Camera-based optical mark recognition (OMR) and grading engine",
+        "AI question generation, variation generator and step-by-step solver",
+        "Class roster import, student progress report cards and curriculum outcome analytics",
+        "Hardened RLS tenant isolation, cryptographic CSP nonce, and security mitigations"
+      ]
+    },
+    "status": {
+      "title": "System status",
+      "operational": "All systems operational",
+      "servicesTitle": "Services",
+      "webApp": "Web application and editor",
+      "database": "Database and data isolation layer",
+      "storage": "Document and image storage",
+      "realtime": "Realtime synchronization",
+      "workers": "PDF and optical reading engines",
+      "statusOperational": "Operational",
+      "updatedAt": "System status is continuously monitored."
     }
   }
 }
