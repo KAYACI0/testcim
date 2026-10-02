@@ -10,7 +10,7 @@ const ITEMS = [
   { href: '/settings/profile', key: 'profile' },
   { href: '/settings/workspace', key: 'workspace' },
   { href: '/settings/members', key: 'members' },
-  { href: '/settings/plan', key: 'plan' },
+  { href: '/settings/billing', key: 'billing' },
 ] as const;
 
 export function SettingsNav() {

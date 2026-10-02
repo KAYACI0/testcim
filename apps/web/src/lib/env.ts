@@ -35,6 +35,15 @@ export const serverEnvSchema = z.object({
   /** Optional: unset in dev/test falls back to an in-memory rate limiter. */
   UPSTASH_REDIS_REST_URL: optionalUrl,
   UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),
+  /**
+   * Billing (Prompt 13). `none` disables checkout entirely (plans stay
+   * readable, upgrade actions explain why). `fake` is a local/test stand-in and
+   * is refused in production. The webhook secret is shared with the provider.
+   */
+  BILLING_PROVIDER: z
+    .enum(['none', 'fake', 'iyzico', 'paddle', 'polar', 'lemonsqueezy'])
+    .default('none'),
+  BILLING_WEBHOOK_SECRET: z.string().min(16).optional(),
 });
 
 export type ClientEnv = z.infer<typeof clientEnvSchema>;
