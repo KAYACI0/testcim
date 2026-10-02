@@ -130,3 +130,6 @@ export {
   type CaptureSessionPayload,
   type RealtimeCaptureQuestionEvent,
 } from './capture-session';
+
+export { sanitizeSvg } from './sanitize-svg';
+export { sanitizeRedirectPath } from './redirect';

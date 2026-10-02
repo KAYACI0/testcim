@@ -14,6 +14,8 @@
     "lint": "eslint . --max-warnings=0",
     "test": "turbo run test",
     "check:design": "pnpm --filter @testcim/scripts run check:design",
+    "check:tenancy": "pnpm --filter @testcim/scripts run check:tenancy",
+    "check:budget": "pnpm --filter @testcim/scripts run check:budget",
     "test:e2e": "pnpm --filter @testcim/web run test:e2e",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

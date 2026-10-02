@@ -3,6 +3,8 @@
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
+import { sanitizeRedirectPath } from '@testcim/shared';
+
 import { clientEnv } from '@/lib/env.client';
 import { createClient } from '@/lib/supabase/server';
 
@@ -40,7 +42,7 @@ export async function requestOtp(_prev: OtpFormState, formData: FormData): Promi
 /** Starts the Google OAuth flow; the callback route exchanges the code and redirects onward. */
 export async function signInWithGoogle(formData: FormData): Promise<void> {
   const rawNext = formData.get('next');
-  const nextPath = typeof rawNext === 'string' && rawNext ? rawNext : '/home';
+  const nextPath = sanitizeRedirectPath(rawNext, '/home');
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',

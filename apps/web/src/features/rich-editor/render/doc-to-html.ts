@@ -1,6 +1,7 @@
 import katex from 'katex';
 
 import type { RichDoc } from '@testcim/shared';
+import { sanitizeSvg } from '@testcim/shared';
 
 interface RichNode {
   readonly type?: string;
@@ -79,7 +80,7 @@ function renderNode(node: RichNode): string {
     }
     case 'drawing': {
       const svg = typeof node.attrs?.svg === 'string' ? node.attrs.svg : '';
-      return `<div>${svg}</div>`;
+      return `<div>${sanitizeSvg(svg)}</div>`;
     }
     default:
       return (node.content ?? []).map(renderNode).join('');

@@ -3,6 +3,10 @@ packages:
   - packages/*
   - scripts
 
+overrides:
+  image-size: '>=2.0.3'
+  uuid: '>=11.1.1'
+
 # Only these packages may run install scripts; pnpm blocks every other one.
 allowBuilds:
   '@parcel/watcher': true

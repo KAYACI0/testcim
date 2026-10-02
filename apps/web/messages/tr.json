@@ -1003,6 +1003,14 @@
         "title": "Yardım merkezi: kullanım kılavuzu ve sık sorulanlar",
         "description": "Testcim kullanım kılavuzu: soru yakalama, test hazırlama, çıktı alma, optik okuma ve çevrimiçi sınav hakkında adım adım yardım."
       },
+      "changelog": {
+        "title": "Sürüm notları",
+        "description": "Testcim platformundaki güncellemeler, yeni özellikler ve güvenlik iyileştirmeleri."
+      },
+      "status": {
+        "title": "Sistem durumu",
+        "description": "Testcim servislerinin anlık çalışma durumu ve planlı bakım bilgileri."
+      },
       "about": {
         "title": "Hakkımızda",
         "description": "Testcim, öğretmenlerin test ve sınav hazırlığını hızlandırmak için geliştirilen bir üründür. Ürünün amacı ve çalışma ilkeleri."
@@ -1279,6 +1287,35 @@
     "copyright": {
       "title": "Telif bildirimi",
       "lead": "Telif hakkınızın ihlal edildiğini düşünüyorsanız aşağıdaki formu doldurun."
+    },
+    "changelog": {
+      "title": "Sürüm notları",
+      "lead": "Testcim platformunda yapılan tüm güncellemeler ve güvenlik iyileştirmeleri.",
+      "versionLabel": "Sürüm 1.0.0 (Genel Yayın)",
+      "dateLabel": "Ekim 2026",
+      "items": [
+        "Ctrl+V anında yakalama hattı ve 4 noktalı homografi düzeltmeli mobil kamera eşleşmesi",
+        "Zengin soru editörü: KaTeX denklem editörü, çizim alanı ve dinamik tablo",
+        "PDF kırpma stüdyosu ve otomatik soru bölme motoru",
+        "Baskıya hazır PDF, Word (DOCX) ve PowerPoint (PPTX) döküm motoru",
+        "Çevrimiçi sınav hattı, canlı süre takibi ve e-Okul uyumlu Excel/CSV aktarımı",
+        "Kamera tabanlı optik form okuma (OMR) ve puanlama motoru",
+        "Yapay zekâ ile soru üretimi, benzer soru türetme ve soru çözümleme",
+        "Sınıf listesi içe aktarımı, öğrenci gelişim karnesi ve konu analizleri",
+        "Güçlendirilmiş RLS kiracı izolasyonu ve CSP nonce güvenlik sertleştirmesi"
+      ]
+    },
+    "status": {
+      "title": "Sistem durumu",
+      "operational": "Tüm sistemler çalışıyor",
+      "servicesTitle": "Bileşenler",
+      "webApp": "Web uygulaması ve editör",
+      "database": "Veritabanı ve veri izolasyon katmanı",
+      "storage": "Belge ve görsel depolama",
+      "realtime": "Gerçek zamanlı eşzamanlama",
+      "workers": "PDF ve optik okuma motorları",
+      "statusOperational": "Normal",
+      "updatedAt": "Sistem durumu düzenli olarak kontrol edilmektedir."
     }
   }
 }

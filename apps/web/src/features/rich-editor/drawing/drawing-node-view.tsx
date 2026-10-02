@@ -4,6 +4,8 @@ import { NodeViewWrapper } from '@tiptap/react';
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { sanitizeSvg } from '@testcim/shared';
+
 import { DrawingModal } from './drawing-modal';
 
 import type { DrawingNodeAttrs } from './drawing-modal';
@@ -23,7 +25,7 @@ export function DrawingNodeView({ node, updateAttributes, selected }: NodeViewPr
         className={`block rounded-control p-1 outline-none hover:bg-canvas ${selected ? 'ring-1 ring-accent' : ''}`}
       >
         {attrs.svg ? (
-          <span dangerouslySetInnerHTML={{ __html: attrs.svg }} />
+          <span dangerouslySetInnerHTML={{ __html: sanitizeSvg(attrs.svg) }} />
         ) : (
           <span className="text-sm text-ink-2 italic">{t('placeholder')}</span>
         )}

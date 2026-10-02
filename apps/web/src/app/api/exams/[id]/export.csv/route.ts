@@ -28,8 +28,13 @@ export async function GET(_request: Request, { params }: { params: Promise<{ id:
 }
 
 function csvEscape(value: string): string {
-  if (/[",\r\n]/.test(value)) {
-    return `"${value.replace(/"/g, '""')}"`;
+  let safe = value;
+  // Neutralize formula triggers in spreadsheet software (CWE-1236)
+  if (/^[=+\-@\t\r]/.test(safe)) {
+    safe = `'${safe}`;
   }
-  return value;
+  if (/[",\r\n]/.test(safe)) {
+    return `"${safe.replace(/"/g, '""')}"`;
+  }
+  return safe;
 }
