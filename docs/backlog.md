@@ -419,8 +419,32 @@ söyler.
   testleri bu oturumda çalıştırılamadı** (önceki dilimlerdeki aynı bilinen
   kısıt: yerel Docker/Supabase CLI yok).
 
+## Dilim 13'ten kalanlar (faturalandırma ve pazarlama)
+
+- **Gerçek ödeme sağlayıcısı (iyzico / Paddle) adaptörleri bağlanmadı.**
+  Canlı kurumsal hesap ve API anahtarları olmaksızın harici ödeme servisleri test
+  edilemeyeceğinden `BillingProvider` soyutlaması üzerinden tam uçtan uca çalışan
+  `FakeBillingProvider` ve testleri kuruldu (`apps/web/src/features/billing/fake-provider.ts`).
+  Canlı anahtarlar temin edildiğinde iyzico adaptörü `registry.server.ts`'e eklenmelidir.
+- **e-Arşiv / e-Fatura entegrasyonu otomasyonu.**
+  iyzico MoR olmadığı için fatura kesmez; `payment.succeeded` olayında bir e-arşiv
+  entegratörüne (Paraşüt, KolayBi vb.) bağlanma ihtiyacı muhasebe süreçleriyle
+  birlikte kurulmalıdır.
+- **Hukuki metinler yer tutucu durumda.**
+  `/privacy`, `/terms`, `/kvkk`, `/refund` sayfaları `LegalPlaceholder` ile
+  "hukuki metin bekleniyor" uyarısı vermektedir; avukat tarafından hazırlanacak
+  resmi sözleşmeler beklenmektedir.
+- **Resend e-posta entegrasyonu.**
+  İletişim ve telif bildirimi formları `public_submissions` tablosuna yazılmaktadır;
+  yöneticiye e-posta bildirimi Resend kimlik bilgileri geldiğinde tek bir dilimde
+  kurulmalıdır.
+- **pgTAP testleri bu oturumda çalıştırılamadı.**
+  Yerel ortamda Docker/Supabase CLI bulunmadığı için `supabase/tests/180_billing.sql`
+  yerel Postgres üzerinde çalıştırılamadı; SQL mantığı ve TypeScript birim testleri
+  tamamlandı ve yeşildir.
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
-- iyzico abonelik ve e-arşiv fatura akışının ayrıntıları.
 - Vektör PDF için ayrı bir Chromium servisi gerekir mi.
 - Masaüstü yardımcı: Tauri mi Electron mu.
+
