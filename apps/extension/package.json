@@ -1,0 +1,18 @@
+{
+  "name": "@testcim/extension",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Testcim Soru Yakalama Tarayici Uzantisi (Chrome ve Edge)",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@types/chrome": "0.0.308",
+    "esbuild": "^0.28.2",
+    "typescript": "6.0.3",
+    "vitest": "5.0.2"
+  }
+}
