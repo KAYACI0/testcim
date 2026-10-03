@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Testcim masaüstü yardımcı uygulaması (henüz uygulanmadı — dilim 14)",
+  "description": "Testcim Masaustu Yardimci (Tauri v2 Sistem Tepsisi ve Pano Yakalayici)",
   "scripts": {
-    "dev": "echo 'Desktop uygulaması henüz uygulanmadı'",
-    "build": "echo 'Desktop uygulaması henüz uygulanmadı'",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },
   "devDependencies": {
+    "@types/node": "26.6.3",
     "typescript": "6.0.3",
     "vitest": "5.0.2"
   }
