@@ -135,3 +135,4 @@ Yeni bir dağıtımın beklenmedik kritik bir hataya yol açması durumunda izle
 Yüksek riskli yeni özellikler (yeni yerleşim algoritmaları, yeni ödeme sağlayıcıları, deneysel AI modelleri) doğrudan tüm kullanıcılara açılmaz:
 - **Çalışma Alanı Bazlı Açılış:** Özellik bayrağı çalışma alanı kimliğine göre filtrelenir (`features` tablosu veya çevre değişkeni).
 - **Kademeli Yüzde Dağıtımı:** Önce %10 beta kullanıcı kitlesine açılır, hata oranları Sentry üzerinden 24 saat gözlemlendikten sonra %100'e çıkarılır.
+

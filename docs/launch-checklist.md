@@ -101,3 +101,4 @@ Bu belge, Testcim platformunun kapalı betadan genel yayına (public release) ge
   1. Hukuki metinlerin şirket avukatı tarafından nihai onayı.
   2. DNS SPF/DKIM/DMARC kayıtlarının canlı etki alanında doğrulanması.
   3. İyzico/Paddle canlı mağaza anahtarlarının Vercel ortam değişkenlerine girilmesi.
+
