@@ -27,13 +27,21 @@ export function LoginForm({
         <InlineNotice tone="err">{t('errors.authFailed')}</InlineNotice>
       )}
 
+      {state.status === 'error' && state.message && state.message !== 'invalid_email' && (
+        <InlineNotice tone="err">{state.message}</InlineNotice>
+      )}
+
       {state.status === 'sent' ? (
         <InlineNotice tone="ok">{t('otpSent')}</InlineNotice>
       ) : (
         <form action={action} className="flex flex-col gap-4">
           <FormField
             label={t('emailLabel')}
-            error={state.status === 'error' ? t('errors.invalidEmail') : undefined}
+            error={
+              state.status === 'error' && state.message === 'invalid_email'
+                ? t('errors.invalidEmail')
+                : undefined
+            }
           >
             {(fieldProps) => (
               <Input

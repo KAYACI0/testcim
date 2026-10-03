@@ -28,7 +28,9 @@ async function getRequestOrigin(): Promise<string> {
 
 /** Sends a magic-link/OTP email. Supabase's confirmation link lands on `/auth/callback`. */
 export async function requestOtp(_prev: OtpFormState, formData: FormData): Promise<OtpFormState> {
-  const email = emailSchema.safeParse(formData.get('email'));
+  const rawEmail = formData.get('email');
+  const cleanEmail = typeof rawEmail === 'string' ? rawEmail.trim().toLowerCase() : '';
+  const email = emailSchema.safeParse(cleanEmail);
 
   if (!email.success) {
     return { status: 'error', message: 'invalid_email' };
