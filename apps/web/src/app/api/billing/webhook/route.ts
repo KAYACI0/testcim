@@ -6,8 +6,6 @@ import { WebhookSignatureError } from '@/features/billing/provider';
 import { getBillingProvider } from '@/features/billing/registry.server';
 import { handleWebhook } from '@/features/billing/webhook.server';
 
-export const dynamic = 'force-dynamic';
-
 // The signature covers the exact bytes received, so the body is read as text
 // and never re-serialized before verification.
 export async function POST(request: NextRequest) {
