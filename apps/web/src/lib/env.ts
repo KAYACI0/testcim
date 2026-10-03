@@ -49,6 +49,16 @@ export const serverEnvSchema = z.object({
 export type ClientEnv = z.infer<typeof clientEnvSchema>;
 export type ServerEnv = z.infer<typeof serverEnvSchema>;
 
+const BUILD_FALLBACKS: Record<string, string> = {
+  NEXT_PUBLIC_SITE_URL: 'https://testcim.vercel.app',
+  NEXT_PUBLIC_SUPABASE_URL: 'https://placeholder.supabase.co',
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: 'placeholder-anon-key',
+  SUPABASE_SERVICE_ROLE_KEY: 'placeholder-service-role-key',
+  BILLING_PROVIDER: 'none',
+  AI_MODEL_QUALITY: 'claude-opus-5',
+  AI_MODEL_FAST: 'claude-haiku-4-5',
+};
+
 /** Parses an environment object, failing with the offending variable names listed. */
 export function parseEnv<TSchema extends z.ZodType>(
   schema: TSchema,
@@ -61,6 +71,24 @@ export function parseEnv<TSchema extends z.ZodType>(
     const details = result.error.issues
       .map((issue) => `${issue.path.join('.') || '(root)'}: ${issue.message}`)
       .join('\n  ');
+
+    // During build time (e.g. Next.js collecting page data or static generation),
+    // provide safe defaults so page collection never crashes if an env var is missing on Vercel.
+    const isBuild =
+      process.env.NEXT_PHASE === 'phase-production-build' ||
+      process.env.npm_lifecycle_event === 'build' ||
+      process.env.CI === '1' ||
+      process.env.VERCEL === '1';
+
+    if (isBuild) {
+      const fallbackResult = schema.safeParse({ ...BUILD_FALLBACKS, ...source });
+      if (fallbackResult.success) {
+        console.warn(
+          `[env] Missing ${label} environment during build (using build fallbacks):\n  ${details}`,
+        );
+        return fallbackResult.data;
+      }
+    }
 
     throw new Error(`Invalid ${label} environment:\n  ${details}`);
   }
