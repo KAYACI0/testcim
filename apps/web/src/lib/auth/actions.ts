@@ -1,5 +1,6 @@
 'use server';
 
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
@@ -15,6 +16,16 @@ export interface OtpFormState {
 
 const emailSchema = z.email();
 
+async function getRequestOrigin(): Promise<string> {
+  const headerList = await headers();
+  const host = headerList.get('x-forwarded-host') || headerList.get('host');
+  const proto = headerList.get('x-forwarded-proto') || 'https';
+  if (host) {
+    return `${proto}://${host}`;
+  }
+  return clientEnv.NEXT_PUBLIC_SITE_URL;
+}
+
 /** Sends a magic-link/OTP email. Supabase's confirmation link lands on `/auth/callback`. */
 export async function requestOtp(_prev: OtpFormState, formData: FormData): Promise<OtpFormState> {
   const email = emailSchema.safeParse(formData.get('email'));
@@ -23,11 +34,12 @@ export async function requestOtp(_prev: OtpFormState, formData: FormData): Promi
     return { status: 'error', message: 'invalid_email' };
   }
 
+  const origin = await getRequestOrigin();
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithOtp({
     email: email.data,
     options: {
-      emailRedirectTo: `${clientEnv.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+      emailRedirectTo: `${origin}/auth/callback`,
       shouldCreateUser: true,
     },
   });
@@ -43,11 +55,12 @@ export async function requestOtp(_prev: OtpFormState, formData: FormData): Promi
 export async function signInWithGoogle(formData: FormData): Promise<void> {
   const rawNext = formData.get('next');
   const nextPath = sanitizeRedirectPath(rawNext, '/home');
+  const origin = await getRequestOrigin();
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${clientEnv.NEXT_PUBLIC_SITE_URL}/auth/callback?next=${encodeURIComponent(nextPath)}`,
+      redirectTo: `${origin}/auth/callback?next=${encodeURIComponent(nextPath)}`,
     },
   });
 
