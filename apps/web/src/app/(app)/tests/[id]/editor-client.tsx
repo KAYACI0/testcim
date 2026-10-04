@@ -107,12 +107,16 @@ export function EditorClient({
       <EditorTopBar store={store} approvalStatus={data.approvalStatus} />
       <div className="flex min-h-0 flex-1">
         <div className="w-80 shrink-0 border-r border-line">
-          <QuestionStrip store={store} />
+          <QuestionStrip
+            store={store}
+            onCaptureFiles={handleCaptureFiles}
+            onWriteQuestion={() => setRichEditorOpen(true)}
+          />
         </div>
         <div className="min-w-0 flex-1">
           <PaperPreview store={store} onEditTemplate={() => setInspectorTab('page')} />
         </div>
-        <div className="w-72 shrink-0 border-l border-line">
+        <div className="w-80 shrink-0 border-l border-line">
           <Inspector store={store} activeTab={inspectorTab} onTabChange={setInspectorTab} />
         </div>
       </div>

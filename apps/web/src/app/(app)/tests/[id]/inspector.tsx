@@ -7,9 +7,12 @@ import { resolveHeaderSettings } from '@testcim/shared';
 
 import type { EditorStore } from '@/features/editor/store';
 
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { FormField } from '@/components/ui/form-field';
+import { Icon } from '@/components/ui/icon';
 import { Input } from '@/components/ui/input';
+import { Segmented } from '@/components/ui/segmented';
 import {
   Select,
   SelectContent,
@@ -18,7 +21,6 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Textarea } from '@/components/ui/textarea';
 import { AnswerSelector } from '@/features/editor/answer-selector';
 import { sortByPosition } from '@/features/editor/op-log';
 
@@ -36,198 +38,212 @@ export function Inspector({ store, activeTab, onTabChange }: InspectorProps) {
   const ready = sortByPosition(items).filter((item) => item.status === 'ready');
 
   const header = resolveHeaderSettings(settings?.header, title);
+  const columns = settings?.columns ?? 2;
+
+  const handlePrint = () => {
+    window.print();
+  };
 
   return (
     <Tabs
-      {...(activeTab ? { value: activeTab } : { defaultValue: 'answers' })}
+      {...(activeTab ? { value: activeTab } : { defaultValue: 'page' })}
       onValueChange={(val) => onTabChange?.(val as 'page' | 'booklets' | 'answers' | 'output')}
       className="flex h-full flex-col"
     >
       <TabsList className="px-4">
         <TabsTrigger value="page">{t('page')}</TabsTrigger>
-        <TabsTrigger value="booklets" disabled>
-          {t('booklets')}
-        </TabsTrigger>
-        <TabsTrigger value="answers">{t('answers')}</TabsTrigger>
-        <TabsTrigger value="output" disabled>
-          {t('output')}
+        <TabsTrigger value="answers">
+          {t('answers')} {ready.length > 0 && `(${ready.length})`}
         </TabsTrigger>
       </TabsList>
 
       <TabsContent value="page" className="flex-1 overflow-y-auto px-4 pb-6">
-        <div className="flex flex-col gap-5 pt-2">
-          <div>
-            <h3 className="text-xs font-semibold text-ink-2">{t('template.headerSection')}</h3>
-            <div className="mt-3 flex flex-col gap-3">
-              <FormField label={t('template.schoolNameLabel')}>
-                {(fieldProps) => (
-                  <Input
-                    {...fieldProps}
-                    value={header.schoolName ?? ''}
-                    placeholder={t('template.schoolNamePlaceholder')}
-                    onChange={(e) => store.getState().updateHeader({ schoolName: e.target.value })}
-                  />
-                )}
-              </FormField>
+        <div className="flex flex-col gap-4 pt-1">
+          {/* Okul */}
+          <FormField label={t('template.schoolNameLabel')}>
+            {(fieldProps) => (
+              <Input
+                {...fieldProps}
+                value={header.schoolName ?? ''}
+                placeholder={t('template.schoolNamePlaceholder')}
+                onChange={(e) => store.getState().updateHeader({ schoolName: e.target.value })}
+              />
+            )}
+          </FormField>
 
-              <FormField label={t('template.examTitleLabel')}>
-                {(fieldProps) => (
-                  <Input
-                    {...fieldProps}
-                    value={header.title ?? ''}
-                    placeholder={t('template.examTitlePlaceholder')}
-                    onChange={(e) => store.getState().updateHeader({ title: e.target.value })}
-                  />
-                )}
-              </FormField>
+          {/* Ders & Sınıf Row */}
+          <div className="grid grid-cols-2 gap-2">
+            <FormField label={t('template.subjectLabel')}>
+              {(fieldProps) => (
+                <Input
+                  {...fieldProps}
+                  value={header.subject ?? ''}
+                  placeholder={t('template.subjectPlaceholder')}
+                  onChange={(e) => store.getState().updateHeader({ subject: e.target.value })}
+                />
+              )}
+            </FormField>
+            <FormField label={t('template.classLabel')}>
+              {(fieldProps) => (
+                <Input
+                  {...fieldProps}
+                  value={header.className ?? ''}
+                  placeholder={t('template.classPlaceholder')}
+                  onChange={(e) => store.getState().updateHeader({ className: e.target.value })}
+                />
+              )}
+            </FormField>
+          </div>
 
-              <div className="grid grid-cols-2 gap-2">
-                <FormField label={t('template.subjectLabel')}>
-                  {(fieldProps) => (
-                    <Input
-                      {...fieldProps}
-                      value={header.subject ?? ''}
-                      placeholder={t('template.subjectPlaceholder')}
-                      onChange={(e) => store.getState().updateHeader({ subject: e.target.value })}
-                    />
-                  )}
-                </FormField>
-                <FormField label={t('template.termLabel')}>
-                  {(fieldProps) => (
-                    <Input
-                      {...fieldProps}
-                      value={header.term ?? ''}
-                      placeholder={t('template.termPlaceholder')}
-                      onChange={(e) => store.getState().updateHeader({ term: e.target.value })}
-                    />
-                  )}
-                </FormField>
-              </div>
+          {/* Öğretmen & Süre Row */}
+          <div className="grid grid-cols-2 gap-2">
+            <FormField label={t('template.teacherLabel')}>
+              {(fieldProps) => (
+                <Input
+                  {...fieldProps}
+                  value={header.teacherName ?? ''}
+                  placeholder={t('template.teacherPlaceholder')}
+                  onChange={(e) => store.getState().updateHeader({ teacherName: e.target.value })}
+                />
+              )}
+            </FormField>
+            <FormField label={t('template.durationLabel')}>
+              {(fieldProps) => (
+                <Input
+                  {...fieldProps}
+                  value={header.duration ?? ''}
+                  placeholder={t('template.durationPlaceholder')}
+                  onChange={(e) => store.getState().updateHeader({ duration: e.target.value })}
+                />
+              )}
+            </FormField>
+          </div>
 
-              <FormField label={t('template.examDateLabel')}>
-                {(fieldProps) => (
-                  <Input
-                    {...fieldProps}
-                    value={header.examDate ?? ''}
-                    placeholder={t('template.examDatePlaceholder')}
-                    onChange={(e) => store.getState().updateHeader({ examDate: e.target.value })}
-                  />
-                )}
-              </FormField>
-
-              <FormField label={t('template.instructionsLabel')}>
-                {(fieldProps) => (
-                  <Textarea
-                    {...fieldProps}
-                    rows={2}
-                    value={header.instructions ?? ''}
-                    placeholder={t('template.instructionsPlaceholder')}
-                    onChange={(e) =>
-                      store.getState().updateHeader({ instructions: e.target.value })
-                    }
-                  />
-                )}
-              </FormField>
+          {/* ŞABLON Section */}
+          <div className="border-t border-line pt-3">
+            <h3 className="text-xs font-semibold text-ink-3">{t('template.templateSection')}</h3>
+            <div className="mt-2 flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-ink-2">
+                {t('template.layoutPresetLabel')}
+              </label>
+              <Select
+                value={header.layoutPreset ?? 'classic'}
+                onValueChange={(val) =>
+                  store
+                    .getState()
+                    .updateHeader({ layoutPreset: val as 'classic' | 'modern' | 'minimal' })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="classic">{t('template.presets.classic')}</SelectItem>
+                  <SelectItem value="modern">{t('template.presets.modern')}</SelectItem>
+                  <SelectItem value="minimal">{t('template.presets.minimal')}</SelectItem>
+                </SelectContent>
+              </Select>
+              <p className="text-[11px] text-ink-3">{t('template.presetDesc')}</p>
             </div>
           </div>
 
-          <div className="border-t border-line pt-4">
-            <h3 className="text-xs font-semibold text-ink-2">{t('template.studentInfoSection')}</h3>
-            <div className="mt-3 flex flex-col gap-2.5">
-              <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink select-none">
+          {/* YERLEŞİM Section */}
+          <div className="border-t border-line pt-3">
+            <h3 className="text-xs font-semibold text-ink-3">{t('template.layoutSection')}</h3>
+
+            {/* Sütun Segmented */}
+            <div className="mt-3 flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-ink-2">{t('template.columnsLabel')}</label>
+              <Segmented
+                aria-label={t('template.columnsLabel')}
+                value={String(columns)}
+                onValueChange={(val) => store.getState().updateSettings({ columns: Number(val) })}
+                options={[
+                  { value: '1', label: t('template.singleColumn') },
+                  { value: '2', label: t('template.twoColumns') },
+                ]}
+                className="w-full justify-stretch text-center [&>*]:flex-1"
+              />
+            </div>
+
+            {/* Soru Aralığı Segmented */}
+            <div className="mt-3 flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-ink-2">{t('template.spacingLabel')}</label>
+              <Segmented
+                aria-label={t('template.spacingLabel')}
+                value={header.questionSpacing ?? 'normal'}
+                onValueChange={(val) =>
+                  store.getState().updateHeader({
+                    questionSpacing: val as 'tight' | 'normal' | 'wide' | 'detailed',
+                  })
+                }
+                options={[
+                  { value: 'tight', label: t('template.spacing.tight') },
+                  { value: 'normal', label: t('template.spacing.normal') },
+                  { value: 'wide', label: t('template.spacing.wide') },
+                  { value: 'detailed', label: t('template.spacing.detailed') },
+                ]}
+                className="w-full justify-stretch text-center [&>*]:flex-1"
+              />
+            </div>
+
+            {/* Checkboxes */}
+            <div className="mt-4 flex flex-col gap-2.5">
+              <label className="flex cursor-pointer items-center gap-2.5 text-xs text-ink select-none">
                 <Checkbox
-                  checked={header.showStudentName}
+                  checked={header.showStudentInfo}
                   onCheckedChange={(checked) =>
-                    store.getState().updateHeader({ showStudentName: Boolean(checked) })
+                    store.getState().updateHeader({ showStudentInfo: Boolean(checked) })
                   }
                 />
-                <span>{t('template.showStudentName')}</span>
+                <span>{t('template.showStudentInfo')}</span>
               </label>
 
-              <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink select-none">
+              <label className="flex cursor-pointer items-center gap-2.5 text-xs text-ink select-none">
                 <Checkbox
-                  checked={header.showClass}
+                  checked={header.showColumnDivider}
                   onCheckedChange={(checked) =>
-                    store.getState().updateHeader({ showClass: Boolean(checked) })
+                    store.getState().updateHeader({ showColumnDivider: Boolean(checked) })
                   }
                 />
-                <span>{t('template.showClass')}</span>
+                <span>{t('template.showColumnDivider')}</span>
               </label>
 
-              <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink select-none">
+              <label className="flex cursor-pointer items-center gap-2.5 text-xs text-ink select-none">
                 <Checkbox
-                  checked={header.showStudentNo}
+                  checked={header.showAnswerSheet}
                   onCheckedChange={(checked) =>
-                    store.getState().updateHeader({ showStudentNo: Boolean(checked) })
+                    store.getState().updateHeader({ showAnswerSheet: Boolean(checked) })
                   }
                 />
-                <span>{t('template.showStudentNo')}</span>
+                <span>{t('template.showAnswerSheet')}</span>
               </label>
 
-              <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink select-none">
+              <label className="flex cursor-pointer items-center gap-2.5 text-xs text-ink select-none">
                 <Checkbox
-                  checked={header.showDate}
+                  checked={header.showAnswerKey}
                   onCheckedChange={(checked) =>
-                    store.getState().updateHeader({ showDate: Boolean(checked) })
+                    store.getState().updateHeader({ showAnswerKey: Boolean(checked) })
                   }
                 />
-                <span>{t('template.showDate')}</span>
+                <span>{t('template.showAnswerKey')}</span>
               </label>
-
-              <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink select-none">
-                <Checkbox
-                  checked={header.showScore}
-                  onCheckedChange={(checked) =>
-                    store.getState().updateHeader({ showScore: Boolean(checked) })
-                  }
-                />
-                <span>{t('template.showScore')}</span>
-              </label>
-
-              <div className="flex items-center justify-between gap-2 pt-1">
-                <label className="flex cursor-pointer items-center gap-2.5 text-sm text-ink select-none">
-                  <Checkbox
-                    checked={header.showBookletCode}
-                    onCheckedChange={(checked) =>
-                      store.getState().updateHeader({ showBookletCode: Boolean(checked) })
-                    }
-                  />
-                  <span>{t('template.showBookletCode')}</span>
-                </label>
-                {header.showBookletCode && (
-                  <Input
-                    value={header.bookletCode ?? 'A'}
-                    onChange={(e) => store.getState().updateHeader({ bookletCode: e.target.value })}
-                    className="h-8 w-16 text-center text-sm font-semibold"
-                    maxLength={4}
-                  />
-                )}
-              </div>
             </div>
           </div>
 
-          <div className="border-t border-line pt-4">
-            <h3 className="text-xs font-semibold text-ink-2">{t('template.layoutSection')}</h3>
-            <div className="mt-3">
-              <FormField label={t('template.columnsLabel')}>
-                {(fieldProps) => (
-                  <Select
-                    value={String(settings?.columns ?? 1)}
-                    onValueChange={(val) =>
-                      store.getState().updateSettings({ columns: Number(val) })
-                    }
-                  >
-                    <SelectTrigger id={fieldProps.id}>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1">{t('template.singleColumn')}</SelectItem>
-                      <SelectItem value="2">{t('template.twoColumns')}</SelectItem>
-                    </SelectContent>
-                  </Select>
-                )}
-              </FormField>
-            </div>
+          {/* Action button: PDF indir */}
+          <div className="mt-2 border-t border-line pt-4">
+            <Button
+              className="flex w-full items-center justify-center gap-2"
+              size="md"
+              onClick={handlePrint}
+            >
+              <Icon name="file-text" size={16} />
+              <span>{t('template.downloadPdf')}</span>
+            </Button>
+            <p className="mt-1.5 text-center text-[11px] text-ink-3">
+              {t('template.watermarkNote')}
+            </p>
           </div>
         </div>
       </TabsContent>

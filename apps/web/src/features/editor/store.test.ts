@@ -131,7 +131,7 @@ describe('editor store: synced item edits', () => {
       { applyOps: vi.fn().mockResolvedValue(okResult(2)), flushDelayMs: 100_000 },
     );
 
-    expect(store.getState().settings.columns).toBe(1);
+    expect(store.getState().settings.columns).toBe(2);
 
     store.getState().updateHeader({ schoolName: 'Test School', showStudentName: true });
     expect(store.getState().settings.header).toMatchObject({
@@ -140,12 +140,12 @@ describe('editor store: synced item edits', () => {
     });
     expect(store.getState().pendingOps).toHaveLength(1);
 
-    store.getState().updateSettings({ columns: 2 });
-    expect(store.getState().settings.columns).toBe(2);
+    store.getState().updateSettings({ columns: 1 });
+    expect(store.getState().settings.columns).toBe(1);
     expect(store.getState().pendingOps).toHaveLength(2);
 
     store.getState().undo();
-    expect(store.getState().settings.columns).toBe(1);
+    expect(store.getState().settings.columns).toBe(2);
 
     store.getState().undo();
     expect(store.getState().settings.header).not.toMatchObject({ schoolName: 'Test School' });
