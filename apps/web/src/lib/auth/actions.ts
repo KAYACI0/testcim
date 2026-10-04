@@ -106,7 +106,8 @@ export async function signUpWithPassword(
 
   return {
     status: 'sent',
-    message: 'Kayıt başarılı! E-posta onayı gerekiyorsa gelen kutunuzu kontrol edin veya giriş yapın.',
+    message:
+      'Kayıt başarılı! E-posta onayı gerekiyorsa gelen kutunuzu kontrol edin veya giriş yapın.',
   };
 }
 

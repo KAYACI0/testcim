@@ -797,7 +797,8 @@
         "date": "Date",
         "outcome": "Outcome",
         "correctRate": "Correct rate"
-      }
+      },
+      "reportCardAction": "Generate report card"
     }
   },
   "exams": {
@@ -1405,5 +1406,32 @@
       "statusOperational": "Operational",
       "updatedAt": "System status is continuously monitored."
     }
+  },
+  "omr": {
+    "title": "Optical mark reading & forms",
+    "description": "Generate print-ready optical forms and manage grading workflows.",
+    "generateTitle": "Quick optical form generation",
+    "generateDescription": "Instantly download print-ready A4 optical answer sheet PDFs for your required question and option counts.",
+    "selectTest": "Select an existing test",
+    "selectTestPlaceholder": "Select a test (optional)",
+    "questionCount": "Number of questions",
+    "optionsCount": "Options per question",
+    "studentNumberDigits": "Student number digits",
+    "options4": "4 options (A, B, C, D)",
+    "options5": "5 options (A, B, C, D, E)",
+    "downloadPdf": "Download optical form PDF",
+    "downloading": "Preparing...",
+    "downloadSuccess": "Optical form downloaded successfully.",
+    "workflowTitle": "How it works",
+    "step1Title": "1. Print the form",
+    "step1Desc": "Print the standard A4 optical answer sheet generated for your test.",
+    "step2Title": "2. Administer the exam",
+    "step2Desc": "Students fill in their answers and student numbers with a pencil.",
+    "step3Title": "3. Link results",
+    "step3Desc": "Match answers and exam scores directly to your classes.",
+    "step4Title": "4. Generate reports & cards",
+    "step4Desc": "Instantly view outcome deficiencies, item analyses, and report cards.",
+    "linkResultsAction": "Manage class results",
+    "emptyTests": "You don't have any saved tests yet. You can still download blank optical sheets using the options above."
   }
 }

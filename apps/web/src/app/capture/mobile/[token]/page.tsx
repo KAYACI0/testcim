@@ -18,11 +18,11 @@ export default async function MobileCapturePage({ params }: PageProps) {
   if (!result.ok || !result.session) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-canvas p-4 text-center">
-        <div className="w-full max-w-sm border border-border bg-white p-6 shadow-sm">
-          <h1 className="text-base font-semibold text-text">Oturum süresi doldu</h1>
-          <p className="mt-2 text-sm text-muted">
-            Bu yakalama oturumu sonlandırılmış veya süresi dolmuş olabilir. Lütfen bilgisayarınızdaki
-            Testcim ekranından yeni bir QR kod oluşturunuz.
+        <div className="border-border w-full max-w-sm border bg-white p-6 shadow-sm">
+          <h1 className="text-text text-base font-semibold">Oturum süresi doldu</h1>
+          <p className="text-muted mt-2 text-sm">
+            Bu yakalama oturumu sonlandırılmış veya süresi dolmuş olabilir. Lütfen
+            bilgisayarınızdaki Testcim ekranından yeni bir QR kod oluşturunuz.
           </p>
         </div>
       </main>

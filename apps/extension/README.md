@@ -6,13 +6,13 @@ Testcim Soru Yakalama uzantısı, öğretmenlerin herhangi bir web sayfasından,
 
 Uzantı, Chrome ve Microsoft Edge Manifest V3 standartlarına tam uyumludur. **En az izin (least privilege)** ilkesine sıkı sıkıya bağlıdır:
 
-| İzin | Amaç ve Gerekçe |
-| :--- | :--- |
-| `activeTab` | Yalnızca kullanıcı kırpma eylemini başlattığında (buton veya kısayol) o anki sekmede ekran alıntısı almak için kullanılır. Arka planda sekme veya gezinme geçmişi izlenmez. |
-| `sidePanel` | Kullanıcının web sayfasından ayrılmadan yan panel üzerinden aktif testi ve kırpılan soruları inceleyip cevap anahtarı işaretlemesini sağlar. |
-| `storage` | 15 dakikalık kısa ömürlü eşleme jetonunu ve sunucu adresini yerel tarayıcı belleğinde güvenle saklar. |
-| `scripting` | Kırpma başlatıldığında ekranda seçim çerçevesi (overlay) kaplamasını oluşturmak için kullanılır. |
-| `host_permissions` | Yalnızca `https://*.testcim.com/*` (ve yerel geliştirme için `http://localhost:*/*`) adresleriyle iletişim kurar. Üçüncü taraf sitelerle hiçbir veri alışverişi yapılmaz. |
+| İzin               | Amaç ve Gerekçe                                                                                                                                                             |
+| :----------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `activeTab`        | Yalnızca kullanıcı kırpma eylemini başlattığında (buton veya kısayol) o anki sekmede ekran alıntısı almak için kullanılır. Arka planda sekme veya gezinme geçmişi izlenmez. |
+| `sidePanel`        | Kullanıcının web sayfasından ayrılmadan yan panel üzerinden aktif testi ve kırpılan soruları inceleyip cevap anahtarı işaretlemesini sağlar.                                |
+| `storage`          | 15 dakikalık kısa ömürlü eşleme jetonunu ve sunucu adresini yerel tarayıcı belleğinde güvenle saklar.                                                                       |
+| `scripting`        | Kırpma başlatıldığında ekranda seçim çerçevesi (overlay) kaplamasını oluşturmak için kullanılır.                                                                            |
+| `host_permissions` | Yalnızca `https://*.testcim.com/*` (ve yerel geliştirme için `http://localhost:*/*`) adresleriyle iletişim kurar. Üçüncü taraf sitelerle hiçbir veri alışverişi yapılmaz.   |
 
 ## Kurulum ve Geliştirme (Paketlenmemiş Yükleme)
 
@@ -40,6 +40,7 @@ Uzantı, Chrome ve Microsoft Edge Manifest V3 standartlarına tam uyumludur. **E
 ## Mağaza Yayını Kontrol Listesi (Chrome Web Store & Edge Add-ons)
 
 ### 1. Mağaza Metinleri
+
 - **Uzantı Adı:** Testcim - Soru Yakalama
 - **Kısa Açıklama (132 karakter):** Herhangi bir web sayfasından veya PDF'ten soruları kırpın, saniyeler içinde Testcim sınavınıza ekleyin.
 - **Kategori:** Verimlilik / Eğitim
@@ -50,6 +51,7 @@ Uzantı, Chrome ve Microsoft Edge Manifest V3 standartlarına tam uyumludur. **E
   - Sıfır reklam, sıfır takipçi, tam gizlilik.
 
 ### 2. Görsel Varlıklar
+
 - [x] `icons/icon-16.png` (Uzantı araç çubuğu simgesi)
 - [x] `icons/icon-48.png` (Uzantı yönetim sayfası simgesi)
 - [x] `icons/icon-128.png` (Mağaza ve yükleme simgesi)
@@ -61,5 +63,6 @@ Uzantı, Chrome ve Microsoft Edge Manifest V3 standartlarına tam uyumludur. **E
 - [ ] 1400x560 piksel büyük tanıtım başlığı (Marquee banner)
 
 ### 3. Gizlilik Beyanı
+
 - Uzantı hiçbir kişisel veri, parola, çerez veya tarayıcı geçmişi toplamaz.
 - Yalnızca kullanıcının açıkça seçtiği ekran bölgesi Supabase Storage'daki güvenli alana yüklenir.

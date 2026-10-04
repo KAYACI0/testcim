@@ -27,8 +27,14 @@ export function LoginForm({
   const t = useTranslations('auth');
   const [mode, setMode] = useState<'signin' | 'signup' | 'magic'>('signin');
 
-  const [signInState, signInAction, signInPending] = useActionState(signInWithPassword, initialState);
-  const [signUpState, signUpAction, signUpPending] = useActionState(signUpWithPassword, initialState);
+  const [signInState, signInAction, signInPending] = useActionState(
+    signInWithPassword,
+    initialState,
+  );
+  const [signUpState, signUpAction, signUpPending] = useActionState(
+    signUpWithPassword,
+    initialState,
+  );
   const [otpState, otpAction, otpPending] = useActionState(requestOtp, initialState);
 
   const activeState = mode === 'signin' ? signInState : mode === 'signup' ? signUpState : otpState;
@@ -68,9 +74,7 @@ export function LoginForm({
       )}
 
       {activeState.status === 'sent' && (
-        <InlineNotice tone="ok">
-          {activeState.message ?? t('otpSent')}
-        </InlineNotice>
+        <InlineNotice tone="ok">{activeState.message ?? t('otpSent')}</InlineNotice>
       )}
 
       {mode === 'signin' && (

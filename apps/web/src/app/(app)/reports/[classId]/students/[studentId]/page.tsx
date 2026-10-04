@@ -3,6 +3,8 @@ import { getTranslations } from 'next-intl/server';
 
 import type { OutcomeReportRow, StudentProgressRow } from '@testcim/shared';
 
+import { StudentReportCardButton } from './student-report-card-button';
+
 import { DataTable, type DataTableColumn } from '@/components/patterns/data-table';
 import { PageHeader } from '@/components/patterns/page-header';
 import { getClassRoster } from '@/features/classes/actions.server';
@@ -52,7 +54,17 @@ export default async function StudentProgressPage({
 
   return (
     <div className="flex h-full flex-col">
-      <PageHeader title={student.full_name} description={t('description')} />
+      <PageHeader
+        title={student.full_name}
+        description={t('description')}
+        action={
+          <StudentReportCardButton
+            studentId={studentId}
+            studentName={student.full_name}
+            classId={classId}
+          />
+        }
+      />
       <div className="flex flex-col gap-8 p-4">
         <div className="flex flex-col gap-2">
           <h2 className="text-sm font-medium text-ink">{t('progressChartTitle')}</h2>

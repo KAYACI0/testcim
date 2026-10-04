@@ -57,10 +57,17 @@ export function EditorTopBar({
         <Button variant="secondary" size="sm" onClick={() => setCollaborationOpen(true)}>
           {t('collaboration')}
         </Button>
-        <Button variant="secondary" size="sm" disabled>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => {
+            const el = document.querySelector('.min-h-\\[1123px\\]');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
           {t('preview')}
         </Button>
-        <Button size="sm" disabled>
+        <Button size="sm" onClick={() => window.print()}>
           {t('export')}
         </Button>
         <PublishExamDialog testId={testId} defaultTitle={title} />

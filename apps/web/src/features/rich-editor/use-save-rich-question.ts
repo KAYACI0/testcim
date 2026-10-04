@@ -78,12 +78,10 @@ export function useSaveRichQuestion({
       return { ok: false, reason: result.reason };
     }
 
-    store
-      .getState()
-      .confirmCaptured(itemId, {
-        questionId: result.questionId,
-        questionRevisionId: result.questionRevisionId,
-      });
+    store.getState().confirmCaptured(itemId, {
+      questionId: result.questionId,
+      questionRevisionId: result.questionRevisionId,
+    });
     return { ok: true };
   }
 

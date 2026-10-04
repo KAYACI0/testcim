@@ -3,17 +3,8 @@
   "name": "Testcim - Soru Yakalama",
   "version": "1.0.0",
   "description": "Herhangi bir web sayfasindan veya PDF'ten sorulari kirpin, saniyeler icinde Testcim sinaviniza ekleyin.",
-  "permissions": [
-    "activeTab",
-    "sidePanel",
-    "storage",
-    "scripting"
-  ],
-  "host_permissions": [
-    "https://*.testcim.com/*",
-    "http://localhost:*/*",
-    "http://127.0.0.1:*/*"
-  ],
+  "permissions": ["activeTab", "sidePanel", "storage", "scripting"],
+  "host_permissions": ["https://*.testcim.com/*", "http://localhost:*/*", "http://127.0.0.1:*/*"],
   "action": {
     "default_title": "Testcim Soru Yakalama"
   },
