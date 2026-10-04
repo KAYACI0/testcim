@@ -1129,7 +1129,29 @@
       }
     },
     "home": {
-      "title": "Soruları yapıştırın, saniyeler içinde baskıya hazır sınav kâğıdı alın.",
+      "title": "Soruları yapıştırın, <mark>saniyeler içinde</mark> baskıya hazır sınav kâğıdı alın.",
+      "hero": {
+        "eyebrow": "Öğretmenler için sınav hazırlama",
+        "paste": "Yapıştır",
+        "ready": "Baskıya hazır",
+        "pages": "A4, iki sütun",
+        "school": "Okul başlığı",
+        "subjectsLabel": "Her branştan öğretmen için",
+        "subjects": [
+          "Matematik",
+          "Fizik",
+          "Kimya",
+          "Biyoloji",
+          "Türkçe",
+          "Tarih",
+          "Coğrafya",
+          "Fen Bilimleri",
+          "Edebiyat",
+          "İngilizce",
+          "Din Kültürü",
+          "Geometri"
+        ]
+      },
       "lead": "Ekran alıntısını Ctrl+V ile yapıştırın, PDF'ten soru kırpın ya da telefonunuzla fotoğrafını çekin. Sayfa düzeni, numaralandırma ve başlık sizin yerinize kurulur.",
       "primaryCta": "Ücretsiz başlayın",
       "secondaryCta": "Nasıl çalıştığını görün",
@@ -1256,7 +1278,7 @@
       "booklets": {
         "title": "Kitapçıklar",
         "summary": "A, B, C, D kitapçıkları tek testten, cevap anahtarıyla birlikte.",
-        "detail": "Aynı testten soru sırası karıştırılmış kitapçıklar üretin. Her kitapçığın cevap anahtarı ayrı tutulur."
+        "detail": "Aynı testten soru sırası karışt��rılmış kitapçıklar üretin. Her kitapçığın cevap anahtarı ayrı tutulur."
       },
       "omr": {
         "title": "Optik okuma",

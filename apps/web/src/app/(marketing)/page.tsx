@@ -4,9 +4,11 @@ import { getTranslations } from 'next-intl/server';
 import { formatMinor, monthlyEquivalentMinor } from '@testcim/shared';
 
 import { FeatureBlocks } from '@/features/marketing/feature-blocks';
+import { HeroVisual } from '@/features/marketing/hero-visual';
 import { PasteDemo } from '@/features/marketing/paste-demo';
 import { getPublicPlans } from '@/features/marketing/plans.server';
 import { PricingPreview, type PricingPreviewTier } from '@/features/marketing/pricing-preview';
+import { SubjectMarquee } from '@/features/marketing/subject-marquee';
 import { jsonLdString, marketingMetadata } from '@/lib/seo';
 import { absoluteUrl } from '@/lib/site';
 
@@ -72,26 +74,92 @@ export default async function HomePage() {
         dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }}
       />
 
-      <section className="mx-auto max-w-5xl px-6 pt-14 pb-12 sm:pt-20">
-        <h1 className="max-w-3xl text-4xl leading-tight font-semibold text-balance text-ink">
-          {t('title')}
-        </h1>
-        <p className="mt-5 max-w-2xl text-lg text-ink-2">{t('lead')}</p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href="/login"
-            className="inline-flex h-11 items-center rounded-control bg-accent px-5 text-base font-medium text-surface hover:bg-accent-hover"
-          >
-            {t('primaryCta')}
-          </Link>
-          <a
-            href="#demo"
-            className="inline-flex h-11 items-center rounded-control border border-line-strong px-5 text-base font-medium text-ink hover:bg-canvas"
-          >
-            {t('secondaryCta')}
-          </a>
+      <section className="relative isolate overflow-hidden">
+        <svg
+          aria-hidden="true"
+          className="absolute inset-0 -z-10 h-full w-full text-line-strong/50"
+        >
+          <defs>
+            <pattern id="hero-dots" width="22" height="22" patternUnits="userSpaceOnUse">
+              <circle cx="1.5" cy="1.5" r="1.5" fill="currentColor" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hero-dots)" />
+        </svg>
+        <div
+          aria-hidden="true"
+          className="hero-blob absolute -top-24 -left-16 -z-10 h-72 w-72 rounded-dialog bg-accent/25 blur-3xl"
+        />
+        <div
+          aria-hidden="true"
+          className="hero-blob absolute top-24 -right-10 -z-10 h-80 w-80 rounded-dialog bg-warn/25 blur-3xl [animation-delay:-5s]"
+        />
+        <div
+          aria-hidden="true"
+          className="hero-blob absolute -bottom-24 left-1/3 -z-10 h-64 w-64 rounded-dialog bg-ok/20 blur-3xl [animation-delay:-8s]"
+        />
+
+        <div className="mx-auto grid max-w-5xl items-center gap-10 px-6 pt-14 pb-16 sm:pt-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-8">
+          <div>
+            <p
+              className="hero-rise inline-flex items-center gap-2 rounded-control border border-accent/20 bg-accent-tint px-3 py-1 text-sm font-medium text-accent"
+              style={{ ['--hero-i' as string]: 0 }}
+            >
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-thumb bg-accent opacity-60" />
+                <span className="relative inline-flex size-2 rounded-thumb bg-accent" />
+              </span>
+              {t('hero.eyebrow')}
+            </p>
+            <h1
+              className="hero-rise mt-5 max-w-xl text-4xl leading-tight font-semibold text-balance text-ink isolate sm:text-5xl"
+              style={{ ['--hero-i' as string]: 1 }}
+            >
+              {t.rich('title', {
+                mark: (chunks) => <mark className="hero-mark">{chunks}</mark>,
+              })}
+            </h1>
+            <p
+              className="hero-rise mt-5 max-w-xl text-lg text-ink-2"
+              style={{ ['--hero-i' as string]: 2 }}
+            >
+              {t('lead')}
+            </p>
+            <div
+              className="hero-rise mt-8 flex flex-wrap gap-3"
+              style={{ ['--hero-i' as string]: 3 }}
+            >
+              <Link
+                href="/login"
+                className="group inline-flex h-12 items-center gap-2 rounded-control bg-accent px-6 text-lg font-medium text-surface shadow-float transition-transform duration-(--duration-base) ease-(--ease-out) hover:-translate-y-0.5 hover:bg-accent-hover active:translate-y-0"
+              >
+                {t('primaryCta')}
+                <span
+                  aria-hidden="true"
+                  className="transition-transform duration-(--duration-base) ease-(--ease-out) group-hover:translate-x-1"
+                >
+                  &rarr;
+                </span>
+              </Link>
+              <a
+                href="#demo"
+                className="inline-flex h-12 items-center rounded-control border border-line-strong bg-surface px-6 text-lg font-medium text-ink transition-transform duration-(--duration-base) ease-(--ease-out) hover:-translate-y-0.5 hover:bg-canvas active:translate-y-0"
+              >
+                {t('secondaryCta')}
+              </a>
+            </div>
+          </div>
+
+          <div className="hero-rise" style={{ ['--hero-i' as string]: 3 }}>
+            <HeroVisual />
+          </div>
         </div>
-        <div id="demo" className="mt-12 scroll-mt-6">
+      </section>
+
+      <SubjectMarquee />
+
+      <section className="mx-auto max-w-5xl px-6 py-12">
+        <div id="demo" className="scroll-mt-6">
           <h2 className="sr-only">{t('demoTitle')}</h2>
           <PasteDemo />
         </div>

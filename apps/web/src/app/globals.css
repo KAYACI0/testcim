@@ -47,3 +47,185 @@
 .demo-settle {
   animation: demo-settle var(--duration-base) var(--ease-out);
 }
+
+/* Landing hero. The only looping motion in the product, kept to the marketing page. */
+.hero-mark {
+  position: relative;
+  background: transparent;
+  color: var(--color-accent);
+  white-space: nowrap;
+}
+
+.hero-mark::after {
+  content: '';
+  position: absolute;
+  inset: 58% -6px 4px -6px;
+  z-index: -1;
+  background: color-mix(in srgb, var(--color-warn) 30%, transparent);
+  transform-origin: left center;
+  transform: rotate(-1deg);
+  animation: hero-mark-draw 800ms var(--ease-out) 350ms both;
+}
+
+@keyframes hero-mark-draw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 700ms var(--ease-out) both;
+  animation-delay: calc(var(--hero-i, 0) * 90ms);
+}
+
+@keyframes hero-drift {
+  from {
+    transform: translate3d(-4%, -3%, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(6%, 5%, 0) scale(1.18);
+  }
+}
+
+.hero-blob {
+  animation: hero-drift 11s ease-in-out infinite alternate;
+}
+
+@keyframes hero-float {
+  from {
+    transform: translateY(-7px);
+  }
+
+  to {
+    transform: translateY(7px);
+  }
+}
+
+.hero-float {
+  animation: hero-float 5.5s ease-in-out infinite alternate;
+}
+
+.hero-float-alt {
+  animation: hero-float 4.2s ease-in-out -2s infinite alternate-reverse;
+}
+
+.hero-paper {
+  transform: rotate(-2.5deg);
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+.hero-paper:hover {
+  transform: rotate(0deg) scale(1.025);
+}
+
+@keyframes hero-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.96);
+  }
+
+  4% {
+    opacity: 1;
+    transform: translateY(0) scale(1.03);
+  }
+
+  7%,
+  86% {
+    opacity: 1;
+    transform: none;
+  }
+
+  96%,
+  100% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+.hero-pop {
+  animation: hero-pop 9.6s ease-out infinite backwards;
+  animation-delay: calc(var(--hero-slot, 0) * 1.2s);
+}
+
+@keyframes hero-key {
+  0%,
+  6%,
+  12.5%,
+  18.5%,
+  25%,
+  31%,
+  37.5%,
+  43.5%,
+  50%,
+  56%,
+  62.5%,
+  68.5%,
+  100% {
+    transform: translateY(0);
+  }
+
+  3%,
+  15.5%,
+  28%,
+  40.5%,
+  53%,
+  65.5% {
+    transform: translateY(3px);
+  }
+}
+
+.hero-key {
+  animation: hero-key 9.6s ease-in-out infinite;
+}
+
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.hero-marquee-track {
+  animation: hero-marquee 42s linear infinite;
+}
+
+.hero-marquee:hover .hero-marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pop,
+  .hero-rise,
+  .hero-float,
+  .hero-float-alt,
+  .hero-key,
+  .hero-blob,
+  .hero-marquee-track,
+  .hero-mark::after {
+    animation: none;
+  }
+
+  .hero-paper {
+    transform: none;
+  }
+}

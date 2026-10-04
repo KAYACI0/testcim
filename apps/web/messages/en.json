@@ -1129,7 +1129,29 @@
       }
     },
     "home": {
-      "title": "Paste your questions, get a print-ready exam paper in seconds.",
+      "title": "Paste your questions, get a print-ready exam paper <mark>in seconds</mark>.",
+      "hero": {
+        "eyebrow": "Exam prep for teachers",
+        "paste": "Paste",
+        "ready": "Print-ready",
+        "pages": "A4, two columns",
+        "school": "School header",
+        "subjectsLabel": "For teachers of every subject",
+        "subjects": [
+          "Mathematics",
+          "Physics",
+          "Chemistry",
+          "Biology",
+          "Turkish",
+          "History",
+          "Geography",
+          "Science",
+          "Literature",
+          "English",
+          "Religion",
+          "Geometry"
+        ]
+      },
       "lead": "Paste a screenshot with Ctrl+V, crop questions from a PDF, or photograph them with your phone. Page layout, numbering and the header are set up for you.",
       "primaryCta": "Start for free",
       "secondaryCta": "See how it works",
