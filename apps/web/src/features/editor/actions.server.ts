@@ -18,7 +18,7 @@ import { getCurrentWorkspace } from '@/lib/workspace/current';
 
 const TEST_TYPES = ['exam', 'test_paper', 'mock', 'written', 'worksheet', 'quiz'] as const;
 
-export const DEFAULT_SETTINGS: TestSettings = {
+const DEFAULT_SETTINGS: TestSettings = {
   pageSize: 'a4',
   orientation: 'portrait',
   columns: 1,
