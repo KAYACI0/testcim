@@ -69,7 +69,21 @@
       "removeLabel": "Kaldır"
     },
     "preview": {
-      "empty": "Bu testte henüz soru yok."
+      "empty": "Bu testte henüz soru yok.",
+      "emptyQuestionsTitle": "Sorular buraya yerleşecek",
+      "emptyQuestionsHint": "Ekran alıntısı kopyalayıp Ctrl+V ile yapıştırın veya soru yazın.",
+      "editTemplate": "Şablonu düzenle",
+      "defaultSchool": "T.C. MİLLİ EĞİTİM BAKANLIĞI",
+      "defaultSubject": "Ders Adı",
+      "defaultTerm": "2024-2025 Eğitim-Öğretim Yılı",
+      "defaultTitle": "1. Dönem 1. Yazılı Sınavı",
+      "studentName": "Adı Soyadı",
+      "class": "Sınıfı / Şubesi",
+      "studentNo": "Okul No",
+      "date": "Tarih",
+      "score": "Not / Puan",
+      "booklet": "Kitapçık",
+      "pointsSuffix": "puan"
     },
     "inspector": {
       "page": "Sayfa",
@@ -77,7 +91,35 @@
       "answers": "Cevaplar",
       "output": "Çıktı",
       "answersEmpty": "Cevap işaretlemek için önce soru ekleyin.",
-      "correctAnswerFor": "{number}. sorunun doğru cevabı"
+      "correctAnswerFor": "{number}. sorunun doğru cevabı",
+      "template": {
+        "title": "Kâğıt şablonu",
+        "headerSection": "Başlık bilgileri",
+        "schoolNameLabel": "Okul / Kurum adı",
+        "schoolNamePlaceholder": "Örn. Atatürk Ortaokulu",
+        "examTitleLabel": "Sınav başlığı",
+        "examTitlePlaceholder": "Örn. 1. Dönem 1. Yazılı Sınavı",
+        "subjectLabel": "Ders",
+        "subjectPlaceholder": "Örn. Matematik",
+        "termLabel": "Eğitim yılı / Dönem",
+        "termPlaceholder": "Örn. 2024-2025",
+        "examDateLabel": "Sınav tarihi",
+        "examDatePlaceholder": "Örn. 14.11.2024",
+        "instructionsLabel": "Sınav yönergesi",
+        "instructionsPlaceholder": "Örn. Sınav süresi 40 dakikadır. Başarılar dileriz.",
+        "studentInfoSection": "Öğrenci bilgi alanları",
+        "showStudentName": "Adı Soyadı alanı",
+        "showClass": "Sınıfı / Şubesi alanı",
+        "showStudentNo": "Okul No alanı",
+        "showDate": "Tarih alanı",
+        "showScore": "Not / Puan kutusu",
+        "showBookletCode": "Kitapçık türü (A/B)",
+        "bookletCodeLabel": "Kitapçık kodu",
+        "layoutSection": "Sayfa düzeni",
+        "columnsLabel": "Sütun sayısı",
+        "singleColumn": "Tek sütun",
+        "twoColumns": "İki sütun"
+      }
     },
     "pasteBar": {
       "status": "{count} soru",

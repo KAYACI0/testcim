@@ -69,7 +69,21 @@
       "removeLabel": "Remove"
     },
     "preview": {
-      "empty": "This test has no questions yet."
+      "empty": "This test has no questions yet.",
+      "emptyQuestionsTitle": "Questions will appear here",
+      "emptyQuestionsHint": "Copy a screenshot and paste with Ctrl+V, or write a question.",
+      "editTemplate": "Edit template",
+      "defaultSchool": "MINISTRY OF EDUCATION",
+      "defaultSubject": "Subject",
+      "defaultTerm": "Academic Year",
+      "defaultTitle": "Exam Paper",
+      "studentName": "Full Name",
+      "class": "Class / Section",
+      "studentNo": "Student No",
+      "date": "Date",
+      "score": "Score",
+      "booklet": "Booklet",
+      "pointsSuffix": "pts"
     },
     "inspector": {
       "page": "Page",
@@ -77,7 +91,35 @@
       "answers": "Answers",
       "output": "Output",
       "answersEmpty": "Add a question before marking answers.",
-      "correctAnswerFor": "Correct answer for question {number}"
+      "correctAnswerFor": "Correct answer for question {number}",
+      "template": {
+        "title": "Page template",
+        "headerSection": "Header details",
+        "schoolNameLabel": "School / Institution name",
+        "schoolNamePlaceholder": "e.g. Atatürk Secondary School",
+        "examTitleLabel": "Exam title",
+        "examTitlePlaceholder": "e.g. 1st Midterm Exam",
+        "subjectLabel": "Subject",
+        "subjectPlaceholder": "e.g. Mathematics",
+        "termLabel": "Academic year / Term",
+        "termPlaceholder": "e.g. 2024-2025",
+        "examDateLabel": "Exam date",
+        "examDatePlaceholder": "e.g. 14.11.2024",
+        "instructionsLabel": "Instructions",
+        "instructionsPlaceholder": "e.g. Exam duration is 40 minutes. Good luck.",
+        "studentInfoSection": "Student information fields",
+        "showStudentName": "Full name field",
+        "showClass": "Class field",
+        "showStudentNo": "Student number field",
+        "showDate": "Date field",
+        "showScore": "Score box",
+        "showBookletCode": "Booklet code (A/B)",
+        "bookletCodeLabel": "Booklet code",
+        "layoutSection": "Page layout",
+        "columnsLabel": "Number of columns",
+        "singleColumn": "Single column",
+        "twoColumns": "Two columns"
+      }
     },
     "pasteBar": {
       "status": "{count} questions",

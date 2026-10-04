@@ -49,12 +49,17 @@ export function EditorClient({
   readonly data: EditorData;
   readonly workspaceId: string;
 }) {
+  const [inspectorTab, setInspectorTab] = useState<'page' | 'booklets' | 'answers' | 'output'>(
+    'page',
+  );
+
   const [store] = useState(() =>
     createEditorStore(
       {
         testId: data.testId,
         title: data.title,
         baseRevision: data.baseRevision,
+        settings: data.settings,
         items: toEditorItems(data),
       },
       { applyOps: applyOpsAction },
@@ -105,10 +110,10 @@ export function EditorClient({
           <QuestionStrip store={store} />
         </div>
         <div className="min-w-0 flex-1">
-          <PaperPreview store={store} />
+          <PaperPreview store={store} onEditTemplate={() => setInspectorTab('page')} />
         </div>
         <div className="w-72 shrink-0 border-l border-line">
-          <Inspector store={store} />
+          <Inspector store={store} activeTab={inspectorTab} onTabChange={setInspectorTab} />
         </div>
       </div>
       <QuotaNotice rejectedByQuota={rejectedByQuota} />

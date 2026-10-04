@@ -3,7 +3,14 @@
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
 
-import { testItemRowSchema, testOpSchema, type TestOp } from '@testcim/shared';
+import {
+  resolveHeaderSettings,
+  testItemRowSchema,
+  testOpSchema,
+  testSettingsSchema,
+  type TestOp,
+  type TestSettings,
+} from '@testcim/shared';
 
 import { requireSession } from '@/lib/auth/dal';
 import { createClient } from '@/lib/supabase/server';
@@ -11,16 +18,31 @@ import { getCurrentWorkspace } from '@/lib/workspace/current';
 
 const TEST_TYPES = ['exam', 'test_paper', 'mock', 'written', 'worksheet', 'quiz'] as const;
 
-const DEFAULT_SETTINGS = {
-  pageSize: 'a4' as const,
-  orientation: 'portrait' as const,
+export const DEFAULT_SETTINGS: TestSettings = {
+  pageSize: 'a4',
+  orientation: 'portrait',
   columns: 1,
   margins: { top: 20, bottom: 20, left: 20, right: 20 },
   columnGap: 10,
   questionGap: 10,
-  numberingFormat: 'numeric' as const,
-  layoutMode: 'strict' as const,
+  numberingFormat: 'numeric',
+  layoutMode: 'strict',
   fitPagesScaleMin: 0.85,
+  header: {
+    schoolName: '',
+    title: '',
+    subject: '',
+    term: '',
+    examDate: '',
+    instructions: 'Sınav süresi 40 dakikadır. Başarılar dileriz.',
+    showStudentName: true,
+    showStudentNo: true,
+    showClass: true,
+    showDate: true,
+    showScore: true,
+    showBookletCode: false,
+    bookletCode: 'A',
+  },
 };
 
 export interface CreateTestState {
@@ -48,6 +70,11 @@ export async function createTest(
     return { status: 'error', message: 'invalid_input' };
   }
 
+  const initialSettings: TestSettings = {
+    ...DEFAULT_SETTINGS,
+    header: resolveHeaderSettings(DEFAULT_SETTINGS.header, parsed.data.title),
+  };
+
   const supabase = await createClient();
   const { data, error } = await supabase
     .from('tests')
@@ -56,7 +83,7 @@ export async function createTest(
       created_by: session.userId,
       title: parsed.data.title,
       type: parsed.data.type,
-      settings: DEFAULT_SETTINGS,
+      settings: initialSettings,
     })
     .select('id')
     .single();
@@ -73,6 +100,7 @@ export interface EditorData {
   readonly title: string;
   readonly baseRevision: number;
   readonly approvalStatus: 'draft' | 'in_review' | 'approved';
+  readonly settings: TestSettings;
   readonly items: {
     id: string;
     position: string;
@@ -90,13 +118,27 @@ export async function fetchEditorData(testId: string): Promise<EditorData> {
 
   const { data: test, error: testError } = await supabase
     .from('tests')
-    .select('id, title, revision, approval_status')
+    .select('id, title, revision, approval_status, settings')
     .eq('id', testId)
     .single();
 
   if (testError || !test) {
     throw new Error('test_not_found');
   }
+
+  const rawSettings = test.settings && typeof test.settings === 'object' ? test.settings : {};
+  const rawHeader = 'header' in rawSettings ? rawSettings.header : undefined;
+  const settingsParsed = testSettingsSchema.safeParse(rawSettings);
+  const settings: TestSettings = settingsParsed.success
+    ? {
+        ...settingsParsed.data,
+        header: resolveHeaderSettings(settingsParsed.data.header, test.title),
+      }
+    : {
+        ...DEFAULT_SETTINGS,
+        ...rawSettings,
+        header: resolveHeaderSettings(rawHeader, test.title),
+      };
 
   const { data: itemRows, error: itemsError } = await supabase
     .from('test_items')
@@ -144,6 +186,7 @@ export async function fetchEditorData(testId: string): Promise<EditorData> {
     title: test.title,
     baseRevision: test.revision,
     approvalStatus: test.approval_status,
+    settings,
     items: items.map((item) => {
       const assetId = stemAssetByQuestionId.get(item.question_id);
       const location = assetId ? pathByAssetId.get(assetId) : undefined;

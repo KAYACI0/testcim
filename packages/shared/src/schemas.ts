@@ -48,6 +48,66 @@ export const PAGE_ORIENTATIONS = ['portrait', 'landscape'] as const;
 export const LAYOUT_MODES = ['strict', 'flexible', 'fit-pages'] as const;
 export const NUMBERING_FORMATS = ['numeric', 'alpha'] as const;
 
+export const testHeaderSettingsSchema = z.object({
+  schoolName: z.string().optional().default(''),
+  title: z.string().optional().default(''),
+  subject: z.string().optional().default(''),
+  term: z.string().optional().default(''),
+  examDate: z.string().optional().default(''),
+  instructions: z.string().optional().default(''),
+  showStudentName: z.boolean().optional().default(true),
+  showStudentNo: z.boolean().optional().default(true),
+  showClass: z.boolean().optional().default(true),
+  showDate: z.boolean().optional().default(true),
+  showScore: z.boolean().optional().default(true),
+  showBookletCode: z.boolean().optional().default(false),
+  bookletCode: z.string().optional().default('A'),
+});
+
+export type TestHeaderSettings = z.infer<typeof testHeaderSettingsSchema>;
+
+export function resolveHeaderSettings(
+  header: unknown,
+  fallbackTitle: string = '',
+): TestHeaderSettings {
+  const defaults: TestHeaderSettings = {
+    schoolName: '',
+    title: fallbackTitle,
+    subject: '',
+    term: '',
+    examDate: '',
+    instructions: '',
+    showStudentName: true,
+    showStudentNo: true,
+    showClass: true,
+    showDate: true,
+    showScore: true,
+    showBookletCode: false,
+    bookletCode: 'A',
+  };
+
+  if (!header) {
+    return defaults;
+  }
+
+  if (typeof header === 'string') {
+    try {
+      const parsed: unknown = JSON.parse(header);
+      if (typeof parsed === 'object' && parsed !== null) {
+        return { ...defaults, ...(parsed as Record<string, unknown>) };
+      }
+    } catch {
+      return { ...defaults, schoolName: header };
+    }
+  }
+
+  if (typeof header === 'object') {
+    return { ...defaults, ...(header as Record<string, unknown>) };
+  }
+
+  return defaults;
+}
+
 /**
  * `tests.settings` shape, consumed by `layout-engine`. Column/question gaps
  * are in millimeters; docs/02 §5.2 requires at least 3mm between questions.
@@ -66,7 +126,7 @@ export const testSettingsSchema = z.object({
   }),
   columnGap: z.number().nonnegative(),
   questionGap: z.number().min(3),
-  header: z.string().optional(),
+  header: z.union([z.string(), testHeaderSettingsSchema]).optional(),
   footer: z.string().optional(),
   numberingFormat: z.enum(NUMBERING_FORMATS).default('numeric'),
   watermark: z.string().optional(),

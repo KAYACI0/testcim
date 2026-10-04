@@ -1,9 +1,38 @@
 import { generateKeyBetween } from 'fractional-indexing';
 import { createStore } from 'zustand/vanilla';
 
+import { resolveHeaderSettings, type TestHeaderSettings, type TestSettings } from '@testcim/shared';
+
 import { applyOpsToItems, sortByPosition } from './op-log';
 
 import type { AnswerKey, Command, EditorItem, TestOp } from './types';
+
+export const DEFAULT_EDITOR_SETTINGS: TestSettings = {
+  pageSize: 'a4',
+  orientation: 'portrait',
+  columns: 1,
+  margins: { top: 20, bottom: 20, left: 20, right: 20 },
+  columnGap: 10,
+  questionGap: 10,
+  numberingFormat: 'numeric',
+  layoutMode: 'strict',
+  fitPagesScaleMin: 0.85,
+  header: {
+    schoolName: '',
+    title: '',
+    subject: '',
+    term: '',
+    examDate: '',
+    instructions: 'Sınav süresi 40 dakikadır. Başarılar dileriz.',
+    showStudentName: true,
+    showStudentNo: true,
+    showClass: true,
+    showDate: true,
+    showScore: true,
+    showBookletCode: false,
+    bookletCode: 'A',
+  },
+};
 
 export type SaveStatus = 'saved' | 'saving' | 'offline' | 'error';
 
@@ -28,6 +57,7 @@ export interface EditorState {
   readonly testId: string;
   readonly title: string;
   readonly baseRevision: number;
+  readonly settings: TestSettings;
   readonly items: readonly EditorItem[];
   readonly pendingOps: readonly TestOp[];
   readonly undoStack: readonly Command[];
@@ -61,6 +91,8 @@ export interface EditorState {
   setCorrect(id: string, correct: AnswerKey | null): void;
   setPoints(id: string, points: number | null): void;
   updateTitle(title: string): void;
+  updateSettings(settings: Partial<TestSettings>): void;
+  updateHeader(header: Partial<TestHeaderSettings>): void;
 
   undo(): void;
   redo(): void;
@@ -76,6 +108,7 @@ export interface EditorHydrateInput {
   readonly testId: string;
   readonly title: string;
   readonly baseRevision: number;
+  readonly settings?: TestSettings;
   readonly items: readonly EditorItem[];
 }
 
@@ -112,6 +145,10 @@ export function createEditorStore(initial: EditorHydrateInput, deps: EditorStore
       testId: initial.testId,
       title: initial.title,
       baseRevision: initial.baseRevision,
+      settings: initial.settings ?? {
+        ...DEFAULT_EDITOR_SETTINGS,
+        header: resolveHeaderSettings(DEFAULT_EDITOR_SETTINGS.header, initial.title),
+      },
       items: sortByPosition(initial.items),
       pendingOps: [],
       undoStack: [],
@@ -348,6 +385,30 @@ export function createEditorStore(initial: EditorHydrateInput, deps: EditorStore
         scheduleFlush();
       },
 
+      updateSettings(patch) {
+        const previousSettings = get().settings;
+        const nextSettings: TestSettings = { ...previousSettings, ...patch };
+        const applyOp: TestOp = { type: 'update_settings', settings: nextSettings };
+        const invertOp: TestOp = { type: 'update_settings', settings: previousSettings };
+
+        pushCommand({ itemIds: [], apply: [applyOp], invert: [invertOp] });
+        set({ settings: nextSettings, pendingOps: [...get().pendingOps, applyOp] });
+        scheduleFlush();
+      },
+
+      updateHeader(headerPatch) {
+        const previousSettings = get().settings;
+        const currentHeader = resolveHeaderSettings(previousSettings.header, get().title);
+        const nextHeader = { ...currentHeader, ...headerPatch };
+        const nextSettings: TestSettings = { ...previousSettings, header: nextHeader };
+        const applyOp: TestOp = { type: 'update_settings', settings: nextSettings };
+        const invertOp: TestOp = { type: 'update_settings', settings: previousSettings };
+
+        pushCommand({ itemIds: [], apply: [applyOp], invert: [invertOp] });
+        set({ settings: nextSettings, pendingOps: [...get().pendingOps, applyOp] });
+        scheduleFlush();
+      },
+
       undo() {
         const state = get();
         const command = state.undoStack.at(-1);
@@ -367,9 +428,11 @@ export function createEditorStore(initial: EditorHydrateInput, deps: EditorStore
         }
 
         const titleOp = command.invert.find((op) => op.type === 'update_title');
+        const settingsOp = command.invert.find((op) => op.type === 'update_settings');
         set({
           items: applyOpsToItems(state.items, command.invert),
           title: titleOp?.type === 'update_title' ? titleOp.title : state.title,
+          settings: settingsOp?.type === 'update_settings' ? settingsOp.settings : state.settings,
           pendingOps: [...state.pendingOps, ...command.invert],
           undoStack: remaining,
           redoStack: [...state.redoStack, command],
@@ -393,9 +456,11 @@ export function createEditorStore(initial: EditorHydrateInput, deps: EditorStore
         }
 
         const titleOp = command.apply.find((op) => op.type === 'update_title');
+        const settingsOp = command.apply.find((op) => op.type === 'update_settings');
         set({
           items: applyOpsToItems(state.items, command.apply),
           title: titleOp?.type === 'update_title' ? titleOp.title : state.title,
+          settings: settingsOp?.type === 'update_settings' ? settingsOp.settings : state.settings,
           pendingOps: [...state.pendingOps, ...command.apply],
           undoStack: [...state.undoStack, command],
           redoStack: remaining,

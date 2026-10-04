@@ -119,6 +119,40 @@ describe('editor store: synced item edits', () => {
     store.getState().undo();
     expect(store.getState().items.map((i) => i.id)).toEqual(['a', 'b']);
   });
+
+  it('updates header and settings with undo and redo support', () => {
+    const store = createEditorStore(
+      {
+        testId: 't1',
+        title: 'Original Title',
+        baseRevision: 1,
+        items: [],
+      },
+      { applyOps: vi.fn().mockResolvedValue(okResult(2)), flushDelayMs: 100_000 },
+    );
+
+    expect(store.getState().settings.columns).toBe(1);
+
+    store.getState().updateHeader({ schoolName: 'Test School', showStudentName: true });
+    expect(store.getState().settings.header).toMatchObject({
+      schoolName: 'Test School',
+      showStudentName: true,
+    });
+    expect(store.getState().pendingOps).toHaveLength(1);
+
+    store.getState().updateSettings({ columns: 2 });
+    expect(store.getState().settings.columns).toBe(2);
+    expect(store.getState().pendingOps).toHaveLength(2);
+
+    store.getState().undo();
+    expect(store.getState().settings.columns).toBe(1);
+
+    store.getState().undo();
+    expect(store.getState().settings.header).not.toMatchObject({ schoolName: 'Test School' });
+
+    store.getState().redo();
+    expect(store.getState().settings.header).toMatchObject({ schoolName: 'Test School' });
+  });
 });
 
 describe('editor store: sync', () => {

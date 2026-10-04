@@ -11,8 +11,10 @@ import {
   RICH_DOC_MAX_BYTES,
   richDocSchema,
   roleSchema,
+  testHeaderSettingsSchema,
   testOpSchema,
   testSettingsSchema,
+  resolveHeaderSettings,
   uuidSchema,
 } from './schemas';
 
@@ -98,6 +100,45 @@ describe('testSettingsSchema', () => {
 
   it('rejects more than 3 columns', () => {
     expect(testSettingsSchema.safeParse({ ...base, columns: 4 }).success).toBe(false);
+  });
+
+  it('accepts a string header', () => {
+    const parsed = testSettingsSchema.parse({ ...base, header: 'Custom School' });
+    expect(parsed.header).toBe('Custom School');
+  });
+
+  it('accepts a structured header object with defaults', () => {
+    const headerDirect = testHeaderSettingsSchema.parse({ schoolName: 'Ataturk Lisesi' });
+    expect(headerDirect.schoolName).toBe('Ataturk Lisesi');
+    expect(headerDirect.showStudentName).toBe(true);
+
+    const parsed = testSettingsSchema.parse({
+      ...base,
+      header: {
+        schoolName: 'Ataturk Lisesi',
+        showStudentName: true,
+        showStudentNo: true,
+        showClass: true,
+      },
+    });
+    expect(typeof parsed.header).toBe('object');
+    expect((parsed.header as { schoolName?: string }).schoolName).toBe('Ataturk Lisesi');
+  });
+
+  it('resolves header settings from string or object or empty', () => {
+    const fromEmpty = resolveHeaderSettings(undefined, 'Default Test');
+    expect(fromEmpty.title).toBe('Default Test');
+    expect(fromEmpty.showStudentName).toBe(true);
+    expect(fromEmpty.showClass).toBe(true);
+
+    const fromString = resolveHeaderSettings('Sample School', 'Test Title');
+    expect(fromString.schoolName).toBe('Sample School');
+    expect(fromString.title).toBe('Test Title');
+
+    const fromObj = resolveHeaderSettings({ schoolName: 'Test School', showScore: false });
+    expect(fromObj.schoolName).toBe('Test School');
+    expect(fromObj.showScore).toBe(false);
+    expect(fromObj.showStudentName).toBe(true);
   });
 });
 
