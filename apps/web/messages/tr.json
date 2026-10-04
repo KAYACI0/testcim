@@ -1129,12 +1129,90 @@
       }
     },
     "home": {
-      "title": "Sorunuzu yapıştırın, testiniz hazır olsun",
-      "lead": "Ekran alıntısı alın, Ctrl+V yapın. Soru kâğıda yerleşir; PDF çıktısı almaya hazır olur.",
+      "title": "Soruları yapıştırın, saniyeler içinde baskıya hazır sınav kâğıdı alın.",
+      "lead": "Ekran alıntısını Ctrl+V ile yapıştırın, PDF'ten soru kırpın ya da telefonunuzla fotoğrafını çekin. Sayfa düzeni, numaralandırma ve başlık sizin yerinize kurulur.",
+      "primaryCta": "Ücretsiz başlayın",
+      "secondaryCta": "Nasıl çalıştığını görün",
+      "demoTitle": "Deneyin: bir soru yapıştırın",
+      "trust": {
+        "label": "Testcim rakamlarla",
+        "questionsValue": "100.000+",
+        "questionsLabel": "soru hazırlandı",
+        "teachersValue": "Binlerce",
+        "teachersLabel": "öğretmen tarafından kullanılıyor"
+      },
+      "blocks": {
+        "capture": {
+          "title": "Soru yakalama",
+          "summary": "Soruyu nerede görürseniz görün, saniyeler içinde teste ekleyin.",
+          "points": [
+            "Ctrl+V ile ekran alıntısını anında yapıştırın.",
+            "Telefonunuzla QR kodu okutun, kamerayla soruyu çekin."
+          ]
+        },
+        "layout": {
+          "title": "Akıllı kâğıt yerleşimi",
+          "summary": "Ekranda gördüğünüz, kâğıda çıkan olur.",
+          "points": [
+            "Sorular iki sütunlu A4 sayfaya otomatik bölünür.",
+            "Okul başlığı ve öğrenci bilgi kutuları hazır gelir."
+          ]
+        },
+        "exam": {
+          "title": "Optik okuma ve çevrimiçi sınav",
+          "summary": "Aynı testi kâğıtta da, ekranda da uygulayın.",
+          "points": [
+            "Yazdırılabilir optik cevap kâğıdı, telefonla okutulur.",
+            "Bağlantıyla açılan çevrimiçi sınav, sonuçlar otomatik gelir."
+          ]
+        },
+        "bank": {
+          "title": "Soru bankası ve MEB müfredatı",
+          "summary": "Sorularınız düzenli kalır, aynı soru iki kez girmez.",
+          "points": [
+            "Her soruyu MEB kazanımıyla etiketleyin.",
+            "Tekrarlanan sorular otomatik olarak fark edilir."
+          ]
+        }
+      },
+      "pricing": {
+        "title": "Ücretsiz başlayın, ihtiyacınız büyüdükçe geçin",
+        "lead": "Fiyatlar Türk lirası cinsindendir.",
+        "tiers": {
+          "free": {
+            "name": "Ücretsiz",
+            "description": "İlk testlerinizi denemek için.",
+            "points": ["Ctrl+V ile soru yakalama", "Baskıya hazır PDF çıktısı", "Soru bankası"]
+          },
+          "plus": {
+            "description": "Düzenli test hazırlayan öğretmenler için.",
+            "points": [
+              "Daha yüksek aylık sınırlar",
+              "Word ve PowerPoint çıktısı",
+              "Optik okuma ve çevrimiçi sınav"
+            ]
+          },
+          "team": {
+            "name": "Kurumsal",
+            "description": "Okullar ve kurumlar için.",
+            "points": [
+              "Ortak soru havuzu",
+              "Birden fazla koltuk",
+              "Çıktıdan Testcim işaretini kaldırma"
+            ]
+          }
+        },
+        "contact": "Fiyat için bize yazın",
+        "compare": "Planları ayrıntılı karşılaştırın"
+      },
       "demo": {
         "prompt": "Bir görsel yapıştırın",
         "choose": "Dosya seçin",
         "paperTitle": "Örnek test",
+        "schoolHeader": "Okul adı - Ders - Sınıf",
+        "studentName": "Ad soyad",
+        "studentClass": "Sınıf",
+        "studentNumber": "No",
         "empty": "Ekran alıntınızı panoya kopyalayın ve Ctrl+V ile yapıştırın.",
         "questionAlt": "{number}. soru",
         "remove": "Kaldır",

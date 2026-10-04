@@ -1129,12 +1129,90 @@
       }
     },
     "home": {
-      "title": "Paste your question, get your test",
-      "lead": "Take a screenshot and press Ctrl+V. The question lands on the paper and is ready to print as a PDF.",
+      "title": "Paste your questions, get a print-ready exam paper in seconds.",
+      "lead": "Paste a screenshot with Ctrl+V, crop questions from a PDF, or photograph them with your phone. Page layout, numbering and the header are set up for you.",
+      "primaryCta": "Start for free",
+      "secondaryCta": "See how it works",
+      "demoTitle": "Try it: paste a question",
+      "trust": {
+        "label": "Testcim in numbers",
+        "questionsValue": "100,000+",
+        "questionsLabel": "questions prepared",
+        "teachersValue": "Thousands",
+        "teachersLabel": "of teachers use it"
+      },
+      "blocks": {
+        "capture": {
+          "title": "Question capture",
+          "summary": "Wherever you see a question, add it to a test in seconds.",
+          "points": [
+            "Paste a screenshot instantly with Ctrl+V.",
+            "Scan a QR code with your phone and photograph the question."
+          ]
+        },
+        "layout": {
+          "title": "Smart paper layout",
+          "summary": "What you see on screen is what prints.",
+          "points": [
+            "Questions flow into a two-column A4 page automatically.",
+            "School header and student info boxes come ready."
+          ]
+        },
+        "exam": {
+          "title": "Optical reading and online exams",
+          "summary": "Run the same test on paper or on screen.",
+          "points": [
+            "Printable bubble answer sheets, read with a phone.",
+            "Link-based online exams with results collected automatically."
+          ]
+        },
+        "bank": {
+          "title": "Question bank and MEB curriculum",
+          "summary": "Your questions stay organised and never get entered twice.",
+          "points": [
+            "Tag every question with its MEB learning outcome.",
+            "Duplicate questions are detected automatically."
+          ]
+        }
+      },
+      "pricing": {
+        "title": "Start free, upgrade as you grow",
+        "lead": "Prices are in Turkish lira.",
+        "tiers": {
+          "free": {
+            "name": "Free",
+            "description": "To try your first tests.",
+            "points": ["Ctrl+V question capture", "Print-ready PDF export", "Question bank"]
+          },
+          "plus": {
+            "description": "For teachers who prepare tests regularly.",
+            "points": [
+              "Higher monthly limits",
+              "Word and PowerPoint export",
+              "Optical reading and online exams"
+            ]
+          },
+          "team": {
+            "name": "Enterprise",
+            "description": "For schools and institutions.",
+            "points": [
+              "Shared question pool",
+              "Multiple seats",
+              "Remove the Testcim mark from exports"
+            ]
+          }
+        },
+        "contact": "Contact us for pricing",
+        "compare": "Compare plans in detail"
+      },
       "demo": {
         "prompt": "Paste an image",
         "choose": "Choose a file",
         "paperTitle": "Sample test",
+        "schoolHeader": "School name - Subject - Class",
+        "studentName": "Full name",
+        "studentClass": "Class",
+        "studentNumber": "No",
         "empty": "Copy your screenshot and paste it with Ctrl+V.",
         "questionAlt": "Question {number}",
         "remove": "Remove",

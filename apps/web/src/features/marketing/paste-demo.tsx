@@ -99,32 +99,47 @@ export function PasteDemo() {
 
         <div className="rounded-paper bg-canvas p-4 sm:p-6">
           <div
-            className="mx-auto flex min-h-[220px] max-w-xl flex-col gap-4 rounded-paper bg-surface p-5 shadow-[0_1px_3px_rgb(20_28_45_/_0.12)]"
+            className="mx-auto flex min-h-[320px] max-w-2xl flex-col gap-4 rounded-paper bg-surface p-5 shadow-[0_1px_3px_rgb(20_28_45_/_0.12)] sm:p-8"
             aria-live="polite"
           >
-            <p className="border-b border-line pb-3 text-sm font-medium text-ink">
-              {t('paperTitle')}
-            </p>
+            <div className="flex flex-col gap-3 border-b border-ink pb-3">
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <p className="text-base font-semibold text-ink">{t('paperTitle')}</p>
+                <p className="text-xs text-ink-2">{t('schoolHeader')}</p>
+              </div>
+              <dl className="grid grid-cols-[1fr_5rem_4rem] gap-2 text-xs text-ink-2">
+                {(['studentName', 'studentClass', 'studentNumber'] as const).map((key) => (
+                  <div key={key} className="rounded-paper border border-line-strong px-2 py-1.5">
+                    <dt>{t(key)}</dt>
+                    <dd className="h-3" />
+                  </div>
+                ))}
+              </dl>
+            </div>
             {questions.length === 0 ? (
               <p className="text-sm text-ink-2">{t('empty')}</p>
             ) : (
-              <ol className="flex flex-col gap-4">
+              <ol className="gap-x-6 sm:columns-2">
                 {questions.map((question, index) => (
                   <li
                     key={question.id}
-                    className="demo-settle flex items-start gap-3 border-b border-line pb-4 last:border-0"
+                    className="demo-settle mb-4 break-inside-avoid border-b border-line pb-4"
                   >
-                    <span className="mt-1 text-sm text-ink-2 tabular-nums">{index + 1}.</span>
-                    {/* eslint-disable-next-line @next/next/no-img-element -- local object URL, never optimizable */}
-                    <img
-                      src={question.url}
-                      alt={t('questionAlt', { number: index + 1 })}
-                      className="max-w-full min-w-0"
-                    />
+                    <div className="flex items-start gap-2">
+                      <span className="text-sm font-medium text-ink tabular-nums">
+                        {index + 1}.
+                      </span>
+                      {/* eslint-disable-next-line @next/next/no-img-element -- local object URL, never optimizable */}
+                      <img
+                        src={question.url}
+                        alt={t('questionAlt', { number: index + 1 })}
+                        className="max-w-full min-w-0"
+                      />
+                    </div>
                     <Button
                       variant="tertiary"
                       size="sm"
-                      className="ml-auto shrink-0"
+                      className="mt-2"
                       onClick={() => remove(question.id)}
                     >
                       {t('remove')}
