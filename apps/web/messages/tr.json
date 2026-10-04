@@ -96,7 +96,13 @@
       "booklet": "Kitapçık",
       "pointsSuffix": "puan",
       "answerSheetTitle": "Cevap Formu",
-      "answerKeyTitle": "Cevap Anahtarı"
+      "answerKeyTitle": "Cevap Anahtarı",
+      "pageNumber": "Sayfa {current} / {total}",
+      "pageLabel": "Sayfa {number}",
+      "dialogTitle": "Kâğıt Şablonunu Düzenle",
+      "dialogDescription": "Sınav kâğıdında görünecek okul, ders, sınıf ve öğretmen bilgilerini güncelleyin.",
+      "dialogClose": "Kapat",
+      "dialogSave": "Tamam"
     },
     "inspector": {
       "page": "Şablon & Yerleşim",

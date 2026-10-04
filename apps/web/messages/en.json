@@ -96,7 +96,13 @@
       "booklet": "Booklet",
       "pointsSuffix": "pts",
       "answerSheetTitle": "Answer Sheet",
-      "answerKeyTitle": "Answer Key"
+      "answerKeyTitle": "Answer Key",
+      "pageNumber": "Page {current} / {total}",
+      "pageLabel": "Page {number}",
+      "dialogTitle": "Edit Paper Template",
+      "dialogDescription": "Update school, subject, class, and teacher details for the exam paper.",
+      "dialogClose": "Close",
+      "dialogSave": "Done"
     },
     "inspector": {
       "page": "Template & Layout",
