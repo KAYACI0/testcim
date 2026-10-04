@@ -81,12 +81,31 @@ export function parseEnv<TSchema extends z.ZodType>(
       process.env.VERCEL === '1';
 
     if (isBuild && process.env.NODE_ENV !== 'test') {
-      const fallbackResult = schema.safeParse({ ...BUILD_FALLBACKS, ...source });
+      // 1. Try merging non-empty sanitized source properties onto BUILD_FALLBACKS
+      const sanitizedSource: Record<string, string> = {};
+      for (const [k, v] of Object.entries(source)) {
+        if (typeof v === 'string' && v.trim()) {
+          const trimmed = v.trim();
+          sanitizedSource[k] =
+            /^https?:\/\//i.test(trimmed) || !trimmed.includes('.')
+              ? trimmed
+              : `https://${trimmed}`;
+        }
+      }
+      const merged = { ...BUILD_FALLBACKS, ...sanitizedSource };
+      const fallbackResult = schema.safeParse(merged);
       if (fallbackResult.success) {
         console.warn(
-          `[env] Missing ${label} environment during build (using build fallbacks):\n  ${details}`,
+          `[env] Missing or invalid ${label} environment during build (using build fallbacks):\n  ${details}`,
         );
         return fallbackResult.data;
+      }
+
+      // 2. If merged still failed, fall back to pure BUILD_FALLBACKS
+      const pureFallbackResult = schema.safeParse(BUILD_FALLBACKS);
+      if (pureFallbackResult.success) {
+        console.warn(`[env] Using pure build fallbacks for ${label} environment:\n  ${details}`);
+        return pureFallbackResult.data;
       }
     }
 
