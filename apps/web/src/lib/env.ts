@@ -80,7 +80,11 @@ export function parseEnv<TSchema extends z.ZodType>(
       process.env.CI === '1' ||
       process.env.VERCEL === '1';
 
-    if (isBuild && process.env.NODE_ENV !== 'test') {
+    // The v0 preview dev server can start before project variables are synced into
+    // .env.development.local, so local development falls back the same way builds do.
+    const isDevelopment = process.env.NODE_ENV === 'development';
+
+    if ((isBuild || isDevelopment) && process.env.NODE_ENV !== 'test') {
       // 1. Try merging non-empty sanitized source properties onto BUILD_FALLBACKS
       const sanitizedSource: Record<string, string> = {};
       for (const [k, v] of Object.entries(source)) {
