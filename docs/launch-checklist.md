@@ -9,7 +9,7 @@ Bu belge, Testcim platformunun kapalı betadan genel yayına (public release) ge
 | Kontrol Maddesi | Beklenen Durum | Sorumlu | Durum |
 | :--- | :--- | :--- | :--- |
 | **DNS Yönlendirmeleri** | `testcim.com` ve `www.testcim.com` CNAME/A kayıtları Vercel Anycast ağına yönlendirilmiş olmalıdır. | DevOps | Beklemede |
-| **SSL/TLS Sertifikası** | TLS 1.3 zorunlu, TLS 1.0 ve 1.1 devre dışı. Otomatik yenilenen Let's Encrypt sertifikası devrede olmalıdır. | DevOps | Tamamlandı |
+| **SSL/TLS Sertifikası** | TLS 1.3 zorunlu, TLS 1.0 ve 1.1 devre dışı. Otomatik yenilenen Let's Encrypt sertifikası devrede olmalıdır. | DevOps | Doğrulanmadı |
 | **HSTS ve Güvenlik Başlıkları** | `max-age=63072000; includeSubDomains; preload` ve nosniff/DENY başlıkları devrede olmalıdır. | Kod Tabanı | Tamamlandı |
 | **Dinamik CSP Nonce** | Next.js middleware katmanında her istek için 128-bit kriptografik nonce üretilmeli ve CSP başlığına enjekte edilmelidir. | Kod Tabanı | Tamamlandı |
 
@@ -19,7 +19,7 @@ Bu belge, Testcim platformunun kapalı betadan genel yayına (public release) ge
 
 | Kontrol Maddesi | Beklenen Durum | Sorumlu | Durum |
 | :--- | :--- | :--- | :--- |
-| **E-posta Servis Sağlayıcısı** | İşlemsel e-postalar (OTP giriş, hesap doğrulama, fatura) Resend üzerinden gönderilmelidir. | Backend | Hazır |
+| **E-posta Servis Sağlayıcısı** | İşlemsel e-postalar (OTP giriş, hesap doğrulama, fatura) Resend üzerinden gönderilmelidir. | Backend | Beklemede |
 | **SPF Kaydı** | `v=spf1 include:amazonses.com ~all` (veya ilgili sağlayıcı kaydı) DNS'e işlenmiş olmalıdır. | DevOps | Beklemede |
 | **DKIM İmzası** | 2048-bit CNAME DKIM kayıtları doğrulanmış olmalıdır. | DevOps | Beklemede |
 | **DMARC Politikası** | `v=DMARC1; p=reject; rua=mailto:dmarc-reports@testcim.com` politikası tanımlanmış olmalıdır. | DevOps | Beklemede |
@@ -30,10 +30,10 @@ Bu belge, Testcim platformunun kapalı betadan genel yayına (public release) ge
 
 | Kontrol Maddesi | Beklenen Durum | Sorumlu | Durum |
 | :--- | :--- | :--- | :--- |
-| **Veri Merkezi Konumu** | Türkiye'ye en düşük gecikmeyi sağlayan `eu-central-1` (Frankfurt) seçilmiş olmalıdır. | Altyapı | Tamamlandı |
-| **Bağlantı Havuzu (PgBouncer)** | Transaction pooler modu aktif olmalı; 300 eşzamanlı sınav kullanıcısı bağlantı havuzunu aşmamalıdır. | Altyapı | Tamamlandı |
-| **RLS ve Kiracı İzolasyonu** | Tüm kiracı tablolarında (45/45) RLS aktif olmalı ve çapraz kiracı pgTAP testleri geçmelidir. | Kod Tabanı | Tamamlandı |
-| **PITR (Point-in-Time Recovery)** | 7 günlük sürekli yedekleme ve kurtarma mekanizması aktif olmalıdır. | Altyapı | Tamamlandı |
+| **Veri Merkezi Konumu** | Türkiye'ye en düşük gecikmeyi sağlayan `eu-central-1` (Frankfurt) seçilmiş olmalıdır. | Altyapı | Doğrulanmadı |
+| **Bağlantı Havuzu (PgBouncer)** | Transaction pooler modu aktif olmalı; 300 eşzamanlı sınav kullanıcısı bağlantı havuzunu aşmamalıdır. | Altyapı | Doğrulanmadı |
+| **RLS ve Kiracı İzolasyonu** | Tüm kiracı tablolarında (45/45) RLS aktif olmalı ve çapraz kiracı pgTAP testleri geçmelidir. Testlerin varlığı `pnpm check:tenancy` ile doğrulanıyor; pgTAP bu ortamda çalıştırılamadı. | Kod Tabanı | Kısmen (pgTAP çalıştırılmadı) |
+| **PITR (Point-in-Time Recovery)** | 7 günlük sürekli yedekleme ve kurtarma mekanizması aktif olmalıdır. | Altyapı | Doğrulanmadı |
 | **Depolama (Storage) Kotaları** | Varlıklar için dosya boyutu sınırı (görseller 10MB, PDF 50MB) ve imzalı URL süreleri (15 dk) devrede olmalıdır. | Kod Tabanı | Tamamlandı |
 
 ---
@@ -42,9 +42,9 @@ Bu belge, Testcim platformunun kapalı betadan genel yayına (public release) ge
 
 | Kontrol Maddesi | Beklenen Durum | Sorumlu | Durum |
 | :--- | :--- | :--- | :--- |
-| **Çevre Değişkenleri** | Üretim anahtarları Vercel Secrets üzerinden tanımlanmalı, hiçbir `.env` dosyası repoda yer almamalıdır. | DevOps | Tamamlandı |
+| **Çevre Değişkenleri** | Üretim anahtarları Vercel Secrets üzerinden tanımlanmalı, hiçbir `.env` dosyası repoda yer almamalıdır. | DevOps | Doğrulanmadı |
 | **Servis Rolü İzolasyonu** | `SUPABASE_SERVICE_ROLE_KEY` yalnızca sunucu ortamında tanımlı olmalı, istemci paketlerine sızmamalıdır. | Güvenlik | Tamamlandı |
-| **Bölge (Region)** | Vercel Serverless Functions bölgesi `fra1` (Frankfurt) olarak ayarlanmalıdır. | DevOps | Tamamlandı |
+| **Bölge (Region)** | Vercel Serverless Functions bölgesi `fra1` (Frankfurt) olarak ayarlanmalıdır. | DevOps | Doğrulanmadı |
 | **Paket Boyutu Bütçesi** | `pnpm check:budget` CI kapısında yeşil olmalıdır. | CI/CD | Tamamlandı |
 
 ---
@@ -64,7 +64,7 @@ Bu belge, Testcim platformunun kapalı betadan genel yayına (public release) ge
 
 | Kontrol Maddesi | Beklenen Durum | Sorumlu | Durum |
 | :--- | :--- | :--- | :--- |
-| **Sentry Hata İzleme** | İstemci ve sunucu hataları kaynak haritaları yüklenerek (`sourcemaps`) canlı ortamda izlenmelidir. | Frontend | Tamamlandı |
+| **Sentry Hata İzleme** | İstemci ve sunucu hataları kaynak haritaları yüklenerek (`sourcemaps`) canlı ortamda izlenmelidir. | Frontend | Doğrulanmadı |
 | **Sistem Durumu Sayfası** | `/status` sayfası tüm temel servislerin durumunu ziyaretçilere yansıtmalıdır. | Ürün | Tamamlandı |
 | **Sürüm Notları Sayfası** | `/changelog` sayfası genel yayın sürüm yeniliklerini listelemelidir. | Ürün | Tamamlandı |
 | **Destek E-postası** | `destek@testcim.com` gelen kutusu açılmış, yönlendirmeleri test edilmiş olmalıdır. | Operasyon | Beklemede |
@@ -96,9 +96,12 @@ Bu belge, Testcim platformunun kapalı betadan genel yayına (public release) ge
 
 ## 8. Yayın Kararı ve Önerisi (Go / No-Go)
 
-- **Teknik Karar:** **EVET (GO)**
+- **Teknik Karar:** **HAYIR (henüz değil)**. Aşağıdaki koşullar kapanmadan genel yayın önerilmez.
 - **Koşullar:**
-  1. Hukuki metinlerin şirket avukatı tarafından nihai onayı.
-  2. DNS SPF/DKIM/DMARC kayıtlarının canlı etki alanında doğrulanması.
-  3. İyzico/Paddle canlı mağaza anahtarlarının Vercel ortam değişkenlerine girilmesi.
-
+  1. Geri yükleme tatbikatının yapılıp `docs/runbook.md` bölüm 5.1 tablosuna kaydedilmesi.
+  2. `pnpm db:test` (pgTAP) çıktısının yeşil olarak alınması.
+  3. Erişilebilirlik (axe) taraması, yük testi (300 sınav katılımcısı, 50 editör) ve eksik E2E akışlarının (kayıt, yapıştır ve PDF, optik, ödeme test modu) tamamlanması.
+  4. Özellik bayrağı altyapısının kurulması (kademeli açılış için).
+  5. Hukuki metinlerin şirket avukatı tarafından hazırlanıp onaylanması.
+  6. DNS SPF/DKIM/DMARC kayıtlarının canlı etki alanında doğrulanması.
+  7. İyzico/Paddle canlı mağaza anahtarlarının Vercel ortam değişkenlerine girilmesi.

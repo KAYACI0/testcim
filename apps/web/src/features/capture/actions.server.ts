@@ -2,7 +2,7 @@
 
 import { z } from 'zod';
 
-import { limit as entitlementLimit, UNLIMITED } from '@testcim/shared';
+import { limit as entitlementLimit, matchesDeclaredMime, UNLIMITED } from '@testcim/shared';
 
 import type {
   RegisterCapturedQuestionInput,
@@ -62,6 +62,21 @@ export async function registerCapturedQuestion(
 
   if (!input.path.startsWith(`${workspaceId}/`)) {
     return { ok: false, reason: 'path_mismatch' };
+  }
+
+  const { data: fileBlob, error: downloadError } = await supabase.storage
+    .from('assets')
+    .download(input.path);
+
+  if (downloadError || !fileBlob) {
+    return { ok: false, reason: 'download_failed' };
+  }
+
+  const header = new Uint8Array(await fileBlob.slice(0, 16).arrayBuffer());
+
+  if (!matchesDeclaredMime(header, input.mime)) {
+    await supabase.storage.from('assets').remove([input.path]);
+    return { ok: false, reason: 'invalid_file_content' };
   }
 
   const entitlements = await getEntitlements(workspaceId);

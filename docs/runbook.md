@@ -97,20 +97,29 @@ select cron.schedule(
 
 ## 5. Yedekleme, PITR ve Geri Yükleme Tatbikatı (Disaster Recovery Drill)
 
-Veri kaybına karşı dayanıklılık iki kademeli stratejiyle sağlanır:
-1. **Sürekli Arşivleme (PITR):** Supabase Point-in-Time Recovery ile son 7 günün her saniyesine geri dönüş imkanı.
-2. **Günlük Mantıksal Yedekleme:** Her gün 04:00 TSİ'de `pg_dump` ile şifreli harici nesne depolama alanına yedek alınması.
+Veri kaybına karşı dayanıklılık iki kademeli stratejiyle planlanmıştır. İki kademe de üretim projesinde henüz doğrulanmamıştır (bkz. 5.1).
+1. **Sürekli Arşivleme (PITR):** Supabase Point-in-Time Recovery. Plan ve saklama süresi, üretim projesi açıldığında panelden doğrulanacaktır.
+2. **Mantıksal Yedekleme:** Düzenli `pg_dump` yedeği. Zamanlama ve harici depolama henüz kurulmamıştır.
 
-### 5.1. Belgelenmiş Geri Yükleme Tatbikatı (Başarıyla Tamamlandı)
-- **Tatbikat Tarihi:** Ekim 2026
-- **Kapsam:** Üretim şeması ve test verisiyle izole bir tatbikat veritabanı ayağa kaldırılması, RLS politikalarının ve veri bütünlüğünün doğrulanması.
-- **Adımlar:**
-  1. `supabase db dump -f backup_drill_prod.sql` komutuyla mantıksal yedek alındı.
-  2. İzole bir geçici veritabanı ayağa kaldırıldı (`createdb testcim_restore_drill`).
-  3. Alınan yedek `psql -d testcim_restore_drill -f backup_drill_prod.sql` ile geri yüklendi.
-  4. Tablo sayıları ve satır sayıları ana veritabanıyla birebir karşılaştırıldı (56/56 tablo doğrulandı).
-  5. `pnpm check:tenancy` ve pgTAP testleri yeni veritabanı üzerinde çalıştırıldı; tüm kiracı izolasyon testleri başarıyla geçti.
-- **Tatbikat Sonucu:** Başarılı. Geri yükleme ve doğrulama süresi 8 dakika 40 saniye olarak ölçüldü (RTO hedefi < 30 dakika). Veri kaybı 0 saniye (RPO hedefi < 5 dakika).
+### 5.1. Geri Yükleme Tatbikatı (YAPILMADI, kayıt bekliyor)
+
+Durum: **Tatbikat henüz yapılmadı.** Bu geliştirme ortamında Docker ve Supabase CLI bulunmadığı için yedek alma, geri yükleme ve pgTAP çalıştırma adımları denenemedi. Bu bölümde daha önce yazılan süre ve başarı değerleri doğrulanmış ölçümler değildi ve kaldırıldı.
+
+Tatbikat prosedürü (üretim projesi ve CLI erişimi olan biri tarafından uygulanır):
+1. `supabase db dump -f backup_drill.sql` ile mantıksal yedek alınır.
+2. İzole geçici bir veritabanı oluşturulur (`createdb testcim_restore_drill`).
+3. Yedek `psql -d testcim_restore_drill -f backup_drill.sql` ile geri yüklenir.
+4. Tablo sayıları ve satır sayıları kaynak veritabanıyla karşılaştırılır.
+5. `pnpm check:tenancy` ve `pnpm db:test` yeni veritabanı üzerinde çalıştırılır.
+6. PITR için ayrıca, panelden belirli bir ana geri dönüş denenir.
+
+Kayıt tablosu (tatbikat yapıldığında doldurulur):
+
+| Tarih | Yapan | Süre | Sonuç | Notlar |
+| :--- | :--- | :--- | :--- | :--- |
+| - | - | - | - | Yapılmadı |
+
+Hedefler (ölçülene kadar yalnızca hedeftir): RTO 30 dakikadan az, RPO 5 dakikadan az.
 
 ---
 
@@ -131,6 +140,8 @@ Yeni bir dağıtımın beklenmedik kritik bir hataya yol açması durumunda izle
 ---
 
 ## 7. Özellik Bayrakları (Feature Flags) ve Kademeli Açılış
+
+> Durum: Özellik bayrağı altyapısı henüz kodda yok (`features` tablosu veya bayrak okuyucu bulunmuyor). Aşağıdaki bölüm hedef tasarımdır ve ayrı bir dilimde uygulanacaktır.
 
 Yüksek riskli yeni özellikler (yeni yerleşim algoritmaları, yeni ödeme sağlayıcıları, deneysel AI modelleri) doğrudan tüm kullanıcılara açılmaz:
 - **Çalışma Alanı Bazlı Açılış:** Özellik bayrağı çalışma alanı kimliğine göre filtrelenir (`features` tablosu veya çevre değişkeni).

@@ -12,14 +12,7 @@ Testcim'in ana tehdit modeli beş kritik vektörden oluşmaktadır:
 5. **Dış Entegrasyonlar ve Yetkilendirme:** Ödeme webhooks (iyzico/Paddle HMAC doğrulaması), OAuth yönlendirmeleri, harici cihaz eşleme (QR/token).
 
 | Risk Seviyesi | Bulgu Sayısı | Durum |
-| :--- | :--- | :--- |
-| **Kritik (P0)** | 2 | Tamamlandı / Doğrulandı |
-| **Yüksek (P1)** | 3 | Tamamlandı / Doğrulandı |
-| **Orta (P2)** | 4 | Tamamlandı / Doğrulandı |
-| **Düşük (P3)** | 2 | Tamamlandı / Doğrulandı |
-| **Toplam** | **11** | **11/11 Tamamlandı (0 Açık Bulgu)** |
-
----
+| :---
 
 ## 2. Önceliklendirilmiş Güvenlik Bulguları
 
@@ -151,8 +144,9 @@ Testcim'in ana tehdit modeli beş kritik vektörden oluşmaktadır:
   - `packages/image-tools`
 - **Açıklama:**
   Dosya uzantısı `.png` veya `.pdf` olan fakat içeriği farklı ikili veri içeren dosyalar imzalı URL ile yüklenebilir.
+- **Durum:** Düzeltildi. `detectFileKind` / `matchesDeclaredMime` (`packages/shared/src/magic-bytes.ts`) `finalizeSourceDocument` ve `registerCapturedQuestion` içinde, Storage'daki dosyanın ilk baytlarına uygulanıyor; uyuşmayan dosya silinip reddediliyor.
 - **Düzeltme Planı:**
-  Dosya yükleme öncesinde ilk 8 bayt kontrol edilerek (PDF için `%PDF-`, PNG için `\x89PNG`, JPEG için `\xFF\xD8\xFF`) sahte uzantılı dosyalar engellenecektir.
+  Dosya yükleme sonrası ilk baytlar kontrol edilerek (PDF için `%PDF-`, PNG için `\x89PNG`, JPEG için `\xFF\xD8\xFF`) sahte uzantılı dosyalar engellenecektir.
 
 ---
 
