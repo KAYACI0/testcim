@@ -56,7 +56,11 @@
         "saving": "Saving",
         "offline": "Offline, changes are queued",
         "error": "Could not save"
-      }
+      },
+      "print": "Print",
+      "downloadPdf": "Download PDF",
+      "pdfBusy": "Preparing PDF",
+      "pdfError": "Could not create the PDF. Try again."
     },
     "strip": {
       "empty": "This test has no questions yet. Copy a screenshot and paste it with Ctrl+V.",
@@ -102,7 +106,11 @@
       "dialogTitle": "Edit Paper Template",
       "dialogDescription": "Update school, subject, class, and teacher details for the exam paper.",
       "dialogClose": "Close",
-      "dialogSave": "Done"
+      "dialogSave": "Done",
+      "questionCount": "{count} questions",
+      "subjectLine": "{subject}",
+      "classLine": "Class {class}",
+      "footerBrand": "Testcim"
     },
     "inspector": {
       "page": "Template & Layout",
@@ -164,7 +172,10 @@
         "showBookletCode": "Booklet code (A/B)",
         "bookletCodeLabel": "Booklet code",
         "downloadPdf": "Download PDF",
-        "watermarkNote": "A small watermark appears at the bottom of the output."
+        "watermarkNote": "A small watermark appears at the bottom of the output.",
+        "print": "Print and preview",
+        "pdfBusy": "Preparing PDF",
+        "pdfError": "Could not create the PDF. Try again."
       }
     },
     "pasteBar": {
@@ -172,7 +183,8 @@
       "statusWithLastAdded": "{count} questions. Last added: question {number}.",
       "captureMode": "Capture mode",
       "chooseFile": "Choose file",
-      "quotaExceeded": "{count} images weren't added — you've reached your plan limit."
+      "quotaExceeded": "{count} images weren't added — you've reached your plan limit.",
+      "phoneCapture": "Add from phone"
     },
     "bulkAnswers": {
       "trigger": "Bulk-enter answers",
@@ -180,6 +192,20 @@
       "placeholder": "ABCDDCBA... or 1-A 2-C 3-B",
       "mismatch": "Parsed {parsed} answers, but the test has {total} questions.",
       "apply": "Apply"
+    },
+    "phoneCaptureDialog": {
+      "title": "Add questions from your phone",
+      "description": "Scan the QR code with your phone camera. Questions you capture are added to this test right away.",
+      "close": "Close",
+      "done": "Done",
+      "expired": "The link has expired.",
+      "recreate": "Create a new code",
+      "expiresIn": "Time left {time}",
+      "waiting": "Waiting for phone",
+      "connected": "Phone connected",
+      "receivedCount": "{count} questions received",
+      "copyLink": "Copy link",
+      "linkCopied": "Copied"
     }
   },
   "collaboration": {

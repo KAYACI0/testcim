@@ -56,7 +56,11 @@
         "saving": "Kaydediliyor",
         "offline": "Bağlantı yok, değişiklikler bekletiliyor",
         "error": "Kaydedilemedi"
-      }
+      },
+      "print": "Yazdır",
+      "downloadPdf": "PDF indir",
+      "pdfBusy": "PDF hazırlanıyor",
+      "pdfError": "PDF oluşturulamadı. Yeniden deneyin."
     },
     "strip": {
       "empty": "Bu testte henüz soru yok. Bir ekran alıntısı kopyalayıp Ctrl+V ile yapıştırın.",
@@ -102,7 +106,11 @@
       "dialogTitle": "Kâğıt Şablonunu Düzenle",
       "dialogDescription": "Sınav kâğıdında görünecek okul, ders, sınıf ve öğretmen bilgilerini güncelleyin.",
       "dialogClose": "Kapat",
-      "dialogSave": "Tamam"
+      "dialogSave": "Tamam",
+      "questionCount": "{count} soru",
+      "subjectLine": "{subject} Dersi",
+      "classLine": "{class} Sınıfı",
+      "footerBrand": "Testcim"
     },
     "inspector": {
       "page": "Şablon & Yerleşim",
@@ -164,7 +172,10 @@
         "showBookletCode": "Kitapçık türü (A/B)",
         "bookletCodeLabel": "Kitapçık kodu",
         "downloadPdf": "PDF indir",
-        "watermarkNote": "Çıktının altında küçük bir filigran yer alır."
+        "watermarkNote": "Çıktının altında küçük bir filigran yer alır.",
+        "print": "Yazdır ve önizle",
+        "pdfBusy": "PDF hazırlanıyor",
+        "pdfError": "PDF oluşturulamadı. Yeniden deneyin."
       }
     },
     "pasteBar": {
@@ -172,7 +183,8 @@
       "statusWithLastAdded": "{count} soru. Son eklenen: soru {number}.",
       "captureMode": "Yakalama modu",
       "chooseFile": "Dosya seç",
-      "quotaExceeded": "Plan sınırınıza ulaştığınız için {count} görsel eklenmedi."
+      "quotaExceeded": "Plan sınırınıza ulaştığınız için {count} görsel eklenmedi.",
+      "phoneCapture": "Telefondan ekle"
     },
     "bulkAnswers": {
       "trigger": "Cevapları toplu gir",
@@ -180,6 +192,20 @@
       "placeholder": "ABCDDCBA... veya 1-A 2-C 3-B",
       "mismatch": "{parsed} cevap ayrıştırıldı, testte {total} soru var.",
       "apply": "Uygula"
+    },
+    "phoneCaptureDialog": {
+      "title": "Telefondan soru ekleyin",
+      "description": "Telefonunuzun kamerasıyla QR kodu okutun. Çektiğiniz sorular bu teste anında eklenir.",
+      "close": "Kapat",
+      "done": "Bitti",
+      "expired": "Bağlantının süresi doldu.",
+      "recreate": "Yeni kod oluştur",
+      "expiresIn": "Kalan süre {time}",
+      "waiting": "Telefon bekleniyor",
+      "connected": "Telefon bağlandı",
+      "receivedCount": "{count} soru alındı",
+      "copyLink": "Bağlantıyı kopyala",
+      "linkCopied": "Kopyalandı"
     }
   },
   "collaboration": {

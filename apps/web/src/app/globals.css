@@ -47,3 +47,44 @@
 .demo-settle {
   animation: demo-settle var(--duration-base) var(--ease-out);
 }
+
+/* Paper print copy: rendered off-screen so it can be exported, shown alone when printing. */
+#print-root {
+  position: fixed;
+  top: 0;
+  left: -10000px;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  body > *:not(#print-root) {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: var(--color-surface);
+  }
+
+  #print-root {
+    position: static;
+    display: block;
+    pointer-events: auto;
+  }
+
+  #print-root [data-paper-wrap] {
+    break-after: page;
+    break-inside: avoid;
+  }
+
+  #print-root [data-paper-wrap]:last-child {
+    break-after: auto;
+  }
+}

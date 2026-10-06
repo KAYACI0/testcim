@@ -23,6 +23,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AnswerSelector } from '@/features/editor/answer-selector';
 import { sortByPosition } from '@/features/editor/op-log';
+import { usePaperExport } from '@/features/editor/paper/paper-export';
 
 export interface InspectorProps {
   readonly store: EditorStore;
@@ -40,9 +41,7 @@ export function Inspector({ store, activeTab, onTabChange }: InspectorProps) {
   const header = resolveHeaderSettings(settings?.header, title);
   const columns = settings?.columns ?? 2;
 
-  const handlePrint = () => {
-    window.print();
-  };
+  const paperExport = usePaperExport(title);
 
   return (
     <Tabs
@@ -233,14 +232,31 @@ export function Inspector({ store, activeTab, onTabChange }: InspectorProps) {
 
           {/* Action button: PDF indir */}
           <div className="mt-2 border-t border-line pt-4">
-            <Button
-              className="flex w-full items-center justify-center gap-2"
-              size="md"
-              onClick={handlePrint}
-            >
-              <Icon name="file-text" size={16} />
-              <span>{t('template.downloadPdf')}</span>
-            </Button>
+            <div className="flex flex-col gap-2">
+              <Button
+                className="flex w-full items-center justify-center gap-2"
+                size="md"
+                disabled={paperExport.busy}
+                onClick={() => void paperExport.downloadPdf()}
+              >
+                <Icon name="file-text" size={16} />
+                <span>{paperExport.busy ? t('template.pdfBusy') : t('template.downloadPdf')}</span>
+              </Button>
+              <Button
+                variant="secondary"
+                className="flex w-full items-center justify-center gap-2"
+                size="md"
+                onClick={paperExport.print}
+              >
+                <Icon name="printer" size={16} />
+                <span>{t('template.print')}</span>
+              </Button>
+            </div>
+            {paperExport.failed && (
+              <p role="alert" className="mt-1.5 text-center text-xs text-err">
+                {t('template.pdfError')}
+              </p>
+            )}
             <p className="mt-1.5 text-center text-[11px] text-ink-3">
               {t('template.watermarkNote')}
             </p>
