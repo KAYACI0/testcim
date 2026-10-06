@@ -1,379 +1,378 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Testcim Yakalama</title>
-  <style>
-    :root {
-      --surface: #ffffff;
-      --canvas: #f5f6f8;
-      --border: #e5e7eb;
-      --text: #111827;
-      --muted: #6b7280;
-      --accent: #1d4ed8;
-      --accent-hover: #1e40af;
-      --accent-light: #eff6ff;
-      --ok: #15803d;
-      --ok-bg: #f0fdf4;
-      --ok-border: #bbf7d0;
-      --warn: #dc2626;
-      --warn-bg: #fef2f2;
-      --warn-border: #fecaca;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testcim Yakalama</title>
+    <style>
+      :root {
+        --surface: #ffffff;
+        --canvas: #f5f6f8;
+        --border: #e5e7eb;
+        --text: #111827;
+        --muted: #6b7280;
+        --accent: #1d4ed8;
+        --accent-hover: #1e40af;
+        --accent-light: #eff6ff;
+        --ok: #15803d;
+        --ok-bg: #f0fdf4;
+        --ok-border: #bbf7d0;
+        --warn: #dc2626;
+        --warn-bg: #fef2f2;
+        --warn-border: #fecaca;
+      }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--canvas);
-      color: var(--text);
-      font-size: 13px;
-      line-height: 1.5;
-      padding: 16px;
-    }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        background-color: var(--canvas);
+        color: var(--text);
+        font-size: 13px;
+        line-height: 1.5;
+        padding: 16px;
+      }
 
-    .header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-      border-bottom: 1px solid var(--border);
-    }
+      .header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 12px;
+        margin-bottom: 16px;
+        border-bottom: 1px solid var(--border);
+      }
 
-    .brand-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: -0.01em;
-    }
+      .brand-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        letter-spacing: -0.01em;
+      }
 
-    .brand-subtitle {
-      font-size: 11px;
-      color: var(--muted);
-    }
+      .brand-subtitle {
+        font-size: 11px;
+        color: var(--muted);
+      }
 
-    .card {
-      background-color: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 14px;
-      margin-bottom: 12px;
-    }
+      .card {
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 14px;
+        margin-bottom: 12px;
+      }
 
-    .field-group {
-      margin-bottom: 12px;
-    }
+      .field-group {
+        margin-bottom: 12px;
+      }
 
-    .field-label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
+      .field-label {
+        display: block;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 4px;
+      }
 
-    .input-text {
-      width: 100%;
-      height: 34px;
-      padding: 6px 10px;
-      font-size: 13px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      outline: none;
-      background-color: var(--surface);
-      color: var(--text);
-    }
+      .input-text {
+        width: 100%;
+        height: 34px;
+        padding: 6px 10px;
+        font-size: 13px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        outline: none;
+        background-color: var(--surface);
+        color: var(--text);
+      }
 
-    .input-text:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px var(--accent);
-    }
+      .input-text:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
+      }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      height: 34px;
-      padding: 0 14px;
-      font-size: 13px;
-      font-weight: 500;
-      border-radius: 4px;
-      border: 1px solid transparent;
-      cursor: pointer;
-      user-select: none;
-      width: 100%;
-      text-decoration: none;
-    }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        height: 34px;
+        padding: 0 14px;
+        font-size: 13px;
+        font-weight: 500;
+        border-radius: 4px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        user-select: none;
+        width: 100%;
+        text-decoration: none;
+      }
 
-    .btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
+      .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
 
-    .btn-primary {
-      background-color: var(--accent);
-      color: #ffffff;
-      border-color: var(--accent);
-    }
+      .btn-primary {
+        background-color: var(--accent);
+        color: #ffffff;
+        border-color: var(--accent);
+      }
 
-    .btn-primary:hover:not(:disabled) {
-      background-color: var(--accent-hover);
-    }
+      .btn-primary:hover:not(:disabled) {
+        background-color: var(--accent-hover);
+      }
 
-    .btn-secondary {
-      background-color: var(--surface);
-      color: var(--text);
-      border-color: var(--border);
-    }
+      .btn-secondary {
+        background-color: var(--surface);
+        color: var(--text);
+        border-color: var(--border);
+      }
 
-    .btn-secondary:hover:not(:disabled) {
-      background-color: var(--canvas);
-    }
+      .btn-secondary:hover:not(:disabled) {
+        background-color: var(--canvas);
+      }
 
-    .btn-subtle {
-      background-color: transparent;
-      color: var(--muted);
-      border-color: transparent;
-      height: 28px;
-      font-size: 12px;
-      padding: 0 8px;
-    }
+      .btn-subtle {
+        background-color: transparent;
+        color: var(--muted);
+        border-color: transparent;
+        height: 28px;
+        font-size: 12px;
+        padding: 0 8px;
+      }
 
-    .btn-subtle:hover:not(:disabled) {
-      color: var(--text);
-      background-color: var(--canvas);
-    }
+      .btn-subtle:hover:not(:disabled) {
+        color: var(--text);
+        background-color: var(--canvas);
+      }
 
-    .notice {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.4;
-      margin-top: 8px;
-    }
+      .notice {
+        font-size: 12px;
+        color: var(--muted);
+        line-height: 1.4;
+        margin-top: 8px;
+      }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-weight: 500;
-    }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 11px;
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 500;
+      }
 
-    .badge-ok {
-      background-color: var(--ok-bg);
-      color: var(--ok);
-      border: 1px solid var(--ok-border);
-    }
+      .badge-ok {
+        background-color: var(--ok-bg);
+        color: var(--ok);
+        border: 1px solid var(--ok-border);
+      }
 
-    .session-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
+      .session-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
 
-    .session-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      word-break: break-word;
-    }
+      .session-title {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text);
+        word-break: break-word;
+      }
 
-    .session-meta {
-      font-size: 12px;
-      color: var(--muted);
-      margin-bottom: 12px;
-    }
+      .session-meta {
+        font-size: 12px;
+        color: var(--muted);
+        margin-bottom: 12px;
+      }
 
-    .preview-container {
-      margin-top: 12px;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      overflow: hidden;
-      background-color: var(--canvas);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      max-height: 220px;
-    }
+      .preview-container {
+        margin-top: 12px;
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        overflow: hidden;
+        background-color: var(--canvas);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-height: 220px;
+      }
 
-    .preview-img {
-      max-width: 100%;
-      max-height: 220px;
-      object-fit: contain;
-      display: block;
-    }
+      .preview-img {
+        max-width: 100%;
+        max-height: 220px;
+        object-fit: contain;
+        display: block;
+      }
 
-    .answer-group {
-      margin-top: 12px;
-    }
+      .answer-group {
+        margin-top: 12px;
+      }
 
-    .answer-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
+      .answer-label {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 6px;
+      }
 
-    .options-row {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 6px;
-    }
+      .options-row {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+      }
 
-    .opt-btn {
-      height: 32px;
-      border: 1px solid var(--border);
-      background-color: var(--surface);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 600;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+      .opt-btn {
+        height: 32px;
+        border: 1px solid var(--border);
+        background-color: var(--surface);
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-    .opt-btn.active {
-      background-color: var(--accent);
-      color: #ffffff;
-      border-color: var(--accent);
-    }
+      .opt-btn.active {
+        background-color: var(--accent);
+        color: #ffffff;
+        border-color: var(--accent);
+      }
 
-    .button-row {
-      display: flex;
-      gap: 8px;
-      margin-top: 14px;
-    }
+      .button-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 14px;
+      }
 
-    .status-banner {
-      padding: 8px 10px;
-      border-radius: 4px;
-      font-size: 12px;
-      margin-bottom: 12px;
-      display: none;
-    }
+      .status-banner {
+        padding: 8px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        margin-bottom: 12px;
+        display: none;
+      }
 
-    .status-banner.ok {
-      display: block;
-      background-color: var(--ok-bg);
-      color: var(--ok);
-      border: 1px solid var(--ok-border);
-    }
+      .status-banner.ok {
+        display: block;
+        background-color: var(--ok-bg);
+        color: var(--ok);
+        border: 1px solid var(--ok-border);
+      }
 
-    .status-banner.error {
-      display: block;
-      background-color: var(--warn-bg);
-      color: var(--warn);
-      border: 1px solid var(--warn-border);
-    }
+      .status-banner.error {
+        display: block;
+        background-color: var(--warn-bg);
+        color: var(--warn);
+        border: 1px solid var(--warn-border);
+      }
 
-    .shortcut-hint {
-      font-size: 11px;
-      color: var(--muted);
-      text-align: center;
-      margin-top: 6px;
-    }
+      .shortcut-hint {
+        font-size: 11px;
+        color: var(--muted);
+        text-align: center;
+        margin-top: 6px;
+      }
 
-    .hidden {
-      display: none !important;
-    }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <div>
-      <h1 class="brand-title">Testcim</h1>
-      <p class="brand-subtitle">Soru yakalama uzantısı</p>
-    </div>
-    <div id="connectionStatusBadge" class="badge"></div>
-  </div>
-
-  <div id="statusBanner" class="status-banner"></div>
-
-  <!-- Disconnected View -->
-  <div id="disconnectedSection" class="card">
-    <div class="field-group">
-      <label class="field-label" for="tokenInput">Yakalama jetonu</label>
-      <input type="text" id="tokenInput" class="input-text" placeholder="15 dakikalık eşleme jetonu" autocomplete="off" />
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div>
+        <h1 class="brand-title">Testcim</h1>
+        <p class="brand-subtitle">Soru yakalama uzantısı</p>
+      </div>
+      <div id="connectionStatusBadge" class="badge"></div>
     </div>
 
-    <div class="field-group">
-      <label class="field-label" for="serverUrlInput">Sunucu adresi</label>
-      <input type="text" id="serverUrlInput" class="input-text" value="http://localhost:3000" />
+    <div id="statusBanner" class="status-banner"></div>
+
+    <!-- Disconnected View -->
+    <div id="disconnectedSection" class="card">
+      <div class="field-group">
+        <label class="field-label" for="tokenInput">Yakalama jetonu</label>
+        <input
+          type="text"
+          id="tokenInput"
+          class="input-text"
+          placeholder="15 dakikalık eşleme jetonu"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" for="serverUrlInput">Sunucu adresi</label>
+        <input type="text" id="serverUrlInput" class="input-text" value="http://localhost:3000" />
+      </div>
+
+      <button type="button" id="connectBtn" class="btn btn-primary">Oturuma bağlan</button>
+
+      <p class="notice">
+        Test editöründe "Telefondan ekle / Uzantı" penceresinden jetonunuzu alabilirsiniz.
+      </p>
     </div>
 
-    <button type="button" id="connectBtn" class="btn btn-primary">
-      Oturuma bağlan
-    </button>
-
-    <p class="notice">
-      Test editöründe "Telefondan ekle / Uzantı" penceresinden jetonunuzu alabilirsiniz.
-    </p>
-  </div>
-
-  <!-- Connected View -->
-  <div id="connectedSection" class="hidden">
-    <div class="card">
-      <div class="session-header">
-        <div>
-          <span class="badge badge-ok">Bağlı</span>
-          <h2 id="connectedTestTitle" class="session-title">Aktif test</h2>
+    <!-- Connected View -->
+    <div id="connectedSection" class="hidden">
+      <div class="card">
+        <div class="session-header">
+          <div>
+            <span class="badge badge-ok">Bağlı</span>
+            <h2 id="connectedTestTitle" class="session-title">Aktif test</h2>
+          </div>
+          <button type="button" id="disconnectBtn" class="btn-subtle">Ayrıl</button>
         </div>
-        <button type="button" id="disconnectBtn" class="btn-subtle">
-          Ayrıl
+
+        <p id="capturedCounterText" class="session-meta">Bu oturumda eklenen: 0 soru</p>
+
+        <button type="button" id="triggerSnipBtn" class="btn btn-primary">
+          Soruyu kırp ve yakala
         </button>
+        <p class="shortcut-hint">Kısayol: Alt+Shift+C</p>
       </div>
 
-      <p id="capturedCounterText" class="session-meta">Bu oturumda eklenen: 0 soru</p>
+      <!-- Review Pending Snip Card -->
+      <div id="reviewCard" class="card hidden">
+        <div class="session-header">
+          <h3 class="session-title">Kırpılan soru</h3>
+          <span id="previewMeta" class="session-meta">0 × 0 px</span>
+        </div>
 
-      <button type="button" id="triggerSnipBtn" class="btn btn-primary">
-        Soruyu kırp ve yakala
-      </button>
-      <p class="shortcut-hint">Kısayol: Alt+Shift+C</p>
-    </div>
+        <div class="preview-container">
+          <img id="previewImg" class="preview-img" alt="Kırpılan soru önizlemesi" />
+        </div>
 
-    <!-- Review Pending Snip Card -->
-    <div id="reviewCard" class="card hidden">
-      <div class="session-header">
-        <h3 class="session-title">Kırpılan soru</h3>
-        <span id="previewMeta" class="session-meta">0 × 0 px</span>
-      </div>
+        <div class="answer-group">
+          <label class="answer-label">Doğru cevap (isteğe bağlı)</label>
+          <div class="options-row">
+            <button type="button" class="opt-btn" data-opt="A">A</button>
+            <button type="button" class="opt-btn" data-opt="B">B</button>
+            <button type="button" class="opt-btn" data-opt="C">C</button>
+            <button type="button" class="opt-btn" data-opt="D">D</button>
+            <button type="button" class="opt-btn" data-opt="E">E</button>
+          </div>
+        </div>
 
-      <div class="preview-container">
-        <img id="previewImg" class="preview-img" alt="Kırpılan soru önizlemesi" />
-      </div>
-
-      <div class="answer-group">
-        <label class="answer-label">Doğru cevap (isteğe bağlı)</label>
-        <div class="options-row">
-          <button type="button" class="opt-btn" data-opt="A">A</button>
-          <button type="button" class="opt-btn" data-opt="B">B</button>
-          <button type="button" class="opt-btn" data-opt="C">C</button>
-          <button type="button" class="opt-btn" data-opt="D">D</button>
-          <button type="button" class="opt-btn" data-opt="E">E</button>
+        <div class="button-row">
+          <button type="button" id="submitQuestionBtn" class="btn btn-primary">Teste ekle</button>
+          <button type="button" id="discardBtn" class="btn btn-secondary">Vazgeç</button>
         </div>
       </div>
-
-      <div class="button-row">
-        <button type="button" id="submitQuestionBtn" class="btn btn-primary">
-          Teste ekle
-        </button>
-        <button type="button" id="discardBtn" class="btn btn-secondary">
-          Vazgeç
-        </button>
-      </div>
     </div>
-  </div>
 
-  <script type="module" src="sidepanel.js"></script>
-</body>
+    <script type="module" src="sidepanel.js"></script>
+  </body>
 </html>

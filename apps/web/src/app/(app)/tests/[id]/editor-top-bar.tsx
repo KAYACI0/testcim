@@ -9,6 +9,7 @@ import type { EditorStore } from '@/features/editor/store';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CollaborationPanel } from '@/features/collaboration/components/collaboration-panel';
+import { usePaperExport } from '@/features/editor/paper/paper-export';
 import { PublishExamDialog } from '@/features/online-exam/publish-dialog';
 
 const SAVE_STATUS_KEY = {
@@ -31,6 +32,7 @@ export function EditorTopBar({
   const t = useTranslations('editor.topBar');
   const [draftTitle, setDraftTitle] = useState(title);
   const [collaborationOpen, setCollaborationOpen] = useState(false);
+  const paperExport = usePaperExport(title);
 
   return (
     <div className="flex items-center justify-between gap-4 border-b border-line px-4 py-3">
@@ -57,11 +59,30 @@ export function EditorTopBar({
         <Button variant="secondary" size="sm" onClick={() => setCollaborationOpen(true)}>
           {t('collaboration')}
         </Button>
-        <Button variant="secondary" size="sm" disabled>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => {
+            const el = document.querySelector('.min-h-\\[1123px\\]');
+            el?.scrollIntoView({ behavior: 'smooth' });
+          }}
+        >
           {t('preview')}
         </Button>
-        <Button size="sm" disabled>
-          {t('export')}
+        {paperExport.failed && (
+          <span role="alert" className="text-sm text-err">
+            {t('pdfError')}
+          </span>
+        )}
+        <Button variant="secondary" size="sm" onClick={paperExport.print}>
+          {t('print')}
+        </Button>
+        <Button
+          size="sm"
+          disabled={paperExport.busy}
+          onClick={() => void paperExport.downloadPdf()}
+        >
+          {paperExport.busy ? t('pdfBusy') : t('downloadPdf')}
         </Button>
         <PublishExamDialog testId={testId} defaultTitle={title} />
       </div>

@@ -56,7 +56,11 @@
         "saving": "Kaydediliyor",
         "offline": "Bağlantı yok, değişiklikler bekletiliyor",
         "error": "Kaydedilemedi"
-      }
+      },
+      "print": "Yazdır",
+      "downloadPdf": "PDF indir",
+      "pdfBusy": "PDF hazırlanıyor",
+      "pdfError": "PDF oluşturulamadı. Yeniden deneyin."
     },
     "strip": {
       "empty": "Bu testte henüz soru yok. Bir ekran alıntısı kopyalayıp Ctrl+V ile yapıştırın.",
@@ -102,7 +106,11 @@
       "dialogTitle": "Kâğıt Şablonunu Düzenle",
       "dialogDescription": "Sınav kâğıdında görünecek okul, ders, sınıf ve öğretmen bilgilerini güncelleyin.",
       "dialogClose": "Kapat",
-      "dialogSave": "Tamam"
+      "dialogSave": "Tamam",
+      "questionCount": "{count} soru",
+      "subjectLine": "{subject} Dersi",
+      "classLine": "{class} Sınıfı",
+      "footerBrand": "Testcim"
     },
     "inspector": {
       "page": "Şablon & Yerleşim",
@@ -164,7 +172,10 @@
         "showBookletCode": "Kitapçık türü (A/B)",
         "bookletCodeLabel": "Kitapçık kodu",
         "downloadPdf": "PDF indir",
-        "watermarkNote": "Çıktının altında küçük bir filigran yer alır."
+        "watermarkNote": "Çıktının altında küçük bir filigran yer alır.",
+        "print": "Yazdır ve önizle",
+        "pdfBusy": "PDF hazırlanıyor",
+        "pdfError": "PDF oluşturulamadı. Yeniden deneyin."
       }
     },
     "pasteBar": {
@@ -172,7 +183,8 @@
       "statusWithLastAdded": "{count} soru. Son eklenen: soru {number}.",
       "captureMode": "Yakalama modu",
       "chooseFile": "Dosya seç",
-      "quotaExceeded": "Plan sınırınıza ulaştığınız için {count} görsel eklenmedi."
+      "quotaExceeded": "Plan sınırınıza ulaştığınız için {count} görsel eklenmedi.",
+      "phoneCapture": "Telefondan ekle"
     },
     "bulkAnswers": {
       "trigger": "Cevapları toplu gir",
@@ -180,6 +192,20 @@
       "placeholder": "ABCDDCBA... veya 1-A 2-C 3-B",
       "mismatch": "{parsed} cevap ayrıştırıldı, testte {total} soru var.",
       "apply": "Uygula"
+    },
+    "phoneCaptureDialog": {
+      "title": "Telefondan soru ekleyin",
+      "description": "Telefonunuzun kamerasıyla QR kodu okutun. Çektiğiniz sorular bu teste anında eklenir.",
+      "close": "Kapat",
+      "done": "Bitti",
+      "expired": "Bağlantının süresi doldu.",
+      "recreate": "Yeni kod oluştur",
+      "expiresIn": "Kalan süre {time}",
+      "waiting": "Telefon bekleniyor",
+      "connected": "Telefon bağlandı",
+      "receivedCount": "{count} soru alındı",
+      "copyLink": "Bağlantıyı kopyala",
+      "linkCopied": "Kopyalandı"
     }
   },
   "collaboration": {
@@ -797,7 +823,8 @@
         "date": "Tarih",
         "outcome": "Kazanım",
         "correctRate": "Doğru oranı"
-      }
+      },
+      "reportCardAction": "Karne oluştur / indir"
     }
   },
   "exams": {
@@ -1405,5 +1432,32 @@
       "statusOperational": "Normal",
       "updatedAt": "Sistem durumu düzenli olarak kontrol edilmektedir."
     }
+  },
+  "omr": {
+    "title": "Optik okuma ve formlar",
+    "description": "Baskıya hazır optik formlar üretin ve değerlendirme süreçlerini yönetin.",
+    "generateTitle": "Hızlı optik form üretimi",
+    "generateDescription": "İstediğiniz soru ve seçenek sayısına göre anında A4 optik cevap formu PDF'i indirin.",
+    "selectTest": "Kayıtlı bir test seçin",
+    "selectTestPlaceholder": "Bir test seçin (isteğe bağlı)",
+    "questionCount": "Soru sayısı",
+    "optionsCount": "Seçenek sayısı",
+    "studentNumberDigits": "Öğrenci no basamak sayısı",
+    "options4": "4 seçenek (A, B, C, D)",
+    "options5": "5 seçenek (A, B, C, D, E)",
+    "downloadPdf": "Optik form PDF'i indir",
+    "downloading": "Hazırlanıyor...",
+    "downloadSuccess": "Optik form başarıyla indirildi.",
+    "workflowTitle": "Nasıl çalışır?",
+    "step1Title": "1. Formu yazdırın",
+    "step1Desc": "Testinize uygun olarak üretilen standart A4 optik formu yazıcıdan alın.",
+    "step2Title": "2. Sınavı uygulayın",
+    "step2Desc": "Öğrencileriniz cevaplarını ve okul numaralarını kurşun kalemle kodlasın.",
+    "step3Title": "3. Sonuçları bağlayın",
+    "step3Desc": "Cevapları ve sınav sonuçlarını doğrudan sınıflarınızla eşleştirin.",
+    "step4Title": "4. Rapor ve karne alın",
+    "step4Desc": "Kazanım eksiklerini, madde analizlerini ve öğrenci karnelerini anında görüntüleyin.",
+    "linkResultsAction": "Sınıf sonuçlarını yönet",
+    "emptyTests": "Henüz kayıtlı bir testiniz bulunmuyor. Yukarıdan doğrudan soru sayısı belirterek boş optik form indirebilirsiniz."
   }
 }

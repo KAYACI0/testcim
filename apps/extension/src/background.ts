@@ -19,29 +19,35 @@ chrome.action.onClicked.addListener((tab) => {
 });
 
 // Message hub
-chrome.runtime.onMessage.addListener((message: { action?: string; rect?: unknown; viewport?: unknown; reason?: string }, sender, sendResponse) => {
-  if (message.action === 'REQUEST_SNIP') {
-    void handleRequestSnip(sendResponse);
-    return true; // Keep channel open for async response
-  }
+chrome.runtime.onMessage.addListener(
+  (
+    message: { action?: string; rect?: unknown; viewport?: unknown; reason?: string },
+    sender,
+    sendResponse,
+  ) => {
+    if (message.action === 'REQUEST_SNIP') {
+      void handleRequestSnip(sendResponse);
+      return true; // Keep channel open for async response
+    }
 
-  if (message.action === 'SNIP_CAPTURED') {
-    const windowId = sender.tab?.windowId;
-    void handleSnipCaptured(windowId, message.rect, message.viewport);
+    if (message.action === 'SNIP_CAPTURED') {
+      const windowId = sender.tab?.windowId;
+      void handleSnipCaptured(windowId, message.rect, message.viewport);
+      return false;
+    }
+
+    if (message.action === 'SNIP_CANCELLED') {
+      // Forward to side panel
+      void chrome.runtime.sendMessage({
+        action: 'SNIP_CANCELLED_FORWARD',
+        reason: message.reason,
+      });
+      return false;
+    }
+
     return false;
-  }
-
-  if (message.action === 'SNIP_CANCELLED') {
-    // Forward to side panel
-    void chrome.runtime.sendMessage({
-      action: 'SNIP_CANCELLED_FORWARD',
-      reason: message.reason,
-    });
-    return false;
-  }
-
-  return false;
-});
+  },
+);
 
 async function handleRequestSnip(
   sendResponse: (res: { ok: boolean; reason?: string }) => void,

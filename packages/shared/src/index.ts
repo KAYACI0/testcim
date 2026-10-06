@@ -136,3 +136,9 @@ export {
 
 export { sanitizeSvg } from './sanitize-svg';
 export { sanitizeRedirectPath } from './redirect';
+export {
+  detectFileKind,
+  matchesDeclaredMime,
+  FILE_KIND_MIME,
+  type DetectedFileKind,
+} from './magic-bytes';

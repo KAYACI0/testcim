@@ -159,12 +159,15 @@ disconnectBtn.addEventListener('click', () => {
 // Trigger Snip action
 triggerSnipBtn.addEventListener('click', () => {
   triggerSnipBtn.disabled = true;
-  chrome.runtime.sendMessage({ action: 'REQUEST_SNIP' }, (res?: { ok?: boolean; reason?: string }) => {
-    if (chrome.runtime.lastError || (res && !res.ok)) {
-      triggerSnipBtn.disabled = false;
-      showBanner('Kırpma başlatılamadı. Sayfayı yenileyip tekrar deneyiniz.', 'error');
-    }
-  });
+  chrome.runtime.sendMessage(
+    { action: 'REQUEST_SNIP' },
+    (res?: { ok?: boolean; reason?: string }) => {
+      if (chrome.runtime.lastError || (res && !res.ok)) {
+        triggerSnipBtn.disabled = false;
+        showBanner('Kırpma başlatılamadı. Sayfayı yenileyip tekrar deneyiniz.', 'error');
+      }
+    },
+  );
 });
 
 // Discard pending crop
@@ -177,23 +180,31 @@ discardBtn.addEventListener('click', () => {
 });
 
 // Message listener from background
-chrome.runtime.onMessage.addListener((message: { action?: string; dataUrl?: string; rect?: CropRect; viewport?: { width: number; height: number }; reason?: string }) => {
-  if (message.action === 'SNIP_CANCELLED_FORWARD') {
-    triggerSnipBtn.disabled = false;
-    return;
-  }
+chrome.runtime.onMessage.addListener(
+  (message: {
+    action?: string;
+    dataUrl?: string;
+    rect?: CropRect;
+    viewport?: { width: number; height: number };
+    reason?: string;
+  }) => {
+    if (message.action === 'SNIP_CANCELLED_FORWARD') {
+      triggerSnipBtn.disabled = false;
+      return;
+    }
 
-  if (message.action === 'PROCESS_SNIP' && message.dataUrl && message.rect && message.viewport) {
-    triggerSnipBtn.disabled = false;
-    void processCapturedScreenshot(message.dataUrl, message.rect, message.viewport);
-    return;
-  }
+    if (message.action === 'PROCESS_SNIP' && message.dataUrl && message.rect && message.viewport) {
+      triggerSnipBtn.disabled = false;
+      void processCapturedScreenshot(message.dataUrl, message.rect, message.viewport);
+      return;
+    }
 
-  if (message.action === 'SNIP_ERROR') {
-    triggerSnipBtn.disabled = false;
-    showBanner('Ekran görüntüsü alınamadı.', 'error');
-  }
-});
+    if (message.action === 'SNIP_ERROR') {
+      triggerSnipBtn.disabled = false;
+      showBanner('Ekran görüntüsü alınamadı.', 'error');
+    }
+  },
+);
 
 async function processCapturedScreenshot(
   dataUrl: string,

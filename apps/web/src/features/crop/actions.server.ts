@@ -3,7 +3,7 @@
 import { uuidv7 } from 'uuidv7';
 import { z } from 'zod';
 
-import { limit as entitlementLimit, UNLIMITED } from '@testcim/shared';
+import { limit as entitlementLimit, matchesDeclaredMime, UNLIMITED } from '@testcim/shared';
 
 import {
   ACCEPTED_SOURCE_DOCUMENT_MIME,
@@ -143,15 +143,23 @@ export async function finalizeSourceDocument(
 
   let pageCount: number | null = null;
 
+  const { data: fileBlob, error: downloadError } = await supabase.storage
+    .from('assets')
+    .download(input.path);
+
+  if (downloadError || !fileBlob) {
+    return { ok: false, reason: 'download_failed' };
+  }
+
+  // The declared MIME type is client-controlled; verify the real content.
+  const header = new Uint8Array(await fileBlob.slice(0, 16).arrayBuffer());
+
+  if (!matchesDeclaredMime(header, input.mime)) {
+    await supabase.storage.from('assets').remove([input.path]);
+    return { ok: false, reason: 'invalid_file_content' };
+  }
+
   if (input.mime === 'application/pdf') {
-    const { data: fileBlob, error: downloadError } = await supabase.storage
-      .from('assets')
-      .download(input.path);
-
-    if (downloadError || !fileBlob) {
-      return { ok: false, reason: 'download_failed' };
-    }
-
     const bytes = new Uint8Array(await fileBlob.arrayBuffer());
     pageCount = await readPdfPageCount(bytes);
 

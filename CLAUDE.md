@@ -13,6 +13,9 @@ Tek doğruluk kaynakları (her oturumda ilgili olanı oku):
 
 Bu belgelerle çelişen bir karar gerekiyorsa DUR ve kullanıcıya sor. Sessizce sapma.
 github repom: https://github.com/KAYACI0/testcim
+## Ilerleme kaydi
+- Her oturumun basinda `ilerleme.md` dosyasini oku, yapilan her isi bitince oraya yaz (durum, test sonuclari, acik isler).
+
 ## Dil
 - Kod, yorumlar, commit mesajları, dosya ve değişken adları: İngilizce.
 - Kullanıcıya görünen HER metin Türkçe olup `apps/web/messages/tr.json` üzerinden gelir (İngilizce `en.json` de tutulur). JSX içinde sabit metin yazma.

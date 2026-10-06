@@ -1,10 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import {
-  calculateSourceCoordinates,
-  normalizeCropRect,
-  validateCropRect,
-} from './crop';
+import { calculateSourceCoordinates, normalizeCropRect, validateCropRect } from './crop';
 
 describe('normalizeCropRect', () => {
   it('handles standard top-left to bottom-right dragging', () => {
