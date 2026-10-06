@@ -14,7 +14,9 @@ export interface GenerateOmrFormInput {
   readonly studentNumberDigits?: number | undefined;
 }
 
-export async function generateOmrFormPdfAction(input: GenerateOmrFormInput): Promise<
+export async function generateOmrFormPdfAction(
+  input: GenerateOmrFormInput,
+): Promise<
   | { readonly ok: true; readonly base64: string; readonly fileName: string }
   | { readonly ok: false; readonly error: string }
 > {
@@ -57,4 +59,3 @@ export async function generateOmrFormPdfAction(input: GenerateOmrFormInput): Pro
     };
   }
 }
-

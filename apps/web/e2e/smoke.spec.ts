@@ -3,7 +3,9 @@ import { expect, test } from '@playwright/test';
 test('the home page renders the product name', async ({ page }) => {
   await page.goto('/');
 
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Testcim');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Sorunuzu yapıştırın, testiniz hazır olsun',
+  );
 });
 
 test('the health endpoint reports ok', async ({ request }) => {

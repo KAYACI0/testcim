@@ -19,10 +19,10 @@ export interface InspectorPanelProps {
 
 export function InspectorPanel({ title, sections, defaultValue }: InspectorPanelProps) {
   return (
-    <aside className="flex h-full w-full shrink-0 flex-col border-t border-line lg:w-72 lg:border-t-0 lg:border-l">
+    <aside className="flex h-full w-full min-w-0 shrink-0 flex-col border-t border-line lg:w-72 lg:border-t-0 lg:border-l">
       <h2 className="px-4 pt-4 pb-2 text-sm font-medium text-ink">{title}</h2>
       <Tabs defaultValue={defaultValue} className="flex min-h-0 flex-1 flex-col">
-        <TabsList className="px-4">
+        <TabsList className="gap-3 overflow-x-auto px-4">
           {sections.map((section) => (
             <TabsTrigger key={section.value} value={section.value} disabled={section.disabled}>
               {section.label}

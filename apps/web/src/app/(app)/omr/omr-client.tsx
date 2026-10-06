@@ -79,9 +79,9 @@ export function OmrClient({ tests }: { readonly tests: readonly TestSummary[] })
   };
 
   return (
-    <div className="flex flex-col gap-8 p-6 max-w-4xl">
+    <div className="flex max-w-4xl flex-col gap-8 p-6">
       {/* Quick Generator Box */}
-      <div className="rounded-paper border border-line bg-surface p-6 shadow-sm flex flex-col gap-6">
+      <div className="flex flex-col gap-6 rounded-paper border border-line bg-surface p-6 shadow-sm">
         <div>
           <h2 className="text-base font-semibold text-ink">{t('generateTitle')}</h2>
           <p className="mt-1 text-sm text-ink-2">{t('generateDescription')}</p>
@@ -90,7 +90,7 @@ export function OmrClient({ tests }: { readonly tests: readonly TestSummary[] })
         {error && <InlineNotice tone="err">{error}</InlineNotice>}
         {success && <InlineNotice tone="ok">{success}</InlineNotice>}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           {tests.length > 0 && (
             <div className="sm:col-span-2">
               <FormField label={t('selectTest')}>
@@ -157,7 +157,7 @@ export function OmrClient({ tests }: { readonly tests: readonly TestSummary[] })
           </FormField>
         </div>
 
-        <div className="flex items-center gap-3 pt-2 border-t border-line">
+        <div className="flex items-center gap-3 border-t border-line pt-2">
           <Button onClick={handleGenerate} loading={pending} size="md">
             <Icon name="file-text" size={16} />
             <span>{pending ? t('downloading') : t('downloadPdf')}</span>
@@ -168,33 +168,33 @@ export function OmrClient({ tests }: { readonly tests: readonly TestSummary[] })
       {/* Workflow Explanatory Steps */}
       <div className="flex flex-col gap-4">
         <h3 className="text-base font-semibold text-ink">{t('workflowTitle')}</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="rounded-paper border border-line bg-surface p-4 flex flex-col gap-1.5">
-            <div className="flex items-center gap-2 font-medium text-sm text-ink">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="flex flex-col gap-1.5 rounded-paper border border-line bg-surface p-4">
+            <div className="flex items-center gap-2 text-sm font-medium text-ink">
               <Icon name="file-text" size={16} />
               <span>{t('step1Title')}</span>
             </div>
             <p className="text-xs text-ink-2">{t('step1Desc')}</p>
           </div>
 
-          <div className="rounded-paper border border-line bg-surface p-4 flex flex-col gap-1.5">
-            <div className="flex items-center gap-2 font-medium text-sm text-ink">
+          <div className="flex flex-col gap-1.5 rounded-paper border border-line bg-surface p-4">
+            <div className="flex items-center gap-2 text-sm font-medium text-ink">
               <Icon name="pencil-simple" size={16} />
               <span>{t('step2Title')}</span>
             </div>
             <p className="text-xs text-ink-2">{t('step2Desc')}</p>
           </div>
 
-          <div className="rounded-paper border border-line bg-surface p-4 flex flex-col gap-1.5">
-            <div className="flex items-center gap-2 font-medium text-sm text-ink">
+          <div className="flex flex-col gap-1.5 rounded-paper border border-line bg-surface p-4">
+            <div className="flex items-center gap-2 text-sm font-medium text-ink">
               <Icon name="scan-smiley" size={16} />
               <span>{t('step3Title')}</span>
             </div>
             <p className="text-xs text-ink-2">{t('step3Desc')}</p>
           </div>
 
-          <div className="rounded-paper border border-line bg-surface p-4 flex flex-col gap-1.5">
-            <div className="flex items-center gap-2 font-medium text-sm text-ink">
+          <div className="flex flex-col gap-1.5 rounded-paper border border-line bg-surface p-4">
+            <div className="flex items-center gap-2 text-sm font-medium text-ink">
               <Icon name="chart-bar" size={16} />
               <span>{t('step4Title')}</span>
             </div>
@@ -214,4 +214,3 @@ export function OmrClient({ tests }: { readonly tests: readonly TestSummary[] })
     </div>
   );
 }
-
