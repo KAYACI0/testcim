@@ -440,9 +440,11 @@ söyler.
 - **pgTAP `throws_ok` kontrolleri hata kodu belirtmiyor.** 44 cagri duzeltilirken kodu olmayanlar
   `null` aldi (herhangi bir istisna gecer). Capraz kiraci testlerinde `42501` beklentisi
   geri eklenerek sikilastirilmali.
-- **`renderers` hala `LayoutDocument` okumuyor.** `layout-engine` hazir (docs/adr/0002 "Uygulama notlari"), ama `renderHtml` ve `renderPdf(LayoutDocument, ...)` yazilmadi; PDF indirme hala tarayicida html2canvas ile uretiliyor. Faz 1 madde 2'nin ikinci yarisi.
-- **`TestSettings` semasi motorun girdisini tam karsilamiyor.** A3 ve ozel boyut, `columns: 3`, `headerHeightMm`/`footerHeightMm`, sutun dengeleme, `lookahead` semada yok. Arayuz bu alanlari okumaya basladiginda eklemeli genisletilecek (ADR 0002 bolum 2); numaralandirma biciminde eski degerler korunacak.
-- **Editor kagidi motorun koordinatlarini kullanmiyor.** `paginate.ts` yalnizca sayfa/sutun dagilimi icin motoru cagiriyor; bloklarin x,y degerleri hala DOM akisindan geliyor. Onizleme, PDF, DOCX ve PPTX'in ayni `LayoutDocument`'tan cikmasi icin kagit bilesenleri koordinatlari motordan almali.
+- **`TestSettings` semasi motorun girdisini tam karsilamiyor.** A3 ve ozel boyut, `headerHeightMm`/`footerHeightMm`, sutun dengeleme, `lookahead` semada yok; editor kenar bosluklarini sabit 12 mm, aralik ve sutun araligini `questionSpacing`/sabit 8 mm olarak kullaniyor, `settings.margins`, `columnGap`, `questionGap` (mm olarak kayitli) okunmuyor. Arayuz bu alanlari okumaya basladiginda eklemeli genisletilecek (ADR 0002 bolum 2).
+- **`pageColor` (sayfa rengi) cizilmiyor.** Motor degeri `LayoutDocument`'a geciriyor ama cizim katmani renk jetonu disinda deger kabul etmiyor; kullanici rengi icin tasarim karari gerekir.
+- **Editor 1024 px alti kullanilamiyor (Faz 5).** Uc panelli yapi mobil icin tasarlanmamis (390 px'te ust cubuk ve paneller ust uste biniyor). Kagit artik panele sigacak sekilde olcekleniyor, ama panel yerlesimi Faz 5'te yeniden tasarlanacak.
+- **`QuestionStrip` iceinde `button` icinde `button`** (React hidrasyon uyarisi, dev kaplamasinda "2 Issues"). Onceden vardi, bu dilimde dokunulmadi.
+- **PDF Worker'i uretim ortaminda elle denenmedi.** `new Worker(new URL(...))` derlemede geciyor, dev'de E2E ile dogrulandi; Vercel dagitiminda denenmedi. Storage CORS yerel Kong'da dogrulandi (E2E, capraz kaynak); barindirilan projede dogrulanmadi.
 - **CI `database` isi** GitHub Actions'ta henuz calistirilmadi.
 - **CI `e2e` isi** artik yerel Supabase baslatiyor (kimlikli akislar icin); GitHub Actions'ta henuz
   calistirilmadi, ilk PR'da dogrulanmali.

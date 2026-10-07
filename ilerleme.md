@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 1. Turkce PDF fontu tamam; layout-engine cekirdegi tamam, siradaki renderers (LayoutDocument'tan HTML/PDF)
+- Odak: Faz 1. Turkce PDF fontu tamam; layout-engine cekirdegi tamam, siradaki DOCX/PPTX (madde 4)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,16 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 1, madde 2b ve 3: LayoutDocument'tan HTML/PDF, gercek veriyle PDF)
+
+- `packages/renderers`: `paintTest` (LayoutDocument -> sayfa basina cizim komutlari), `renderPaintPdf`, `renderPaintHtml`, `frameMetrics`, 3 ustbilgi sablonu, kompakt ustbilgi, altbilgi, sutun ayraci, filigran, cevap formu ve cevap anahtari sayfalari. `@testcim/renderers/paint` girisi docx/pptx'i istemci paketine sokmaz.
+- `packages/pdf-fonts`: `createTextMeasure` (gomulu fontun glif genislikleri, PDF'in cizdigiyle ayni).
+- Editor kagidi motordan: `paper-layout.ts` (saf), `paper-view.tsx`, PDF Web Worker'da. Eski DOM akisli kagit, `paginate.ts`, `html2canvas-pro` ve `jspdf` silindi. Kagit panele sigacak sekilde olceklenir (1024'te kirpilma yok).
+- Guvenlik/ortam: CSP'ye yapilandirilmis Supabase kaynagi eklendi ve gelistirmede `upgrade-insecure-requests` kapatildi; yoksa yerel Supabase gorselleri hic yuklenmiyordu (E2E ile bulundu).
+- Test: renderers 8 -> 40, pdf-fonts 6 -> 8, web 153 -> 159, E2E 8 -> 9 (`paper-pdf.spec.ts`: yerel Storage'da gercek PNG, capraz kaynak yukleme, secim, yazdirma kopyasi, PDF indirme ve pdfjs ile geri okuma). Cikti gozle de dogrulandi (PDF sayfalari PNG'ye cizilip incelendi) ve editor 1440/1024/390 ekran goruntuleri alindi.
+- Dogrulama: lint, typecheck 10/10, check:design, build, check:budget, tum birim testleri, E2E 9/9 yesil.
+- Acik: TestSettings sema genisletmesi, editorun 1024 alti yerlesimi (Faz 5), `pageColor`, PDF Worker'in Vercel'de denenmesi, barindirilan Storage CORS (docs/backlog.md).
 
 ### 2026-10-07 (Faz 1, madde 2a: layout-engine cekirdegi)
 

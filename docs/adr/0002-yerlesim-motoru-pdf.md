@@ -267,7 +267,13 @@ Doğrulama: 48 test (birim + fast-check: her soru ve metin bloğu tam bir kez, s
 
 Editördeki `features/editor/paper/paginate.ts` artık ayrı bir algoritma değil, motorun strict modunun ince bir adaptörü. Eski algoritma testte referans (oracle) olarak tutuldu; 1500 rastgele girdide birebir aynı sonucu verir.
 
-Kalan: `renderers` içinde `renderHtml` ve `renderPdf(LayoutDocument)` (§6), `TestSettings` şemasının genişletilmesi (§2, arayüz tüketince), editör kâğıdının `LayoutDocument` koordinatlarını kullanması.
+**Uygulama notları, B bölümü (renderers ve arayüz):** §6'daki iki ayrı renderer yerine tek bir ara katman yazıldı: `paintTest(LayoutDocument, içerik)` her sayfayı çizim komutlarına (metin, çizgi, kutu, görsel; mm cinsinden) çevirir, `renderPaintPdf` bunları pdf-lib'e (gömülü Plex, vektör metin, görsel orijinal çözünürlükte) ve `renderPaintHtml` bunları kaçışlı mutlak konumlu HTML'e çizer. Önizleme, yazdırma ve PDF aynı komut listesini çizdiği için birbirinden ayrışamaz. Üstbilgi/altbilgi yükseklikleri motora çizilerek ölçülür (`frameMetrics`), yani motorun ayırdığı yer ile çizilen yer aynıdır. Metin, gömülen fontun glif genişlikleriyle ölçülür (`createTextMeasure`), PDF'in çizdiğiyle birebir.
+
+Editör (`features/editor/paper`): `paper-layout.ts` (saf: öğeler ve ayarlar girdi, çizim sayfaları çıktı), `paper-view.tsx` (sayfaları bağlar, seçim ve şablon düzenleme düğmesi), PDF ayrı bir Web Worker'da (`paper-pdf.worker.ts`). Eski DOM akışlı kâğıt (`paper-parts`, `use-paper-model`, `paginate`) ve `html2canvas-pro`/`jspdf` bağımlılıkları kaldırıldı.
+
+Doğrulama: renderers 40 test (PDF `pdfjs` ile geri okundu: Türkçe metin, görsel sayısı, sayfa boyutu, altkümeleme; HTML kaçışı ve adres allowlist'i; palet `tokens.css` ile aynı). Gerçek veriyle E2E (`e2e/paper-pdf.spec.ts`): yerel Storage'a yüklenen gerçek PNG'ler, çapraz kaynak görsel yükleme, kâğıtta seçim, yazdırma kopyası, PDF indirme ve geri okuma (12 görsel, Türkçe metin, cevap formu ve anahtarı, sayfa numaraları). Ekran görüntüleri 1440/1024/390 alındı.
+
+Kalan: `TestSettings` şemasının genişletilmesi (§2, arayüz tüketince).
 
 ## Açık kalan ve onay istenen noktalar
 

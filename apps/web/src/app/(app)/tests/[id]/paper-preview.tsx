@@ -1,7 +1,15 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type RefObject,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { useStore } from 'zustand';
 
@@ -22,9 +30,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { sortByPosition } from '@/features/editor/op-log';
+import { useImageSizes, usePaperFonts } from '@/features/editor/paper/paper-assets';
 import { PRINT_ROOT_ID } from '@/features/editor/paper/paper-export';
-import { PaperPages, type QuestionSpacing } from '@/features/editor/paper/paper-parts';
-import { usePaperModel } from '@/features/editor/paper/use-paper-model';
+import { buildPaperLayout, type PaperLabels } from '@/features/editor/paper/paper-layout';
+import { registerPaperSource } from '@/features/editor/paper/paper-registry';
+import { PaperView, type PaperViewLabels } from '@/features/editor/paper/paper-view';
 
 export interface PaperPreviewProps {
   readonly store: EditorStore;
@@ -33,9 +43,37 @@ export interface PaperPreviewProps {
 
 const subscribeNothing = () => () => undefined;
 
+/** A4 at 96 dpi; the sheets are laid out in millimetres and measure this wide on screen. */
+const SHEET_WIDTH_PX = (210 / 25.4) * 96;
+/** The scroll area's horizontal padding on each side (p-4, and p-8 from the sm breakpoint). */
+const SCROLL_PADDING_PX = 16;
+const SCROLL_PADDING_SM_PX = 32;
+
+/** Shrinks the paper to the panel it sits in so a narrow window never crops a sheet. */
+function useFitScale(ref: RefObject<HTMLElement | null>): number {
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+    const update = () => {
+      const padding = window.innerWidth >= 640 ? SCROLL_PADDING_SM_PX : SCROLL_PADDING_PX;
+      const available = element.clientWidth - padding * 2;
+      setScale(Math.min(1, Math.max(0.3, available / SHEET_WIDTH_PX)));
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [ref]);
+
+  return scale;
+}
+
 export function PaperPreview({ store, onEditTemplate }: PaperPreviewProps) {
   const [dialogOpen, setDialogOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const fitScale = useFitScale(scrollRef);
 
   const items = useStore(store, (s) => s.items);
   const title = useStore(store, (s) => s.title);
@@ -50,10 +88,82 @@ export function PaperPreview({ store, onEditTemplate }: PaperPreviewProps) {
     [items],
   );
   const header = resolveHeaderSettings(settings?.header, title);
-  const columns: 1 | 2 = settings?.columns === 1 ? 1 : 2;
-  const spacing: QuestionSpacing = header.questionSpacing ?? 'normal';
 
-  const { model, measurer } = usePaperModel({ ready, header, title, columns, spacing });
+  const { fonts, failed: fontsFailed } = usePaperFonts();
+  const imageUrls = useMemo(
+    () =>
+      new Map(
+        ready.filter((item) => item.thumbnailUrl).map((item) => [item.id, item.thumbnailUrl]),
+      ),
+    [ready],
+  );
+  const sizes = useImageSizes(useMemo(() => [...imageUrls.values()], [imageUrls]));
+
+  const labels = useMemo<PaperLabels>(
+    () => ({
+      defaultSchool: t('defaultSchool'),
+      defaultSubject: t('defaultSubject'),
+      defaultClass: t('defaultClass'),
+      defaultTerm: t('defaultTerm'),
+      defaultTitle: t('defaultTitle'),
+      studentName: t('studentName'),
+      classAndNo: t('classAndNo'),
+      score: t('score'),
+      teacher: t('teacher'),
+      duration: t('duration'),
+      durationMinutes: (minutes) => t('durationMinutes', { min: minutes }),
+      subjectLine: (subject) => t('subjectLine', { subject }),
+      classLine: (className) => t('classLine', { class: className }),
+      pointsSuffix: t('pointsSuffix'),
+      answerSheetTitle: t('answerSheetTitle'),
+      answerKeyTitle: t('answerKeyTitle'),
+      footerBrand: t('footerBrand'),
+      pageLabel: t('pageNumber', { current: '{page}', total: '{total}' }),
+    }),
+    [t],
+  );
+
+  const viewLabels = useMemo<PaperViewLabels>(
+    () => ({
+      pageNumber: (page, total) => t('pageNumber', { current: page, total }),
+      questionCount: (count) => t('questionCount', { count }),
+      answerSheetTitle: t('answerSheetTitle'),
+      answerKeyTitle: t('answerKeyTitle'),
+      editTemplate: t('editTemplate'),
+      emptyTitle: t('emptyQuestionsTitle'),
+      emptyHint: t('emptyQuestionsHint'),
+    }),
+    [t],
+  );
+
+  const layout = useMemo(
+    () =>
+      fonts
+        ? buildPaperLayout({
+            items: ready.map((item) => ({
+              id: item.id,
+              imageUrl: item.thumbnailUrl,
+              points: item.points,
+              correct: item.correct,
+            })),
+            sizes,
+            header,
+            title,
+            settings: settings ?? null,
+            labels,
+            measure: fonts.measure,
+          })
+        : null,
+    // `header` is rebuilt from `settings` on every render; settings and title are the inputs.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [fonts, ready, sizes, settings, title, labels],
+  );
+
+  // The export buttons elsewhere in the editor read the paper that is on screen.
+  useEffect(() => {
+    registerPaperSource(layout ? { title, pages: layout.pages, imageUrls } : null);
+    return () => registerPaperSource(null);
+  }, [layout, title, imageUrls]);
 
   // The print copy lives directly under <body> so print CSS can show it alone.
   const printTarget = useSyncExternalStore(
@@ -64,51 +174,66 @@ export function PaperPreview({ store, onEditTemplate }: PaperPreviewProps) {
 
   // Turning on the answer key page brings it into view so the teacher sees it fill in live.
   const showAnswerKey = header.showAnswerKey === true;
+  const hasKeyPage = layout?.pages.some((page) => page.tag === 'answerKey') ?? false;
   useEffect(() => {
-    if (!showAnswerKey) {
+    if (!showAnswerKey || !hasKeyPage) {
       return;
     }
     scrollRef.current
       ?.querySelector('[data-extra-page="answerKey"]')
       ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, [showAnswerKey]);
+  }, [showAnswerKey, hasKeyPage]);
 
   const handleOpenTemplateEdit = () => {
     setDialogOpen(true);
     onEditTemplate?.();
   };
 
+  const handleSelect = useCallback((key: string) => store.getState().select(key), [store]);
+
   return (
     <div ref={scrollRef} className="relative h-full overflow-y-auto bg-canvas p-4 sm:p-8">
-      {measurer}
-      <div data-paper-screen="" className="mx-auto flex w-fit flex-col gap-10">
-        <PaperPages
-          model={model}
-          header={header}
-          title={title}
-          columns={columns}
-          spacing={spacing}
-          selectedItemId={selectedItemId}
-          onSelectItem={(id) => store.getState().select(id)}
-          onEditTemplate={handleOpenTemplateEdit}
-        />
-      </div>
-
-      {printTarget &&
-        createPortal(
-          <div id={PRINT_ROOT_ID} aria-hidden="true">
-            <PaperPages
-              model={model}
-              header={header}
-              title={title}
-              columns={columns}
-              spacing={spacing}
-              eager
-              bare
+      {!layout ? (
+        <p role="status" className="py-24 text-center text-sm text-ink-2">
+          {fontsFailed ? t('loadFailed') : t('loading')}
+        </p>
+      ) : (
+        <>
+          <div
+            data-paper-screen=""
+            className="mx-auto flex w-fit flex-col gap-10"
+            // `zoom` (unlike a transform) also shrinks the layout box, so there is no scrollbar.
+            style={{ zoom: fitScale }}
+          >
+            <PaperView
+              pages={layout.pages}
+              imageUrls={imageUrls}
+              questionCounts={layout.questionCounts}
+              labels={viewLabels}
+              empty={ready.length === 0}
+              interactive={{
+                selectedKey: selectedItemId,
+                onSelect: handleSelect,
+                onEditTemplate: handleOpenTemplateEdit,
+              }}
             />
-          </div>,
-          printTarget,
-        )}
+          </div>
+
+          {printTarget &&
+            createPortal(
+              <div id={PRINT_ROOT_ID} aria-hidden="true">
+                <PaperView
+                  pages={layout.pages}
+                  imageUrls={imageUrls}
+                  questionCounts={layout.questionCounts}
+                  labels={viewLabels}
+                  empty={false}
+                />
+              </div>,
+              printTarget,
+            )}
+        </>
+      )}
 
       {/* "Şablonu Düzenle" Interactive Dialog Modal */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

@@ -82,6 +82,8 @@
       "empty": "Bu testte henüz soru yok.",
       "emptyQuestionsTitle": "Soru fotoğrafı ya da PDF bırakın veya Ctrl+V ile yapıştırın",
       "emptyQuestionsHint": "Eklenen sorular bu kâğıt üzerine yerleşecektir.",
+      "loading": "Kâğıt hazırlanıyor",
+      "loadFailed": "Kâğıt yazı tipleri yüklenemedi. Sayfayı yenileyin.",
       "editTemplate": "Şablonu düzenle",
       "defaultSchool": "Atatürk Ortaokulu",
       "defaultSubject": "Matematik",

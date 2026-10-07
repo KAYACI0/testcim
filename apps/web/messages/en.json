@@ -82,6 +82,8 @@
       "empty": "This test has no questions yet.",
       "emptyQuestionsTitle": "Drop question image or PDF, or paste with Ctrl+V",
       "emptyQuestionsHint": "Added questions will appear on this paper.",
+      "loading": "Preparing the paper",
+      "loadFailed": "The paper fonts could not be loaded. Reload the page.",
       "editTemplate": "Edit template",
       "defaultSchool": "Atatürk Secondary School",
       "defaultSubject": "Mathematics",
