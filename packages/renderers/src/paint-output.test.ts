@@ -103,6 +103,7 @@ describe('renderPaintPdf', () => {
 
 describe('renderPaintHtml', () => {
   const page = (commands: PaintPage['commands']): PaintPage => ({
+    tag: 'questions',
     widthMm: 210,
     heightMm: 297,
     commands,

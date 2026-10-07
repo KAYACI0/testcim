@@ -60,7 +60,11 @@ export type PaintCommand =
       readonly key: string;
     };
 
+export type PaintPageTag = 'questions' | 'answerSheet' | 'answerKey';
+
 export interface PaintPage {
+  /** What the page holds, so a viewer can find the answer key without counting pages. */
+  readonly tag: PaintPageTag;
   readonly widthMm: number;
   readonly heightMm: number;
   readonly commands: readonly PaintCommand[];

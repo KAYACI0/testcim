@@ -5,7 +5,8 @@
   "type": "module",
   "description": "Renderers turning a LayoutDocument into PDF, DOCX, PPTX and HTML",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./paint": "./src/paint-entry.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

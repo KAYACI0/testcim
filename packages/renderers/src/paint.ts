@@ -786,7 +786,7 @@ export function paintTest(doc: PaintDocument, content: TestPaintContent): PaintP
       for (const block of column.blocks) commands.push(...paintBlock(block, content));
     }
 
-    pages.push({ widthMm: doc.widthMm, heightMm: doc.heightMm, commands });
+    pages.push({ tag: 'questions', widthMm: doc.widthMm, heightMm: doc.heightMm, commands });
   });
 
   const body = extraBody(doc, compactProbe.heightMm);
@@ -797,7 +797,7 @@ export function paintTest(doc: PaintDocument, content: TestPaintContent): PaintP
         commands.push(...paintWatermark(doc.watermark, doc.widthMm, doc.heightMm, measure));
       commands.push(...frame(pages.length + 1, false));
       commands.push(...paintExtraBody(extra, pageInExtra, doc, body, measure));
-      pages.push({ widthMm: doc.widthMm, heightMm: doc.heightMm, commands });
+      pages.push({ tag: extra.kind, widthMm: doc.widthMm, heightMm: doc.heightMm, commands });
     }
   });
 
