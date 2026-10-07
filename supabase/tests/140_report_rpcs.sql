@@ -1,5 +1,5 @@
 begin;
-select plan(9);
+select plan(10);
 
 create temporary table fx (key text primary key, id uuid);
 grant all on fx to anon, authenticated, service_role;
@@ -59,22 +59,6 @@ with t as (
 )
 insert into fx (key, id) select 'test_a', id from t;
 
--- test_items is select-only for clients; seed it as the service role.
-select tests.as_service_role();
-with ti as (
-  insert into public.test_items (workspace_id, test_id, question_id, question_revision_id, position)
-  values (
-    (select id from fx where key = 'ws_a'),
-    (select id from fx where key = 'test_a'),
-    (select id from fx where key = 'question_a'),
-    (select id from fx where key = 'revision_a'),
-    'a0'
-  )
-  returning id
-)
-insert into fx (key, id) select 'item_a', id from ti;
-select tests.as_user((select id from fx where key = 'owner_a'));
-
 with e as (
   insert into public.online_exams (workspace_id, test_id, title, mode, access, slug)
   values ((select id from fx where key = 'ws_a'), (select id from fx where key = 'test_a'), 'Exam A', 'async', 'link', 'exam-a-reports')
@@ -82,7 +66,22 @@ with e as (
 )
 insert into fx (key, id) select 'exam_a', id from e;
 
+-- Attempt answers point at the items pinned for the exam (online_exam_items),
+-- which clients cannot write; seed them as the service role.
 select tests.as_service_role();
+with oei as (
+  insert into public.online_exam_items (workspace_id, online_exam_id, question_id, question_revision_id, position)
+  values (
+    (select id from fx where key = 'ws_a'),
+    (select id from fx where key = 'exam_a'),
+    (select id from fx where key = 'question_a'),
+    (select id from fx where key = 'revision_a'),
+    'a0'
+  )
+  returning id
+)
+insert into fx (key, id) select 'item_a', id from oei;
+
 with a as (
   insert into public.exam_attempts (workspace_id, online_exam_id, student_id, token_hash, status, score, max_score, submitted_at)
   values (
@@ -106,6 +105,12 @@ values (
 );
 
 select tests.as_user((select id from fx where key = 'owner_a'));
+
+select is(
+  (select confrelid::regclass::text from pg_constraint where conname = 'attempt_answers_item_id_fkey'),
+  'online_exam_items',
+  'attempt_answers.item_id references online_exam_items, the table the exam runtime writes'
+);
 
 select is(
   (select (public.get_class_report((select id from fx where key = 'ws_a'), (select id from fx where key = 'class_a')) ->> 'attempt_count')::int),
