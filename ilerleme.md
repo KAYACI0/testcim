@@ -40,6 +40,15 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Gunluk
 
+### 2026-10-07 (Faz 1, madde 1: ortak Turkce PDF yazi tipi)
+
+- Karar: IBM Plex Sans (docs/03'teki tek aile, OFL), ADR 0011. IBM'in resmi TTF dosyalari `apps/web/public/fonts/` altinda, degistirilmeden; lisans yanlarinda.
+- Yeni paket `@testcim/pdf-fonts`: fontkit kaydi, 3 agirlik, `subset: true`; G/C yok, bayt diziyi cagiran verir (tarayici `fetch`, sunucu `lib/pdf-fonts.server.ts`, test `./node`).
+- OMR formu, karne ve kisisel kapak Helvetica yerine bunu kullaniyor; imzalara `PdfFontBytes` eklendi. Testler Turkce karakterli veriye cevrildi.
+- Dogrulama: Helvetica 'ı'da hata veriyor (gerileme testi); 3 agirlikta tum Turkce harfler var; karne PDF'i `pdfjs-dist` ile geri okundu, metin birebir dogru (12,7 KB). typecheck, lint, check:design, check:tenancy, tum birim testleri (pdf-fonts 6, web 152) yesil.
+- `next.config.ts`: `outputFileTracingIncludes` (fontlar sunucu izine) ve `transpilePackages`.
+- Acik: Vercel'de gercek dagitimda sunucu eyleminin font dosyasini buldugu denenmedi; DOCX/PPTX'e Plex gomulmedi (kapsam disi, ADR 0011).
+
 ### 2026-10-07 (Faz 0: Polar odeme adaptoru)
 
 - Polar dosyalari baska bir araca verilmisti, kullanici geri aldirdi ve tamamlamami istedi; calisma agaci temizdi, adaptor sifirdan yazildi.

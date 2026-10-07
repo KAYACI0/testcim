@@ -85,10 +85,6 @@ apps/web'deki bir Web Worker onları `RawImage`/`ImageBitmap` köprüsüyle sarm
   fikstürleriyle test edildi; eğim (rotasyon) toleransı homografi matematiği düzeyinde
   doğru ama sentetik fikstürlerle ayrıca doğrulanmadı (yalnızca gölge ve gürültü
   fikstürleri var).
-- PDF'de Türkçe karakterler (ı/İ/ğ/Ğ/ş/Ş) `packages/renderers` ile paylaşılan bilinen bir
-  sorun: pdf-lib'in yerleşik WinAnsi fontu bu karakterleri kodlayamıyor. `renderOmrFormPdf`
-  bu yüzden hiçbir Türkçe metni kendi içinde sabit yazmıyor (etiketler çağırandan
-  parametre olarak gelir), ama gerçek Unicode font (fontkit ile) entegrasyonu ayrı bir
-  iş kalemi.
+- PDF'de Türkçe karakterler: çözüldü (2026-10-07, docs/adr/0011). `renderOmrFormPdf` gömülü IBM Plex Sans kullanır, yazı tipi baytlarını çağıran verir.
 - Çok sütunlu (yan yana) cevap ızgarası yok; 200 soruya kadar tek sütun + çok sayfa ile
   destekleniyor, alan verimliliği optimum değil.

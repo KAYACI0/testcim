@@ -5,6 +5,7 @@ import crypto from 'node:crypto';
 import { buildOmrTemplate, renderOmrFormPdf } from '@testcim/omr';
 
 import { requireSession } from '@/lib/auth/dal';
+import { loadPdfFontBytes } from '@/lib/pdf-fonts.server';
 import { getCurrentWorkspace } from '@/lib/workspace/current';
 
 export interface GenerateOmrFormInput {
@@ -36,12 +37,16 @@ export async function generateOmrFormPdfAction(
     });
 
     const formId = crypto.randomUUID();
-    const pdfBytes = await renderOmrFormPdf(template, {
-      testTitle: title,
-      formId,
-      nameLabel: 'Adı Soyadı',
-      classLabel: 'Sınıfı / Şubesi',
-    });
+    const pdfBytes = await renderOmrFormPdf(
+      template,
+      {
+        testTitle: title,
+        formId,
+        nameLabel: 'Adı Soyadı',
+        classLabel: 'Sınıfı / Şubesi',
+      },
+      await loadPdfFontBytes(),
+    );
 
     const base64 = Buffer.from(pdfBytes).toString('base64');
     const sanitizedTitle = title.replace(/[^a-zA-Z0-9_\u00C0-\u017F-]/g, '_').slice(0, 40);

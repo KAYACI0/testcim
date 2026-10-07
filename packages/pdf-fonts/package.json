@@ -1,23 +1,22 @@
 {
-  "name": "@testcim/omr",
+  "name": "@testcim/pdf-fonts",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Optical mark recognition form geometry and reader",
+  "description": "The one Turkish-capable font family every generated PDF embeds (IBM Plex Sans, OFL)",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./node": "./src/node.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },
   "dependencies": {
-    "@testcim/image-tools": "workspace:*",
-    "@testcim/pdf-fonts": "workspace:*",
+    "@pdf-lib/fontkit": "^1.1.1",
     "pdf-lib": "^1.17.1"
   },
   "devDependencies": {
-    "fast-check": "4.10.2",
     "typescript": "6.0.3",
     "vitest": "5.0.2"
   }

@@ -1,4 +1,6 @@
-import { PDFDocument, type PDFFont, type PDFPage, StandardFonts, rgb } from 'pdf-lib';
+import { PDFDocument, type PDFFont, type PDFPage, rgb } from 'pdf-lib';
+
+import { embedPdfFonts, type PdfFontBytes } from '@testcim/pdf-fonts';
 
 import type { OmrAnswerBubble, OmrFormTemplate, OmrTextField } from './template';
 
@@ -67,17 +69,16 @@ function drawBubble(
  * Web Worker in apps/web) is responsible for triggering the "gerçek boyut yazdır"
  * warning and for turning the returned bytes into a download or an upload.
  *
- * Uses pdf-lib's built-in WinAnsi Helvetica, which cannot encode ı/İ/ğ/Ğ/ş/Ş — the same
- * known gap `packages/renderers` still has to resolve (docs/adr/0002). Real Turkish
- * label text needs a bundled Unicode font embedded via `@pdf-lib/fontkit`; tracked in
- * docs/backlog.md rather than solved ad hoc here.
+ * Text is set in the shared Turkish-capable font (`@testcim/pdf-fonts`, docs/adr/0011), so
+ * labels with ı/İ/ğ/Ğ/ş/Ş render correctly. The caller loads the font bytes.
  */
 export async function renderOmrFormPdf(
   template: OmrFormTemplate,
   meta: OmrFormPdfMeta,
+  fontBytes: PdfFontBytes,
 ): Promise<Uint8Array> {
   const doc = await PDFDocument.create();
-  const font = await doc.embedFont(StandardFonts.Helvetica);
+  const { regular: font } = await embedPdfFonts(doc, fontBytes);
   const pageWidthPt = pt(template.pageWidthMm);
   const pageHeightPt = pt(template.pageHeightMm);
 

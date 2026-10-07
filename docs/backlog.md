@@ -275,13 +275,7 @@ söyler.
   fikstürü yok — homografi matematiği eğimi doğru tolere eder ama bu ayrıca sentetik
   bir fikstürle kanıtlanmadı). `docs/omr-manual-test.md` (gerçek cihaz test kontrol
   listesi) henüz yazılmadı.
-- **PDF'lerde Türkçe karakter (ı/İ/ğ/Ğ/ş/Ş) desteği yok.** `renderOmrFormPdf` pdf-lib'in
-  yerleşik WinAnsi Helvetica fontunu kullanıyor; bu karakterleri kodlayamıyor. Bu yüzden
-  paket hiçbir Türkçe metni kendi içinde sabit yazmıyor (etiketler çağırandan parametre
-  olarak gelir), ama gerçek Unicode font + `@pdf-lib/fontkit` entegrasyonu yapılmadı.
-  `packages/renderers`'ın ana PDF motoru da aynı çözülmemiş soruyu taşıyor (docs/adr/0002);
-  ikisi için ortak bir font kararı (hangi OFL lisanslı font, nereden bundle edilecek)
-  ayrı bir iş kalemi olarak ele alınmalı.
+- **PDF'lerde Türkçe karakter: çözüldü** (2026-10-07, docs/adr/0011). OMR formu, karne ve kişiye özel kapak IBM Plex Sans ile basılıyor.
 - **Çok sütunlu cevap ızgarası yok.** 200 soruya kadar tek sütun + otomatik çok sayfa ile
   destekleniyor; yan yana sütunlarla daha az sayfa kullanan bir yerleşim ileride eklenebilir.
 - **pgTAP ve Playwright bu oturumda çalıştırılamadı** (önceki dilimlerdeki aynı bilinen
@@ -347,14 +341,7 @@ söyler.
   mevcut sınav PDF'inin başına öğrenci adı/numarası + QR yer tutuculu bir kapak
   sayfası ekliyor, tüm sayfalara filigran döşüyor. Kullanıcıyla konuşulup
   onaylanan yorum buydu; genel motor kurulursa yeniden değerlendirilmeli.
-- **PDF'lerde Türkçe karakter sorunu karneleri de etkiliyor.** `renderReportCardPdf`
-  ve `addPersonalizedCoverPage`, `renderOmrFormPdf` ile aynı bilinen kısıtı
-  miras alıyor (yukarı bakınız, "Dilim 00'den kalanlar"): pdf-lib'in yerleşik
-  WinAnsi Helvetica'sı ı/İ/ğ/Ğ/ş/Ş'yi kodlayamıyor. OMR formunda bu çoğunlukla
-  sayı/baloncuktu; karnede gerçek öğrenci/sınıf adları olduğu için etkisi çok
-  daha büyük. Gerçek bir OFL Unicode font (`@pdf-lib/fontkit` ile) bundle
-  edilip embed edilmeden çözülmeyecek; bu oturumda internet erişimi
-  olmadığından gerçek bir font dosyası indirilemedi.
+- **Karnelerde Türkçe karakter: çözüldü** (docs/adr/0011, yukarıdaki kayıtla birlikte).
 - **DOCX/PPTX export'un gerçek soru verisiyle bağlanması yapılmadı.**
   `features/exports/actions.server.ts`, `requireFlag('docx_pptx_export')`'ı
   gerçek bir çağrı noktasına bağlıyor ve `@testcim/renderers`'ın

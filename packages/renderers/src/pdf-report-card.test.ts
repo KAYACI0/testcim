@@ -1,22 +1,32 @@
 import { PDFDocument } from 'pdf-lib';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
-import { renderReportCardPdf, type ReportCardData } from './pdf-report-card';
+import { readPdfFontBytes } from '@testcim/pdf-fonts/node';
+
+import { renderReportCardPdf as renderWithFonts, type ReportCardData } from './pdf-report-card';
+
+let fontBytes: Awaited<ReturnType<typeof readPdfFontBytes>>;
+
+beforeAll(async () => {
+  fontBytes = await readPdfFontBytes();
+});
+
+const renderReportCardPdf = (data: ReportCardData) => renderWithFonts(data, fontBytes);
 
 const labels = {
-  title: 'Karne',
+  title: 'Öğrenci Karnesi',
   studentNoLabel: 'Numara',
-  classLabel: 'Sinif',
-  scoresTitle: 'Sonuclar',
-  outcomesTitle: 'Kazanimlar',
-  summaryTitle: 'Ozet',
+  classLabel: 'Sınıf',
+  scoresTitle: 'Sonuçlar',
+  outcomesTitle: 'Kazanımlar',
+  summaryTitle: 'Özet',
   scoreColumn: 'Puan',
   dateColumn: 'Tarih',
 };
 
 function baseData(overrides: Partial<ReportCardData> = {}): ReportCardData {
   return {
-    studentName: 'Ada Lovelace',
+    studentName: 'Şule Işıkçağlar',
     studentNo: '101',
     className: '9A',
     labels,
@@ -57,7 +67,7 @@ describe('renderReportCardPdf', () => {
 
   it('includes an approved AI summary when provided', async () => {
     const bytes = await renderReportCardPdf(
-      baseData({ summaryText: 'Ogrenci bu donem cebir konusunda belirgin ilerleme kaydetti.' }),
+      baseData({ summaryText: 'Öğrenci bu dönem cebir konusunda belirgin ilerleme kaydetti.' }),
     );
     const doc = await PDFDocument.load(bytes);
     expect(doc.getPageCount()).toBeGreaterThanOrEqual(1);

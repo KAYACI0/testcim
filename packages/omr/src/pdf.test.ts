@@ -1,6 +1,8 @@
 import { PDFDocument } from 'pdf-lib';
 import { describe, expect, it } from 'vitest';
 
+import { readPdfFontBytes } from '@testcim/pdf-fonts/node';
+
 import { renderOmrFormPdf } from './pdf';
 import { buildOmrTemplate } from './template';
 
@@ -11,12 +13,16 @@ describe('renderOmrFormPdf', () => {
       optionCount: 4,
       studentNumberDigits: 8,
     });
-    const bytes = await renderOmrFormPdf(template, {
-      testTitle: 'Deneme Sinavi',
-      formId: 'FRM-TEST-0001',
-      nameLabel: 'Ad Soyad',
-      classLabel: 'Sinif',
-    });
+    const bytes = await renderOmrFormPdf(
+      template,
+      {
+        testTitle: 'Deneme Sınavı',
+        formId: 'FRM-TEST-0001',
+        nameLabel: 'Adı Soyadı',
+        classLabel: 'Sınıfı / Şubesi',
+      },
+      await readPdfFontBytes(),
+    );
 
     const reopened = await PDFDocument.load(bytes);
     expect(reopened.getPageCount()).toBe(template.pages.length);

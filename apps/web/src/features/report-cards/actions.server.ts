@@ -9,6 +9,7 @@ import { buildReportCardScoreRows } from './build-scores';
 import { loadPromptTemplate } from '@/features/ai/prompts/loader';
 import { executeAiJob } from '@/features/ai/run-ai-job.server';
 import { requireSession } from '@/lib/auth/dal';
+import { loadPdfFontBytes } from '@/lib/pdf-fonts.server';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentWorkspace } from '@/lib/workspace/current';
 import { requireRole } from '@/lib/workspace/entitlements.server';
@@ -149,7 +150,7 @@ export async function generateReportCardPdf(studentId: string, classId: string) 
     ...(summaryText ? { summaryText } : {}),
   };
 
-  const bytes = await renderReportCardPdf(data);
+  const bytes = await renderReportCardPdf(data, await loadPdfFontBytes());
   return { ok: true as const, base64: Buffer.from(bytes).toString('base64') };
 }
 

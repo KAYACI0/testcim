@@ -69,13 +69,7 @@ paylaşıyor.
 
 ### 6. Bilinen kısıt: Türkçe karakter kodlaması
 
-Dört renderer da pdf-lib'in yerleşik WinAnsi Helvetica'sını (PDF çıktıları) veya
-docx/pptxgenjs'in varsayılan fontlarını kullanıyor. ı/İ/ğ/Ğ/ş/Ş, pdf-lib tarafında
-`packages/omr/src/pdf.ts`'ten miras alınan bilinen bir kısıt (bkz. docs/backlog.md,
-"Dilim 00'den kalanlar"); karne gibi gerçek öğrenci adı içeren çıktılarda etkisi daha
-büyük. Gerçek bir Unicode font bundle edip `@pdf-lib/fontkit` ile embed etmek bu
-dilimde yapılmadı — bu ortamda internet erişimi yok, gerçek bir font dosyası
-indirilemedi; ayrı bir dilimde ele alınmalı.
+**Güncelleme (2026-10-07): çözüldü, bkz. docs/adr/0011.** PDF çıktıları (OMR, karne, kişiye özel kapak) artık gömülü IBM Plex Sans kullanıyor. DOCX ve PPTX Unicode metin belgeleridir, bu kodlama sorunu onlarda yoktur ve alıcının varsayılan yazı tipiyle açılırlar.
 
 ### 7. Yetki kapısı — `docx_pptx_export`
 

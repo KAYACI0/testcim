@@ -36,6 +36,7 @@
     "@testcim/image-tools": "workspace:*",
     "@testcim/layout-engine": "workspace:*",
     "@testcim/omr": "workspace:*",
+    "@testcim/pdf-fonts": "workspace:*",
     "@testcim/renderers": "workspace:*",
     "@testcim/shared": "workspace:*",
     "@tiptap/core": "^3.31.3",

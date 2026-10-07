@@ -1,4 +1,6 @@
-import { PDFDocument, StandardFonts } from 'pdf-lib';
+import { PDFDocument } from 'pdf-lib';
+
+import { embedPdfFonts, type PdfFontBytes } from '@testcim/pdf-fonts';
 
 import { drawTiledWatermark, type WatermarkOptions } from './watermark';
 
@@ -47,17 +49,15 @@ export interface ReportCardData {
  * report/invoice-style generator, not the Prompt 05 general question-layout
  * engine — it never reads `LayoutDocument`.
  *
- * Uses pdf-lib's built-in WinAnsi Helvetica, same as
- * `packages/omr/src/pdf.ts`, and inherits its known gap: ı/İ/ğ/Ğ/ş/Ş cannot be
- * encoded and are dropped/mangled. Unlike the OMR form (mostly numbers and
- * bubbles), a report card's student/class names are real Turkish text, so
- * this is a materially worse instance of the same tracked gap — see
- * docs/backlog.md.
+ * Text is set in the shared Turkish-capable font (`@testcim/pdf-fonts`, docs/adr/0011), so
+ * student and class names with ı/İ/ğ/Ğ/ş/Ş render correctly. The caller loads the font bytes.
  */
-export async function renderReportCardPdf(data: ReportCardData): Promise<Uint8Array> {
+export async function renderReportCardPdf(
+  data: ReportCardData,
+  fontBytes: PdfFontBytes,
+): Promise<Uint8Array> {
   const doc = await PDFDocument.create();
-  const font = await doc.embedFont(StandardFonts.Helvetica);
-  const boldFont = await doc.embedFont(StandardFonts.HelveticaBold);
+  const { regular: font, semibold: boldFont } = await embedPdfFonts(doc, fontBytes);
 
   let page = doc.addPage([A4_WIDTH_PT, A4_HEIGHT_PT]);
   let cursorY = A4_HEIGHT_PT - MARGIN_PT;

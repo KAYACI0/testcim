@@ -1,7 +1,18 @@
 import { PDFDocument, StandardFonts } from 'pdf-lib';
-import { describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it } from 'vitest';
 
-import { addPersonalizedCoverPage } from './pdf-personalized-print';
+import { readPdfFontBytes } from '@testcim/pdf-fonts/node';
+
+import { addPersonalizedCoverPage as addWithFonts } from './pdf-personalized-print';
+
+let fontBytes: Awaited<ReturnType<typeof readPdfFontBytes>>;
+
+beforeAll(async () => {
+  fontBytes = await readPdfFontBytes();
+});
+
+const addPersonalizedCoverPage = (base: Uint8Array, options: Parameters<typeof addWithFonts>[1]) =>
+  addWithFonts(base, options, fontBytes);
 
 async function makeBasePdf(pageCount: number): Promise<Uint8Array> {
   const doc = await PDFDocument.create();
@@ -14,11 +25,11 @@ async function makeBasePdf(pageCount: number): Promise<Uint8Array> {
 }
 
 const cover = {
-  studentName: 'Ada Lovelace',
+  studentName: 'Şule Işıkçağlar',
   studentNo: '101',
   className: '9A',
-  testTitle: 'Matematik Sinavi',
-  labels: { studentNoLabel: 'Numara', classLabel: 'Sinif' },
+  testTitle: 'Matematik Sınavı',
+  labels: { studentNoLabel: 'Numara', classLabel: 'Sınıf' },
 };
 
 describe('addPersonalizedCoverPage', () => {

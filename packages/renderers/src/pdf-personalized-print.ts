@@ -1,4 +1,6 @@
-import { PDFDocument, StandardFonts } from 'pdf-lib';
+import { PDFDocument } from 'pdf-lib';
+
+import { embedPdfFonts, type PdfFontBytes } from '@testcim/pdf-fonts';
 
 import { drawTiledWatermark, type WatermarkOptions } from './watermark';
 
@@ -38,11 +40,11 @@ export interface PersonalizedPrintOptions {
 export async function addPersonalizedCoverPage(
   basePdfBytes: Uint8Array,
   options: PersonalizedPrintOptions,
+  fontBytes: PdfFontBytes,
 ): Promise<Uint8Array> {
   const baseDoc = await PDFDocument.load(basePdfBytes);
   const outDoc = await PDFDocument.create();
-  const font = await outDoc.embedFont(StandardFonts.Helvetica);
-  const boldFont = await outDoc.embedFont(StandardFonts.HelveticaBold);
+  const { regular: font, semibold: boldFont } = await embedPdfFonts(outDoc, fontBytes);
 
   const cover = outDoc.addPage([A4_WIDTH_PT, A4_HEIGHT_PT]);
   let cursorY = A4_HEIGHT_PT - MARGIN_PT * 2;

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@testcim/layout-engine": "workspace:*",
+    "@testcim/pdf-fonts": "workspace:*",
     "docx": "^9.5.1",
     "pdf-lib": "^1.17.1",
     "pptxgenjs": "^3.12.0"

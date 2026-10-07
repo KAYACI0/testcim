@@ -25,12 +25,16 @@ const nextConfig: NextConfig = {
   // Without this the dev server blocks its own chunks when the page is opened via 127.0.0.1
   // (the E2E base URL), so client components never hydrate.
   allowedDevOrigins: ['127.0.0.1'],
+  // Server-side PDF generation reads the font files from disk (lib/pdf-fonts.server.ts), so
+  // they must be part of every server trace.
+  outputFileTracingIncludes: { '/*': ['./public/fonts/*.ttf'] },
   // Workspace packages ship TypeScript source, so Next compiles them itself.
   transpilePackages: [
     '@testcim/shared',
     '@testcim/layout-engine',
     '@testcim/renderers',
     '@testcim/omr',
+    '@testcim/pdf-fonts',
     '@testcim/image-tools',
   ],
   headers: () => Promise.resolve([{ source: '/:path*', headers: securityHeaders }]),
