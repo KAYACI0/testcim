@@ -13,6 +13,7 @@ import { CURRENT_WORKSPACE_COOKIE } from './current';
 
 import { writeAuditLog } from '@/lib/audit';
 import { requireSession } from '@/lib/auth/dal';
+import { sendInviteEmail } from '@/lib/email/notifications.server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 import { requireRole } from '@/lib/workspace/entitlements.server';
@@ -93,14 +94,13 @@ const inviteSchema = z.object({
 });
 
 /**
- * Creates the invite row and returns a one-time accept link. Email delivery
- * (Resend) isn't wired up yet — see docs/backlog.md — so the caller shows
- * this link directly to the inviting admin/owner to copy and send by hand.
+ * Creates the invite row, emails the one-time accept link when Resend is configured, and
+ * returns the link either way so the inviting admin/owner can still share it by hand.
  */
 export async function inviteMember(
   _prev: WorkspaceActionState,
   formData: FormData,
-): Promise<WorkspaceActionState & { inviteUrl?: string }> {
+): Promise<WorkspaceActionState & { inviteUrl?: string; emailedTo?: string }> {
   const session = await requireSession();
   const parsed = inviteSchema.safeParse({
     workspaceId: formData.get('workspaceId'),
@@ -140,7 +140,23 @@ export async function inviteMember(
 
   revalidatePath('/settings/members');
 
-  return { status: 'idle', inviteUrl: `/invite/${token}` };
+  const [{ data: workspace }, { data: inviter }] = await Promise.all([
+    supabase.from('workspaces').select('name').eq('id', parsed.data.workspaceId).single(),
+    supabase.from('profiles').select('full_name').eq('id', session.userId).single(),
+  ]);
+  const emailResult = await sendInviteEmail({
+    to: parsed.data.email,
+    token,
+    role: parsed.data.role,
+    workspaceName: workspace?.name ?? '',
+    inviterName: inviter?.full_name ?? null,
+  });
+
+  return {
+    status: 'idle',
+    inviteUrl: `/invite/${token}`,
+    ...(emailResult.ok ? { emailedTo: parsed.data.email } : {}),
+  };
 }
 
 export interface AcceptInviteState {

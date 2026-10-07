@@ -5,6 +5,7 @@ import { publicSubmissionSchema } from '@testcim/shared';
 import type { NextRequest } from 'next/server';
 
 import { checkRateLimit, clientIp } from '@/features/online-exam/anon.server';
+import { sendContactNotification } from '@/lib/email/notifications.server';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 export async function POST(request: NextRequest) {
@@ -27,6 +28,9 @@ export async function POST(request: NextRequest) {
   if (error) {
     return NextResponse.json({ ok: false, reason: 'failed' }, { status: 500 });
   }
+
+  // The row is the source of truth; a failed or skipped notification must not fail the form.
+  await sendContactNotification({ kind, name, email, subject, body: message, contentUrl });
 
   return NextResponse.json({ ok: true });
 }

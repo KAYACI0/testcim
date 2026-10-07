@@ -586,7 +586,8 @@
       "inviteAction": "Davet gönder",
       "inviteError": "Davet oluşturulamadı. Yeniden deneyin.",
       "inviteCreated": "Davet oluşturuldu. Bu bağlantıyı davet ettiğiniz kişiyle paylaşın:",
-      "pendingInvites": "{count, plural, one {# bekleyen davet var.} other {# bekleyen davet var.}}"
+      "pendingInvites": "{count, plural, one {# bekleyen davet var.} other {# bekleyen davet var.}}",
+      "inviteEmailed": "Davet {email} adresine e-posta ile gönderildi. Bağlantı yedek olarak aşağıda da duruyor:"
     },
     "plan": {
       "title": "Plan ve kullanım",
@@ -1467,5 +1468,32 @@
     "step4Desc": "Kazanım eksiklerini, madde analizlerini ve öğrenci karnelerini anında görüntüleyin.",
     "linkResultsAction": "Sınıf sonuçlarını yönet",
     "emptyTests": "Henüz kayıtlı bir testiniz bulunmuyor. Yukarıdan doğrudan soru sayısı belirterek boş optik form indirebilirsiniz."
+  },
+  "email": {
+    "invite": {
+      "subject": "{workspace} çalışma alanına davet edildiniz",
+      "intro": "{inviter}, sizi Testcim üzerindeki \"{workspace}\" çalışma alanına {role} olarak davet etti.",
+      "expiry": "Bu bağlantı 7 gün geçerlidir.",
+      "action": "Daveti kabul et",
+      "roles": {
+        "admin": "yönetici",
+        "editor": "düzenleyen",
+        "viewer": "görüntüleyen"
+      }
+    },
+    "contact": {
+      "subject": "Yeni {kind} iletisi: {subject}",
+      "intro": "{name} ({email}) bir {kind} iletisi gönderdi.",
+      "kinds": {
+        "contact": "iletişim",
+        "copyright": "telif bildirimi"
+      }
+    },
+    "mention": {
+      "subject": "{author} sizden bir yorumda söz etti",
+      "intro": "{author}, \"{test}\" testindeki bir yorumda sizden söz etti.",
+      "action": "Yorumu görüntüle"
+    },
+    "fallbackName": "Bir çalışma arkadaşınız"
   }
 }

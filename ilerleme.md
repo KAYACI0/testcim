@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 1. Turkce PDF fontu tamam; layout-engine cekirdegi tamam, Faz 1 tamam (kalan: TestSettings sema genisletmesi); siradaki Faz 2
+- Odak: Faz 2. Resend kodu tamam (anahtar bekliyor); Upstash, Sentry, PostHog kodu var, anahtarlar bekliyor; siradaki: Claude canli dogrulama betigi
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,14 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 2, madde 1: Resend e-posta)
+
+- `lib/email/resend.ts`: Resend'in resmi `POST /emails` uc noktasina duz `fetch` (SDK yok), anahtar veya gonderen yoksa `not_configured` doner, hata atmaz. HTML govdesinde kullanici metni kacislanir.
+- Baglanan akislar: davet (e-posta gider, baglanti yedek olarak ekranda kalir), iletisim ve telif formu bildirimi (`CONTACT_NOTIFY_TO`), yorumda mention e-postasi (yalnizca test yorumlari). Hepsi en iyi caba: basarisiz gonderim akisi bozmaz, uygulama ici bildirim zaten kayitli.
+- Metinler `messages/tr.json` ve `en.json` altinda `email.*`. Yeni degiskenler: `RESEND_API_KEY`, `EMAIL_FROM`, `CONTACT_NOTIFY_TO` (`.env.example`, `turbo.json`, `env.ts`).
+- Test: `resend.test.ts` 6 test (yapilandirilmamis, gonderi govdesi ve basliklar, API hatasi, ag hatasi, kacislama). web 167 test yesil. lint, typecheck 10/10, check:design, build yesil.
+- Acik: gercek Resend hesabi ve dogrulanmis alan adiyla denenmedi (SPF/DKIM Faz 4). Sifre sifirlama e-postasini Supabase Auth gonderiyor; Resend'i SMTP olarak Supabase panelinde tanimlamak gerekiyor (elle ayar, anahtar gelince).
 
 ### 2026-10-07 (Faz 1, madde 4: DOCX/PPTX gercek soru verisiyle)
 

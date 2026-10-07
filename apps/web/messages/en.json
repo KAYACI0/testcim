@@ -586,7 +586,8 @@
       "inviteAction": "Send invite",
       "inviteError": "Could not create the invite. Try again.",
       "inviteCreated": "Invite created. Share this link with the person you invited:",
-      "pendingInvites": "{count, plural, one {# pending invite.} other {# pending invites.}}"
+      "pendingInvites": "{count, plural, one {# pending invite.} other {# pending invites.}}",
+      "inviteEmailed": "The invite was emailed to {email}. The link is also shown below as a backup:"
     },
     "plan": {
       "title": "Plan & usage",
@@ -1467,5 +1468,32 @@
     "step4Desc": "Instantly view outcome deficiencies, item analyses, and report cards.",
     "linkResultsAction": "Manage class results",
     "emptyTests": "You don't have any saved tests yet. You can still download blank optical sheets using the options above."
+  },
+  "email": {
+    "invite": {
+      "subject": "You were invited to the {workspace} workspace",
+      "intro": "{inviter} invited you to the \"{workspace}\" workspace on Testcim as {role}.",
+      "expiry": "This link is valid for 7 days.",
+      "action": "Accept the invite",
+      "roles": {
+        "admin": "an admin",
+        "editor": "an editor",
+        "viewer": "a viewer"
+      }
+    },
+    "contact": {
+      "subject": "New {kind} message: {subject}",
+      "intro": "{name} ({email}) sent a {kind} message.",
+      "kinds": {
+        "contact": "contact",
+        "copyright": "copyright notice"
+      }
+    },
+    "mention": {
+      "subject": "{author} mentioned you in a comment",
+      "intro": "{author} mentioned you in a comment on \"{test}\".",
+      "action": "View the comment"
+    },
+    "fallbackName": "A teammate"
   }
 }

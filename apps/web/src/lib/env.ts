@@ -32,6 +32,15 @@ export const serverEnvSchema = z.object({
   ANTHROPIC_API_KEY: z.string().min(1).optional(),
   AI_MODEL_QUALITY: z.string().min(1).default('claude-opus-5'),
   AI_MODEL_FAST: z.string().min(1).default('claude-haiku-4-5'),
+  /**
+   * Transactional email (Resend). All optional: without a key, sends are skipped and the
+   * calling flow keeps its in-app fallback (for example the invite link shown on screen).
+   * `EMAIL_FROM` must be an address on a domain verified in Resend. `CONTACT_NOTIFY_TO`
+   * receives contact and copyright form notifications.
+   */
+  RESEND_API_KEY: z.string().min(1).optional(),
+  EMAIL_FROM: z.string().min(3).optional(),
+  CONTACT_NOTIFY_TO: z.preprocess((v) => (v === '' ? undefined : v), z.email().optional()),
   /** Optional: unset in dev/test falls back to an in-memory rate limiter. */
   UPSTASH_REDIS_REST_URL: optionalUrl,
   UPSTASH_REDIS_REST_TOKEN: z.string().min(1).optional(),

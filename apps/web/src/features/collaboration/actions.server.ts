@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { parseMentionedUserIds } from './mentions';
 
 import { requireSession } from '@/lib/auth/dal';
+import { sendMentionEmail } from '@/lib/email/notifications.server';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentWorkspace } from '@/lib/workspace/current';
 import { requireRole } from '@/lib/workspace/entitlements.server';
@@ -55,6 +56,40 @@ export async function listComments(
     resolved_at: c.resolved_at,
     created_at: c.created_at,
   }));
+}
+
+/** Best-effort mention emails; the in-app notification is already stored, so this never throws. */
+async function emailMentions(input: {
+  supabase: Awaited<ReturnType<typeof createClient>>;
+  commentId: string;
+  resourceType: ResourceType;
+  resourceId: string;
+  authorId: string;
+  recipientIds: readonly string[];
+}) {
+  if (input.resourceType !== 'test') return;
+
+  try {
+    const [{ data: test }, { data: author }] = await Promise.all([
+      input.supabase.from('tests').select('title').eq('id', input.resourceId).single(),
+      input.supabase.from('profiles').select('full_name').eq('id', input.authorId).single(),
+    ]);
+    if (!test) return;
+
+    await Promise.all(
+      input.recipientIds.map((recipientUserId) =>
+        sendMentionEmail({
+          recipientUserId,
+          commentId: input.commentId,
+          authorName: author?.full_name ?? null,
+          testId: input.resourceId,
+          testTitle: test.title,
+        }),
+      ),
+    );
+  } catch {
+    // Mention email is a courtesy copy of the stored notification.
+  }
 }
 
 const createCommentSchema = z.object({
@@ -108,6 +143,14 @@ export async function createComment(rawInput: unknown) {
         p_workspace_id: workspace.id,
         p_comment_id: comment.id,
         p_mentioned_user_ids: mentioned,
+      });
+      await emailMentions({
+        supabase,
+        commentId: comment.id,
+        resourceType: parsed.data.resourceType,
+        resourceId: parsed.data.resourceId,
+        authorId: session.userId,
+        recipientIds: mentioned,
       });
     }
   }

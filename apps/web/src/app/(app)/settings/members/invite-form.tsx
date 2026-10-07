@@ -16,7 +16,9 @@ import {
 } from '@/components/ui/select';
 import { inviteMember, type WorkspaceActionState } from '@/lib/workspace/actions';
 
-const initialState: WorkspaceActionState & { inviteUrl?: string } = { status: 'idle' };
+const initialState: WorkspaceActionState & { inviteUrl?: string; emailedTo?: string } = {
+  status: 'idle',
+};
 
 export function InviteForm({ workspaceId }: { readonly workspaceId: string }) {
   const t = useTranslations('settings.members');
@@ -53,7 +55,8 @@ export function InviteForm({ workspaceId }: { readonly workspaceId: string }) {
       {state.status === 'error' && <InlineNotice tone="err">{t('inviteError')}</InlineNotice>}
       {state.inviteUrl && (
         <InlineNotice tone="ok">
-          {t('inviteCreated')} <span className="font-medium">{state.inviteUrl}</span>
+          {state.emailedTo ? t('inviteEmailed', { email: state.emailedTo }) : t('inviteCreated')}{' '}
+          <span className="font-medium">{state.inviteUrl}</span>
         </InlineNotice>
       )}
     </form>
