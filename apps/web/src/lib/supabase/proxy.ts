@@ -6,7 +6,8 @@ import type { Database } from './types';
 import { clientEnv } from '@/lib/env.client';
 import { isMarketingPath } from '@/lib/site';
 
-const PUBLIC_PATHS = ['/login', '/auth', '/design-system'];
+// `/s` is the anonymous student exam flow (docs/02 §5.3): students never sign in.
+const PUBLIC_PATHS = ['/login', '/auth', '/design-system', '/s'];
 
 function isPublicPath(pathname: string): boolean {
   return (

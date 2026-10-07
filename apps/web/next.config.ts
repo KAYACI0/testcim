@@ -22,6 +22,9 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Without this the dev server blocks its own chunks when the page is opened via 127.0.0.1
+  // (the E2E base URL), so client components never hydrate.
+  allowedDevOrigins: ['127.0.0.1'],
   // Workspace packages ship TypeScript source, so Next compiles them itself.
   transpilePackages: [
     '@testcim/shared',
