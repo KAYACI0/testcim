@@ -24,7 +24,12 @@ export function InspectorPanel({ title, sections, defaultValue }: InspectorPanel
       <Tabs defaultValue={defaultValue} className="flex min-h-0 flex-1 flex-col">
         <TabsList className="gap-3 overflow-x-auto px-4">
           {sections.map((section) => (
-            <TabsTrigger key={section.value} value={section.value} disabled={section.disabled}>
+            <TabsTrigger
+              key={section.value}
+              value={section.value}
+              disabled={section.disabled}
+              className="shrink-0 whitespace-nowrap"
+            >
               {section.label}
             </TabsTrigger>
           ))}

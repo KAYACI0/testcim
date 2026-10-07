@@ -851,6 +851,25 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['report_card_summaries']['Row']>;
         Relationships: [];
       };
+      credit_ledger: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          user_id: string | null;
+          delta: number;
+          reason: string;
+          ref_type: string | null;
+          ref_id: string | null;
+          created_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['credit_ledger']['Row']> & {
+          workspace_id: string;
+          delta: number;
+          reason: string;
+        };
+        Update: never;
+        Relationships: [];
+      };
       jobs: {
         Row: {
           id: string;

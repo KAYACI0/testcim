@@ -21,9 +21,25 @@ tutulabilir.
 - Telifli sınav/kitap sorularını kopyalama veya taklit etme talimatı yazma
   (CLAUDE.md, docs/prompts/11-yapay-zeka-paketi.md § Yapma).
 
+## Sürüm listesi
+
+| Dosya                        | Özellik                                             | Model katmanı |
+| :--------------------------- | :-------------------------------------------------- | :------------ |
+| `report_card_summary.v1.md`  | Karne özeti (taslak, öğretmen onaylar)              | quality       |
+| `generate_questions.v1.md`   | Kazanımdan veya konudan soru üret                   | quality       |
+| `image_to_text.v1.md`        | Görselden metne ve LaTeX (görsel girdi)             | quality       |
+| `generate_distractors.v1.md` | Çoktan seçmeliye çeldirici ekle                     | quality       |
+| `quality_check.v1.md`        | Belirsizlik, çoklu doğru, yazım, cevap tutarsızlığı | quality       |
+
+Yapay zekâ ile kayıt oluşturan her özellik (`generate_questions`, `image_to_text`,
+`generate_distractors`) sonucu `questions` tablosuna `ai_generated = true`,
+`ai_review_status = 'draft'` olarak yazar. Taslak, `/bank/review` inceleme
+tepsisinde onaylanana kadar teste eklenemez (veritabanı tetikleyicisi
+`test_items_block_ai_draft` bunu zorlar). Kalite kontrolü kaydı değiştirmez,
+yalnızca `source_meta.ai_quality` altına uyarı listesi yazar.
+
 ## Kullanım
 
 Her özellik dilimi (2.1–2.11) kendi `<kind>.v1.md` dosyasını bu klasöre
 ekler ve `executeAiJob({ system: loadPromptTemplate('generate_questions.v1.md'), ... })`
-ile çağırır. Bu dilimde henüz gerçek bir özellik promptu yok; `loader.ts` ve
-`loader.test.ts` yalnızca okuma mekanizmasını ve testtir.
+ile çağırır. Sürüm listesi yukarıdadır; `loader.ts` ve `loader.test.ts` okuma mekanizmasını ve testini içerir.

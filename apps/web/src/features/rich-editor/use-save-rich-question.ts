@@ -88,7 +88,7 @@ export function useSaveRichQuestion({
   return { save };
 }
 
-function readPngDimensions(blob: Blob): Promise<{ width: number; height: number }> {
+export function readPngDimensions(blob: Blob): Promise<{ width: number; height: number }> {
   return new Promise((resolve, reject) => {
     const image = new window.Image();
     image.onload = () => resolve({ width: image.naturalWidth, height: image.naturalHeight });

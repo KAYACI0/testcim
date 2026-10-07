@@ -452,3 +452,25 @@ söyler.
 - Vektör PDF için ayrı bir Chromium servisi gerekir mi.
 - Masaüstü yardımcı: Tauri mi Electron mu.
 
+
+## Faz 3.1'den kalanlar (yapay zekâ soru düğmeleri)
+
+- **Gerçek Claude ile denenmedi.** Dört prompt (`generate_questions`, `image_to_text`,
+  `generate_distractors`, `quality_check`) yalnızca sahte ve betikli sağlayıcıyla
+  doğrulandı. `ANTHROPIC_API_KEY` ile `pnpm test:ai-live` kapsamına bu dört özellik
+  eklenmeli ve çıktı kalitesi gözle değerlendirilmeli.
+- **Bankada `$...$` ham görünüyor.** Taslağın `stem_text` alanı LaTeX'i dolar işaretleriyle
+  tutuyor (arama ve şık karıştırma için); banka listesi bunu işlenmemiş metin olarak
+  gösteriyor. Liste önizlemesinde ifadeleri sadeleştirmek (veya KaTeX ile çizmek) ayrı iş.
+- **KaTeX yazı tipleri PNG'de.** Onayda soru, `foreignObject` ile SVG'ye çizilip PNG'ye
+  çevriliyor; bu yolda harici yazı tipi dosyaları yüklenmediği için formüller sistem
+  yazı tipine düşebilir (zengin editörle aynı sınır, bkz. `render-question.ts`).
+  Üretimde bir formül içeren soruyla gözle doğrulanmalı.
+- **Şekil gerektiren sorular.** Görselden metne, şekle dayanan soruda şekli aktarmaz;
+  yalnızca `has_figure` uyarısı gösterir. Şekli ayrı varlık olarak taslağa eklemek ayrı iş.
+- **Soru üret yalnızca üç tür.** Çoktan seçmeli, doğru/yanlış, açık uçlu. Boşluk doldurma,
+  eşleştirme, sıralama ve sayısal türler eklenmedi.
+- **Toplu onayda sıralı render.** Seçilenleri onayla, soruları tek tek çizip yüklüyor;
+  50+ taslakta yavaş olabilir. Web Worker veya paralel yükleme gerekirse ayrı iş.
+- **Banka düzeni 390 px.** `/bank` sayfasında 390 px'te detay paneli ("Bir soru seçin")
+  listeyi kaplıyor; yapay zekâ sekmesi bu genişlikte kullanılamıyor. Faz 5 (tasarım) kapsamında.

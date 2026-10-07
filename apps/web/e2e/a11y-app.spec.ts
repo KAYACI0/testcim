@@ -4,6 +4,7 @@ import { test } from './support/fixtures';
 const APP_PATHS = [
   '/home',
   '/bank',
+  '/bank/review',
   '/tests',
   '/exams',
   '/classes',

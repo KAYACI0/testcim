@@ -1,3 +1,5 @@
+import type { AiJobKind } from '@testcim/shared';
+
 import type { z } from 'zod';
 
 /** A base64-encoded image attached to a generation call (vision input). */
@@ -7,6 +9,8 @@ export interface AiImageInput {
 }
 
 export interface AiGenerateParams<TOutput> {
+  /** Which feature is calling; only the dev scripted provider reads it. */
+  readonly kind?: AiJobKind;
   readonly model: string;
   /** System prompt: fixed instructions, never user content (injection boundary). */
   readonly system: string;

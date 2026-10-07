@@ -414,13 +414,20 @@ export async function addQuestionsToTest(rawInput: unknown) {
     .single();
   if (testError || !test) return { ok: false as const, reason: 'test_not_found' };
 
-  const { data: questions, error: questionsError } = await supabase
+  const { data: foundQuestions, error: questionsError } = await supabase
     .from('questions')
-    .select('id, current_revision')
+    .select('id, current_revision, ai_generated, ai_review_status')
     .in('id', parsed.data.questionIds);
-  if (questionsError || !questions) {
+  if (questionsError || !foundQuestions) {
     return { ok: false as const, reason: questionsError?.message ?? 'questions_not_found' };
   }
+
+  // Unapproved AI drafts never enter a test (the database enforces it too);
+  // skip them here so one draft in a selection doesn't fail the whole batch.
+  const questions = foundQuestions.filter(
+    (q) => !(q.ai_generated && q.ai_review_status !== 'approved'),
+  );
+  const skippedDraftCount = foundQuestions.length - questions.length;
 
   const { data: revisions, error: revisionsError } = await supabase
     .from('question_revisions')
@@ -462,7 +469,7 @@ export async function addQuestionsToTest(rawInput: unknown) {
 
   const result = applyResult as { ok: boolean };
   if (!result.ok) return { ok: false as const, reason: 'revision_conflict' };
-  return { ok: true as const, addedCount: ops.length };
+  return { ok: true as const, addedCount: ops.length, skippedDraftCount };
 }
 
 const upgradeItemSchema = z.object({ testId: z.uuid(), itemId: z.uuid() });
@@ -495,6 +502,8 @@ export async function upgradeItemRevision(rawInput: unknown) {
 
 export interface QuestionDetail {
   readonly id: string;
+  readonly kind: 'image' | 'rich';
+  readonly questionType: string;
   readonly stemText: string | null;
   readonly thumbnailUrl: string;
   readonly difficulty: number | null;
@@ -518,7 +527,7 @@ export async function getQuestionDetail(
   const { data: question, error: questionError } = await supabase
     .from('questions')
     .select(
-      'id, stem_text, stem_asset_id, thumb_asset_id, kind, difficulty, source_meta, current_revision',
+      'id, stem_text, stem_asset_id, thumb_asset_id, kind, question_type, difficulty, source_meta, current_revision',
     )
     .eq('id', parsed.data)
     .single();
@@ -553,6 +562,8 @@ export async function getQuestionDetail(
     ok: true,
     detail: {
       id: question.id,
+      kind: question.kind,
+      questionType: question.question_type,
       stemText: question.stem_text,
       thumbnailUrl: assetId ? (urlByAssetId.get(assetId) ?? '') : '',
       difficulty: question.difficulty,

@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 2. Resend ve Claude betigi tamam (anahtar bekliyor); Upstash, Sentry, PostHog kodu var, anahtarlar bekliyor; Faz 4 kod tarafi tamam; siradaki: Faz 3 (ozellik tamamlama)
+- Odak: Faz 3. 3.1 (yapay zeka soru dugmeleri) tamam, anahtar bekliyor; siradaki: genel hiz optimizasyonu, sonra Faz 3.2 (acik uclu puanlama)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,18 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 3, madde 1: yapay zeka soru dugmeleri)
+
+- **Dort ozellik:** Soru uret (kazanim veya konu, tur, zorluk, adet; en fazla 10), Gorselden metne (LaTeX dahil), Celdirici ekle, Kalite kontrolu. Promptlar `features/ai/prompts/*.v1.md`, surum listesi README'de.
+- **Taslak ve onay:** Uretilen her kayit `ai_generated = true`, `ai_review_status = 'draft'`. Yeni sayfa `/bank/review` (inceleme tepsisi): tek tek ve toplu Onayla, Duzenle, Sil, kalite kontrolu. Onayda tarayici soruyu 300 DPI PNG'ye cizer, dogrudan Storage'a yukler, sunucu varligi kaydedip taslagi onaylar.
+- **Teste giris engeli veritabaninda:** `20250101000031_block_ai_draft_in_tests.sql` (tetikleyici `test_items_block_ai_draft`), `apply_test_ops` dahil her yolu kapatir. Bankadan toplu eklemede taslaklar atlanir ve sayisi bildirilir.
+- **Kredi:** istenen adet kadar dusulur, gecersiz cikan soru icin iade (`ai_invalid_items`). Hata, hiz siniri ve yetersiz kredi yolunda tam iade.
+- **Giris noktalari:** banka basliginda "Soru uret" ve "Inceleme tepsisi (N)", denetci panelinde "Yapay zeka" sekmesi.
+- **Cevrimdisi saglayici:** `AI_PROVIDER=scripted` (yalniz gelistirme ve E2E; uretimde yok sayilir). Playwright anahtarsiz calisir.
+- **Test:** shared 120 (yeni 13, fast-check dahil), web 177, pgTAP 27 dosya 210 test (yeni `116_ai_draft_block.sql`), E2E 39/39 (yeni `ai-review.spec.ts` 4 test; `/bank/review` axe kapsaminda). lint, typecheck, check:design, check:tenancy, build, check:budget yesil.
+- **Ekran goruntuleri:** inceleme tepsisi ve uretme penceresi 1440/1024/390 alindi ve incelendi. Bulunan sorunlar duzeltildi: 390 px'te satir sikismasi (eylemler icerigin altina), "Dogru" rozeti konumu, denetci sekme etiketi kirilmasi (`inspector-panel.tsx` `whitespace-nowrap`), cevapsiz taslakta Onayla kapali.
+- Acik: gercek Claude ile denenmedi (docs/backlog.md "Faz 3.1'den kalanlar"); banka listesinde `$...$` ham gorunuyor; `/bank` 390 px duzeni Faz 5.
 
 ### 2026-10-07 (Faz 4: axe, ozellik bayragi, yuk testi, geri yukleme)
 

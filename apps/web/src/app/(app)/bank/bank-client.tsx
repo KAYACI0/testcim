@@ -102,7 +102,16 @@ export function BankClient({ folders, tags, subjects, topics, outcomes, tests }:
     if (!addToTestId || selectedIds.size === 0) return;
     const result = await addQuestionsToTest({ testId: addToTestId, questionIds: [...selectedIds] });
     setAddToTestMessage(
-      result.ok ? t('list.addedToTest', { count: result.addedCount }) : t('list.addToTestFailed'),
+      result.ok
+        ? [
+            t('list.addedToTest', { count: result.addedCount }),
+            result.skippedDraftCount > 0
+              ? t('list.skippedDrafts', { count: result.skippedDraftCount })
+              : null,
+          ]
+            .filter(Boolean)
+            .join(' ')
+        : t('list.addToTestFailed'),
     );
     if (result.ok) {
       const refreshed = await listExistingInTest({

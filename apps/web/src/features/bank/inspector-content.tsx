@@ -4,6 +4,8 @@ import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useEffect, useState, useTransition } from 'react';
 
+import type { StoredQualityCheck } from '@testcim/shared';
+
 import { getQuestionDetail, setQuestionOutcomes } from './actions.server';
 
 import type { QuestionDetail, TagRow } from './actions.server';
@@ -12,11 +14,17 @@ import type { CurriculumOutcomeRow } from './types';
 import { InspectorPanel } from '@/components/patterns/inspector-panel';
 import { Badge } from '@/components/ui/badge';
 import { Combobox } from '@/components/ui/combobox';
+import { QuestionAiActions } from '@/features/ai/components/question-ai-actions';
 
 export interface InspectorContentProps {
   readonly questionId: string | null;
   readonly outcomes: readonly CurriculumOutcomeRow[];
   readonly onTagsChanged?: () => void;
+}
+
+function readStoredQuality(sourceMeta: Record<string, unknown>): StoredQualityCheck | null {
+  const quality = sourceMeta.ai_quality as { issues?: unknown } | undefined;
+  return Array.isArray(quality?.issues) ? (quality as unknown as StoredQualityCheck) : null;
 }
 
 export function InspectorContent({ questionId, outcomes, onTagsChanged }: InspectorContentProps) {
@@ -142,6 +150,23 @@ export function InspectorContent({ questionId, outcomes, onTagsChanged }: Inspec
                   />
                 </div>
               </div>
+            ),
+        },
+        {
+          value: 'ai',
+          label: t('tabs.ai'),
+          content:
+            pending || !detail ? (
+              <p className="py-4 text-sm text-ink-3">{t('loading')}</p>
+            ) : (
+              <QuestionAiActions
+                key={detail.id}
+                questionId={detail.id}
+                kind={detail.kind}
+                questionType={detail.questionType}
+                hasText={Boolean(detail.stemText)}
+                initialQuality={readStoredQuality(detail.sourceMeta)}
+              />
             ),
         },
         {

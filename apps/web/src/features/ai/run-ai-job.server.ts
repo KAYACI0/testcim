@@ -13,6 +13,7 @@ import { completeAiJob, createAiJob, failAiJob } from './jobs';
 import { resolveModel } from './models';
 import { runAiJob, type RunAiJobResult } from './pipeline';
 import { ClaudeAiProvider } from './providers/claude';
+import { ScriptedAiProvider } from './providers/scripted';
 import { getAiRateLimiter } from './rate-limit';
 
 import type { AiImageInput, AiProvider } from './types';
@@ -30,7 +31,11 @@ let cachedProvider: AiProvider | undefined;
 /** Constructed lazily so a missing ANTHROPIC_API_KEY only breaks an actual AI call, not app boot. */
 function getDefaultProvider(): AiProvider {
   if (!cachedProvider) {
-    cachedProvider = new ClaudeAiProvider();
+    // Offline switch for local dev and E2E; never honored in a production build.
+    cachedProvider =
+      process.env.AI_PROVIDER === 'scripted' && process.env.NODE_ENV !== 'production'
+        ? new ScriptedAiProvider()
+        : new ClaudeAiProvider();
   }
 
   return cachedProvider;
@@ -101,6 +106,7 @@ export async function executeAiJob<TOutput>(
     checkRateLimit: () => rateLimiter.consume(params.workspaceId),
     callProvider: () =>
       provider.generate({
+        kind: params.kind,
         model,
         system: params.system,
         prompt: params.prompt,

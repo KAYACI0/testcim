@@ -127,8 +127,10 @@ hassasiyetinde eşit değildir. Bilinmeyen bir model id'si (yerel override)
 
 ## Kapsam dışı (bilinçli, sonraki dilimlere)
 
-- Gerçek bir özellik promptu (2.1–2.11) yok; `prompts/` klasöründe yalnızca
-  sürümleme kuralı ve bir test fikstürü var.
+- Özellik promptlarından yalnızca dördü yazıldı (Faz 3.1: soru üret, görselden
+  metne, çeldirici, kalite kontrolü; sürüm listesi `prompts/README.md`). Çözüm yaz,
+  benzer soru, metinden soru, cevap anahtarı okuma, otomatik etiketleme, sayfa
+  bölme ve doğal dil komutu hâlâ ayrı dilimler.
 - Vektör arama / embedding sağlayıcısı (§6 kapsam): Anthropic'in bir
   embedding uç noktası yok; ayrı bir sağlayıcı (örn. Voyage AI, Anthropic'in
   önerdiği) seçilmeli — bu dilimde seçilmedi.
@@ -137,3 +139,25 @@ hassasiyetinde eşit değildir. Bilinmeyen bir model id'si (yerel override)
 - Docker/canlı Supabase olmadığı için `supabase/tests/115_ai_pipeline.sql`
   bu oturumda çalıştırılamadı (önceki tüm dilimlerdeki aynı bilinen kısıt,
   bkz. docs/backlog.md).
+
+## Ek: Faz 3.1 kararları (2026-10-07)
+
+- **Taslak, veritabanında zorlanır.** `test_items_block_ai_draft` tetikleyicisi,
+  `ai_generated` olup `ai_review_status = 'approved'` olmayan bir sorunun
+  `test_items`'a girmesini reddeder (`ai_draft_not_approved`). `apply_test_ops`
+  dahil hiçbir yol atlayamaz. Bankadan toplu ekleme arayüzü taslakları atlar ve
+  kaç tanesinin atlandığını bildirir.
+- **Onay anında görsel üretilir.** Zengin sorular yerleşim motoruna tek bir PNG
+  olarak girer (ADR 0007). Yapay zekâ taslağının PNG'si yoktur; öğretmen Onayla'ya
+  basınca tarayıcı soruyu 300 DPI PNG'ye çizer, doğrudan Storage'a yükler ve
+  sunucu varlığı kaydedip taslağı onaylar. Yani onaylı olmayan taslak hiç görsel
+  taşımaz, onaylı her soru teste girmeye hazırdır.
+- **Özgün soru değişmez.** Görselden metne ve çeldirici ekle, kaynak soruya
+  dokunmaz; sonucu `source_meta.derived_from` ile bağlı yeni bir taslak olarak
+  yazar. Kalite kontrolü yalnızca `source_meta.ai_quality` altına uyarı yazar.
+- **Kredi.** Soru üret, istenen adet kadar kredi düşer; modelin döndürdüğü ama
+  doğrulamadan geçemeyen her soru için kredi `ai_invalid_items` nedeniyle iade
+  edilir. Hiç geçerli soru yoksa hata döner ve tüm kredi iade olur.
+- **Çevrimdışı sağlayıcı.** `AI_PROVIDER=scripted` (yalnızca geliştirme ve E2E,
+  üretim derlemesinde yok sayılır) `ScriptedAiProvider`'ı seçer; Playwright anahtarsız
+  çalışır.
