@@ -67,6 +67,15 @@ yeniden düzenlemek değil.
 seçenekler + isteğe bağlı cevap satırı). DOCX ile aynı render-görsel kararını
 paylaşıyor.
 
+### Güncelleme (2026-10-07): DOCX/PPTX gerçek soru verisine bağlandı
+
+Rasterizasyon hattı beklendiğinden küçük çıktı: zengin sorular kaydedilirken zaten 300 DPI PNG'ye dönüştürülüp `stem_asset_id` olarak saklanıyor (`rich-editor/use-save-rich-question.ts`), yani yapıştırılmış ekran görüntüsü ile aynı biçimde. Her soru bir görsele sahip olduğundan ayrı bir HTML'den görsele hat gerekmedi.
+
+- Dosya tarayıcıda, bir Web Worker'da üretilir (`features/exports/export.worker.ts`). Sunucu yalnızca `docx_pptx_export` yetkisini denetler (`authorizeExport`): görseller bir sunucu gövdesinden geçseydi Vercel gövde sınırına takılırdı (CLAUDE.md).
+- Sıra, numara ve cevap harfleri editördeki kâğıttan gelir, yani Word dosyası PDF ile aynı sırada olur; cevap satırı kâğıdın "cevap anahtarı" anahtarına uyar.
+- Düzeltilen eski hatalar: görseller sabit 400x120 kutuya sıkıştırılıyordu (oran bozuluyordu), PPTX nesneleri 16:9 slaytın dışına taşıyordu (`y: 6.8`, slayt 5,625 inç), `Buffer` kullanımı tarayıcıda çalışmazdı, JPEG desteklenmiyordu. Görseller doğal oranıyla, sayfa metni genişliğine (Word) veya slayt gövdesine (PowerPoint) sığacak şekilde yerleşir; 1800 px'ten geniş görseller küçültülür.
+- `@testcim/renderers/export` girişi Node API'si kullanmaz, tarayıcıya güvenle girer.
+
 ### 6. Bilinen kısıt: Türkçe karakter kodlaması
 
 **Güncelleme (2026-10-07): çözüldü, bkz. docs/adr/0011.** PDF çıktıları (OMR, karne, kişiye özel kapak) artık gömülü IBM Plex Sans kullanıyor. DOCX ve PPTX Unicode metin belgeleridir, bu kodlama sorunu onlarda yoktur ve alıcının varsayılan yazı tipiyle açılırlar.

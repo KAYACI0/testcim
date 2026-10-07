@@ -24,6 +24,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { AnswerSelector } from '@/features/editor/answer-selector';
 import { sortByPosition } from '@/features/editor/op-log';
 import { usePaperExport } from '@/features/editor/paper/paper-export';
+import { useTestExport } from '@/features/exports/use-test-export';
+import { useEntitlement } from '@/features/workspace/workspace-context';
 
 export interface InspectorProps {
   readonly store: EditorStore;
@@ -42,6 +44,8 @@ export function Inspector({ store, activeTab, onTabChange }: InspectorProps) {
   const columns = settings?.columns ?? 2;
 
   const paperExport = usePaperExport(title);
+  const canExportOffice = useEntitlement('docx_pptx_export');
+  const officeExport = useTestExport(t('template.exportAnswerLabel'));
 
   return (
     <Tabs
@@ -251,7 +255,45 @@ export function Inspector({ store, activeTab, onTabChange }: InspectorProps) {
                 <Icon name="printer" size={16} />
                 <span>{t('template.print')}</span>
               </Button>
+              <Button
+                variant="secondary"
+                className="flex w-full items-center justify-center gap-2"
+                size="md"
+                disabled={!canExportOffice || officeExport.busy !== null || ready.length === 0}
+                onClick={() => void officeExport.download('docx')}
+              >
+                <Icon name="file-text" size={16} />
+                <span>
+                  {officeExport.busy === 'docx'
+                    ? t('template.exportBusy')
+                    : t('template.downloadDocx')}
+                </span>
+              </Button>
+              <Button
+                variant="secondary"
+                className="flex w-full items-center justify-center gap-2"
+                size="md"
+                disabled={!canExportOffice || officeExport.busy !== null || ready.length === 0}
+                onClick={() => void officeExport.download('pptx')}
+              >
+                <Icon name="file-text" size={16} />
+                <span>
+                  {officeExport.busy === 'pptx'
+                    ? t('template.exportBusy')
+                    : t('template.downloadPptx')}
+                </span>
+              </Button>
             </div>
+            {!canExportOffice && (
+              <p className="mt-1.5 text-center text-xs text-ink-2">{t('template.exportLocked')}</p>
+            )}
+            {(officeExport.outcome === 'failed' || officeExport.outcome === 'denied') && (
+              <p role="alert" className="mt-1.5 text-center text-xs text-err">
+                {officeExport.outcome === 'denied'
+                  ? t('template.exportLocked')
+                  : t('template.exportError')}
+              </p>
+            )}
             {paperExport.failed && (
               <p role="alert" className="mt-1.5 text-center text-xs text-err">
                 {t('template.pdfError')}

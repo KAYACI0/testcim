@@ -3,6 +3,11 @@ import type { PaintPage } from '@testcim/renderers/paint';
 /** What the PDF export needs from the paper that is currently on screen. */
 export interface PaperSource {
   readonly title: string;
+  readonly className: string;
+  /** Questions in paper order, for Word and PowerPoint. */
+  readonly questions: readonly { readonly id: string; readonly correctLabel: string | null }[];
+  /** Whether the paper prints the answer key; exports follow it. */
+  readonly includeAnswers: boolean;
   readonly pages: readonly PaintPage[];
   /** Image key (an item id) to its image address. */
   readonly imageUrls: ReadonlyMap<string, string>;

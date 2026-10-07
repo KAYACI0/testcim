@@ -177,7 +177,13 @@
         "watermarkNote": "Çıktının altında küçük bir filigran yer alır.",
         "print": "Yazdır ve önizle",
         "pdfBusy": "PDF hazırlanıyor",
-        "pdfError": "PDF oluşturulamadı. Yeniden deneyin."
+        "pdfError": "PDF oluşturulamadı. Yeniden deneyin.",
+        "downloadDocx": "Word indir",
+        "downloadPptx": "PowerPoint indir",
+        "exportBusy": "Dosya hazırlanıyor",
+        "exportError": "Dosya oluşturulamadı. Yeniden deneyin.",
+        "exportLocked": "Word ve PowerPoint çıktısı ücretli planlarda açılır.",
+        "exportAnswerLabel": "Doğru cevap"
       }
     },
     "pasteBar": {

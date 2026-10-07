@@ -342,17 +342,7 @@ söyler.
   sayfası ekliyor, tüm sayfalara filigran döşüyor. Kullanıcıyla konuşulup
   onaylanan yorum buydu; genel motor kurulursa yeniden değerlendirilmeli.
 - **Karnelerde Türkçe karakter: çözüldü** (docs/adr/0011, yukarıdaki kayıtla birlikte).
-- **DOCX/PPTX export'un gerçek soru verisiyle bağlanması yapılmadı.**
-  `features/exports/actions.server.ts`, `requireFlag('docx_pptx_export')`'ı
-  gerçek bir çağrı noktasına bağlıyor ve `@testcim/renderers`'ın
-  `renderTestDocx`/`renderTestPptx` fonksiyonlarını çağırıyor, ama
-  `test_items`/`questions` satırlarını renderer'ın beklediği dar
-  `ExportQuestion`/`PptxQuestion` şekline (zengin/formül/görsel içerik için
-  render edilmiş PNG dahil) çeviren kod yok. Bu, `rich-editor`'ın HTML render
-  yolunu (yalnızca tarayıcı içi önizleme için var) bir HTML→görsel
-  rasterizasyon hattına (muhtemelen headless tarayıcı) genişletmeyi
-  gerektiriyor — API'sini doğrulamadan uydurmamak için ayrı bir dilimde ele
-  alınmalı.
+- **DOCX/PPTX gerçek Word ve PowerPoint'te açılarak denenmedi.** Dosyalar tarayıcıda üretiliyor ve zip yapısı, metin, görsel oranı ve slayt sınırları testlerle doğrulanıyor (E2E, `e2e/office-export.spec.ts`), ama Office veya LibreOffice bu ortamda olmadığı için gerçek bir uygulamada görsel olarak açılmadı. Ayrıca zengin sorular yalnızca resim olarak gidiyor (düzenlenebilir metin yok, ADR 0007), ve Word filigranı yalnızca `watermarkText` verilirse ekleniyor (arayüzde bu seçenek yok).
 - **QTI vs Moodle XML kararı verilmedi** (plandaki ADR 12.2 uygulayıcıya
   bırakılmıştı, henüz araştırılmadı).
 - **Toplu karne/kişisel baskı üretimi (Web Worker + ilerleme + ZIP) yapılmadı.**

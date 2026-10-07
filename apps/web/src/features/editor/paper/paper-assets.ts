@@ -8,6 +8,7 @@ import {
   type PdfFontBytes,
   type TextMeasure,
 } from '@testcim/pdf-fonts';
+import type { ExportImage } from '@testcim/renderers/export';
 import type { PdfImageInput } from '@testcim/renderers/paint';
 
 import type { ImageSize } from './paper-layout';
@@ -129,4 +130,36 @@ export async function fetchPdfImage(url: string): Promise<PdfImageInput> {
     throw new Error('paper_image_encode_failed');
   }
   return { bytes: new Uint8Array(await png.arrayBuffer()), format: 'png' };
+}
+
+/** Word and PowerPoint do not need print resolution; wider pictures are scaled down to this. */
+const MAX_EXPORT_WIDTH_PX = 1800;
+
+/** A question picture for Word or PowerPoint: its bytes, format and real size. */
+export async function prepareExportImage(url: string): Promise<ExportImage> {
+  const source = await fetchPdfImage(url);
+  const bitmap = await createImageBitmap(new Blob([source.bytes as BlobPart]));
+  const { width, height } = bitmap;
+
+  if (width <= MAX_EXPORT_WIDTH_PX) {
+    bitmap.close();
+    return { ...source, width, height };
+  }
+
+  const scale = MAX_EXPORT_WIDTH_PX / width;
+  const canvas = document.createElement('canvas');
+  canvas.width = MAX_EXPORT_WIDTH_PX;
+  canvas.height = Math.max(1, Math.round(height * scale));
+  canvas.getContext('2d')?.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+  const png = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png'));
+  if (!png) {
+    throw new Error('paper_image_encode_failed');
+  }
+  return {
+    bytes: new Uint8Array(await png.arrayBuffer()),
+    format: 'png',
+    width: canvas.width,
+    height: canvas.height,
+  };
 }

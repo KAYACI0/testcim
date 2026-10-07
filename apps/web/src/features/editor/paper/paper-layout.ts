@@ -93,6 +93,11 @@ export interface PaperLayout {
   readonly questionPageCount: number;
   /** Questions on each question page. */
   readonly questionCounts: readonly number[];
+  /** The questions in the order they sit on the paper, for exports that follow it. */
+  readonly exportQuestions: readonly {
+    readonly id: string;
+    readonly correctLabel: string | null;
+  }[];
   readonly columns: 1 | 2 | 3;
 }
 
@@ -248,9 +253,19 @@ export function buildPaperLayout(input: PaperLayoutInput): PaperLayout {
     extras,
   };
 
+  const placedIds = document.pages.flatMap((page) =>
+    page.columns.flatMap((column) =>
+      column.blocks.flatMap((block) => (block.itemId ? [block.itemId] : [])),
+    ),
+  );
+
   return {
     document,
     pages: paintTest(document, content),
+    exportQuestions: placedIds.map((id) => {
+      const correct = byId.get(id)?.correct;
+      return { id, correctLabel: correct?.question_type === 'mcq' ? correct.option_id : null };
+    }),
     questionPageCount: document.pages.length,
     questionCounts: document.pages.map((page) =>
       page.columns.reduce(

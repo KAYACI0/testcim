@@ -161,8 +161,21 @@ export function PaperPreview({ store, onEditTemplate }: PaperPreviewProps) {
 
   // The export buttons elsewhere in the editor read the paper that is on screen.
   useEffect(() => {
-    registerPaperSource(layout ? { title, pages: layout.pages, imageUrls } : null);
+    registerPaperSource(
+      layout
+        ? {
+            title,
+            className: header.className ?? '',
+            questions: layout.exportQuestions,
+            includeAnswers: header.showAnswerKey === true,
+            pages: layout.pages,
+            imageUrls,
+          }
+        : null,
+    );
     return () => registerPaperSource(null);
+    // `header` is derived from `settings`, which is already a dependency of `layout`.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [layout, title, imageUrls]);
 
   // The print copy lives directly under <body> so print CSS can show it alone.

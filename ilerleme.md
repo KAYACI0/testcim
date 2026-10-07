@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 1. Turkce PDF fontu tamam; layout-engine cekirdegi tamam, siradaki DOCX/PPTX (madde 4)
+- Odak: Faz 1. Turkce PDF fontu tamam; layout-engine cekirdegi tamam, Faz 1 tamam (kalan: TestSettings sema genisletmesi); siradaki Faz 2
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,16 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 1, madde 4: DOCX/PPTX gercek soru verisiyle)
+
+- Rasterizasyon hatti beklenenden kucuk cikti: zengin sorular kayitta zaten 300 DPI PNG olarak `stem_asset_id`'de, yani her soru bir gorsel. Ayri HTML'den gorsele hat gerekmedi (ADR 0007 guncellendi).
+- Mevcut dis aktarici hatalari duzeltildi: gorseller sabit kutuya sikisiyordu (oran bozuk), PPTX nesneleri slayt disina tasiyordu, `Buffer` tarayicida calismazdi, JPEG yoktu. Artik gorsel oranini korur, sayfa/slayt sinirlarinda kalir, 1800 px ustu kucultulur.
+- Dosya tarayicida Web Worker'da uretilir (Vercel govde siniri); sunucu yalnizca `docx_pptx_export` yetkisini denetler (`authorizeExport`). Siralama, numara ve cevap harfleri editor kagidindan gelir.
+- Arayuz: envanterde "Word indir" ve "PowerPoint indir" (yalnizca islevsel; ucretsiz planda kilitli + not).
+- Test: renderers 40 -> 47 (zip icinden okunan metin, gorsel orani, slayt siniri, JPEG/PNG medya), web 159 -> 162, E2E 9 -> 11 (`office-export.spec.ts`: ucretsiz planda kilit; Plus'ta gercek dosyalar iner, docx/pptx icinden dogrulanir).
+- Dogrulama: lint, typecheck 10/10, check:design, build, check:budget, tum birim testleri, E2E 11/11 yesil.
+- Acik: dosyalar gercek Word/PowerPoint'te acilarak denenmedi (docs/backlog.md).
 
 ### 2026-10-07 (Faz 1, madde 2b ve 3: LayoutDocument'tan HTML/PDF, gercek veriyle PDF)
 

@@ -177,7 +177,13 @@
         "watermarkNote": "A small watermark appears at the bottom of the output.",
         "print": "Print and preview",
         "pdfBusy": "Preparing PDF",
-        "pdfError": "Could not create the PDF. Try again."
+        "pdfError": "Could not create the PDF. Try again.",
+        "downloadDocx": "Download Word",
+        "downloadPptx": "Download PowerPoint",
+        "exportBusy": "Preparing the file",
+        "exportError": "Could not create the file. Try again.",
+        "exportLocked": "Word and PowerPoint export is available on paid plans.",
+        "exportAnswerLabel": "Correct answer"
       }
     },
     "pasteBar": {
