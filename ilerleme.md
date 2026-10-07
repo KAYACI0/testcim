@@ -40,6 +40,12 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Gunluk
 
+### 2026-10-07 (yol haritasi)
+
+- Dis degerlendirme raporu dogrulandi (buyuk olcude dogru; `iyzico.server.ts` yok, layout-engine iskeleti ve gercek DB dogrulamasi eksikti). Sonuc ve fazli plan `docs/04-yol-haritasi.md`.
+- Sirketsiz odeme secenegi arastirildi: Polar.sh oneriliyor, kullanici onayi bekleniyor (ADR 0009 ile celisiyor, onaysiz degistirilmedi).
+- Kod degisikligi yok, yalnizca belge.
+
 ### 2026-10-06 (editor duzeltmeleri)
 
 - Sayfalama: soru sayisi tahmini yerine olculen yukseklikle A4 (794x1122 px) paketleme. Sol sutun yukaridan asagi dolar, sonra sag sutun, sonra yeni sayfa. Ilk sayfa tam baslik, sonrakiler kompakt baslik. Mantik `features/editor/paper/paginate.ts` (7 birim test).
