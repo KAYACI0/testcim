@@ -1,3 +1,5 @@
+import { layoutTest } from '@testcim/layout-engine';
+
 /** A4 at 96 dpi. 1122 px (not 1123) keeps a sheet under 297 mm so print never spills a blank page. */
 export const PAGE_WIDTH = 794;
 export const PAGE_HEIGHT = 1122;
@@ -30,41 +32,69 @@ export interface PaperPage {
   readonly columns: readonly (readonly number[])[];
 }
 
+/** The engine refuses bodies and columns narrower than this; the editor never gets close. */
+const ENGINE_MIN = 20;
+
+const ITEM_DEFAULTS = {
+  sectionId: null,
+  groupId: null,
+  pinned: false,
+  kind: 'rich',
+  questionType: 'mcq',
+  optionIds: [],
+  correct: null,
+} as const;
+
 /**
- * Packs question blocks into A4 pages. Each column fills from top to bottom;
- * when the left column is full the right one starts, and when both are full a
- * new page begins. A block taller than a whole column is still placed (alone)
- * so no question is ever dropped.
+ * Packs question blocks into pages. This is the one layout engine
+ * (`@testcim/layout-engine`) in its simplest configuration, strict mode with no gaps,
+ * groups or sections; the editor measures heights in the DOM and the engine decides
+ * where each block goes, so the algorithm lives in one place. The engine is
+ * unit-agnostic, so pixels are passed through as its unit.
+ *
+ * Each column fills top to bottom; when the left one is full the right one starts,
+ * and when both are full a new page begins. A block taller than a whole column is
+ * still placed (alone) so no question is ever dropped.
  */
 export function paginate(input: PaginateInput): readonly PaperPage[] {
-  const { heights, columns, firstPageHeight, otherPageHeight } = input;
-  const pages: number[][][] = [];
-  let current: number[][] = Array.from({ length: columns }, () => []);
-  let columnIndex = 0;
-  let used = 0;
-  let capacity = firstPageHeight;
+  const { heights, columns } = input;
+  const firstCapacity = Math.max(ENGINE_MIN, input.firstPageHeight);
+  const otherCapacity = Math.max(ENGINE_MIN, input.otherPageHeight);
+  const pageHeight = Math.max(firstCapacity, otherCapacity, 100);
 
-  const startNewPage = () => {
-    pages.push(current);
-    current = Array.from({ length: columns }, () => []);
-    columnIndex = 0;
-    used = 0;
-    capacity = otherPageHeight;
-  };
-
-  heights.forEach((height, index) => {
-    const column = current[columnIndex] as number[];
-    if (column.length > 0 && used + height > capacity) {
-      columnIndex += 1;
-      used = 0;
-      if (columnIndex >= columns) {
-        startNewPage();
-      }
-    }
-    (current[columnIndex] as number[]).push(index);
-    used += height;
+  const { document } = layoutTest({
+    items: heights.map((_, index) => ({
+      ...ITEM_DEFAULTS,
+      id: String(index),
+      questionId: String(index),
+    })),
+    groups: [],
+    sections: [],
+    settings: {
+      pageSize: 'custom',
+      orientation: 'portrait',
+      customWidthMm: ENGINE_MIN * 3,
+      customHeightMm: pageHeight,
+      columns,
+      marginsMm: { top: 0, bottom: 0, left: 0, right: 0 },
+      columnGapMm: 0,
+      questionGapMm: 0,
+      headerHeightMm: pageHeight - firstCapacity,
+      continuationHeaderHeightMm: pageHeight - otherCapacity,
+      footerHeightMm: 0,
+      mode: 'strict',
+      fitPagesScaleMin: 1,
+      columnBalance: false,
+      lookahead: 0,
+    },
+    seed: 0,
+    versionCode: 'A',
+    measure: { item: (id) => heights[Number(id)] ?? 0, passage: () => 0 },
   });
 
-  pages.push(current);
-  return pages.map((pageColumns) => ({ columns: pageColumns }));
+  return document.pages.map((page) => ({
+    columns: page.columns.map((column) =>
+      column.blocks.flatMap((block) => (block.itemId === null ? [] : [Number(block.itemId)])),
+    ),
+  }));
 }

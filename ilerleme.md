@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Dilim 15 (sertlestirme ve yayin). Faz 0 E2E fixture'i tamam, sirada Faz 1 (Turkce font, genel PDF yerlesim motoru)
+- Odak: Faz 1. Turkce PDF fontu tamam; layout-engine cekirdegi tamam, siradaki renderers (LayoutDocument'tan HTML/PDF)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,15 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 1, madde 2a: layout-engine cekirdegi)
+
+- `packages/layout-engine`: `layoutTest` (strict, flexible, fit-pages, sutun dengeleme, bolum yeni sayfa, grup bolunmez), `orderBooklet` (mulberry32, A-D kitapcik, sabitleme, bolum siniri, grup tek birim, sik permutasyonu), `buildAnswerKeys` (kitapcik basina anahtar + surum esleme), `pageDimensions` (A3, A4, A5, Letter, ozel). Saf, senkron, bagimliliksiz; yukseklik `measure` geri cagrisiyla.
+- ADR 0002'nin 3 acik noktasi onerileriyle kapatildi (eklemeli numaralandirma, siralayi koruyan dengeleme, tam Plex). ADR durumu guncellendi.
+- `features/editor/paper/paginate.ts` artik motorun strict modunun adaptoru (yerlesim mantigi tek yerde). Eski algoritma testte oracle olarak tutuldu: 1500 rastgele girdide birebir ayni sonuc.
+- Testler: layout-engine 5 -> 48 (birim + fast-check). Mutasyon kontrolu: bozuk bosluk, bolunen grup, numarasiz blok, yok sayilan yeni sayfa; dortu de yakalandi. Performans: 100 soru 3 sutun esnek+dengeleme 300 ms tavaninin cok altinda.
+- Dogrulama: lint, typecheck 10/10, check:design, tum birim testleri (web 153), build, check:budget yesil.
+- Acik: renderers `LayoutDocument` okumuyor (renderHtml, renderPdf), TestSettings sema genisletmesi, editor kagidinin motor koordinatlarini kullanmasi (docs/backlog.md). Editorun tarayicida elle denemesi yapilmadi (E2E editoru kapsamiyor); adaptor oracle testiyle dogrulandi.
 
 ### 2026-10-07 (Faz 1, madde 1: ortak Turkce PDF yazi tipi)
 

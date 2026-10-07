@@ -440,6 +440,9 @@ söyler.
 - **pgTAP `throws_ok` kontrolleri hata kodu belirtmiyor.** 44 cagri duzeltilirken kodu olmayanlar
   `null` aldi (herhangi bir istisna gecer). Capraz kiraci testlerinde `42501` beklentisi
   geri eklenerek sikilastirilmali.
+- **`renderers` hala `LayoutDocument` okumuyor.** `layout-engine` hazir (docs/adr/0002 "Uygulama notlari"), ama `renderHtml` ve `renderPdf(LayoutDocument, ...)` yazilmadi; PDF indirme hala tarayicida html2canvas ile uretiliyor. Faz 1 madde 2'nin ikinci yarisi.
+- **`TestSettings` semasi motorun girdisini tam karsilamiyor.** A3 ve ozel boyut, `columns: 3`, `headerHeightMm`/`footerHeightMm`, sutun dengeleme, `lookahead` semada yok. Arayuz bu alanlari okumaya basladiginda eklemeli genisletilecek (ADR 0002 bolum 2); numaralandirma biciminde eski degerler korunacak.
+- **Editor kagidi motorun koordinatlarini kullanmiyor.** `paginate.ts` yalnizca sayfa/sutun dagilimi icin motoru cagiriyor; bloklarin x,y degerleri hala DOM akisindan geliyor. Onizleme, PDF, DOCX ve PPTX'in ayni `LayoutDocument`'tan cikmasi icin kagit bilesenleri koordinatlari motordan almali.
 - **CI `database` isi** GitHub Actions'ta henuz calistirilmadi.
 - **CI `e2e` isi** artik yerel Supabase baslatiyor (kimlikli akislar icin); GitHub Actions'ta henuz
   calistirilmadi, ilk PR'da dogrulanmali.

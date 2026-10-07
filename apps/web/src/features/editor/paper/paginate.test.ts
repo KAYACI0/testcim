@@ -86,3 +86,61 @@ describe('paginate', () => {
     });
   });
 });
+
+/**
+ * The algorithm `paginate` had before it moved onto `@testcim/layout-engine`, kept as an
+ * oracle: the engine in strict mode must place every block exactly where it did.
+ */
+function referencePaginate(input: Parameters<typeof paginate>[0]): number[][][] {
+  const { heights, columns, firstPageHeight, otherPageHeight } = input;
+  const pages: number[][][] = [];
+  let current: number[][] = Array.from({ length: columns }, () => []);
+  let columnIndex = 0;
+  let used = 0;
+  let capacity = firstPageHeight;
+
+  const startNewPage = () => {
+    pages.push(current);
+    current = Array.from({ length: columns }, () => []);
+    columnIndex = 0;
+    used = 0;
+    capacity = otherPageHeight;
+  };
+
+  heights.forEach((height, index) => {
+    const column = current[columnIndex] as number[];
+    if (column.length > 0 && used + height > capacity) {
+      columnIndex += 1;
+      used = 0;
+      if (columnIndex >= columns) startNewPage();
+    }
+    (current[columnIndex] as number[]).push(index);
+    used += height;
+  });
+
+  pages.push(current);
+  return pages;
+}
+
+describe('paginate against the pre-engine algorithm', () => {
+  it('agrees on 1500 pseudo-random inputs, including fractional heights and oversize blocks', () => {
+    let state = 20261007;
+    const next = () => {
+      state = (Math.imul(state, 1664525) + 1013904223) >>> 0;
+      return state / 4294967296;
+    };
+
+    for (let run = 0; run < 1500; run += 1) {
+      const count = Math.floor(next() * 45);
+      const heights = Array.from({ length: count }, () => Math.round(next() * 5000) / 10 + 5);
+      const input = {
+        heights,
+        columns: next() < 0.5 ? (1 as const) : (2 as const),
+        firstPageHeight: 150 + Math.round(next() * 6000) / 10,
+        otherPageHeight: 150 + Math.round(next() * 9000) / 10,
+      };
+
+      expect(paginate(input).map((page) => page.columns)).toEqual(referencePaginate(input));
+    }
+  });
+});
