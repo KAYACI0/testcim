@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 3. 3.1 (yapay zeka soru dugmeleri) tamam, anahtar bekliyor; siradaki: genel hiz optimizasyonu, sonra Faz 3.2 (acik uclu puanlama)
+- Odak: Faz 3. 3.1 (yapay zeka soru dugmeleri) tamam, anahtar bekliyor; genel hiz optimizasyonu tamam; siradaki: Faz 3.2 (acik uclu puanlama)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,16 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (genel hiz: sayfalar arasi gecis)
+
+- **Olcum yontemi:** `e2e/support/latency-proxy.ts` yerel Supabase onune 80 ms gecikme koyar (uzak proje benzetimi), `e2e/support/perf-nav.ts` uretim derlemesinde (`next start`) yan serit baglantilarina tiklayip sureyi olcer. Olcum elle yapilir, test paketinde degildir.
+- **Once (80 ms gecikmeyle):** tiklamadan adres degisimine 315-366 ms (sayfa verisi gelene kadar hicbir sey olmuyordu), tam yuklemede ilk bayt 320-440 ms.
+- **Yapilan:** (1) `app/(app)/loading.tsx`: tiklama aninda iskelet gorunur ve Next dinamik rotalar icin bunu onceden ceker. (2) `listMemberships` iki sirali sorgu yerine tek sorgu (gomulu `workspaces`); her sayfa isteginde bir gidis-donus az. (3) Editorde zengin soru paneli ve grup paneli (TipTap, KaTeX) `next/dynamic` ile istek uzerine yukleniyor. (4) `optimizePackageImports` ile Phosphor.
+- **Sonra:** tiklamadan adres degisimine 27-49 ms (yaklasik 10 kat), icerigin gelmesi 340-360 ms (degismedi, veri sorgulari ayni), tam yuklemede ilk bayt 230-350 ms (yaklasik 80-100 ms kazanc).
+- **Bilerek yapilmadi:** `staleTimes.dynamic` (istemci onbellegi). Sunucu eylemleri `revalidatePath` cagirmadigi icin sekmeler arasi gecista bayat liste gorulebilirdi; mutasyonlar tek tek gozden gecirilmeden acilmamali.
+- Acik: sayfa verisi hala "calisma alani coz, sonra sorgula" sirasiyla geliyor (2 gidis-donus); calisma alanini imzali cerezden cozup sorguyu paralel baslatmak sonraki adim.
+- Dogrulama: lint, typecheck, check:design, birim testleri, E2E (yeni `editor-panels.spec.ts`: lazy paneller).
 
 ### 2026-10-07 (Faz 3, madde 1: yapay zeka soru dugmeleri)
 

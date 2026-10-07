@@ -20,51 +20,51 @@ export interface WorkspaceMembership {
 }
 
 /**
- * Every workspace the signed-in user belongs to. RLS already scopes both
- * queries to their own rows; done as two plain selects rather than an
- * embedded resource join (`workspaces(...)`) since the hand-written
- * `Database` type (see lib/supabase/types.ts) doesn't model FK relationship
- * metadata that `@supabase/postgrest-js` needs to type that join.
+ * Every workspace the signed-in user belongs to. RLS scopes the membership
+ * rows (and the embedded workspaces) to the caller.
  */
+interface MembershipRow {
+  readonly role: WorkspaceRole;
+  readonly workspaces: {
+    readonly id: string;
+    readonly name: string;
+    readonly slug: string;
+    readonly kind: 'personal' | 'team';
+    readonly plan_id: string;
+  } | null;
+}
+
 export const listMemberships = cache(async (): Promise<WorkspaceMembership[]> => {
   const session = await requireSession();
   const supabase = await createClient();
 
-  const { data: memberRows, error: memberError } = await supabase
+  // One round trip: the embedded `workspaces` resource follows the
+  // `workspace_members.workspace_id` foreign key. The hand-written `Database`
+  // type has no relationship metadata, so the row shape is declared here.
+  const { data, error } = await supabase
     .from('workspace_members')
-    .select('workspace_id, role')
-    .eq('user_id', session.userId);
+    .select('role, workspaces(id, name, slug, kind, plan_id)')
+    .eq('user_id', session.userId)
+    .returns<MembershipRow[]>();
 
-  if (memberError) {
-    throw memberError;
+  if (error) {
+    throw error;
   }
 
-  if (memberRows.length === 0) {
-    return [];
-  }
-
-  const { data: workspaceRows, error: workspaceError } = await supabase
-    .from('workspaces')
-    .select('id, name, slug, kind, plan_id')
-    .in(
-      'id',
-      memberRows.map((row) => row.workspace_id),
-    );
-
-  if (workspaceError) {
-    throw workspaceError;
-  }
-
-  const roleByWorkspaceId = new Map(memberRows.map((row) => [row.workspace_id, row.role]));
-
-  return workspaceRows.map((ws) => ({
-    id: ws.id,
-    name: ws.name,
-    slug: ws.slug,
-    kind: ws.kind,
-    planId: ws.plan_id,
-    role: roleByWorkspaceId.get(ws.id) ?? 'viewer',
-  }));
+  return data.flatMap((row) =>
+    row.workspaces
+      ? [
+          {
+            id: row.workspaces.id,
+            name: row.workspaces.name,
+            slug: row.workspaces.slug,
+            kind: row.workspaces.kind,
+            planId: row.workspaces.plan_id,
+            role: row.role,
+          },
+        ]
+      : [],
+  );
 });
 
 /**

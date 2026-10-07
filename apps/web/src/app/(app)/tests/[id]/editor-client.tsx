@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useStore } from 'zustand';
 
 import { EditorTopBar } from './editor-top-bar';
@@ -15,8 +16,15 @@ import { useCapture } from '@/features/capture/use-capture';
 import { applyOpsAction, type EditorData } from '@/features/editor/actions.server';
 import { createEditorStore } from '@/features/editor/store';
 import { useEditorKeyboard } from '@/features/editor/use-editor-keyboard';
-import { GroupPanel } from '@/features/rich-editor/question-editor/group-panel';
-import { QuestionEditorPanel } from '@/features/rich-editor/question-editor/panel';
+
+// The rich question editor (TipTap, KaTeX) and the passage panel are only needed once the
+// teacher opens them, so they load on demand instead of with the editor page.
+const QuestionEditorPanel = dynamic(() =>
+  import('@/features/rich-editor/question-editor/panel').then((m) => m.QuestionEditorPanel),
+);
+const GroupPanel = dynamic(() =>
+  import('@/features/rich-editor/question-editor/group-panel').then((m) => m.GroupPanel),
+);
 
 function isTypingTarget(target: EventTarget | null): boolean {
   return (
@@ -78,6 +86,18 @@ export function EditorClient({
   const [rejectedByQuota, setRejectedByQuota] = useState(0);
   const [richEditorOpen, setRichEditorOpen] = useState(false);
   const [groupPanelOpen, setGroupPanelOpen] = useState(false);
+  const [richEditorLoaded, setRichEditorLoaded] = useState(false);
+  const [groupPanelLoaded, setGroupPanelLoaded] = useState(false);
+
+  // Mounting the lazily loaded panel and opening it happen together, so it appears open.
+  const openRichEditor = useCallback(() => {
+    setRichEditorLoaded(true);
+    setRichEditorOpen(true);
+  }, []);
+  const openGroupPanel = useCallback(() => {
+    setGroupPanelLoaded(true);
+    setGroupPanelOpen(true);
+  }, []);
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
@@ -86,12 +106,12 @@ export function EditorClient({
       }
       if ((event.ctrlKey || event.metaKey) && event.key === 'Enter') {
         event.preventDefault();
-        setRichEditorOpen(true);
+        openRichEditor();
       }
     }
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [openRichEditor]);
 
   const handleCaptureFiles = useMemo(
     () => (files: readonly File[]) => {
@@ -110,7 +130,7 @@ export function EditorClient({
           <QuestionStrip
             store={store}
             onCaptureFiles={handleCaptureFiles}
-            onWriteQuestion={() => setRichEditorOpen(true)}
+            onWriteQuestion={openRichEditor}
           />
         </div>
         <div className="min-w-0 flex-1">
@@ -124,17 +144,21 @@ export function EditorClient({
       <PasteBar
         store={store}
         captureFiles={handleCaptureFiles}
-        onWriteQuestion={() => setRichEditorOpen(true)}
-        onAddGroup={() => setGroupPanelOpen(true)}
+        onWriteQuestion={openRichEditor}
+        onAddGroup={openGroupPanel}
       />
-      <QuestionEditorPanel
-        open={richEditorOpen}
-        onOpenChange={setRichEditorOpen}
-        store={store}
-        testId={data.testId}
-        workspaceId={workspaceId}
-      />
-      <GroupPanel open={groupPanelOpen} onOpenChange={setGroupPanelOpen} testId={data.testId} />
+      {richEditorLoaded && (
+        <QuestionEditorPanel
+          open={richEditorOpen}
+          onOpenChange={setRichEditorOpen}
+          store={store}
+          testId={data.testId}
+          workspaceId={workspaceId}
+        />
+      )}
+      {groupPanelLoaded && (
+        <GroupPanel open={groupPanelOpen} onOpenChange={setGroupPanelOpen} testId={data.testId} />
+      )}
     </div>
   );
 }

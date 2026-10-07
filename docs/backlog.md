@@ -474,3 +474,9 @@ söyler.
   50+ taslakta yavaş olabilir. Web Worker veya paralel yükleme gerekirse ayrı iş.
 - **Banka düzeni 390 px.** `/bank` sayfasında 390 px'te detay paneli ("Bir soru seçin")
   listeyi kaplıyor; yapay zekâ sekmesi bu genişlikte kullanılamıyor. Faz 5 (tasarım) kapsamında.
+
+## Hiz calismasindan kalanlar
+
+- **Sayfa verisi iki gidis-donusla geliyor.** Her sayfa once `getCurrentWorkspace` (uyelik sorgusu), sonra kendi sorgusunu calistiriyor. Hedef: calisma alani kimligini `tc_ws` cerezinden okuyup sayfa sorgusunu uyelik dogrulamasiyla paralel baslatmak (yetki RLS'te zaten korunuyor).
+- **`staleTimes.dynamic`.** Acilirsa ziyaret edilmis sayfalara donus anlik olur, ama `revalidatePath` cagirmayan sunucu eylemleri bayat veri gosterir. Once mutasyonlar gozden gecirilmeli.
+- **Sayfa basina ilk yukleme JS'i olculmedi.** Dinamik import yalnizca yapi olarak dogrulandi; rota bazli ilk yukleme boyutu icin bundle analizi (ornegin `@next/bundle-analyzer`) eklenebilir.

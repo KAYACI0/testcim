@@ -21,6 +21,8 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Icon and primitive packages export many modules; load only the ones that are imported.
+  experimental: { optimizePackageImports: ['@phosphor-icons/react'] },
   poweredByHeader: false,
   // Without this the dev server blocks its own chunks when the page is opened via 127.0.0.1
   // (the E2E base URL), so client components never hydrate.

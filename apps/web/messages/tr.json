@@ -1,6 +1,7 @@
 {
   "common": {
-    "appName": "Testcim"
+    "appName": "Testcim",
+    "loading": "Yükleniyor"
   },
   "home": {
     "title": "Testcim",
