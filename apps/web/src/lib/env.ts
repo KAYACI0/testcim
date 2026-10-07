@@ -44,6 +44,20 @@ export const serverEnvSchema = z.object({
     .enum(['none', 'fake', 'iyzico', 'paddle', 'polar', 'lemonsqueezy'])
     .default('none'),
   BILLING_WEBHOOK_SECRET: z.string().min(16).optional(),
+  /**
+   * Polar (docs/adr/0009). Used when BILLING_PROVIDER=polar; BILLING_WEBHOOK_SECRET holds
+   * the endpoint's `whsec_...` secret. Polar products have a fixed billing period, so each
+   * plan and interval pair maps to its own product id. `sandbox` is the default until the
+   * live account is verified.
+   */
+  POLAR_ACCESS_TOKEN: z.string().min(1).optional(),
+  POLAR_SERVER: z.enum(['sandbox', 'production']).default('sandbox'),
+  POLAR_PRODUCT_PLUS_MONTH: z.string().min(1).optional(),
+  POLAR_PRODUCT_PLUS_YEAR: z.string().min(1).optional(),
+  POLAR_PRODUCT_PRO_MONTH: z.string().min(1).optional(),
+  POLAR_PRODUCT_PRO_YEAR: z.string().min(1).optional(),
+  POLAR_PRODUCT_TEAM_MONTH: z.string().min(1).optional(),
+  POLAR_PRODUCT_TEAM_YEAR: z.string().min(1).optional(),
 });
 
 export type ClientEnv = z.infer<typeof clientEnvSchema>;

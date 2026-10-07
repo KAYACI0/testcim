@@ -61,6 +61,24 @@ describe('server environment', () => {
     expect(parsed.ANTHROPIC_API_KEY).toBeUndefined();
   });
 
+  it('defaults Polar to the sandbox and leaves its credentials optional', () => {
+    const parsed = parseEnv(serverEnvSchema, { SUPABASE_SERVICE_ROLE_KEY: 'secret' }, 'server');
+
+    expect(parsed.POLAR_SERVER).toBe('sandbox');
+    expect(parsed.POLAR_ACCESS_TOKEN).toBeUndefined();
+    expect(parsed.POLAR_PRODUCT_PLUS_MONTH).toBeUndefined();
+  });
+
+  it('rejects an unknown Polar server', () => {
+    expect(() =>
+      parseEnv(
+        serverEnvSchema,
+        { SUPABASE_SERVICE_ROLE_KEY: 'secret', POLAR_SERVER: 'staging' },
+        'server',
+      ),
+    ).toThrow(/POLAR_SERVER/);
+  });
+
   it('does not describe any public variable', () => {
     // Guards against a secret schema drifting into the client bundle by accident.
     expect(Object.keys(serverEnvSchema.shape).some((key) => key.startsWith('NEXT_PUBLIC_'))).toBe(

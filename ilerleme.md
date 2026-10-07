@@ -40,6 +40,15 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Gunluk
 
+### 2026-10-07 (Faz 0: Polar odeme adaptoru)
+
+- Polar dosyalari baska bir araca verilmisti, kullanici geri aldirdi ve tamamlamami istedi; calisma agaci temizdi, adaptor sifirdan yazildi.
+- Polar'in guncel resmi belgesi okundu (checkout, abonelik PATCH, webhook imzasi, olay listesi). Belgede dogrulanmayan yerler: `seats` ve `recurring_interval` webhook alani ayrintisi ve checkout `success_url`/`metadata` kopyalama davranisi; kod bunlara savunmaci davranir (eksikse plan ve koltuk alani bos birakilir, kayitli deger korunur).
+- `polar-provider.ts` (`createCheckout`, `cancel`, `resume`, `changePlan`, `parseWebhook`), `registry.server.ts` polar dali, `env.ts` icinde `POLAR_*` degiskenleri, `.env.example` ve ADR 0009 guncellendi.
+- Testler: `polar-provider.test.ts` 19 test (iki imza semasi, kurcalama, eski zaman damgasi, olay cevirisi, API cagrilari), `env.test.ts` 2 test. fast-check gerekmiyor (cevirici saf degil, ag ve imza).
+- Dogrulama: typecheck 9/9, lint, check:design, `pnpm test` (web 152) yesil. Gercek Polar sandbox hesabiyla uctan uca denenmedi.
+- Acik: Polar sandbox hesabi, urunler ve gercek webhook ile dogrulama; kupon kodu Polar'da indirim kodu olarak ayri tanimlanmali (adaptor `couponCode`'u yalnizca metadata'ya yazar).
+
 ### 2026-10-07 (Faz 0: E2E kimlik ve tohum fixture'i)
 
 - `bank.spec.ts` ve `online-exam.spec.ts` icindeki `test.skip` kaldirildi, iki test gercek akislarla yeniden yazildi.
@@ -51,7 +60,6 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
   3. `next.config.ts` `allowedDevOrigins` yoktu: `127.0.0.1` ile acilan dev sayfasinda istemci bilesenleri hidrasyon almiyordu (ilerleme notundaki "allowedDevOrigins uyarisi" aslinda isleve zarar veriyordu).
 - CI `e2e` isine Supabase CLI kurulumu, `supabase start` ve `supabase db reset` eklendi (henuz GitHub Actions'ta calistirilmadi).
 - Dogrulama: E2E 8/8, pgTAP 205/205, check:design temiz, check:tenancy 45/45, kendi dosyalarimda typecheck ve lint temiz.
-- **Bilinen kirik (bu isten bagimsiz):** `polar-provider.ts`, `polar-provider.test.ts` (izlenmeyen) ve `env.test.ts` (degismis) yarim kalmis bir Polar calismasina ait. `pnpm typecheck`, `pnpm lint`, `pnpm format:check` ve web birim testlerinde (`env.test.ts`, `POLAR_*` alanlari `env.ts`'te yok) hata veriyor. Bu commit'e dahil edilmedi.
 
 ### 2026-10-07 (Faz 0: gercek veritabani dogrulamasi)
 
@@ -89,7 +97,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Acik isler (oncelik sirasiyla)
 
-1. Faz 0 kalan: `database.types.ts`'e gecis refaktoru, yarim kalan Polar calismasinin tamamlanmasi (typecheck/lint kirik)
+1. Faz 0 kalan: `database.types.ts`'e gecis refaktoru, Polar'in sandbox'ta uctan uca dogrulanmasi
 2. Erisilebilirlik (axe) testi
 3. Eksik E2E akislari: kayit, yapistir ve PDF, optik, odeme test modu
 4. Yuk testi (300 sinav katilimcisi, 50 editor)

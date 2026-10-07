@@ -1,6 +1,7 @@
 import 'server-only';
 
 import { createFakeProvider } from './fake-provider';
+import { createPolarProvider } from './polar-provider';
 import { handleWebhook } from './webhook.server';
 
 import type { BillingProvider } from './provider';
@@ -45,6 +46,27 @@ export function getBillingProvider(): BillingProvider | null {
       },
     });
     cached = provider;
+    return cached;
+  }
+
+  if (choice === 'polar') {
+    if (!serverEnv.POLAR_ACCESS_TOKEN) {
+      throw new Error('POLAR_ACCESS_TOKEN is required when BILLING_PROVIDER=polar');
+    }
+
+    cached = createPolarProvider({
+      accessToken: serverEnv.POLAR_ACCESS_TOKEN,
+      server: serverEnv.POLAR_SERVER,
+      webhookSecret: secret,
+      products: {
+        'plus:month': serverEnv.POLAR_PRODUCT_PLUS_MONTH,
+        'plus:year': serverEnv.POLAR_PRODUCT_PLUS_YEAR,
+        'pro:month': serverEnv.POLAR_PRODUCT_PRO_MONTH,
+        'pro:year': serverEnv.POLAR_PRODUCT_PRO_YEAR,
+        'team:month': serverEnv.POLAR_PRODUCT_TEAM_MONTH,
+        'team:year': serverEnv.POLAR_PRODUCT_TEAM_YEAR,
+      },
+    });
     return cached;
   }
 
