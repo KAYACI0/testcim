@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto';
+import zlib from 'node:zlib';
 
 import { createClient } from '@supabase/supabase-js';
 
@@ -233,4 +234,165 @@ export async function seedOpenExam(
   );
 
   return { slug, examId, testId };
+}
+
+// ---------------------------------------------------------------------------
+// Editor fixtures: a test whose questions are real images in local Storage.
+// ---------------------------------------------------------------------------
+
+function crc32(bytes: Uint8Array): number {
+  return zlib.crc32(bytes);
+}
+
+function pngChunk(type: string, data: Uint8Array): Buffer {
+  const length = Buffer.alloc(4);
+  length.writeUInt32BE(data.length);
+  const body = Buffer.concat([Buffer.from(type, 'ascii'), data]);
+  const crc = Buffer.alloc(4);
+  crc.writeUInt32BE(crc32(body));
+  return Buffer.concat([length, body, crc]);
+}
+
+/**
+ * A real, decodable PNG: a light card with a darker band per "option" so each question is
+ * visibly different. No image library needed; the E2E only cares that the bytes are valid.
+ */
+export function makeQuestionPng(width: number, height: number, seed: number): Buffer {
+  const header = Buffer.alloc(13);
+  header.writeUInt32BE(width, 0);
+  header.writeUInt32BE(height, 4);
+  header[8] = 8; // bit depth
+  header[9] = 2; // RGB
+
+  const rows: Buffer[] = [];
+  for (let y = 0; y < height; y += 1) {
+    const row = Buffer.alloc(1 + width * 3);
+    const band = Math.floor((y / height) * 5);
+    for (let x = 0; x < width; x += 1) {
+      const dark =
+        band % 2 === 1 && x > width * 0.08 && x < width * (0.4 + ((seed + band) % 5) * 0.1);
+      row[1 + x * 3] = dark ? 60 + ((seed * 17) % 90) : 242;
+      row[2 + x * 3] = dark ? 90 : 244;
+      row[3 + x * 3] = dark ? 140 : 247;
+    }
+    rows.push(row);
+  }
+
+  return Buffer.concat([
+    Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]),
+    pngChunk('IHDR', header),
+    pngChunk('IDAT', zlib.deflateSync(Buffer.concat(rows))),
+    pngChunk('IEND', Buffer.alloc(0)),
+  ]);
+}
+
+export interface SeededEditorTest {
+  readonly testId: string;
+  readonly itemIds: readonly string[];
+}
+
+/** A test with `count` image questions stored in the `assets` bucket, ready for the editor. */
+export async function seedEditorTest(
+  admin: AdminClient,
+  teacher: TestTeacher,
+  count: number,
+  options: { readonly title?: string; readonly settings?: Record<string, unknown> } = {},
+): Promise<SeededEditorTest> {
+  const test = unwrap(
+    await admin
+      .from('tests')
+      .insert({
+        workspace_id: teacher.workspaceId,
+        created_by: teacher.userId,
+        title: options.title ?? 'Çarpanlara Ayırma Yazılısı',
+        type: 'exam',
+        question_count: count,
+        ...(options.settings ? { settings: options.settings } : {}),
+      })
+      .select('id')
+      .single(),
+    'tests',
+  );
+  const testId = String(test.id);
+  const itemIds: string[] = [];
+
+  for (let index = 0; index < count; index += 1) {
+    const width = 900;
+    const height = 260 + (index % 4) * 110;
+    const png = makeQuestionPng(width, height, index);
+    const path = `${teacher.workspaceId}/${randomUUID()}.png`;
+
+    const upload = await admin.storage
+      .from('assets')
+      .upload(path, png, { contentType: 'image/png' });
+    if (upload.error) throw new Error(`storage upload: ${upload.error.message}`);
+
+    const asset = unwrap(
+      await admin
+        .from('assets')
+        .insert({
+          workspace_id: teacher.workspaceId,
+          owner_id: teacher.userId,
+          bucket: 'assets',
+          path,
+          kind: 'image',
+          mime: 'image/png',
+          bytes: png.length,
+          width,
+          height,
+          sha256: randomUUID().replaceAll('-', '').padEnd(64, '0'),
+          source: 'paste',
+        })
+        .select('id')
+        .single(),
+      'assets',
+    );
+
+    const question = unwrap(
+      await admin
+        .from('questions')
+        .insert({
+          workspace_id: teacher.workspaceId,
+          created_by: teacher.userId,
+          kind: 'image',
+          question_type: 'mcq',
+          stem_asset_id: String(asset.id),
+          options: [],
+          correct: { question_type: 'mcq', option_id: 'ABCDE'[index % 5] },
+          points: 1,
+        })
+        .select('id')
+        .single(),
+      'questions',
+    );
+
+    const revision = unwrap(
+      await admin
+        .from('question_revisions')
+        .select('id')
+        .eq('question_id', String(question.id))
+        .order('revision', { ascending: false })
+        .limit(1)
+        .single(),
+      'question_revisions',
+    );
+
+    const item = unwrap(
+      await admin
+        .from('test_items')
+        .insert({
+          workspace_id: teacher.workspaceId,
+          test_id: testId,
+          question_id: String(question.id),
+          question_revision_id: String(revision.id),
+          position: `a${String(index).padStart(3, '0')}`,
+        })
+        .select('id')
+        .single(),
+      'test_items',
+    );
+    itemIds.push(String(item.id));
+  }
+
+  return { testId, itemIds };
 }
