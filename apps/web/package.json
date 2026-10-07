@@ -11,7 +11,8 @@
     "start": "next start --port 3000",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:ai-live": "vitest run --config vitest.live.config.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.70.1",

@@ -17,6 +17,7 @@
     "check:tenancy": "pnpm --filter @testcim/scripts run check:tenancy",
     "check:budget": "pnpm --filter @testcim/scripts run check:budget",
     "test:e2e": "pnpm --filter @testcim/web run test:e2e",
+    "test:ai-live": "pnpm --filter @testcim/web run test:ai-live",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "db:start": "supabase start",

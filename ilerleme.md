@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 2. Resend kodu tamam (anahtar bekliyor); Upstash, Sentry, PostHog kodu var, anahtarlar bekliyor; siradaki: Claude canli dogrulama betigi
+- Odak: Faz 2. Resend ve Claude betigi tamam (anahtar bekliyor); Upstash, Sentry, PostHog kodu var, anahtarlar bekliyor; siradaki: bu uc servisin kod incelemesi
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,13 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 2, madde 3: Claude canli dogrulama betigi)
+
+- `pnpm test:ai-live`: `ClaudeAiProvider` uzerinden gercek iki cagri (yapilandirilmis cikti sema dogrulamasi, kullanim ve maliyet; kullanici icerigindeki talimatin veri sayilmasi). Ayri vitest yapilandirmasi (`vitest.live.config.ts`), `*.live.ts` dosyalari, normal `pnpm test`e girmez.
+- `ANTHROPIC_API_KEY` yoksa testler atlanir (su an 2 atlandi). Anahtar gelince: `ANTHROPIC_API_KEY=... pnpm test:ai-live`.
+- Dogrulama: lint, web typecheck temiz.
+- Acik: gercek anahtarla calistirilmadi.
 
 ### 2026-10-07 (Faz 2, madde 1: Resend e-posta)
 
