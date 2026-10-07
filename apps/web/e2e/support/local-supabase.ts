@@ -386,6 +386,8 @@ export async function seedEditorTest(
           question_id: String(question.id),
           question_revision_id: String(revision.id),
           position: `a${String(index).padStart(3, '0')}`,
+          // The editor reads the answer from the item, where choosing an answer writes it.
+          correct_override: { question_type: 'mcq', option_id: 'ABCDE'[index % 5] },
         })
         .select('id')
         .single(),
