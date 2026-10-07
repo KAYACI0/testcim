@@ -59,6 +59,15 @@ Prompt 13 kapsamında ödeme sağlayıcıları değerlendirilmiş ve entegrasyon
 5. **Kredi Yenileme (`renew_monthly_credits`):**
    - `pg_cron` aracılığıyla her ayın 1'inde (`5 0 1 * *`) aktif ücretli planlara ait yapay zekâ kredileri sıfırlanıp yenilenir. Ücretsiz plan bir defalık deneme kredisi alır.
 
+## Güncelleme (2026-10-07): şirketsiz başlangıç
+
+Kullanıcı kararı: şirket kurulmadan satış yapılabilecek bir sağlayıcı tercih edilir. iyzico bireysel üyelik yalnızca link ile ödeme sunduğundan (abonelik API'si yok) bu amaca yetmez.
+
+- Birincil aday: Polar.sh (Merchant of Record). Türkiye bireysel satıcı desteği, Stripe Connect ile TRY ödeme, 130+ para biriminde fiyat (TRY dahil), bir ürüne birden çok para birimi fiyatı, ödeme sayfasında ziyaretçinin konumuna göre para birimi seçimi.
+- Yedek adaylar: Creem (%3,9 + 0,40 USD), Dodo Payments (Türkiye'yi açıkça hedefler, yerel para birimi için dönüşüm ücreti alıcıya yansır). Paddle SWIFT ve ürün onayı nedeniyle sonda. Lemon Squeezy Stripe'a taşındığı için elendi.
+- Doğrulanacak: Polar'da abonelik + TRY fiyatı + Türkiye satıcı KYC'sinin canlı hesapta birlikte çalıştığı, Türk kartlarında kabul oranı. Doğrulanana kadar `polar.server.ts` yalnızca sandbox ile yazılır.
+- Vergi ve fatura yükümlülüğü mali müşavirle teyit edilir. Şirket kurulunca iyzico ikinci sağlayıcı olarak eklenebilir, `BillingProvider` arayüzü bunu zaten destekler.
+
 ## Hukuki ve Mali Yol Haritası (Mali Müşavir ve Avukat ile Yapılacaklar)
 
 Canlı ödeme açılmadan önce tamamlanması gereken adımlar:

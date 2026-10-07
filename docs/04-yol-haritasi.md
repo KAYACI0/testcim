@@ -72,8 +72,8 @@ Oneri, onay bekliyor (ADR 0009 ile celisir: orada iyzico birincil ve sirket sart
 
 PDF yerlesimi disindaki tum web arayuzu tasarimi, yukaridakiler bittikten sonra sizinle birlikte degistirilir. O zamana kadar arayuzde yalnizca islevsel duzeltme yapilir, gorsel yeniden tasarim yapilmaz.
 
-## Onay bekleyen kararlar
+## Onaylanan kararlar (2026-10-07)
 
-1. Odeme saglayicisi: Polar ile ilerleyelim mi (ADR 0009 degisir)?
-2. Faz sirasi: Faz 0 ve Faz 1 once, Faz 2'nin servis anahtarlari paralel temin edilsin mi?
-3. Turkce font: tek bir OFL font (ornegin Noto Sans veya Inter) uygun mu, yoksa bir tercihiniz var mi?
+1. Odeme saglayicisi: Polar.sh ile ilerlenir, ADR 0009 guncellendi. Fiyatlar TRY ve USD olarak ayri tanimlanir (Polar 130+ para birimi ve urun basina coklu fiyat destekler).
+2. Faz sirasi: Faz 0 ve Faz 1 once, servis anahtarlari paralel temin edilir.
+3. Turkce font: tek bir OFL font, secim ADR ile yapilir.
