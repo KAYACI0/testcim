@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 
 import { COOKIE_CONSENT_EVENT, COOKIE_CONSENT_STORAGE_KEY } from './cookie-consent';
 
+import { resolveAnalyticsHost } from '@/lib/analytics-host';
+
 /**
  * Product analytics (PostHog), loaded only after the visitor accepts cookies.
  * Without consent, or without a configured key, nothing is imported or
@@ -12,7 +14,7 @@ import { COOKIE_CONSENT_EVENT, COOKIE_CONSENT_STORAGE_KEY } from './cookie-conse
 export function Analytics() {
   useEffect(() => {
     const key = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-    const host = process.env.NEXT_PUBLIC_POSTHOG_HOST;
+    const host = resolveAnalyticsHost(key, process.env.NEXT_PUBLIC_POSTHOG_HOST);
     let started = false;
 
     async function start() {
@@ -25,7 +27,7 @@ export function Analytics() {
       started = true;
       const { default: posthog } = await import('posthog-js');
       posthog.init(key, {
-        ...(host ? { api_host: host } : {}),
+        api_host: host,
         disable_session_recording: true,
       });
     }

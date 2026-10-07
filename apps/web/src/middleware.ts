@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
+import { resolveAnalyticsHost } from '@/lib/analytics-host';
 import { clientEnv } from '@/lib/env.client';
 import { isMarketingPath } from '@/lib/site';
 import { updateSession } from '@/lib/supabase/proxy';
@@ -7,7 +8,10 @@ import { updateSession } from '@/lib/supabase/proxy';
 export async function middleware(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString('base64');
   const isDev = process.env.NODE_ENV === 'development';
-  const analyticsHost = process.env.NEXT_PUBLIC_POSTHOG_HOST ?? '';
+  const analyticsHost = resolveAnalyticsHost(
+    process.env.NEXT_PUBLIC_POSTHOG_KEY,
+    process.env.NEXT_PUBLIC_POSTHOG_HOST,
+  );
   // The configured project: a hosted one is covered by the wildcards below, a local stack
   // (http://127.0.0.1:54321) is not and its images and API calls would be blocked.
   const supabaseOrigin = new URL(clientEnv.NEXT_PUBLIC_SUPABASE_URL).origin;

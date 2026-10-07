@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 2. Resend ve Claude betigi tamam (anahtar bekliyor); Upstash, Sentry, PostHog kodu var, anahtarlar bekliyor; siradaki: bu uc servisin kod incelemesi
+- Odak: Faz 2. Resend ve Claude betigi tamam (anahtar bekliyor); Upstash, Sentry, PostHog kodu var, anahtarlar bekliyor; siradaki: Faz 4 (axe, ozellik bayragi, k6, geri yukleme)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,13 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 2, madde 4-5: Upstash, Sentry, PostHog incelemesi)
+
+- Upstash yalniz yapay zeka hiz siniri icin kullaniliyor (anahtar yoksa bellek ici yedek); halka acik uclar (sinav, form, yakalama) Postgres RPC `check_exam_rate_limit` ile sinirli, ek is gerekmedi. Sentry DSN yoksa kapali, PostHog cerez onayi olmadan yuklenmiyor.
+- Hata: PostHog anahtari verilip host bos birakilirsa kutuphane varsayilan adrese gidiyor, CSP `connect-src` onu engelliyordu. `lib/analytics-host.ts` ile varsayilan host (US) hem CSP'ye hem baslatmaya veriliyor; 3 test.
+- Dogrulama: lint, typecheck, check:design, web testleri 170 yesil.
+- Acik: uc servis de gercek anahtarlarla denenmedi.
 
 ### 2026-10-07 (Faz 2, madde 3: Claude canli dogrulama betigi)
 
