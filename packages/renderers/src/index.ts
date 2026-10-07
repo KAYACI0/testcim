@@ -10,10 +10,5 @@ export type { ReportCardData, ReportCardOutcomeRow, ReportCardScoreRow } from '.
 export { addPersonalizedCoverPage } from './pdf-personalized-print';
 export type { PersonalizedCoverMeta, PersonalizedPrintOptions } from './pdf-personalized-print';
 
-export { renderTestDocx } from './docx-export';
-export type { ExportOption, ExportQuestion, ExportTestData } from './docx-export';
-
-export { renderTestPptx } from './pptx-export';
-export type { PptxExportData, PptxOption, PptxQuestion } from './pptx-export';
-
+export * from './export-entry';
 export * from './paint-entry';

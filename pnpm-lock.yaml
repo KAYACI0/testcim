@@ -469,6 +469,9 @@ importers:
       jsdom:
         specifier: 30.1.1
         version: 30.1.1(@noble/hashes@1.8.0)
+      jszip:
+        specifier: ^3.10.1
+        version: 3.10.2
       postcss:
         specifier: 8.5.28
         version: 8.5.28
@@ -571,6 +574,9 @@ importers:
       fast-check:
         specifier: 4.10.2
         version: 4.10.2
+      jszip:
+        specifier: ^3.10.1
+        version: 3.10.2
       pdfjs-dist:
         specifier: ^6.3.289
         version: 6.3.289
