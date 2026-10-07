@@ -17,6 +17,7 @@ import {
 } from '@/features/classes/actions.server';
 import { ImportRosterDialog } from '@/features/classes/components/import-roster-dialog';
 import { StudentForm } from '@/features/classes/components/student-form';
+import { BulkReportCardButton } from '@/features/report-cards/components/bulk-report-card-button';
 import { ReportCardDialog } from '@/features/report-cards/components/report-card-dialog';
 
 export function RosterClient({
@@ -120,6 +121,7 @@ export function RosterClient({
         <div className="flex items-center gap-3">
           <ImportRosterDialog classId={classId} onImported={() => router.refresh()} />
           <StudentForm classId={classId} mode="add" onDone={() => router.refresh()} />
+          <BulkReportCardButton classId={classId} />
         </div>
         {selectedIds.size > 0 && (
           <Dialog open={deleteOpen} onOpenChange={setDeleteOpen}>

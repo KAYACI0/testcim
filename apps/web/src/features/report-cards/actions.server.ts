@@ -2,9 +2,10 @@
 
 import { z } from 'zod';
 
-import { renderReportCardPdf, type ReportCardData } from '@testcim/renderers';
+import { renderReportCardPdf, type ReportCardData } from '@testcim/renderers/report-cards';
 
 import { buildReportCardScoreRows } from './build-scores';
+import { reportCardLabels } from './labels';
 
 import { loadPromptTemplate } from '@/features/ai/prompts/loader';
 import { executeAiJob } from '@/features/ai/run-ai-job.server';
@@ -13,17 +14,6 @@ import { loadPdfFontBytes } from '@/lib/pdf-fonts.server';
 import { createClient } from '@/lib/supabase/server';
 import { getCurrentWorkspace } from '@/lib/workspace/current';
 import { requireRole } from '@/lib/workspace/entitlements.server';
-
-const reportCardLabels = {
-  title: 'Karne',
-  studentNoLabel: 'Numara',
-  classLabel: 'Sınıf',
-  scoresTitle: 'Sonuçlar',
-  outcomesTitle: 'Kazanımlar',
-  summaryTitle: 'Öğretmen değerlendirmesi',
-  scoreColumn: 'Puan',
-  dateColumn: 'Tarih',
-};
 
 async function getStudentAndClass(studentId: string, classId: string, workspaceId: string) {
   const supabase = await createClient();
@@ -152,6 +142,68 @@ export async function generateReportCardPdf(studentId: string, classId: string) 
 
   const bytes = await renderReportCardPdf(data, await loadPdfFontBytes());
   return { ok: true as const, base64: Buffer.from(bytes).toString('base64') };
+}
+
+export interface ClassReportCardSource {
+  readonly studentId: string;
+  readonly studentName: string;
+  readonly data: ReportCardData;
+}
+
+/**
+ * Per-student karne data (scores + any approved summary) for every student in a class.
+ * The PDFs themselves are rendered in a Worker and zipped client-side (CLAUDE.md: heavy
+ * work stays off the main thread and off the server).
+ */
+export async function getClassReportCardSources(classId: string) {
+  await requireSession();
+  const workspace = await getCurrentWorkspace();
+  await requireRole(workspace.id, ['owner', 'admin', 'editor']);
+
+  const supabase = await createClient();
+  const { data: klass } = await supabase
+    .from('classes')
+    .select('id, name')
+    .eq('id', classId)
+    .eq('workspace_id', workspace.id)
+    .single();
+  if (!klass) return { ok: false as const, reason: 'not_found' };
+
+  const { data: links } = await supabase
+    .from('class_students')
+    .select('student_id')
+    .eq('workspace_id', workspace.id)
+    .eq('class_id', classId);
+  const studentIds = (links ?? []).map((link) => link.student_id);
+  if (studentIds.length === 0) return { ok: true as const, className: klass.name, sources: [] };
+
+  const { data: students } = await supabase
+    .from('students')
+    .select('id, full_name, student_no')
+    .eq('workspace_id', workspace.id)
+    .in('id', studentIds)
+    .order('full_name');
+
+  const sources: ClassReportCardSource[] = await Promise.all(
+    (students ?? []).map(async (student) => {
+      const [scores, summaryText] = await Promise.all([
+        getStudentScoreRows(student.id, workspace.id),
+        getApprovedSummaryText(student.id, classId, workspace.id),
+      ]);
+      const data: ReportCardData = {
+        studentName: student.full_name,
+        studentNo: student.student_no,
+        className: klass.name,
+        labels: reportCardLabels,
+        scores,
+        outcomes: [],
+        ...(summaryText ? { summaryText } : {}),
+      };
+      return { studentId: student.id, studentName: student.full_name, data };
+    }),
+  );
+
+  return { ok: true as const, className: klass.name, sources };
 }
 
 const summaryOutputSchema = z.object({ summary: z.string().trim().min(1).max(800) });

@@ -63,6 +63,19 @@
       "pdfBusy": "Preparing PDF",
       "pdfError": "Could not create the PDF. Try again."
     },
+    "personalizedPrint": {
+      "trigger": "Personalized print",
+      "title": "Personalized print",
+      "description": "Adds a cover page with a name and a QR placeholder for every student in the class, then downloads all pages as a ZIP.",
+      "close": "Close",
+      "classPlaceholder": "Select a class",
+      "noClasses": "You don't have any classes yet.",
+      "watermarkLabel": "Add a faint per-student watermark",
+      "downloadAction": "Download ZIP",
+      "progress": "Generating ({done}/{total})",
+      "empty": "This class has no students.",
+      "error": "Could not generate the personalized print."
+    },
     "strip": {
       "empty": "This test has no questions yet. Copy a screenshot and paste it with Ctrl+V.",
       "statusPending": "Adding",
@@ -750,6 +763,12 @@
         "summaryError": "Could not generate the assessment.",
         "approveError": "Approval failed.",
         "downloadError": "Could not generate the report card."
+      },
+      "bulkReportCard": {
+        "trigger": "Download all report cards (ZIP)",
+        "progress": "Generating report cards ({done}/{total})",
+        "empty": "This class has no students.",
+        "error": "Could not generate the report cards."
       },
       "addStudent": {
         "studentNoLabel": "Number",

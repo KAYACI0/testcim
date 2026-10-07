@@ -7,7 +7,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./paint": "./src/paint-entry.ts",
-    "./export": "./src/export-entry.ts"
+    "./export": "./src/export-entry.ts",
+    "./report-cards": "./src/report-cards-entry.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

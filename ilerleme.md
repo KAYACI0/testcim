@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 3. 3.1 (yapay zeka soru dugmeleri) ve 3.2 (acik uclu puanlama) tamam; siradaki: Faz 3 madde 3 (toplu karne / kisiye ozel baski)
+- Odak: Faz 3. 3.1-3.3 tamam (yapay zeka soru dugmeleri, acik uclu puanlama, toplu karne / kisiye ozel baski); siradaki: Faz 3 madde 4 (soru gruplama atama secicisi, 6. sik)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,16 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 3, madde 3: toplu karne ve kisiye ozel baski)
+
+- **Toplu karne:** `/classes/[id]` listesine "Toplu karne indir (ZIP)" dugmesi. Yeni sunucu eylemi `getClassReportCardSources` (features/report-cards/actions.server.ts) sinifin her ogrencisi icin puan satirlarini ve onayli AI ozetini dondurur (PDF uretmez). PDF'ler ve ZIP tarayicida yeni bir Worker'da (`report-cards-bulk.worker.ts`, `renderReportCardPdf` + `jszip`), ilerleme `done/total` mesajlariyla arayuze yansir (`use-bulk-report-cards.ts`, `BulkReportCardButton`).
+- **Kisiye ozel baski:** Editor ust cubugunda yeni "Kisiye ozel baski" dugmesi/dialogu (`personalized-print-dialog.tsx`). Sinif secilir, istege bagli "ogrenciye ozel silik filigran" kutusu isaretlenir; taban sinav PDF'i (`buildPaperPdfBytes`, `paper-export.ts`'ten cikarildi) ve sinif listesi (`getClassRoster`, zaten vardi) alinir, her ogrenci icin `addPersonalizedCoverPage` yeni bir Worker'da (`personalized-print.worker.ts`) calisir ve `jszip` ile ZIP'lenir (`use-personalized-print.ts`).
+- **Paket:** `@testcim/renderers`'a yeni dar kapsamli giris `./report-cards` (yalniz `renderReportCardPdf` + `addPersonalizedCoverPage`, docx/pptx yok) eklendi; tam `index.ts` yerine iki yeni Worker bunu kullaniyor (paint/export girisleriyle ayni desen).
+- Rol denetimi: karne kaynaklari ve kisiye ozel baski, tekli karne ile ayni (`owner`/`admin`/`editor`); ayri bir yetki (entitlement) eklenmedi.
+- `jszip` zaten `@testcim/renderers` bagimliligiydi (DOCX/PPTX zip'i icin) ve web paketinde de vardi; yeni bagimlilik eklenmedi.
+- Dogrulama: typecheck 10/10, lint, format (dokunulan dosyalar), check:design (438 dosya), check:tenancy (45/45, sema degisikligi yok), tum birim testleri (357, degismedi), build, check:budget, E2E 41/41 (mevcut testler, bu iki akis icin yeni E2E eklenmedi).
+- Acik: Toplu karne ve kisiye ozel baski icin ozel bir E2E testi yok (worker + ZIP indirme akisi dogrudan test edilmedi, yalnizca alttaki renderer fonksiyonlari zaten test kapsaminda). Kisiye ozel baskida gercek QR kodu yok (yer tutucu kutu, mevcut kabul edilen yorum). `docs/backlog.md` guncellendi.
 
 ### 2026-10-07 (Faz 3, madde 2: acik uclu puanlama arayuzu)
 

@@ -50,10 +50,12 @@ export function printPaper(): void {
 }
 
 /**
- * Builds the PDF for the paper on screen and saves it. Question images are fetched at
- * their original resolution and the text stays vector, set in the embedded Turkish font.
+ * Builds the PDF for the paper on screen. Question images are fetched at their original
+ * resolution and the text stays vector, set in the embedded Turkish font. Shared by the
+ * single-file download below and by the personalized-print bulk flow, which prepends a
+ * per-student cover page to this same base PDF.
  */
-export async function downloadPaperPdf(): Promise<void> {
+export async function buildPaperPdfBytes(): Promise<{ bytes: Uint8Array; title: string }> {
   const source = getPaperSource();
   if (!source || source.pages.length === 0) {
     throw new Error('paper-not-ready');
@@ -73,10 +75,17 @@ export async function downloadPaperPdf(): Promise<void> {
     title: source.title,
   });
 
+  return { bytes, title: source.title };
+}
+
+/** Builds the PDF for the paper on screen and saves it. */
+export async function downloadPaperPdf(): Promise<void> {
+  const { bytes, title } = await buildPaperPdfBytes();
+
   const url = URL.createObjectURL(new Blob([bytes as BlobPart], { type: 'application/pdf' }));
   const link = document.createElement('a');
   link.href = url;
-  link.download = pdfFileName(source.title);
+  link.download = pdfFileName(title);
   document.body.append(link);
   link.click();
   link.remove();

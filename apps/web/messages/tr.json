@@ -63,6 +63,19 @@
       "pdfBusy": "PDF hazırlanıyor",
       "pdfError": "PDF oluşturulamadı. Yeniden deneyin."
     },
+    "personalizedPrint": {
+      "trigger": "Kişiye özel baskı",
+      "title": "Kişiye özel baskı",
+      "description": "Sınıftaki her öğrenci için ad ve QR yer tutuculu bir kapak sayfası eklenir, tüm sayfalar ZIP olarak iner.",
+      "close": "Kapat",
+      "classPlaceholder": "Sınıf seçin",
+      "noClasses": "Henüz bir sınıfınız yok.",
+      "watermarkLabel": "Öğrenciye özel silik filigran ekle",
+      "downloadAction": "ZIP indir",
+      "progress": "Oluşturuluyor ({done}/{total})",
+      "empty": "Bu sınıfta öğrenci yok.",
+      "error": "Kişiye özel baskı oluşturulamadı."
+    },
     "strip": {
       "empty": "Bu testte henüz soru yok. Bir ekran alıntısı kopyalayıp Ctrl+V ile yapıştırın.",
       "statusPending": "Ekleniyor",
@@ -750,6 +763,12 @@
         "summaryError": "Değerlendirme oluşturulamadı.",
         "approveError": "Onaylama başarısız oldu.",
         "downloadError": "Karne oluşturulamadı."
+      },
+      "bulkReportCard": {
+        "trigger": "Toplu karne indir (ZIP)",
+        "progress": "Karne oluşturuluyor ({done}/{total})",
+        "empty": "Bu sınıfta öğrenci yok.",
+        "error": "Toplu karne oluşturulamadı."
       },
       "addStudent": {
         "studentNoLabel": "Numara",

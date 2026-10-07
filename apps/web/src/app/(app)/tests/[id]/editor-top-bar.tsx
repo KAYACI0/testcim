@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { CollaborationPanel } from '@/features/collaboration/components/collaboration-panel';
 import { usePaperExport } from '@/features/editor/paper/paper-export';
+import { PersonalizedPrintDialog } from '@/features/editor/paper/personalized-print-dialog';
 import { PublishExamDialog } from '@/features/online-exam/publish-dialog';
 
 const SAVE_STATUS_KEY = {
@@ -84,6 +85,7 @@ export function EditorTopBar({
         >
           {paperExport.busy ? t('pdfBusy') : t('downloadPdf')}
         </Button>
+        <PersonalizedPrintDialog />
         <PublishExamDialog testId={testId} defaultTitle={title} />
       </div>
       <CollaborationPanel
