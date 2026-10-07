@@ -90,7 +90,10 @@
       "dropTitle": "Drop question image or PDF",
       "chooseFromDevice": "or choose from device",
       "pasteHint": "You can paste a screenshot directly with Ctrl+V.",
-      "writeQuestion": "Write question"
+      "writeQuestion": "Write question",
+      "groupSelectLabel": "Assign to group",
+      "groupNone": "Ungrouped",
+      "groupFallback": "Group {number}"
     },
     "preview": {
       "empty": "This test has no questions yet.",

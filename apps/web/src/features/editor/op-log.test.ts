@@ -18,6 +18,8 @@ function item(overrides: Partial<EditorItem> & { id: string; position: string })
     phash: null,
     duplicateOfItemId: null,
     errorMessage: null,
+    groupId: null,
+    optionCount: null,
     ...overrides,
   };
 }
@@ -82,6 +84,16 @@ describe('applyOpsToItems', () => {
 
     expect(next[0]?.correct).toEqual({ question_type: 'mcq', option_id: 'B' });
     expect(next[0]?.points).toBe(2);
+  });
+
+  it('sets then clears an item group', () => {
+    const items = [item({ id: 'a', position: 'a0' })];
+
+    const grouped = applyOpsToItems(items, [{ type: 'set_group', item_id: 'a', group_id: 'g1' }]);
+    expect(grouped[0]?.groupId).toBe('g1');
+
+    const ungrouped = applyOpsToItems(grouped, [{ type: 'set_group', item_id: 'a' }]);
+    expect(ungrouped[0]?.groupId).toBeNull();
   });
 
   it('applying a command then its inverse returns to the original state (undo)', () => {

@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 3. 3.1-3.3 tamam (yapay zeka soru dugmeleri, acik uclu puanlama, toplu karne / kisiye ozel baski); siradaki: Faz 3 madde 4 (soru gruplama atama secicisi, 6. sik)
+- Odak: Faz 3. 3.1-3.4 tamam (yapay zeka soru dugmeleri, acik uclu puanlama, toplu karne / kisiye ozel baski, soru gruplama atama secicisi + 6. sik); siradaki: Faz 3 madde 5 (canli sinav modu, Realtime Presence)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,37 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 3, madde 4: soru gruplama atama secicisi, 6. sik)
+
+- **Gruba atama:** `question-strip.tsx`'teki her hazir soru satirina kucuk bir "gruba ata"
+  secici eklendi (mevcut gruplar + "Grupsuz"). `editor/store.ts`'e `setGroup` action'i
+  (var olan `set_group` op'unu kullanir, undo/redo destekli) ve `upsertGroup` (yerel grup
+  listesini guncelleyen, sunucuya gitmeyen) eklendi. `op-log.ts` artik `set_group`'u
+  gercekten uyguluyor (onceden no-op'tu, strip `groupId`'yi hic gormuyordu).
+- **Grup listesi:** `fetchEditorData` (`features/editor/actions.server.ts`) artik
+  `test_groups` tablosunu okuyup her grubun pasaj metninden (yeni `richDocToPlainText`,
+  packages/shared) kisa bir etiket cikariyor; bos pasaj icin istemci "Grup N" yedek
+  etiketini kendi cevirisinden basar. `GroupPanel` yeni grubu kaydettikten sonra
+  `store.upsertGroup` ile listeye hemen ekler, sayfa yenilemeden secilebilir olur.
+- **6. sik (F):** `AnswerSelector` ve `QuestionEditorPanel`'deki `LETTERS` dizisine F
+  eklendi (A-E yerine A-F). Serit ve denetci panelindeki `AnswerSelector` artik sorunun
+  gercek `questions.option_count` degerini kullaniyor (`EditorItem.optionCount`, yeni
+  alan); onceden sabit 5'e kilitliydi, 6 sikli (ornegin AI uretimi) bir sorunun dogru
+  cevabi F olarak hic isaretlenemiyordu.
+- **Yan etki:** `lib/supabase/types.ts` (elle yazilan tipler) `test_groups` tablosunu hic
+  icermiyordu; `test_groups` select'i eklenince fark edildi, tabloyu gercek semaya gore
+  ekledim (ayni dosyadaki bilinen "generated types'a gecis" acik isini degistirmez).
+  `question-strip.tsx`'teki satir yuksekligi artik TanStack Virtual'in `measureElement`'i
+  ile otomatik olculuyor (sabit 96px yerine) — yeni secici satiri tasmasin diye.
+- Dogrulama: typecheck 10/10, lint, format (dokunulan dosyalar), test (shared 123, web
+  180 — yeni: `rich-doc-text.test.ts` 3, `store.test.ts`/`op-log.test.ts`'e `set_group`/
+  `setGroup`/`upsertGroup` testleri), check:design (440 dosya), check:tenancy (45/45,
+  sema degisikligi yok), build, check:budget, pgTAP (27 dosya, 210 test), E2E 41/41 yesil.
+- Acik: Bu iki ozellik icin ozel bir E2E yok (mevcut 41 testten gecti, yeni akis test
+  edilmedi). Yapistirilan (capture) sorular hala sabit `option_count = 5` ile olusuyor;
+  ekran goruntusunun kac sikli oldugu bilinmedigi icin bu ayri bir karar gerektirir,
+  kapsam disi birakildi (docs/backlog.md).
 
 ### 2026-10-07 (Faz 3, madde 3: toplu karne ve kisiye ozel baski)
 

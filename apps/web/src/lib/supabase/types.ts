@@ -562,6 +562,23 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['test_items']['Row']>;
         Relationships: [];
       };
+      test_groups: {
+        Row: {
+          id: string;
+          workspace_id: string;
+          test_id: string;
+          passage_rich: Record<string, unknown> | null;
+          passage_asset_id: string | null;
+          created_at: Timestamp;
+          updated_at: Timestamp;
+        };
+        Insert: Partial<Database['public']['Tables']['test_groups']['Row']> & {
+          workspace_id: string;
+          test_id: string;
+        };
+        Update: Partial<Database['public']['Tables']['test_groups']['Row']>;
+        Relationships: [];
+      };
       test_snapshots: {
         Row: {
           id: string;

@@ -30,7 +30,7 @@ import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { Textarea } from '@/components/ui/textarea';
 
 const EMPTY_DOC: RichDoc = { type: 'doc', content: [{ type: 'paragraph' }] };
-const LETTERS = ['A', 'B', 'C', 'D', 'E'] as const;
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'] as const;
 
 function newOption(index: number): EditableOption {
   return { key: crypto.randomUUID(), id: LETTERS[index] ?? String(index + 1), richText: EMPTY_DOC };

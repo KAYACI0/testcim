@@ -3,32 +3,37 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
+import { richDocToPlainText } from '@testcim/shared';
+
 import { saveGroupPassage } from '../actions.server';
 import { RichTextEditor } from '../tiptap/editor';
 
 import type { RichDoc } from '../types';
+import type { EditorStore } from '@/features/editor/store';
 
 import { Button } from '@/components/ui/button';
 import { InlineNotice } from '@/components/ui/inline-notice';
 import { Sheet, SheetContent } from '@/components/ui/sheet';
 
 const EMPTY_DOC: RichDoc = { type: 'doc', content: [{ type: 'paragraph' }] };
+const GROUP_LABEL_MAX_LENGTH = 40;
 
 /**
  * Minimal group-passage authoring (docs/prompts/07 §7): creates a
  * `test_groups` row with a shared passage via `saveGroupPassage`
- * (`add_group` op). Assigning individual questions to the resulting group
- * from the question strip is not wired up yet — see docs/backlog.md; the
- * op-log/RPC support for it (`set_group`) already exists.
+ * (`add_group` op), then adds it to `store.groups` so the question strip's
+ * "assign to group" selector (`QuestionStrip`) can offer it immediately.
  */
 export function GroupPanel({
   open,
   onOpenChange,
   testId,
+  store,
 }: {
   readonly open: boolean;
   readonly onOpenChange: (open: boolean) => void;
   readonly testId: string;
+  readonly store: EditorStore;
 }) {
   const t = useTranslations('richEditor.group');
   const [passageRich, setPassageRich] = useState<RichDoc>(EMPTY_DOC);
@@ -41,6 +46,14 @@ export function GroupPanel({
     const result = await saveGroupPassage({ testId, groupId: null, passageRich });
     setSaving(false);
     if (result.ok) {
+      const text = richDocToPlainText(passageRich);
+      store.getState().upsertGroup({
+        id: result.groupId,
+        label:
+          text.length > GROUP_LABEL_MAX_LENGTH
+            ? `${text.slice(0, GROUP_LABEL_MAX_LENGTH)}...`
+            : text,
+      });
       setPassageRich(EMPTY_DOC);
       onOpenChange(false);
     } else {

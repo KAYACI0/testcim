@@ -5,7 +5,7 @@ import { resolveHeaderSettings, type TestHeaderSettings, type TestSettings } fro
 
 import { applyOpsToItems, sortByPosition } from './op-log';
 
-import type { AnswerKey, Command, EditorItem, TestOp } from './types';
+import type { AnswerKey, Command, EditorGroup, EditorItem, TestOp } from './types';
 
 export const DEFAULT_EDITOR_SETTINGS: TestSettings = {
   pageSize: 'a4',
@@ -68,6 +68,7 @@ export interface EditorState {
   readonly baseRevision: number;
   readonly settings: TestSettings;
   readonly items: readonly EditorItem[];
+  readonly groups: readonly EditorGroup[];
   readonly pendingOps: readonly TestOp[];
   readonly undoStack: readonly Command[];
   readonly redoStack: readonly Command[];
@@ -99,6 +100,9 @@ export interface EditorState {
   moveItem(id: string, beforeId: string | null, afterId: string | null): void;
   setCorrect(id: string, correct: AnswerKey | null): void;
   setPoints(id: string, points: number | null): void;
+  setGroup(id: string, groupId: string | null): void;
+  /** Adds (or renames) a group in the local list, e.g. right after `GroupPanel` creates one. */
+  upsertGroup(group: EditorGroup): void;
   updateTitle(title: string): void;
   updateSettings(settings: Partial<TestSettings>): void;
   updateHeader(header: Partial<TestHeaderSettings>): void;
@@ -119,6 +123,7 @@ export interface EditorHydrateInput {
   readonly baseRevision: number;
   readonly settings?: TestSettings;
   readonly items: readonly EditorItem[];
+  readonly groups?: readonly EditorGroup[];
 }
 
 export function createEditorStore(initial: EditorHydrateInput, deps: EditorStoreDeps) {
@@ -159,6 +164,7 @@ export function createEditorStore(initial: EditorHydrateInput, deps: EditorStore
         header: resolveHeaderSettings(DEFAULT_EDITOR_SETTINGS.header, initial.title),
       },
       items: sortByPosition(initial.items),
+      groups: initial.groups ?? [],
       pendingOps: [],
       undoStack: [],
       redoStack: [],
@@ -209,6 +215,8 @@ export function createEditorStore(initial: EditorHydrateInput, deps: EditorStore
               phash: null,
               duplicateOfItemId: null,
               errorMessage: null,
+              groupId: null,
+              optionCount: null,
             };
           });
 
@@ -247,6 +255,8 @@ export function createEditorStore(initial: EditorHydrateInput, deps: EditorStore
             phash: null,
             duplicateOfItemId: null,
             errorMessage: null,
+            groupId: null,
+            optionCount: null,
           };
           return {
             items: sortByPosition([...state.items, newItem]),
@@ -382,6 +392,33 @@ export function createEditorStore(initial: EditorHydrateInput, deps: EditorStore
 
         pushCommand({ itemIds: [id], apply: [applyOp], invert: [invertOp] });
         dispatch([applyOp]);
+      },
+
+      setGroup(id, groupId) {
+        const item = findItem(get().items, id);
+        if (!item) {
+          return;
+        }
+        const applyOp: TestOp = { type: 'set_group', item_id: id, group_id: groupId ?? undefined };
+        const invertOp: TestOp = {
+          type: 'set_group',
+          item_id: id,
+          group_id: item.groupId ?? undefined,
+        };
+
+        pushCommand({ itemIds: [id], apply: [applyOp], invert: [invertOp] });
+        dispatch([applyOp]);
+      },
+
+      upsertGroup(group) {
+        set((state) => {
+          const exists = state.groups.some((g) => g.id === group.id);
+          return {
+            groups: exists
+              ? state.groups.map((g) => (g.id === group.id ? group : g))
+              : [...state.groups, group],
+          };
+        });
       },
 
       updateTitle(title) {

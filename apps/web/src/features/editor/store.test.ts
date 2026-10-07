@@ -16,6 +16,8 @@ function item(overrides: Partial<EditorItem> & { id: string; position: string })
     phash: null,
     duplicateOfItemId: null,
     errorMessage: null,
+    groupId: null,
+    optionCount: null,
     ...overrides,
   };
 }
@@ -100,6 +102,40 @@ describe('editor store: synced item edits', () => {
 
     store.getState().redo();
     expect(store.getState().items[0]?.correct).toEqual({ question_type: 'mcq', option_id: 'B' });
+  });
+
+  it('undo/redo round-trips a setGroup edit', () => {
+    const store = createEditorStore(
+      {
+        testId: 't1',
+        title: 'Test',
+        baseRevision: 1,
+        items: [item({ id: 'a', position: 'a0' })],
+      },
+      { applyOps: vi.fn().mockResolvedValue(okResult(2)), flushDelayMs: 100_000 },
+    );
+
+    store.getState().setGroup('a', 'g1');
+    expect(store.getState().items[0]?.groupId).toBe('g1');
+
+    store.getState().undo();
+    expect(store.getState().items[0]?.groupId).toBeNull();
+
+    store.getState().redo();
+    expect(store.getState().items[0]?.groupId).toBe('g1');
+  });
+
+  it('upsertGroup adds a new group, then renames it in place', () => {
+    const store = createEditorStore(
+      { testId: 't1', title: 'Test', baseRevision: 1, items: [] },
+      { applyOps: vi.fn(), flushDelayMs: 100_000 },
+    );
+
+    store.getState().upsertGroup({ id: 'g1', label: 'Parca 1' });
+    expect(store.getState().groups).toEqual([{ id: 'g1', label: 'Parca 1' }]);
+
+    store.getState().upsertGroup({ id: 'g1', label: 'Parca 1 (duzenlendi)' });
+    expect(store.getState().groups).toEqual([{ id: 'g1', label: 'Parca 1 (duzenlendi)' }]);
   });
 
   it('removeItem then undo restores the item at its original position', () => {

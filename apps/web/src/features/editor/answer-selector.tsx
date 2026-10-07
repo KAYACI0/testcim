@@ -4,7 +4,7 @@ import type { AnswerKey } from '@testcim/shared';
 
 import { Segmented } from '@/components/ui/segmented';
 
-const LETTERS = ['A', 'B', 'C', 'D', 'E'] as const;
+const LETTERS = ['A', 'B', 'C', 'D', 'E', 'F'] as const;
 
 export function AnswerSelector({
   correct,

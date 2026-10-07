@@ -157,15 +157,16 @@ söyler.
 
 ## Dilim 07'den kalanlar
 
-- **Grup/pasaj gruplama UX'i tam değil.** `GroupPanel` bir grup oluşturup passage_rich
-  yazabiliyor (`add_group` op), ama soru şeridinden (question-strip.tsx) var olan bir
-  soruyu o gruba atayan arayüz yok — `set_group` op'u ve RPC desteği zaten var (dilim
-  01/08'den), yalnızca şerit satırına bir "gruba ata" seçici eklenmedi. `editor/store.ts`'e
-  de bir `setGroup` action'ı eklenmedi.
-- **MCQ şık sayısı 2–6 değil, 2–5.** Mevcut `AnswerSelector` (dilim 04) A–E (5) harfle
-  sınırlı; `QuestionEditorPanel` bunu olduğu gibi kullandı. docs/prompts/07 "2–6 şık"
-  istiyor; F şıkkı eklemek `AnswerSelector`'ı da güncellemeyi gerektirir, kapsam dışı
-  bırakıldı.
+- **Grup/pasaj gruplama UX'i (çözüldü, Faz 3 madde 4).** `question-strip.tsx`'teki her
+  soru satırına bir "gruba ata" seçici eklendi (`editor/store.ts` `setGroup` action,
+  `set_group` op'unu kullanır). `GroupPanel` artık yeni grubu `store.upsertGroup` ile
+  anında listeye ekliyor, sayfa yenilemeden seçilebiliyor. Etiket pasajın düz metninden
+  (`richDocToPlainText`, packages/shared) türetiliyor.
+- **MCQ şık sayısı 2–5 (çözüldü, Faz 3 madde 4).** `AnswerSelector` ve
+  `QuestionEditorPanel`'deki `LETTERS` dizisine F eklendi; şerit ve denetçi panelindeki
+  `AnswerSelector` artık sorunun gerçek `option_count`'unu kullanıyor (önceden sabit 5'ti).
+  Yapıştırılan (capture) sorular hâlâ sabit `option_count = 5` ile oluşturuluyor — ekran
+  görüntüsünün kaç şıklı olduğu bilinmediğinden bu ayrı bir karar gerektirir, kapsam dışı.
 - **Render varlığı `phash` içermiyor.** Yakalama hattındaki yinelenen tespiti pasaj
   ekran görüntüleri için `sha256`+`phash` kullanıyor; elle yazılan bir sorunun render
   PNG'si için `phash` hesaplanmadı (aynı soru iki kez yazılırsa `sha256` eşleşmesi zaten

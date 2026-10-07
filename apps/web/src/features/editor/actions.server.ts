@@ -5,9 +5,11 @@ import { z } from 'zod';
 
 import {
   resolveHeaderSettings,
+  richDocToPlainText,
   testItemRowSchema,
   testOpSchema,
   testSettingsSchema,
+  type RichDoc,
   type TestOp,
   type TestSettings,
 } from '@testcim/shared';
@@ -118,7 +120,10 @@ export interface EditorData {
     correct: unknown;
     points: number | null;
     thumbnailUrl: string;
+    groupId: string | null;
+    optionCount: number | null;
   }[];
+  readonly groups: { id: string; label: string }[];
 }
 
 /** Loads a test plus its items and each item's image thumbnail for the editor's initial render. */
@@ -164,10 +169,31 @@ export async function fetchEditorData(testId: string): Promise<EditorData> {
 
   const questionIds = [...new Set(items.map((item) => item.question_id))];
   const { data: questionRows } = questionIds.length
-    ? await supabase.from('questions').select('id, stem_asset_id').in('id', questionIds)
-    : { data: [] as { id: string; stem_asset_id: string | null }[] };
+    ? await supabase
+        .from('questions')
+        .select('id, stem_asset_id, option_count')
+        .in('id', questionIds)
+    : { data: [] as { id: string; stem_asset_id: string | null; option_count: number | null }[] };
 
   const stemAssetByQuestionId = new Map((questionRows ?? []).map((q) => [q.id, q.stem_asset_id]));
+  const optionCountByQuestionId = new Map((questionRows ?? []).map((q) => [q.id, q.option_count]));
+
+  const { data: groupRows } = await supabase
+    .from('test_groups')
+    .select('id, passage_rich, created_at')
+    .eq('test_id', testId)
+    .order('created_at', { ascending: true });
+
+  // `label` is the passage's own text, trimmed to a preview length; empty
+  // means no passage text yet, and the client renders a numbered fallback
+  // (translated client-side, not hardcoded here).
+  const GROUP_LABEL_MAX_LENGTH = 40;
+  const groups = (groupRows ?? []).map((group) => {
+    const text = richDocToPlainText(group.passage_rich as RichDoc | null);
+    const label =
+      text.length > GROUP_LABEL_MAX_LENGTH ? `${text.slice(0, GROUP_LABEL_MAX_LENGTH)}...` : text;
+    return { id: group.id, label };
+  });
   const assetIds = [
     ...new Set([...stemAssetByQuestionId.values()].filter((id): id is string => Boolean(id))),
   ];
@@ -196,6 +222,7 @@ export async function fetchEditorData(testId: string): Promise<EditorData> {
     baseRevision: test.revision,
     approvalStatus: test.approval_status,
     settings,
+    groups,
     items: items.map((item) => {
       const assetId = stemAssetByQuestionId.get(item.question_id);
       const location = assetId ? pathByAssetId.get(assetId) : undefined;
@@ -209,6 +236,8 @@ export async function fetchEditorData(testId: string): Promise<EditorData> {
         correct: item.correct_override,
         points: item.points_override,
         thumbnailUrl,
+        groupId: item.group_id,
+        optionCount: optionCountByQuestionId.get(item.question_id) ?? null,
       };
     }),
   };

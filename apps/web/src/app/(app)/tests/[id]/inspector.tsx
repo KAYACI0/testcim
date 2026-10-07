@@ -316,6 +316,7 @@ export function Inspector({ store, activeTab, onTabChange }: InspectorProps) {
                 <span className="text-sm text-ink tabular-nums">{index + 1}</span>
                 <AnswerSelector
                   correct={item.correct}
+                  optionCount={item.optionCount ?? 5}
                   label={t('correctAnswerFor', { number: index + 1 })}
                   onChange={(correct) => store.getState().setCorrect(item.id, correct)}
                 />

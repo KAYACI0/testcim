@@ -1,4 +1,5 @@
 export { DEFAULT_LOCALE, LOCALES, isLocale, type Locale } from './locale';
+export { richDocToPlainText } from './rich-doc-text';
 export {
   WORKSPACE_ROLES,
   roleSchema,

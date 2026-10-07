@@ -11,9 +11,18 @@ import type { EditorStore } from '@/features/editor/store';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { IconButton } from '@/components/ui/icon-button';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { AnswerSelector } from '@/features/editor/answer-selector';
 import { sortByPosition } from '@/features/editor/op-log';
 import { cn } from '@/lib/cn';
+
+const UNGROUPED = '__ungrouped__';
 
 const ROW_HEIGHT = 96;
 
@@ -25,6 +34,7 @@ export interface QuestionStripProps {
 
 export function QuestionStrip({ store, onCaptureFiles, onWriteQuestion }: QuestionStripProps) {
   const items = useStore(store, (s) => s.items);
+  const groups = useStore(store, (s) => s.groups);
   const selectedItemId = useStore(store, (s) => s.selectedItemId);
   const t = useTranslations('editor.strip');
 
@@ -156,12 +166,12 @@ export function QuestionStrip({ store, onCaptureFiles, onWriteQuestion }: Questi
                 <div
                   key={item.id}
                   data-index={virtualRow.index}
+                  ref={virtualizer.measureElement}
                   style={{
                     position: 'absolute',
                     top: 0,
                     left: 0,
                     width: '100%',
-                    height: virtualRow.size,
                     transform: `translateY(${virtualRow.start}px)`,
                   }}
                   className="px-3 py-1.5"
@@ -200,12 +210,46 @@ export function QuestionStrip({ store, onCaptureFiles, onWriteQuestion }: Questi
                         <p className="truncate text-xs text-warn">{t('duplicateNotice')}</p>
                       )}
                       {item.status === 'ready' && (
-                        <div className="mt-1" onClick={(event) => event.stopPropagation()}>
+                        <div
+                          className="mt-1 flex flex-wrap items-center gap-1.5"
+                          onClick={(event) => event.stopPropagation()}
+                        >
                           <AnswerSelector
                             correct={item.correct}
+                            optionCount={item.optionCount ?? 5}
                             label={t('correctAnswerLabel')}
                             onChange={(correct) => store.getState().setCorrect(item.id, correct)}
                           />
+                          {groups.length > 0 && (
+                            <Select
+                              value={item.groupId ?? UNGROUPED}
+                              onValueChange={(next) =>
+                                store.getState().setGroup(item.id, next === UNGROUPED ? null : next)
+                              }
+                            >
+                              <SelectTrigger
+                                aria-label={t('groupSelectLabel')}
+                                className="h-6 w-auto gap-1 px-1.5 text-[11px]"
+                              >
+                                <SelectValue>
+                                  {item.groupId
+                                    ? groups.find((g) => g.id === item.groupId)?.label ||
+                                      t('groupFallback', {
+                                        number: groups.findIndex((g) => g.id === item.groupId) + 1,
+                                      })
+                                    : t('groupNone')}
+                                </SelectValue>
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value={UNGROUPED}>{t('groupNone')}</SelectItem>
+                                {groups.map((group, index) => (
+                                  <SelectItem key={group.id} value={group.id}>
+                                    {group.label || t('groupFallback', { number: index + 1 })}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          )}
                         </div>
                       )}
                     </div>

@@ -90,7 +90,10 @@
       "dropTitle": "Soru fotoğrafı ya da PDF bırakın",
       "chooseFromDevice": "ya da cihazınızdan seçin",
       "pasteHint": "Ekran görüntüsünü doğrudan Ctrl+V ile yapıştırabilirsiniz.",
-      "writeQuestion": "Soru yaz"
+      "writeQuestion": "Soru yaz",
+      "groupSelectLabel": "Gruba ata",
+      "groupNone": "Grupsuz",
+      "groupFallback": "Grup {number}"
     },
     "preview": {
       "empty": "Bu testte henüz soru yok.",

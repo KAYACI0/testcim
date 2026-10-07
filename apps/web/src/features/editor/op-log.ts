@@ -39,6 +39,8 @@ export function applyOpsToItems(
             phash: null,
             duplicateOfItemId: null,
             errorMessage: null,
+            groupId: op.group_id ?? null,
+            optionCount: null,
           },
         ]);
         break;
@@ -70,14 +72,19 @@ export function applyOpsToItems(
         // and the next read-back reflects the new revision.
         break;
       }
-      case 'set_group':
+      case 'set_group': {
+        next = next.map((item) =>
+          item.id === op.item_id ? { ...item, groupId: op.group_id ?? null } : item,
+        );
+        break;
+      }
       case 'add_group':
       case 'update_group':
       case 'update_settings':
       case 'update_title':
-        // Test-level or grouping ops the strip doesn't render; store.ts
-        // handles `update_title`/`update_settings` directly on its own state,
-        // and group passages live in their own panel (see rich-editor).
+        // Test-level ops the strip doesn't render directly; store.ts handles
+        // `update_title`/`update_settings` on its own state, and group
+        // passages live in their own panel (see rich-editor).
         break;
       default:
         op satisfies never;

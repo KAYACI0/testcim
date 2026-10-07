@@ -47,6 +47,8 @@ function toEditorItems(data: EditorData): EditorItem[] {
     phash: null,
     duplicateOfItemId: null,
     errorMessage: null,
+    groupId: item.groupId,
+    optionCount: item.optionCount,
   }));
 }
 
@@ -69,6 +71,7 @@ export function EditorClient({
         baseRevision: data.baseRevision,
         settings: data.settings,
         items: toEditorItems(data),
+        groups: data.groups,
       },
       { applyOps: applyOpsAction },
     ),
@@ -157,7 +160,12 @@ export function EditorClient({
         />
       )}
       {groupPanelLoaded && (
-        <GroupPanel open={groupPanelOpen} onOpenChange={setGroupPanelOpen} testId={data.testId} />
+        <GroupPanel
+          open={groupPanelOpen}
+          onOpenChange={setGroupPanelOpen}
+          testId={data.testId}
+          store={store}
+        />
       )}
     </div>
   );

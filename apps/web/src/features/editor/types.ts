@@ -21,6 +21,16 @@ export interface EditorItem {
   readonly phash: string | null;
   readonly duplicateOfItemId: string | null;
   readonly errorMessage: string | null;
+  /** `test_items.group_id`: which passage/group (if any) this item belongs to. */
+  readonly groupId: string | null;
+  /** The underlying `questions.option_count`, so the answer-key selector shows the right number of letters (A-F). */
+  readonly optionCount: number | null;
+}
+
+/** One `test_groups` row, as shown in the "assign to group" selector. */
+export interface EditorGroup {
+  readonly id: string;
+  readonly label: string;
 }
 
 /**
