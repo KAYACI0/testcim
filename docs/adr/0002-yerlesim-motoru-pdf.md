@@ -1,6 +1,6 @@
 # ADR 0002: Yerleşim motoru, kitapçık karıştırma ve PDF çıktısı
 
-- Durum: Taslak (onay bekliyor)
+- Durum: Kabul edildi, A bölümü (layout-engine) uygulandı; renderers ve arayüz bekliyor
 - Tarih: 2026-09-29
 - Kapsam: Dilim 05 (Yerleşim motoru, canlı önizleme ve PDF çıktısı)
 
@@ -252,6 +252,22 @@ yazılır (yeniden üretilebilirlik — dışa aktarımda `test_snapshots`'a gö
 - `packages/renderers`: `renderPdf` çıktısının sayfa sayısı/boyutu `pdf-lib` ile geri
   okunup doğrulanır; piksel karşılaştırması (rasterleştirme) dilim 05 kapsamında `pdfjs-dist`
   ile sayfa render edip küçük toleranslı görüntü diff'i olarak eklenir.
+
+## Uygulama notları (2026-10-07)
+
+Kullanıcı Faz 1'i onayladı (docs/04); aşağıdaki üç açık nokta ADR'nin kendi önerileriyle kapatıldı:
+
+1. **Numaralandırma biçimi:** kırıcı değişiklik yapılmadı. Yeni değerler (`dot|paren|labeled`) arayüz bu alanı okumaya başladığında eskilerin yanına eklenecek. `layout-engine` şu an numara biçimi üretmez, yalnızca sıra numarasını (`number`) verir.
+2. **Sütun dengeleme:** "en boş sütuna ekle" yerine sıra korunarak sayfa başına en küçük sütun yüksekliğinin ikili aramayla bulunması uygulandı (okuma sırası bozulmaz, belirlenimci, özellik testi: sayfa sayısı ve sıra değişmez, hiçbir sayfa uzamaz).
+3. **Font:** tam IBM Plex Sans gömülür, altkümeleme PDF gömme sırasında yapılır (docs/adr/0011).
+
+Uygulanan (`packages/layout-engine`): tipler (§1, `LayoutBlock.kind/number/scale`, uyarılar, `LayoutResult`), `layoutTest` (strict, flexible, fit-pages, sütun dengeleme, bölüm yeni sayfa, grup bölünmez), `orderBooklet` (mulberry32, sabitleme, bölüm sınırı, grup tek birim, şık permütasyonu yalnızca metin çoktan seçmeli), `buildAnswerKeys` (kitapçık başına anahtar, sürüm eşleme tablosu), `pageDimensions` (A3, A4, A5, Letter, özel). Motor saf ve senkrondur, `zod`/DOM bağımlılığı yoktur; yükseklikler `measure` geri çağrısıyla gelir.
+
+Doğrulama: 48 test (birim + fast-check: her soru ve metin bloğu tam bir kez, sayfa gövdesi ve kenar boşluğu aşılmaz, çakışma yok, numaralar 1..n, belirlenimcilik, dengeleme sırayı korur, fit-pages alt sınırı ve uyarısı, kitapçık kısıtları, cevap anahtarındaki harfin görünen doğru şıkkı göstermesi). Motoru bilerek bozan dört mutasyon testler tarafından yakalandı. 100 soru, 3 sütun, esnek mod ve dengeleme 300 ms tavanının çok altında (ürün hedefi 100 ms).
+
+Editördeki `features/editor/paper/paginate.ts` artık ayrı bir algoritma değil, motorun strict modunun ince bir adaptörü. Eski algoritma testte referans (oracle) olarak tutuldu; 1500 rastgele girdide birebir aynı sonucu verir.
+
+Kalan: `renderers` içinde `renderHtml` ve `renderPdf(LayoutDocument)` (§6), `TestSettings` şemasının genişletilmesi (§2, arayüz tüketince), editör kâğıdının `LayoutDocument` koordinatlarını kullanması.
 
 ## Açık kalan ve onay istenen noktalar
 
