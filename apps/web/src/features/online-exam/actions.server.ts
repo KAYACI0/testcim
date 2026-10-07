@@ -344,6 +344,117 @@ export async function getExamResults(examId: string) {
   };
 }
 
+export interface OpenGradingRow {
+  readonly attemptId: string;
+  readonly studentLabel: string;
+  readonly answerText: string;
+  readonly currentPoints: number | null;
+}
+
+export interface OpenGradingQuestion {
+  readonly itemId: string;
+  readonly position: string;
+  readonly stemText: string | null;
+  readonly rubric: string | null;
+  readonly maxPoints: number;
+  readonly rows: readonly OpenGradingRow[];
+}
+
+function isRecord(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
+/** Open-ended items and their students' free-text answers, for manual grading on the results screen. */
+export async function getOpenGradingQuestions(examId: string) {
+  await requireSession();
+  const workspace = await getCurrentWorkspace();
+  const supabase = await createClient();
+
+  const { data: exam, error: examError } = await supabase
+    .from('online_exams')
+    .select('id, workspace_id')
+    .eq('id', examId)
+    .eq('workspace_id', workspace.id)
+    .single();
+  if (examError || !exam) return { ok: false as const, reason: 'exam_not_found' };
+
+  const admin = createAdminClient();
+
+  const { data: items } = await admin
+    .from('online_exam_items')
+    .select('id, position, question_revision_id, points_override, correct_override')
+    .eq('online_exam_id', examId)
+    .order('position');
+  if (!items || items.length === 0) return { ok: true as const, questions: [] };
+
+  const revisionIds = [...new Set(items.map((i) => i.question_revision_id))];
+  const { data: revisions } = await admin
+    .from('question_revisions')
+    .select('id, snapshot')
+    .in('id', revisionIds);
+  const snapshotByRevisionId = new Map((revisions ?? []).map((r) => [r.id, r.snapshot]));
+
+  const openItems = items
+    .map((item) => {
+      const snapshot = snapshotByRevisionId.get(item.question_revision_id);
+      const correct = item.correct_override ?? snapshot?.correct;
+      return { item, snapshot, correct };
+    })
+    .filter(({ correct }) => isRecord(correct) && correct.question_type === 'open');
+  if (openItems.length === 0) return { ok: true as const, questions: [] };
+
+  const { data: attempts } = await admin
+    .from('exam_attempts')
+    .select('id, display_name, student_no')
+    .eq('online_exam_id', examId)
+    .neq('status', 'in_progress');
+  const attemptById = new Map((attempts ?? []).map((a) => [a.id, a]));
+
+  const { data: answers } = await admin
+    .from('attempt_answers')
+    .select('attempt_id, item_id, answer, points')
+    .in(
+      'item_id',
+      openItems.map(({ item }) => item.id),
+    );
+  const answersByItem = new Map<string, typeof answers>();
+  for (const answer of answers ?? []) {
+    const list = answersByItem.get(answer.item_id) ?? [];
+    list.push(answer);
+    answersByItem.set(answer.item_id, list);
+  }
+
+  const questions: OpenGradingQuestion[] = openItems.map(({ item, snapshot, correct }) => {
+    const maxPoints =
+      item.points_override ?? (typeof snapshot?.points === 'number' ? snapshot.points : 1);
+    const rows: OpenGradingRow[] = (answersByItem.get(item.id) ?? [])
+      .filter((answer) => attemptById.has(answer.attempt_id))
+      .map((answer) => {
+        const attempt = attemptById.get(answer.attempt_id)!;
+        const answerText =
+          isRecord(answer.answer) && typeof answer.answer.text === 'string'
+            ? answer.answer.text
+            : '';
+        return {
+          attemptId: answer.attempt_id,
+          studentLabel: attempt.display_name ?? attempt.student_no ?? '—',
+          answerText,
+          currentPoints: answer.points,
+        };
+      });
+    return {
+      itemId: item.id,
+      position: item.position,
+      stemText: typeof snapshot?.stem_text === 'string' ? snapshot.stem_text : null,
+      rubric: isRecord(correct) && typeof correct.rubric === 'string' ? correct.rubric : null,
+      maxPoints,
+      rows,
+    };
+  });
+
+  return { ok: true as const, questions };
+}
+
 const regradeSchema = z.object({
   attemptId: z.uuid(),
   itemId: z.uuid(),

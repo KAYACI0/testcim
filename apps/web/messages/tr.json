@@ -921,6 +921,16 @@
           "difficulty": "Zorluk (p)",
           "discrimination": "Ayırt edicilik"
         }
+      },
+      "openGrading": {
+        "title": "Açık uçlu puanlama",
+        "questionLabel": "Soru {index}",
+        "noAnswers": "Bu soruya henüz cevap yok.",
+        "blankAnswer": "(Boş bırakılmış)",
+        "graded": "Puanlandı",
+        "ungraded": "Puanlanmadı",
+        "pointsFor": "{student} için puan",
+        "save": "Kaydet"
       }
     }
   },

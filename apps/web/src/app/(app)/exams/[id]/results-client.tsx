@@ -3,13 +3,18 @@
 import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
-import type { ExamResultRow, ItemAnalysisRow } from '@/features/online-exam/actions.server';
+import type {
+  ExamResultRow,
+  ItemAnalysisRow,
+  OpenGradingQuestion,
+} from '@/features/online-exam/actions.server';
 
 import { DataTable, type DataTableColumn } from '@/components/patterns/data-table';
 import { PageHeader } from '@/components/patterns/page-header';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { closeExamNow } from '@/features/online-exam/actions.server';
+import { OpenGradingPanel } from '@/features/online-exam/open-grading-panel';
 
 export interface ResultsData {
   readonly results: readonly ExamResultRow[];
@@ -26,10 +31,12 @@ export function ResultsClient({
   examId,
   title,
   data,
+  openGradingQuestions,
 }: {
   readonly examId: string;
   readonly title: string;
   readonly data: ResultsData;
+  readonly openGradingQuestions: readonly OpenGradingQuestion[];
 }) {
   const t = useTranslations('exams.results');
   const [closing, setClosing] = useState(false);
@@ -141,6 +148,13 @@ export function ResultsClient({
           emptyMessage={t('analysis.empty')}
         />
       </div>
+
+      {openGradingQuestions.length > 0 && (
+        <>
+          <PageHeader title={t('openGrading.title')} />
+          <OpenGradingPanel questions={openGradingQuestions} />
+        </>
+      )}
     </div>
   );
 }

@@ -921,6 +921,16 @@
           "difficulty": "Difficulty (p)",
           "discrimination": "Discrimination"
         }
+      },
+      "openGrading": {
+        "title": "Open-ended grading",
+        "questionLabel": "Question {index}",
+        "noAnswers": "No answers for this question yet.",
+        "blankAnswer": "(Left blank)",
+        "graded": "Graded",
+        "ungraded": "Ungraded",
+        "pointsFor": "Points for {student}",
+        "save": "Save"
       }
     }
   },

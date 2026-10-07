@@ -230,10 +230,6 @@ söyler.
 - **Hız sınırı Upstash yerine Postgres tabanlı.** `check_exam_rate_limit()` RPC'si aynı
   true/false sözleşmesini sağlıyor ama dağıtık Redis'e göre daha az hassas (bkz.
   docs/adr/0004 §5). Gerçek Upstash kimlik bilgileri eklenirse değiştirilebilir.
-- **Öğretmen tarafında açık uçlu soru elle puanlama arayüzü yok.** `regradeOpenAnswer`
-  server action'ı ve `ensureAttemptScored`'ın "elle verilen puan kalıcıdır" mantığı
-  yazılıp test edildi, ama `/exams/[id]` sonuç ekranında bunu tetikleyen bir arayüz
-  (soru bazlı açık uçlu cevap görüntüleme + puan girişi) henüz yok.
 - **`roster` erişim modu, sınıf listesine karşı doğrulanmıyor.** Öğrenci serbest metin
   olarak ad/numara giriyor; `students`/`class_students` tablolarına karşı eşleşme
   kontrolü yapılmıyor (yalnızca `max_attempts` için serbest metnin hash'i tekilleştirme

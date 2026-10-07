@@ -168,6 +168,44 @@ export async function seedQuestions(
   }));
 }
 
+/** Inserts one open-ended (free-text) question into the workspace bank. */
+export async function seedOpenEndedQuestion(
+  admin: AdminClient,
+  teacher: TestTeacher,
+  stemText: string,
+  points = 1,
+): Promise<SeededQuestion> {
+  const inserted = unwrap(
+    await admin
+      .from('questions')
+      .insert({
+        workspace_id: teacher.workspaceId,
+        created_by: teacher.userId,
+        kind: 'rich',
+        question_type: 'open',
+        stem_text: stemText,
+        options: [],
+        correct: { question_type: 'open', rubric: 'Doğru terimleri kullanmış olmalı.' },
+        points,
+        difficulty: 1,
+      })
+      .select('id, current_revision')
+      .single(),
+    'questions',
+  );
+
+  const revision = unwrap(
+    await admin
+      .from('question_revisions')
+      .select('id')
+      .eq('question_id', inserted.id as string)
+      .single(),
+    'question_revisions',
+  );
+
+  return { id: inserted.id as string, revisionId: revision.id as string };
+}
+
 export interface SeededExam {
   readonly slug: string;
   readonly examId: string;

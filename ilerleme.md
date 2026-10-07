@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 3. 3.1 (yapay zeka soru dugmeleri) tamam, anahtar bekliyor; genel hiz optimizasyonu tamam; siradaki: Faz 3.2 (acik uclu puanlama)
+- Odak: Faz 3. 3.1 (yapay zeka soru dugmeleri) ve 3.2 (acik uclu puanlama) tamam; siradaki: Faz 3 madde 3 (toplu karne / kisiye ozel baski)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,16 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 3, madde 2: acik uclu puanlama arayuzu)
+
+- Arka uc zaten hazirdi (`regradeOpenAnswer`, `ensureAttemptScored`); eksik olan `/exams/[id]` sonuc ekraninda bunu tetikleyen arayuzdu.
+- `getOpenGradingQuestions` (actions.server.ts): sinavdaki `open` tipli maddeleri, ogrenci bazinda serbest metin cevabini ve varsa rubrigi dondurur (yalnizca `in_progress` disindaki denemeler).
+- `OpenGradingPanel` (open-grading-panel.tsx): sonuc sayfasina "Acik uclu puanlama" bolumu, soru basina ogrenci cevaplari + puan girisi + kaydet; puanlandi/puanlanmadi rozeti. `regradeOpenAnswer` cagrilir, `ensureAttemptScored` toplam puani hemen gunceller (sayfa yenilenince gorulur).
+- Ceviri: `exams.results.openGrading.*` (tr/en).
+- E2E yardimcisi: `seedOpenEndedQuestion` (local-supabase.ts). Yeni test: `online-exam.spec.ts` "acik uclu soruyu ogretmen sonuc ekraninda elle puanlar" (ogrenci mcq+acik uclu cevaplar, ogretmen puan girip kaydeder, toplam puan guncellenir).
+- Dogrulama: typecheck, lint, check:design, check:budget, tum birim testleri (web 177), build, E2E 41/41 (yeni test dahil) yesil.
+- Acik: rubrik metni yalnizca gosteriliyor, AI destekli rubrik-bazli otomatik on-puanlama yok (kapsam disi, Faz 3 madde 1 AI butonlariyla ayni degil).
 
 ### 2026-10-07 (genel hiz: sayfalar arasi gecis)
 
