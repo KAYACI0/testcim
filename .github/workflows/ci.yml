@@ -68,6 +68,26 @@ jobs:
       - name: Bundle budget
         run: pnpm check:budget
 
+  database:
+    name: Migrations and pgTAP
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.118.0
+
+      - name: Start local Supabase
+        run: supabase start -x studio,imgproxy,edge-runtime,mailpit,logflare,vector,supavisor
+
+      - name: Reset database from migrations and seed
+        run: supabase db reset
+
+      - name: Run pgTAP tests
+        run: supabase test db
+
   e2e:
     name: Playwright smoke test
     runs-on: ubuntu-latest

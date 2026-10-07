@@ -98,3 +98,15 @@ begin
   perform set_config('role', 'service_role', true);
 end;
 $$;
+
+-- Tests switch to anon/authenticated/service_role mid-transaction and still
+-- call these helpers (e.g. tests.create_user), so those roles need access.
+grant usage on schema tests to anon, authenticated, service_role;
+grant execute on all functions in schema tests to anon, authenticated, service_role;
+
+-- This file is picked up by the pgTAP runner like any test, so it needs a
+-- valid (trivial) plan. It is not wrapped in a transaction on purpose: the
+-- helpers above must persist for the later files.
+select plan(1);
+select ok(true, 'test helpers loaded');
+select * from finish();

@@ -2,6 +2,7 @@ begin;
 select plan(8);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-files@test.local')),
   ('owner_b', tests.create_user('owner-b-files@test.local'));
@@ -50,6 +51,8 @@ select throws_ok(
          values (%L, 'image', 'image/png', 1, 'upload', 'assets', %L)$sql$,
     (select id from fx where key = 'ws_a'), 'x/y.png'
   ),
+  null::char(5),
+  null::text,
   'cross-tenant: owner_b cannot insert an asset into ws_a'
 );
 
@@ -80,6 +83,8 @@ select throws_ok(
     $sql$insert into storage.objects (bucket_id, name) values ('assets', %L)$sql$,
     (select id from fx where key = 'ws_a')::text || '/2026/hacked.png'
   ),
+  null::char(5),
+  null::text,
   'storage: owner_b cannot upload into ws_a''s path'
 );
 

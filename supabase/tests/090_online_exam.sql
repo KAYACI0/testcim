@@ -2,6 +2,7 @@ begin;
 select plan(6);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-exam@test.local')),
   ('owner_b', tests.create_user('owner-b-exam@test.local'));
@@ -49,6 +50,8 @@ select throws_ok(
          values (%L, %L, 'tok')$sql$,
     (select id from fx where key = 'ws_a'), (select id from fx where key = 'exam_a')
   ),
+  null::char(5),
+  null::text,
   'anon cannot insert into exam_attempts directly'
 );
 
@@ -59,6 +62,8 @@ select throws_ok(
          values (%L, %L, 'tok2')$sql$,
     (select id from fx where key = 'ws_a'), (select id from fx where key = 'exam_a')
   ),
+  null::char(5),
+  null::text,
   'even a workspace member cannot insert into exam_attempts directly; only the service role can'
 );
 

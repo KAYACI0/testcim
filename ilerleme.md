@@ -11,19 +11,19 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Test turu (2026-10-06)
 
-| #   | Test                 | Komut                                  | Durum   | Not                                                                                                     |
-| :-- | :------------------- | :------------------------------------- | :------ | :------------------------------------------------------------------------------------------------------ |
-| 1   | Biçim                | `pnpm format:check`                    | gecti   | 4 onceden kalan dosya prettier ile duzeltildi (omr, karne dugmesi)                                      |
-| 2   | Tip denetimi         | `pnpm typecheck`                       | gecti   | 9/9                                                                                                     |
-| 3   | Lint                 | `pnpm lint`                            | gecti   |                                                                                                         |
-| 4   | Tasarim kurallari    | `pnpm check:design`                    | gecti   | 364 dosya                                                                                               |
-| 5   | Kiraci testi varligi | `pnpm check:tenancy`                   | gecti   | 45/45 tablo                                                                                             |
-| 6   | Birim testleri       | `pnpm test --force`                    | gecti   | 9/9 paket, 357 test (onbelleksiz)                                                                       |
-| 7   | Uretim derlemesi     | `pnpm build`                           | gecti   |                                                                                                         |
-| 8   | Paket butcesi        | `pnpm check:budget`                    | gecti   | en buyuk parca 1414 KB                                                                                  |
-| 9   | Bagimlilik denetimi  | `pnpm audit --prod --audit-level high` | gecti   |                                                                                                         |
-| 10  | E2E (Playwright)     | `pnpm test:e2e`                        | gecti   | 6 gecti, 2 atlandi (auth fixture yok: bank, online-exam). Asagidaki duzeltmelerden sonra                |
-| 11  | pgTAP                | `pnpm db:test`                         | engelli | Docker Desktop kapali (daemon yok). Supabase CLI 2.118.0 kurulu. Docker acilinca `pnpm db:start` + test |
+| #   | Test                 | Komut                                  | Durum | Not                                                                                       |
+| :-- | :------------------- | :------------------------------------- | :---- | :---------------------------------------------------------------------------------------- |
+| 1   | Biçim                | `pnpm format:check`                    | gecti | 4 onceden kalan dosya prettier ile duzeltildi (omr, karne dugmesi)                        |
+| 2   | Tip denetimi         | `pnpm typecheck`                       | gecti | 9/9                                                                                       |
+| 3   | Lint                 | `pnpm lint`                            | gecti |                                                                                           |
+| 4   | Tasarim kurallari    | `pnpm check:design`                    | gecti | 364 dosya                                                                                 |
+| 5   | Kiraci testi varligi | `pnpm check:tenancy`                   | gecti | 45/45 tablo                                                                               |
+| 6   | Birim testleri       | `pnpm test --force`                    | gecti | 9/9 paket, 357 test (onbelleksiz)                                                         |
+| 7   | Uretim derlemesi     | `pnpm build`                           | gecti |                                                                                           |
+| 8   | Paket butcesi        | `pnpm check:budget`                    | gecti | en buyuk parca 1414 KB                                                                    |
+| 9   | Bagimlilik denetimi  | `pnpm audit --prod --audit-level high` | gecti |                                                                                           |
+| 10  | E2E (Playwright)     | `pnpm test:e2e`                        | gecti | 6 gecti, 2 atlandi (auth fixture yok: bank, online-exam). Asagidaki duzeltmelerden sonra  |
+| 11  | pgTAP                | `pnpm db:test`                         | gecti | 2026-10-07: 26 dosya, 204 test, gercek Postgres'te (asagidaki Faz 0 kaydi). Docker acildi |
 
 ### Bu turda bulunan ve duzeltilen hatalar
 
@@ -39,6 +39,18 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 0: gercek veritabani dogrulamasi)
+
+- Docker acildi, `pnpm db:start` ve `pnpm db:reset`: 27 migrasyon ilk kez gercek Postgres'te hatasiz uygulandi. `pnpm db:test` ilk calismada 26 dosyanin 24'u kirikti; hepsi cozuldu, sonuc 26 dosya, 204 test yesil.
+- **Gercek uretim hatalari (testlerin ilk kez calismasiyla bulundu):**
+  1. `apply_test_ops` dort migrasyonda (013, 015, 016, 025) eski govdeden kopyalanip yeniden yazilmis; son tanim `questions_per_test` kotasini, `add_group`/`update_group` ve `upgrade_revision` islemlerini kaybetmisti. Editorde soru grubu ekleme ve guncel surume yukseltme calismazdi, kota denetlenmezdi. Duzeltme: `20250101000028_apply_test_ops_union.sql` (hepsinin birlesimi).
+  2. `comment_mentions` tablosu RLS'siz idi; giris yapmis herhangi bir kullanici tum kiracilarin mention satirlarini okuyabilirdi. Duzeltme: `20250101000029_comment_mentions_rls.sql` + capraz kiraci testi (`150_collaboration.sql`).
+  3. `submit_capture_question` icinde `workspace_id` sutun adi dönüs tablosuyla cakisiyordu ("ambiguous"); telefondan yakalama RPC'si calismazdi. Duzeltme: `#variable_conflict use_column` (migrasyon 027, hicbir gercek veritabanina uygulanmadigi icin yerinde duzenlendi).
+- Test altyapisi hatalari: `fx` gecici tablosuna ve `tests` semasina rol yetkisi yoktu; `throws_ok` 44 yerde yanlis imzayla (aciklama, hata mesaji konumunda) cagrilmisti, 4 argumanli biclime cevrildi (hata kodu belirtilmeyenlerde `null`, yani herhangi bir istisna kabul edilir; kod denetimi gerekirse sonradan sikilastirilabilir); icerik tablolarina servis rolu olmadan veri yazan testler duzeltildi; 190 ve 200 dosyalari hic calismamisti, sema uyusmazliklari giderildi.
+- `pnpm db:types` calisti, `packages/shared/src/database.types.ts` uretildi (yeni dosya, commit'lendi). Elle yazilan `lib/supabase/types.ts` ile degistirmek 60 tip hatasi uretti (Json ve string alanlari, enum yerine string); bu ayri bir refaktor, `docs/backlog.md`'ye yazildi. Mevcut dosya korundu.
+- CI'a `database` isi eklendi (supabase start, db reset, test db). GitHub Actions'ta henuz calistirilmadi, ilk PR'da dogrulanmali.
+- Dogrulama: typecheck 9/9, check:tenancy 45/45, db:test PASS.
 
 ### 2026-10-07 (yol haritasi)
 
@@ -64,7 +76,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Acik isler (oncelik sirasiyla)
 
-1. pgTAP (`pnpm db:test`): Docker Desktop acilip calistirilacak
+1. Faz 0 kalan: E2E auth/tohum fixture (bank, online-exam atlamalari), `database.types.ts`'e gecis refaktoru
 2. Erisilebilirlik (axe) testi
 3. Eksik E2E akislari: kayit, yapistir ve PDF, optik, odeme test modu
 4. Yuk testi (300 sinav katilimcisi, 50 editor)

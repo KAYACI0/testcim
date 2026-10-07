@@ -101,6 +101,7 @@ language plpgsql
 security definer
 set search_path = public
 as $$
+#variable_conflict use_column
 declare
   v_session public.capture_sessions;
   v_asset_id uuid;

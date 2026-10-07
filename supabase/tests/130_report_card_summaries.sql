@@ -2,6 +2,7 @@ begin;
 select plan(6);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-rcs@test.local')),
   ('owner_b', tests.create_user('owner-b-rcs@test.local'));
@@ -51,6 +52,7 @@ select throws_ok(
     (select id from fx where key = 'summary_a')
   ),
   '42501',
+  null::text,
   'cross-tenant: owner_b cannot approve ws_a''s summary'
 );
 
@@ -75,6 +77,7 @@ select throws_ok(
     gen_random_uuid()
   ),
   'P0001',
+  null::text,
   'approve_report_card_summary raises for an unknown summary id'
 );
 

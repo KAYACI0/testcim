@@ -443,6 +443,18 @@ söyler.
   yerel Postgres üzerinde çalıştırılamadı; SQL mantığı ve TypeScript birim testleri
   tamamlandı ve yeşildir.
 
+## Faz 0'dan kalanlar (2026-10-07)
+
+- **`lib/supabase/types.ts` hala elle yazilmis.** Gercek `database.types.ts` uretildi
+  (`pnpm db:types`) ama ona gecmek 60 tip hatasi uretiyor: `Json` alanlari (`apply_test_ops`
+  sonucu, `jobs.input`, sinav icerigi) ve enum yerine `string` donen sutunlar (durum, mod,
+  erisim). Her birine Zod ayristirma veya dar tip donusumu gerekiyor. Ayri bir refaktor
+  dilimi olmali; bittiginde elle yazilan dosya silinir.
+- **pgTAP `throws_ok` kontrolleri hata kodu belirtmiyor.** 44 cagri duzeltilirken kodu olmayanlar
+  `null` aldi (herhangi bir istisna gecer). Capraz kiraci testlerinde `42501` beklentisi
+  geri eklenerek sikilastirilmali.
+- **CI `database` isi** GitHub Actions'ta henuz calistirilmadi.
+
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 
 - Vektör PDF için ayrı bir Chromium servisi gerekir mi.

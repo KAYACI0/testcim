@@ -12,3 +12,4 @@ supabase/.temp/
 # Fixed source-of-truth documents; CLAUDE.md forbids modifying these.
 CLAUDE.md
 docs/
+packages/shared/src/database.types.ts

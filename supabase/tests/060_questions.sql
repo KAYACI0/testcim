@@ -2,6 +2,7 @@ begin;
 select plan(11);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-questions@test.local')),
   ('owner_b', tests.create_user('owner-b-questions@test.local'));
@@ -87,6 +88,8 @@ select throws_ok(
     (select id from fx where key = 'question_a'),
     (select id from fx where key = 'tag_a')
   ),
+  null::char(5),
+  null::text,
   'a question_tags row cannot claim a workspace_id its question does not belong to'
 );
 

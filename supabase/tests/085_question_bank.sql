@@ -7,6 +7,7 @@ begin;
 select plan(8);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-bank@test.local')),
   ('owner_b', tests.create_user('owner-b-bank@test.local'));
@@ -66,6 +67,8 @@ select throws_ok(
     $sql$insert into public.folders (workspace_id, kind, name) values (%L, 'questions', 'x')$sql$,
     (select id from fx where key = 'ws_a')
   ),
+  null::char(5),
+  null::text,
   'cross-tenant: owner_b cannot create a folder in ws_a'
 );
 -- apply_test_ops itself is workspace-scoped by test_id, so an outsider
@@ -77,6 +80,7 @@ select throws_ok(
     (select id from fx where key = 'item_a')
   ),
   '42501',
+  null::text,
   'cross-tenant: owner_b cannot call apply_test_ops against ws_a''s test'
 );
 
@@ -116,7 +120,10 @@ select is(
 
 -- A pinned item is left untouched by upgrade_revision (its question is
 -- deliberately locked to the printed revision).
+-- test_items is select-only for clients; pin it as the service role.
+select tests.as_service_role();
 update public.test_items set pinned = true where id = (select id from fx where key = 'item_a');
+select tests.as_user((select id from fx where key = 'owner_a'));
 update public.questions
 set stem_text = 'Bir üçgenin iç açıları toplamı 180 derece midir?'
 where id = (select id from fx where key = 'question_a');

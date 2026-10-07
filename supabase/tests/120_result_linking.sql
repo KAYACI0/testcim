@@ -2,6 +2,7 @@ begin;
 select plan(4);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-linking@test.local')),
   ('owner_b', tests.create_user('owner-b-linking@test.local'));
@@ -64,6 +65,7 @@ select throws_ok(
     (select id from fx where key = 'ws_a')
   ),
   '42501',
+  null::text,
   'cross-tenant: owner_b cannot call link_attempts_to_students for ws_a'
 );
 
@@ -75,6 +77,7 @@ select throws_ok(
     (select id from fx where key = 'student_a')
   ),
   'P0001',
+  null::text,
   'cross-tenant: owner_b cannot link ws_a''s student into a ws_b-scoped call'
 );
 

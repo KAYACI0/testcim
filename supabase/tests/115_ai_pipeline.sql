@@ -2,6 +2,7 @@ begin;
 select plan(11);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-ai-pipeline@test.local')),
   ('owner_b', tests.create_user('owner-b-ai-pipeline@test.local'));
@@ -12,6 +13,8 @@ insert into fx (key, id) select 'ws_b', tests.create_workspace((select id from f
 select tests.as_user((select id from fx where key = 'owner_b'));
 select throws_ok(
   format($sql$select public.refund_credits(%L, 5, 'test-refund')$sql$, (select id from fx where key = 'ws_a')),
+  null::char(5),
+  null::text,
   'refund_credits: a non-member cannot refund credits into another workspace'
 );
 
@@ -33,6 +36,8 @@ select is(
 select tests.as_user((select id from fx where key = 'owner_b'));
 select throws_ok(
   format($sql$select public.create_ai_job(%L, 'generate_questions', '{}'::jsonb)$sql$, (select id from fx where key = 'ws_a')),
+  null::char(5),
+  null::text,
   'create_ai_job: a non-member cannot create a job in another workspace'
 );
 
@@ -60,6 +65,8 @@ select throws_ok(
     $sql$select public.complete_ai_job(%L, '{}'::jsonb, 'claude-opus-5', 100, 50, 1200, 1)$sql$,
     (select id from fx where key = 'job_a')
   ),
+  null::char(5),
+  null::text,
   'complete_ai_job: a non-member cannot complete another workspace''s job'
 );
 
@@ -87,6 +94,8 @@ select 'job_a2', public.create_ai_job((select id from fx where key = 'ws_a'), 'g
 select tests.as_user((select id from fx where key = 'owner_b'));
 select throws_ok(
   format($sql$select public.fail_ai_job(%L, 'boom')$sql$, (select id from fx where key = 'job_a2')),
+  null::char(5),
+  null::text,
   'fail_ai_job: a non-member cannot fail another workspace''s job'
 );
 

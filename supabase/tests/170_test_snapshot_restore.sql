@@ -2,6 +2,7 @@ begin;
 select plan(7);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-restore@test.local')),
   ('editor_a', tests.create_user('editor-a-restore@test.local')),
@@ -73,14 +74,18 @@ select is(
 select tests.as_user((select id from fx where key = 'editor_a'));
 select throws_ok(
   format($sql$select public.restore_test_snapshot(%L, 2)$sql$, (select id from fx where key = 'test_a')),
-  '42501', 'an editor cannot restore a snapshot'
+  '42501',
+  null::text,
+  'an editor cannot restore a snapshot'
 );
 
 -- owner_b cannot restore ws_a's test.
 select tests.as_user((select id from fx where key = 'owner_b'));
 select throws_ok(
   format($sql$select public.restore_test_snapshot(%L, 2)$sql$, (select id from fx where key = 'test_a')),
-  '42501', 'cross-tenant: owner_b cannot restore ws_a''s snapshot'
+  '42501',
+  null::text,
+  'cross-tenant: owner_b cannot restore ws_a''s snapshot'
 );
 
 -- owner_a restores revision 2 (the item existed).

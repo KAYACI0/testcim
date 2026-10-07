@@ -2,6 +2,7 @@ begin;
 select plan(9);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-tests@test.local')),
   ('owner_b', tests.create_user('owner-b-tests@test.local'));
@@ -36,6 +37,8 @@ select throws_ok(
     (select id from fx where key = 'ws_a'), (select id from fx where key = 'test_a'),
     (select id from fx where key = 'question_a'), (select id from fx where key = 'question_revision_a')
   ),
+  null::char(5),
+  null::text,
   'direct insert into test_items is blocked; only apply_test_ops may write it'
 );
 
@@ -89,6 +92,8 @@ select throws_ok(
     $sql$select public.apply_test_ops(%L, 3, '[]'::jsonb)$sql$,
     (select id from fx where key = 'test_a')
   ),
+  null::char(5),
+  null::text,
   'apply_test_ops: a non-member cannot call it against ws_a''s test'
 );
 

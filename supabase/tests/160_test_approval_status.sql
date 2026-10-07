@@ -2,6 +2,7 @@ begin;
 select plan(5);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-approval@test.local')),
   ('editor_a', tests.create_user('editor-a-approval@test.local')),
@@ -32,7 +33,9 @@ select is(
 
 select throws_ok(
   format($sql$select public.set_test_approval_status(%L, 'approved')$sql$, (select id from fx where key = 'test_a')),
-  '42501', 'an editor cannot approve a test'
+  '42501',
+  null::text,
+  'an editor cannot approve a test'
 );
 
 select tests.as_user((select id from fx where key = 'owner_a'));
@@ -45,7 +48,9 @@ select is(
 select tests.as_user((select id from fx where key = 'owner_b'));
 select throws_ok(
   format($sql$select public.set_test_approval_status(%L, 'in_review')$sql$, (select id from fx where key = 'test_a')),
-  '42501', 'cross-tenant: owner_b cannot change ws_a''s test approval status'
+  '42501',
+  null::text,
+  'cross-tenant: owner_b cannot change ws_a''s test approval status'
 );
 
 select * from finish();

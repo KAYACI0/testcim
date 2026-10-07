@@ -2,6 +2,7 @@ begin;
 select plan(4);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-omr@test.local')),
   ('owner_b', tests.create_user('owner-b-omr@test.local'));
@@ -46,6 +47,8 @@ select throws_ok(
     $sql$insert into public.omr_scans (workspace_id, session_id, answers) values (%L, %L, '{}'::jsonb)$sql$,
     (select id from fx where key = 'ws_a'), (select id from fx where key = 'session_a')
   ),
+  null::char(5),
+  null::text,
   'cross-tenant: owner_b cannot insert an omr_scan into ws_a'
 );
 

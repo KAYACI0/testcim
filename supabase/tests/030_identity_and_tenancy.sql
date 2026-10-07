@@ -2,6 +2,7 @@ begin;
 select plan(13);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a@test.local')),
@@ -37,6 +38,8 @@ select throws_ok(
     (select id from fx where key = 'ws_a'),
     (select id from fx where key = 'owner_b')
   ),
+  null::char(5),
+  null::text,
   'cross-tenant insert: owner_b cannot add themself to workspace A'
 );
 
@@ -65,6 +68,8 @@ select throws_ok(
     $sql$insert into public.workspace_members (workspace_id, user_id, role) values (%L, gen_random_uuid(), 'viewer')$sql$,
     (select id from fx where key = 'ws_a')
   ),
+  null::char(5),
+  null::text,
   'role matrix: viewer cannot add members'
 );
 
@@ -74,6 +79,8 @@ select throws_ok(
     $sql$insert into public.workspace_members (workspace_id, user_id, role) values (%L, gen_random_uuid(), 'viewer')$sql$,
     (select id from fx where key = 'ws_a')
   ),
+  null::char(5),
+  null::text,
   'role matrix: editor cannot add members'
 );
 
@@ -108,6 +115,7 @@ select throws_ok(
     (select id from fx where key = 'owner_a')
   ),
   'P0001',
+  null::text,
   'last owner cannot be removed from a workspace'
 );
 

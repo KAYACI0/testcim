@@ -2,6 +2,7 @@ begin;
 select plan(9);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-reports@test.local')),
   ('owner_b', tests.create_user('owner-b-reports@test.local'));
@@ -58,6 +59,8 @@ with t as (
 )
 insert into fx (key, id) select 'test_a', id from t;
 
+-- test_items is select-only for clients; seed it as the service role.
+select tests.as_service_role();
 with ti as (
   insert into public.test_items (workspace_id, test_id, question_id, question_revision_id, position)
   values (
@@ -70,6 +73,7 @@ with ti as (
   returning id
 )
 insert into fx (key, id) select 'item_a', id from ti;
+select tests.as_user((select id from fx where key = 'owner_a'));
 
 with e as (
   insert into public.online_exams (workspace_id, test_id, title, mode, access, slug)
@@ -135,15 +139,21 @@ select tests.as_user((select id from fx where key = 'owner_b'));
 
 select throws_ok(
   format($sql$select public.get_class_report(%L, %L)$sql$, (select id from fx where key = 'ws_a'), (select id from fx where key = 'class_a')),
-  '42501', 'cross-tenant: owner_b cannot call get_class_report for ws_a'
+  '42501',
+  null::text,
+  'cross-tenant: owner_b cannot call get_class_report for ws_a'
 );
 select throws_ok(
   format($sql$select public.get_outcome_report(%L, %L)$sql$, (select id from fx where key = 'ws_a'), (select id from fx where key = 'class_a')),
-  '42501', 'cross-tenant: owner_b cannot call get_outcome_report for ws_a'
+  '42501',
+  null::text,
+  'cross-tenant: owner_b cannot call get_outcome_report for ws_a'
 );
 select throws_ok(
   format($sql$select public.get_weak_topics(%L, %L)$sql$, (select id from fx where key = 'ws_a'), (select id from fx where key = 'class_a')),
-  '42501', 'cross-tenant: owner_b cannot call get_weak_topics for ws_a'
+  '42501',
+  null::text,
+  'cross-tenant: owner_b cannot call get_weak_topics for ws_a'
 );
 
 select * from finish();

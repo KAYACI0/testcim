@@ -1,7 +1,8 @@
 begin;
-select plan(14);
+select plan(15);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-cap@test.local')),
   ('owner_b', tests.create_user('owner-b-cap@test.local'));
@@ -9,20 +10,17 @@ insert into fx (key, id) select 'ws_a', tests.create_workspace((select id from f
 insert into fx (key, id) select 'ws_b', tests.create_workspace((select id from fx where key = 'owner_b'), 'WS B Capture');
 
 -- Create a test in WS A
-insert into fx (key, id)
-select 'test_a', id from public.tests
-where id = (
-  insert into public.tests (workspace_id, created_by, title)
-  values ((select id from fx where key = 'ws_a'), (select id from fx where key = 'owner_a'), 'Test A Math')
+with t as (
+  insert into public.tests (workspace_id, created_by, title, type)
+  values ((select id from fx where key = 'ws_a'), (select id from fx where key = 'owner_a'), 'Test A Math', 'test_paper')
   returning id
-);
+)
+insert into fx (key, id) select 'test_a', id from t;
 
 -- 1. Create a capture session for phone
 select tests.as_user((select id from fx where key = 'owner_a'));
 
-insert into fx (key, id)
-select 'sess_1', id from public.capture_sessions
-where id = (
+with s as (
   insert into public.capture_sessions (workspace_id, test_id, created_by, token_hash, device_type, expires_at)
   values (
     (select id from fx where key = 'ws_a'),
@@ -33,7 +31,8 @@ where id = (
     now() + interval '15 minutes'
   )
   returning id
-);
+)
+insert into fx (key, id) select 'sess_1', id from s;
 
 select is((select count(*)::int from public.capture_sessions where id = (select id from fx where key = 'sess_1')), 1, 'session created in ws_a');
 

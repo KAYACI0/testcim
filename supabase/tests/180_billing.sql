@@ -2,6 +2,7 @@ begin;
 select plan(20);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-billing2@test.local')),
   ('owner_b', tests.create_user('owner-b-billing2@test.local'));
@@ -63,14 +64,18 @@ select is((public.redeem_coupon((select id from fx where key = 'ws_b'), 'DENEME1
 select is((select plan_id from public.workspaces where id = (select id from fx where key = 'ws_b')), 'plus', 'trial grants the coupon plan');
 select throws_ok(
   format($sql$select public.redeem_coupon(%L, 'deneme14')$sql$, (select id from fx where key = 'ws_b')),
-  'P0001', 'the same workspace cannot redeem twice'
+  'P0001',
+  null::text,
+  'the same workspace cannot redeem twice'
 );
 
 -- Cross-tenant: owner_b cannot see or write ws_a billing data.
 select is((select count(*)::int from public.billing_invoices where workspace_id = (select id from fx where key = 'ws_a')), 0, 'cross-tenant: invoices hidden');
 select throws_ok(
   format($sql$select public.redeem_coupon(%L, 'deneme14')$sql$, (select id from fx where key = 'ws_a')),
-  '42501', 'cross-tenant: cannot redeem for another workspace'
+  '42501',
+  null::text,
+  'cross-tenant: cannot redeem for another workspace'
 );
 
 select * from finish();

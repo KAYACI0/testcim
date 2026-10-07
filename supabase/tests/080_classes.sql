@@ -2,6 +2,7 @@ begin;
 select plan(9);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-classes@test.local')),
   ('owner_b', tests.create_user('owner-b-classes@test.local'));
@@ -44,6 +45,8 @@ select throws_ok(
     (select id from fx where key = 'class_a'),
     (select id from fx where key = 'student_b')
   ),
+  null::char(5),
+  null::text,
   'class_students rejects a student from a different workspace than declared'
 );
 
@@ -86,6 +89,7 @@ select throws_ok(
     (select id from fx where key = 'class_a')
   ),
   '42501',
+  null::text,
   'cross-tenant: owner_b cannot import students into ws_a''s class'
 );
 
@@ -96,6 +100,7 @@ select throws_ok(
     (select id from fx where key = 'student_a')
   ),
   '42501',
+  null::text,
   'cross-tenant: owner_b cannot bulk_delete_students in ws_a'
 );
 

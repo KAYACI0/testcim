@@ -1,7 +1,8 @@
 begin;
-select plan(8);
+select plan(9);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-collab@test.local')),
   ('editor_a', tests.create_user('editor-a-collab@test.local')),
@@ -36,7 +37,9 @@ select throws_ok(
     (select id from fx where key = 'ws_a'),
     (select id from fx where key = 'editor_a')
   ),
-  '42501', 'a comment insert cannot claim a different author_id than the caller'
+  '42501',
+  null::text,
+  'a comment insert cannot claim a different author_id than the caller'
 );
 
 select public.notify_comment_mentions(
@@ -67,13 +70,19 @@ select is(
   (select count(*)::int from public.comments where workspace_id = (select id from fx where key = 'ws_a')),
   0, 'cross-tenant: owner_b cannot see ws_a comments'
 );
+select is(
+  (select count(*)::int from public.comment_mentions where comment_id = (select id from fx where key = 'comment_a')),
+  0, 'cross-tenant: owner_b cannot see ws_a comment_mentions'
+);
 select throws_ok(
   format(
     $sql$select public.notify_comment_mentions(%L, %L, array[]::uuid[])$sql$,
     (select id from fx where key = 'ws_a'),
     (select id from fx where key = 'comment_a')
   ),
-  '42501', 'cross-tenant: owner_b cannot call notify_comment_mentions for ws_a'
+  '42501',
+  null::text,
+  'cross-tenant: owner_b cannot call notify_comment_mentions for ws_a'
 );
 
 select tests.as_user((select id from fx where key = 'owner_a'));

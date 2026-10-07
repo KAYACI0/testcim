@@ -2,6 +2,7 @@ begin;
 select plan(9);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-billing@test.local')),
   ('owner_b', tests.create_user('owner-b-billing@test.local'));
@@ -38,6 +39,7 @@ select is(
 select throws_ok(
   format($sql$select public.increment_usage(%L, 'pdf_exports_per_month', 1)$sql$, (select id from fx where key = 'ws_a')),
   'P0001',
+  null::text,
   'increment_usage: exceeding the limit raises usage_limit_exceeded'
 );
 
@@ -56,6 +58,7 @@ select is(
 select throws_ok(
   format($sql$select public.spend_credits(%L, 5, 'test-spend')$sql$, (select id from fx where key = 'ws_a')),
   'P0001',
+  null::text,
   'spend_credits: insufficient balance raises insufficient_credits'
 );
 

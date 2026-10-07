@@ -5,6 +5,7 @@ begin;
 select plan(8);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values ('owner_a', tests.create_user('owner-a-exam-rt@test.local'));
 insert into fx (key, id) select 'ws_a', tests.create_workspace((select id from fx where key = 'owner_a'), 'WS A ERT');
 
@@ -87,6 +88,8 @@ select throws_ok(
     (select id from fx where key = 'ws_a'), (select id from fx where key = 'exam_a'),
     (select id from fx where key = 'question_a'), (select id from fx where key = 'question_revision_a')
   ),
+  null::char(5),
+  null::text,
   'cross-tenant: owner_c cannot publish an item into ws_a'
 );
 

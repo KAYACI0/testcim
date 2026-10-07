@@ -2,6 +2,7 @@ begin;
 select plan(8);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-misc@test.local')),
   ('owner_b', tests.create_user('owner-b-misc@test.local'));
@@ -26,6 +27,8 @@ select is(
 );
 select throws_ok(
   $$insert into public.jobs (kind) values ('x')$$,
+  null::char(5),
+  null::text,
   'jobs: no authenticated user can insert (system-only table)'
 );
 
@@ -49,6 +52,8 @@ select throws_ok(
     $sql$insert into public.feedback (workspace_id, user_id, body) values (%L, %L, 'x')$sql$,
     (select id from fx where key = 'ws_b'), (select id from fx where key = 'owner_a')
   ),
+  null::char(5),
+  null::text,
   'feedback: cannot submit feedback for a workspace you are not a member of'
 );
 

@@ -2,6 +2,7 @@ begin;
 select plan(6);
 
 create temporary table fx (key text primary key, id uuid);
+grant all on fx to anon, authenticated, service_role;
 insert into fx (key, id) values
   ('owner_a', tests.create_user('owner-a-rich@test.local')),
   ('owner_b', tests.create_user('owner-b-rich@test.local'));
@@ -62,6 +63,8 @@ select throws_ok(
     $sql$insert into public.test_groups (workspace_id, test_id, passage_rich) values (%L, %L, '{}'::jsonb)$sql$,
     (select id from fx where key = 'ws_a'), (select id from fx where key = 'test_a')
   ),
+  null::char(5),
+  null::text,
   'direct insert into test_groups is blocked; only apply_test_ops may write it'
 );
 
@@ -73,6 +76,8 @@ select throws_ok(
     $sql$select public.apply_test_ops(%L, 3, jsonb_build_array(jsonb_build_object('type', 'add_group', 'group_id', gen_random_uuid())))$sql$,
     (select id from fx where key = 'test_a')
   ),
+  null::char(5),
+  null::text,
   'apply_test_ops: a non-member cannot add_group against ws_a''s test'
 );
 
