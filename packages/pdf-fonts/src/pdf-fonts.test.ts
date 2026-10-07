@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { readPdfFontBytes } from './node';
 
-import { PDF_FONT_FILES, embedPdfFonts, fetchPdfFontBytes } from './index';
+import { PDF_FONT_FILES, createTextMeasure, embedPdfFonts, fetchPdfFontBytes } from './index';
 
 const TURKISH = 'ığşİĞŞçÇöÖüÜâîû';
 
@@ -77,5 +77,28 @@ describe('fetchPdfFontBytes', () => {
     await expect(
       fetchPdfFontBytes('/fonts/', fetchMock as unknown as typeof fetch),
     ).rejects.toThrow(/pdf_font_load_failed_/);
+  });
+});
+
+describe('createTextMeasure', () => {
+  it('measures with the embedded font: proportional to size, wider when bolder, zero when empty', async () => {
+    const measure = createTextMeasure(await readPdfFontBytes());
+
+    expect(measure('', 10)).toBe(0);
+    const small = measure('Çağlayan Şükrü', 10);
+    expect(small).toBeGreaterThan(10);
+    expect(measure('Çağlayan Şükrü', 20)).toBeCloseTo(small * 2, 6);
+    expect(measure('Çağlayan Şükrü', 10, 'semibold')).toBeGreaterThan(small);
+  });
+
+  it('agrees with pdf-lib about the width of the same text', async () => {
+    const bytes = await readPdfFontBytes();
+    const measure = createTextMeasure(bytes);
+    const doc = await PDFDocument.create();
+    const fonts = await embedPdfFonts(doc, bytes);
+
+    const text = 'Öğrenci Karnesi - İlkbahar Yazılısı';
+    const pdfLibMm = (fonts.regular.widthOfTextAtSize(text, 12) * 25.4) / 72;
+    expect(Math.abs(measure(text, 12) - pdfLibMm)).toBeLessThan(0.01);
   });
 });

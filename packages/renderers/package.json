@@ -13,7 +13,9 @@
   },
   "devDependencies": {
     "typescript": "6.0.3",
-    "vitest": "5.0.2"
+    "vitest": "5.0.2",
+    "fast-check": "4.10.2",
+    "pdfjs-dist": "^6.3.289"
   },
   "dependencies": {
     "@testcim/layout-engine": "workspace:*",

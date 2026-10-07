@@ -60,3 +60,31 @@ export async function fetchPdfFontBytes(
 
   return Object.fromEntries(loaded) as PdfFontBytes;
 }
+
+const MM_PER_PT = 25.4 / 72;
+
+/** Width in millimetres of a single line of text at a size in points. */
+export type TextMeasure = (text: string, sizePt: number, weight?: PdfFontWeight) => number;
+
+interface MeasuringFont {
+  readonly unitsPerEm: number;
+  layout(text: string): { readonly glyphs: readonly { readonly advanceWidth: number }[] };
+}
+
+/**
+ * Measures text with the very font that gets embedded, so line breaks decided at layout
+ * time hold when the PDF is drawn. Works in a browser and in Node alike, with no canvas.
+ */
+export function createTextMeasure(bytes: PdfFontBytes): TextMeasure {
+  const fonts = Object.fromEntries(
+    WEIGHTS.map((weight) => [weight, fontkit.create(bytes[weight]) as unknown as MeasuringFont]),
+  ) as Record<PdfFontWeight, MeasuringFont>;
+
+  return (text, sizePt, weight = 'regular') => {
+    const font = fonts[weight];
+    // Sum of glyph advances, like pdf-lib: PDF text is drawn without pair kerning, so the
+    // measured width has to match what gets drawn, not what a shaping engine would give.
+    const units = font.layout(text).glyphs.reduce((total, glyph) => total + glyph.advanceWidth, 0);
+    return (units / font.unitsPerEm) * sizePt * MM_PER_PT;
+  };
+}

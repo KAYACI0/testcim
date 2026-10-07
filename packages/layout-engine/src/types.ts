@@ -43,18 +43,32 @@ export interface LayoutWarning {
   readonly itemIds: readonly string[];
 }
 
+export type HeaderPreset = 'classic' | 'modern' | 'minimal';
+
+/**
+ * Display text only. The caller composes and localizes every string, so neither the
+ * engine nor the renderers know a language; they only place and draw what they are given.
+ */
 export interface LayoutHeader {
-  readonly institution?: string;
-  readonly subject?: string;
-  readonly className?: string;
-  readonly date?: string;
-  readonly studentInfoBox: boolean;
-  readonly instructions?: string;
+  readonly preset: HeaderPreset;
+  readonly schoolName: string;
+  /** The line under the school name, e.g. term, subject, class and title. */
+  readonly metaLine: string;
+  /** Short facts such as the teacher and the duration, shown beside or under the meta line. */
+  readonly detailLines: readonly string[];
+  readonly instructions: string;
+  /** Write-in fields the student fills in, as localized labels (name, class and number, score). */
+  readonly studentFields: readonly string[];
+  /** The one line shown on every page after the first. */
+  readonly compactLine: string;
+  readonly bookletCode: string | null;
 }
 
 export interface LayoutFooter {
-  readonly showPageNumber: boolean;
-  readonly brandingLine?: string;
+  /** Left side, e.g. the product line; empty hides it. */
+  readonly brandingLine: string;
+  /** Right side with `{page}` and `{total}`, e.g. "Sayfa {page} / {total}"; empty hides it. */
+  readonly pageLabel: string;
 }
 
 export interface LayoutWatermark {
@@ -69,11 +83,28 @@ export interface LayoutWatermark {
  * this document; layout logic never lives inside a renderer. One document is one
  * booklet version.
  */
+export interface LayoutMetrics {
+  readonly columns: number;
+  readonly marginsMm: {
+    readonly top: number;
+    readonly bottom: number;
+    readonly left: number;
+    readonly right: number;
+  };
+  readonly columnGapMm: number;
+  readonly questionGapMm: number;
+  readonly headerHeightMm: number;
+  readonly continuationHeaderHeightMm: number;
+  readonly footerHeightMm: number;
+}
+
 export interface LayoutDocument {
   readonly pageSize: PageSize;
   readonly orientation: PageOrientation;
   readonly widthMm: number;
   readonly heightMm: number;
+  /** The page frame the blocks were placed in; renderers need it for header, footer and dividers. */
+  readonly metrics: LayoutMetrics;
   readonly pageColor?: string;
   readonly watermark?: LayoutWatermark;
   readonly header?: LayoutHeader;
