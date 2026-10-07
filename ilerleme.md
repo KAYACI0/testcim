@@ -6,24 +6,24 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Dilim 15 (sertlestirme ve yayin), tum testleri tek tek calistirip duzeltme
+- Odak: Dilim 15 (sertlestirme ve yayin). Faz 0 E2E fixture'i tamam, sirada Faz 1 (Turkce font, genel PDF yerlesim motoru)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
 
-| #   | Test                 | Komut                                  | Durum | Not                                                                                       |
-| :-- | :------------------- | :------------------------------------- | :---- | :---------------------------------------------------------------------------------------- |
-| 1   | Biçim                | `pnpm format:check`                    | gecti | 4 onceden kalan dosya prettier ile duzeltildi (omr, karne dugmesi)                        |
-| 2   | Tip denetimi         | `pnpm typecheck`                       | gecti | 9/9                                                                                       |
-| 3   | Lint                 | `pnpm lint`                            | gecti |                                                                                           |
-| 4   | Tasarim kurallari    | `pnpm check:design`                    | gecti | 364 dosya                                                                                 |
-| 5   | Kiraci testi varligi | `pnpm check:tenancy`                   | gecti | 45/45 tablo                                                                               |
-| 6   | Birim testleri       | `pnpm test --force`                    | gecti | 9/9 paket, 357 test (onbelleksiz)                                                         |
-| 7   | Uretim derlemesi     | `pnpm build`                           | gecti |                                                                                           |
-| 8   | Paket butcesi        | `pnpm check:budget`                    | gecti | en buyuk parca 1414 KB                                                                    |
-| 9   | Bagimlilik denetimi  | `pnpm audit --prod --audit-level high` | gecti |                                                                                           |
-| 10  | E2E (Playwright)     | `pnpm test:e2e`                        | gecti | 6 gecti, 2 atlandi (auth fixture yok: bank, online-exam). Asagidaki duzeltmelerden sonra  |
-| 11  | pgTAP                | `pnpm db:test`                         | gecti | 2026-10-07: 26 dosya, 204 test, gercek Postgres'te (asagidaki Faz 0 kaydi). Docker acildi |
+| #   | Test                 | Komut                                  | Durum | Not                                                                                                  |
+| :-- | :------------------- | :------------------------------------- | :---- | :--------------------------------------------------------------------------------------------------- |
+| 1   | Biçim                | `pnpm format:check`                    | gecti | 4 onceden kalan dosya prettier ile duzeltildi (omr, karne dugmesi)                                   |
+| 2   | Tip denetimi         | `pnpm typecheck`                       | gecti | 9/9                                                                                                  |
+| 3   | Lint                 | `pnpm lint`                            | gecti |                                                                                                      |
+| 4   | Tasarim kurallari    | `pnpm check:design`                    | gecti | 364 dosya                                                                                            |
+| 5   | Kiraci testi varligi | `pnpm check:tenancy`                   | gecti | 45/45 tablo                                                                                          |
+| 6   | Birim testleri       | `pnpm test --force`                    | gecti | 9/9 paket, 357 test (onbelleksiz)                                                                    |
+| 7   | Uretim derlemesi     | `pnpm build`                           | gecti |                                                                                                      |
+| 8   | Paket butcesi        | `pnpm check:budget`                    | gecti | en buyuk parca 1414 KB                                                                               |
+| 9   | Bagimlilik denetimi  | `pnpm audit --prod --audit-level high` | gecti |                                                                                                      |
+| 10  | E2E (Playwright)     | `pnpm test:e2e`                        | gecti | 2026-10-07: 8 gecti, 0 atlandi. bank ve online-exam artik yerel Supabase'te gercek girisle calisiyor |
+| 11  | pgTAP                | `pnpm db:test`                         | gecti | 2026-10-07: 26 dosya, 205 test, gercek Postgres'te                                                   |
 
 ### Bu turda bulunan ve duzeltilen hatalar
 
@@ -39,6 +39,19 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 0: E2E kimlik ve tohum fixture'i)
+
+- `bank.spec.ts` ve `online-exam.spec.ts` icindeki `test.skip` kaldirildi, iki test gercek akislarla yeniden yazildi.
+- Fixture: `apps/web/e2e/support/local-supabase.ts` (servis rolu ile kullanici, calisma alani, 30 soru, acik sinav tohumu) ve `fixtures.ts` (gercek giris formundan oturum acan `teacherPage`). Her test kendi kullanicisini olusturur ve siler.
+- Guvenlik: `apps/web/.env.local` UZAK Supabase projesini gosteriyor. Fixture yalnizca `127.0.0.1` / `localhost` kabul eder, aksi halde hata verir. Playwright artik 3100 portunda ayri bir dev sunucusu baslatir ve yerel Supabase anahtarlarini ortama verir; normal `pnpm dev` sunucusu asla yeniden kullanilmaz.
+- **Gercek uretim hatalari (E2E ile bulundu):**
+  1. `/s/[slug]` (anonim ogrenci akisi) `PUBLIC_PATHS` icinde degildi: girisi olmayan ogrenci `/login`'e yonlendiriliyordu, cevrimici sinav hic calismiyordu. `lib/supabase/proxy.ts` duzeltildi.
+  2. `attempt_answers.item_id` `test_items`'e bagliydi, calisma zamani ise `online_exam_items.id` yaziyordu: her cevap kaydi yabanci anahtar hatasiyla reddediliyor, her ogrenci 0 puan aliyordu. Rapor RPC'leri (`get_class_report`, `get_outcome_report`, `get_weak_topics`) de `test_items`'e baglaniyordu. Duzeltme: `20250101000030_attempt_answers_online_exam_items.sql`; pgTAP 140 tohumu `online_exam_items` kullaniyor ve yabanci anahtari dogrulayan bir test eklendi.
+  3. `next.config.ts` `allowedDevOrigins` yoktu: `127.0.0.1` ile acilan dev sayfasinda istemci bilesenleri hidrasyon almiyordu (ilerleme notundaki "allowedDevOrigins uyarisi" aslinda isleve zarar veriyordu).
+- CI `e2e` isine Supabase CLI kurulumu, `supabase start` ve `supabase db reset` eklendi (henuz GitHub Actions'ta calistirilmadi).
+- Dogrulama: E2E 8/8, pgTAP 205/205, check:design temiz, check:tenancy 45/45, kendi dosyalarimda typecheck ve lint temiz.
+- **Bilinen kirik (bu isten bagimsiz):** `polar-provider.ts`, `polar-provider.test.ts` (izlenmeyen) ve `env.test.ts` (degismis) yarim kalmis bir Polar calismasina ait. `pnpm typecheck`, `pnpm lint`, `pnpm format:check` ve web birim testlerinde (`env.test.ts`, `POLAR_*` alanlari `env.ts`'te yok) hata veriyor. Bu commit'e dahil edilmedi.
 
 ### 2026-10-07 (Faz 0: gercek veritabani dogrulamasi)
 
@@ -76,7 +89,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Acik isler (oncelik sirasiyla)
 
-1. Faz 0 kalan: E2E auth/tohum fixture (bank, online-exam atlamalari), `database.types.ts`'e gecis refaktoru
+1. Faz 0 kalan: `database.types.ts`'e gecis refaktoru, yarim kalan Polar calismasinin tamamlanmasi (typecheck/lint kirik)
 2. Erisilebilirlik (axe) testi
 3. Eksik E2E akislari: kayit, yapistir ve PDF, optik, odeme test modu
 4. Yuk testi (300 sinav katilimcisi, 50 editor)

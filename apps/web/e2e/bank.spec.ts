@@ -1,38 +1,86 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './support/fixtures';
+import { seedQuestions } from './support/local-supabase';
 
-// docs/prompts/08 acceptance: "30 soru bankaya düşür → klasörle → etiketle →
-// ara → bankadan yeni teste ekle". Skipped: like every other authenticated
-// flow in this repo (Prompts 04/06/07 have the same gap — see
-// docs/backlog.md), there is no CI/local fixture yet that signs in a test
-// user and seeds a workspace with real Supabase auth+RLS in place; the
-// smoke tests in this directory only cover unauthenticated routes. Once
-// that fixture exists (e.g. a `test.beforeAll` that creates a user +
-// workspace via the service role and reuses `storageState`), un-skip this
-// and point `testId` at a freshly created test in the same workspace.
-test.skip('30 soru bankaya düşür, klasörle, etiketle, ara, teste ekle', async ({ page }) => {
+// docs/prompts/08 acceptance: 30 questions in the bank, organise them into a
+// folder, tag them, search, then add them to a test. Runs against the local
+// Supabase stack through the real login form (see support/fixtures.ts).
+const TRIANGLE_COUNT = 6;
+
+test('bankada 30 soru: klasörle, etiketle, ara, teste ekle', async ({
+  admin,
+  teacher,
+  teacherPage: page,
+}) => {
+  await seedQuestions(admin, teacher, 30, (index) =>
+    index < TRIANGLE_COUNT ? `Üçgen sorusu ${index + 1}` : `Dörtgen sorusu ${index + 1}`,
+  );
+  const { data: test } = await admin
+    .from('tests')
+    .insert({
+      workspace_id: teacher.workspaceId,
+      created_by: teacher.userId,
+      title: 'Geometri denemesi',
+      type: 'exam',
+    })
+    .select('id')
+    .single();
+
   await page.goto('/bank');
-
-  // Bankaya düşürme: bu senaryoda 30 soru zengin editörle önceden
-  // oluşturulmuş olmalı (rich-editor "Bankaya kaydet" gerektirmeden testin
-  // Gelen kutusu'na düşer — Prompt 04/07 akışı).
   await expect(page.getByRole('button', { name: 'Yeni klasör' })).toBeVisible();
 
-  // Klasörle.
+  // Search narrows the list to the triangle questions.
+  await page.getByPlaceholder('Soru metninde ara').first().fill('üçgen');
+  await expect(page.getByRole('button', { name: /Üçgen sorusu/ })).toHaveCount(TRIANGLE_COUNT);
+  await expect(page.getByRole('button', { name: /Dörtgen sorusu/ })).toHaveCount(0);
+
+  // Select all results and tag them with a new tag.
+  await page.getByRole('checkbox', { name: 'Tümünü seç' }).check();
+  await expect(page.getByText(`${TRIANGLE_COUNT} soru seçili`)).toBeVisible();
+  await page.getByPlaceholder('Yeni etiket adı, Enter ile ekle').fill('deneme-2026');
+  await page.getByPlaceholder('Yeni etiket adı, Enter ile ekle').press('Enter');
+  await expect
+    .poll(async () => {
+      const { count } = await admin
+        .from('question_tags')
+        .select('question_id', { count: 'exact', head: true })
+        .eq('workspace_id', teacher.workspaceId);
+      return count;
+    })
+    .toBe(TRIANGLE_COUNT);
+
+  // Add the selection to the existing test.
+  await page.getByRole('button', { name: 'Teste ekle' }).click();
+  const addDialog = page.getByRole('dialog');
+  await addDialog.getByRole('button', { name: 'Teste ekle' }).click();
+  await expect(addDialog.getByText(`${TRIANGLE_COUNT} soru eklendi`)).toBeVisible();
+  await addDialog.getByRole('button', { name: 'Kapat' }).click();
+
+  // Folder: create it, then move the selection into it.
   await page.getByRole('button', { name: 'Yeni klasör' }).click();
   await page.getByPlaceholder('Klasör adı').fill('Geometri');
   await page.getByPlaceholder('Klasör adı').press('Enter');
   await expect(page.getByRole('button', { name: 'Geometri' })).toBeVisible();
 
-  // Etiketle (toplu seçim + yeni etiket).
-  await page.getByRole('checkbox', { name: 'Soruyu seç' }).first().check();
-  await page.getByPlaceholder('Yeni etiket adı, Enter ile ekle').fill('deneme-2026');
-  await page.getByPlaceholder('Yeni etiket adı, Enter ile ekle').press('Enter');
+  await page.getByRole('button', { name: 'Klasöre taşı' }).click();
+  const moveDialog = page.getByRole('dialog');
+  await moveDialog.getByRole('button', { name: 'Gelen kutusu' }).click();
+  await page.getByRole('option', { name: 'Geometri' }).click();
+  await moveDialog.getByRole('button', { name: 'Klasöre taşı' }).click();
 
-  // Ara.
-  await page.getByPlaceholder('Soru metninde ara').fill('üçgen');
-  await expect(page.getByText('üçgen', { exact: false }).first()).toBeVisible();
+  await expect
+    .poll(async () => {
+      const { count } = await admin
+        .from('questions')
+        .select('id', { count: 'exact', head: true })
+        .eq('workspace_id', teacher.workspaceId)
+        .not('folder_id', 'is', null);
+      return count;
+    })
+    .toBe(TRIANGLE_COUNT);
 
-  // Bankadan yeni teste ekle.
-  await page.getByRole('checkbox', { name: 'Soruyu seç' }).first().check();
-  await page.getByRole('button', { name: 'Teste ekle' }).click();
+  const { count: itemCount } = await admin
+    .from('test_items')
+    .select('id', { count: 'exact', head: true })
+    .eq('test_id', test?.id as string);
+  expect(itemCount).toBe(TRIANGLE_COUNT);
 });

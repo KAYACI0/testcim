@@ -454,6 +454,16 @@ söyler.
   `null` aldi (herhangi bir istisna gecer). Capraz kiraci testlerinde `42501` beklentisi
   geri eklenerek sikilastirilmali.
 - **CI `database` isi** GitHub Actions'ta henuz calistirilmadi.
+- **CI `e2e` isi** artik yerel Supabase baslatiyor (kimlikli akislar icin); GitHub Actions'ta henuz
+  calistirilmadi, ilk PR'da dogrulanmali.
+- **`/capture` ve `/invite` yollari** `PUBLIC_PATHS` icinde degil. Telefondan yakalama oturum acmadan
+  calismali mi, davet kabul sayfasi giris oncesi acilmali mi: dogrulanmadi, kullanici akisiyla E2E
+  yazilirken netlestirilmeli (`/s` ayni nedenle acildi).
+- **Ogrenci cevap kaydi yaris durumu (dogrulanmadi).** `exam-client.tsx` `saveAnswer` isteklerini
+  beklemeden `Sinavi teslim et` istegini gonderiyor; yavas agda son cevap kaydedilmeden puanlanabilir.
+  Teslimden once bekleyen kayitlarin tamamlanmasi (veya cevaplarin teslimle birlikte gonderilmesi)
+  gerekir. Bu yuzden E2E testi cevaplar arasinda kayit tamamlanmasini beklemiyor, hatayi yeniden
+  uretmek icin ayri bir test yazilmali.
 
 ## Sonraki dilimlerden beklenenler (docs/01-analiz-ve-strateji.md açık sorular)
 

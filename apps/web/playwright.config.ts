@@ -1,7 +1,12 @@
 import { defineConfig, devices } from '@playwright/test';
 
-const port = 3000;
+import { localSupabaseConfig } from './e2e/support/local-supabase';
+
+// A dedicated port keeps E2E from ever reusing a regular `pnpm dev` server,
+// which reads apps/web/.env.local and may point at a hosted Supabase project.
+const port = 3100;
 const baseURL = `http://127.0.0.1:${port}`;
+const supabase = localSupabaseConfig();
 
 export default defineConfig({
   testDir: './e2e',
@@ -15,9 +20,15 @@ export default defineConfig({
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
   webServer: {
-    command: 'pnpm run dev',
+    command: `pnpm exec next dev --port ${port}`,
     url: baseURL,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
     timeout: 120_000,
+    env: {
+      NEXT_PUBLIC_SITE_URL: baseURL,
+      NEXT_PUBLIC_SUPABASE_URL: supabase.url,
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: supabase.anonKey,
+      SUPABASE_SERVICE_ROLE_KEY: supabase.serviceRoleKey,
+    },
   },
 });
