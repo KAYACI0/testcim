@@ -100,8 +100,8 @@ Bu belge, Testcim platformunun kapalı betadan genel yayına (public release) ge
 - **Koşullar:**
   1. Geri yükleme tatbikatının yapılıp `docs/runbook.md` bölüm 5.1 tablosuna kaydedilmesi.
   2. `pnpm db:test` (pgTAP) çıktısının yeşil olarak alınması.
-  3. Erişilebilirlik (axe) taraması, yük testi (300 sınav katılımcısı, 50 editör) ve eksik E2E akışlarının (kayıt, yapıştır ve PDF, optik, ödeme test modu) tamamlanması.
-  4. Özellik bayrağı altyapısının kurulması (kademeli açılış için).
+  3. Yük testi (300 sınav katılımcısı, 50 editör: `loadtest/exam.js` ve `loadtest/editor.js` hazır, k6 ile bir hazırlık ortamında çalıştırılacak) ve eksik E2E akışlarının (kayıt, optik, ödeme test modu) tamamlanması. Erişilebilirlik (axe) taraması yapıldı: 14 genel ve 9 oturum açık sayfa temiz.
+  4. (Yapıldı) Özellik bayrağı altyapısı kuruldu, bkz. `docs/runbook.md` bölüm 7.
   5. Hukuki metinlerin şirket avukatı tarafından hazırlanıp onaylanması.
   6. DNS SPF/DKIM/DMARC kayıtlarının canlı etki alanında doğrulanması.
   7. İyzico/Paddle canlı mağaza anahtarlarının Vercel ortam değişkenlerine girilmesi.

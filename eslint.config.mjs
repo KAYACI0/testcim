@@ -127,6 +127,17 @@ export default defineConfig([
     ...tseslint.configs.disableTypeChecked,
   },
 
+  {
+    // k6 scripts run in the k6 runtime, which provides these globals and needs a default export.
+    files: ['loadtest/**/*.js'],
+    ...tseslint.configs.disableTypeChecked,
+    languageOptions: {
+      globals: { __ENV: 'readonly', __VU: 'readonly', __ITER: 'readonly' },
+    },
+    rules: { 'import/no-anonymous-default-export': 'off', 'no-undef': 'error' },
+  },
+
   // Must stay last: turns off rules that conflict with Prettier.
+
   prettier,
 ]);

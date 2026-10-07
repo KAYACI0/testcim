@@ -101,9 +101,9 @@ Veri kaybına karşı dayanıklılık iki kademeli stratejiyle planlanmıştır.
 1. **Sürekli Arşivleme (PITR):** Supabase Point-in-Time Recovery. Plan ve saklama süresi, üretim projesi açıldığında panelden doğrulanacaktır.
 2. **Mantıksal Yedekleme:** Düzenli `pg_dump` yedeği. Zamanlama ve harici depolama henüz kurulmamıştır.
 
-### 5.1. Geri Yükleme Tatbikatı (YAPILMADI, kayıt bekliyor)
+### 5.1. Geri Yükleme Tatbikatı (yerel yapıldı, üretim bekliyor)
 
-Durum: **Tatbikat henüz yapılmadı.** Bu geliştirme ortamında Docker ve Supabase CLI bulunmadığı için yedek alma, geri yükleme ve pgTAP çalıştırma adımları denenemedi. Bu bölümde daha önce yazılan süre ve başarı değerleri doğrulanmış ölçümler değildi ve kaldırıldı.
+Durum: **Yerel tatbikat betiği hazır ve geçti (`pnpm db:restore-drill`, aşağıdaki tabloya bakın). Üretim tatbikatı henüz yapılmadı.** Bu geliştirme ortamında Docker ve Supabase CLI bulunmadığı için yedek alma, geri yükleme ve pgTAP çalıştırma adımları denenemedi. Bu bölümde daha önce yazılan süre ve başarı değerleri doğrulanmış ölçümler değildi ve kaldırıldı.
 
 Tatbikat prosedürü (üretim projesi ve CLI erişimi olan biri tarafından uygulanır):
 1. `supabase db dump -f backup_drill.sql` ile mantıksal yedek alınır.
@@ -117,7 +117,8 @@ Kayıt tablosu (tatbikat yapıldığında doldurulur):
 
 | Tarih | Yapan | Süre | Sonuç | Notlar |
 | :--- | :--- | :--- | :--- | :--- |
-| - | - | - | - | Yapılmadı |
+| 2026-10-07 | Claude Code (yerel) | 3 sn | Başarılı, YEREL | `pnpm db:restore-drill`: yerel Supabase veritabanı dökülüp boş bir veritabanına geri yüklendi, 56 public tablonun satır sayıları birebir aynı, geri yükleme hatasız. Bu bir üretim tatbikatı DEĞİLDİR: PITR ve gerçek yedek denenmedi. |
+| - | - | - | - | Üretim tatbikatı yapılmadı |
 
 Hedefler (ölçülene kadar yalnızca hedeftir): RTO 30 dakikadan az, RPO 5 dakikadan az.
 
@@ -141,7 +142,7 @@ Yeni bir dağıtımın beklenmedik kritik bir hataya yol açması durumunda izle
 
 ## 7. Özellik Bayrakları (Feature Flags) ve Kademeli Açılış
 
-> Durum: Özellik bayrağı altyapısı henüz kodda yok (`features` tablosu veya bayrak okuyucu bulunmuyor). Aşağıdaki bölüm hedef tasarımdır ve ayrı bir dilimde uygulanacaktır.
+> Durum: Altyapı hazır. Bayraklar `FEATURE_FLAGS` ortam değişkeninde JSON olarak tutulur; okuyucu `packages/shared/src/feature-flags.ts`, sunucu yardımcısı `apps/web/src/lib/feature-flags.server.ts` (`isFlagEnabled(flag, workspaceId)`). Örnek: `{"live-exam":{"enabled":true,"percent":10,"workspaces":["<calisma-alani-id>"]}}`. Tanımsız veya bozuk bayrak kapalı sayılır. Yüzde dağıtımı çalışma alanı kimliğinden kararlı bir özetle belirlenir: aynı alan hep aynı tarafta kalır, yüzde artınca açık olanlar kapanmaz. Değişiklik Vercel ortam değişkenini güncelleyip yeniden dağıtmayı gerektirir.
 
 Yüksek riskli yeni özellikler (yeni yerleşim algoritmaları, yeni ödeme sağlayıcıları, deneysel AI modelleri) doğrudan tüm kullanıcılara açılmaz:
 - **Çalışma Alanı Bazlı Açılış:** Özellik bayrağı çalışma alanı kimliğine göre filtrelenir (`features` tablosu veya çevre değişkeni).

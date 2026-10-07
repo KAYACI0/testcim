@@ -32,6 +32,8 @@ export const serverEnvSchema = z.object({
   ANTHROPIC_API_KEY: z.string().min(1).optional(),
   AI_MODEL_QUALITY: z.string().min(1).default('claude-opus-5'),
   AI_MODEL_FAST: z.string().min(1).default('claude-haiku-4-5'),
+  /** Feature flags as JSON; invalid JSON means no flags. See docs/runbook.md section 7. */
+  FEATURE_FLAGS: z.string().optional(),
   /**
    * Transactional email (Resend). All optional: without a key, sends are skipped and the
    * calling flow keeps its in-app fallback (for example the invite link shown on screen).

@@ -101,7 +101,7 @@ export function FilterBar({ filter, onChange, subjects, topics, outcomes, tags }
           onChange({ ...filter, questionType: (value || undefined) as QuestionType | undefined })
         }
       >
-        <SelectTrigger className="w-32">
+        <SelectTrigger className="w-32" aria-label={t('typePlaceholder')}>
           <SelectValue placeholder={t('typePlaceholder')} />
         </SelectTrigger>
         <SelectContent>
@@ -144,7 +144,7 @@ export function FilterBar({ filter, onChange, subjects, topics, outcomes, tags }
           })
         }
       >
-        <SelectTrigger className="w-36">
+        <SelectTrigger className="w-36" aria-label={t('aiStatusPlaceholder')}>
           <SelectValue placeholder={t('aiStatusPlaceholder')} />
         </SelectTrigger>
         <SelectContent>

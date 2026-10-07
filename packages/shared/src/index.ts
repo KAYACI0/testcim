@@ -142,3 +142,11 @@ export {
   FILE_KIND_MIME,
   type DetectedFileKind,
 } from './magic-bytes';
+export {
+  featureFlagRuleSchema,
+  featureFlagsSchema,
+  parseFeatureFlags,
+  isFeatureEnabled,
+  type FeatureFlagRule,
+  type FeatureFlags,
+} from './feature-flags';

@@ -6,7 +6,7 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 ## Su anki durum
 
 - Dal: `feat/15-sertlestirme-ve-yayin`
-- Odak: Faz 2. Resend ve Claude betigi tamam (anahtar bekliyor); Upstash, Sentry, PostHog kodu var, anahtarlar bekliyor; siradaki: Faz 4 (axe, ozellik bayragi, k6, geri yukleme)
+- Odak: Faz 2. Resend ve Claude betigi tamam (anahtar bekliyor); Upstash, Sentry, PostHog kodu var, anahtarlar bekliyor; Faz 4 kod tarafi tamam; siradaki: Faz 3 (ozellik tamamlama)
 - Yayin karari: HAYIR (kosullar `docs/launch-checklist.md` bolum 8)
 
 ## Test turu (2026-10-06)
@@ -39,6 +39,16 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 - Dev sunucusu `allowedDevOrigins` uyarisi veriyor (127.0.0.1).
 
 ## Gunluk
+
+### 2026-10-07 (Faz 4: axe, ozellik bayragi, yuk testi, geri yukleme)
+
+- **axe:** `@axe-core/playwright` ile `e2e/a11y-public.spec.ts` (14 genel sayfa) ve `e2e/a11y-app.spec.ts` (9 oturum acik sayfa); ciddi ve kritik WCAG A/AA ihlali varsa duser. Bilerek bozuk sayfayla denendi, axe yakaliyor. Bulunan ve duzeltilen gercek hatalar: daraltilmis yan seritte yalniz simgeli baglantilar adsizdi (`app-shell.tsx`, `sr-only` etiket), banka filtresindeki iki secici dugmenin adi yoktu (`filter-bar.tsx`). 23/23 gecti.
+- **Ozellik bayragi:** `FEATURE_FLAGS` ortam degiskeni (JSON), `packages/shared/src/feature-flags.ts` (calisma alani izin listesi, kararli yuzde dagitimi, bozuk girdi = kapali), `lib/feature-flags.server.ts` (`isFlagEnabled`). 8 test (fast-check dahil: uc degerler, yuzde arttikca monotonluk, dagilim). Veritabani tablosu yok, migrasyon gerekmedi. Henuz hicbir ozellik bayraga baglanmadi.
+- **Yuk testi:** `loadtest/exam.js` (300 katilimci: katil, sorular, cevap, bitir) ve `loadtest/editor.js` (50 editor, oturum acik sayfalar). k6 bu makinede kurulu degil, betikler calistirilmadi. Not: sinav uclari IP basina hiz sinirli (katil 20/dk, cevap 120/dk); hazirlik ortami `X-Forwarded-For`'a guvenmezse testler 429 olcer.
+- **Geri yukleme:** `pnpm db:restore-drill` (`scripts/restore-drill.sh`): yerel veritabani dokulup bos veritabanina yuklenir, 56 public tablonun satir sayilari karsilastirilir. Gecti, 3 sn. Betik ilk denemede `vector` ve `pg_trgm` eklentilerinin eksikligini yakaladi (betik hatasi, urun hatasi degil), duzeltildi. Yerel tatbikattir, uretim PITR tatbikati degildir.
+- **pgTAP:** Docker acilinca yeniden calistirildi, 26 dosya, 205 test yesil.
+- Dogrulama: lint, typecheck 10/10, check:design, check:tenancy 45/45, tum birim testleri, E2E axe 23/23.
+- Acik: k6 ile gercek calistirma, uretimde geri yukleme ve PITR tatbikati, eksik E2E akislari (kayit, optik, odeme test modu).
 
 ### 2026-10-07 (Faz 2, madde 4-5: Upstash, Sentry, PostHog incelemesi)
 

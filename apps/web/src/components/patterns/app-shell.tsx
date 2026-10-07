@@ -66,7 +66,7 @@ export function AppShell({
                   aria-current={isActive ? 'page' : undefined}
                 >
                   <Icon name={item.icon} size={20} />
-                  {expanded && <span className="truncate">{item.label}</span>}
+                  <span className={expanded ? 'truncate' : 'sr-only'}>{item.label}</span>
                 </span>
               );
 
