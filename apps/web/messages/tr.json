@@ -1174,7 +1174,84 @@
       "featuresMore": "Tüm özellikleri inceleyin",
       "pricingLink": "Fiyatlandırmayı inceleyin",
       "closingTitle": "İlk testinizi şimdi hazırlayın",
-      "closingAction": "Ücretsiz hesap açın"
+      "closingAction": "Ücretsiz hesap açın",
+      "primaryAction": "Ücretsiz hesap açın",
+      "secondaryAction": "Örneği deneyin",
+      "heroNote": "Kredi kartı gerekmez.",
+      "demoMore": {
+        "frameLabel": "Ürün örneği",
+        "sample": "Örnek soru ekleyin",
+        "sampleAlt": "Örnek soru {number}",
+        "added": "Soru {number} eklendi.",
+        "count": "{count} soru",
+        "strip": "Soru şeridi",
+        "questionLabel": "{number}. soru",
+        "booklet": "A kitapçığı",
+        "studentLine": "Ad soyad ve numara",
+        "export": "Çıktı al",
+        "tabPage": "Sayfa",
+        "tabBooklets": "Kitapçıklar",
+        "tabAnswers": "Cevaplar",
+        "pageSize": "Sayfa boyutu",
+        "pageSizeValue": "A4 dikey",
+        "columns": "Sütun",
+        "gap": "Soru arası",
+        "gapValue": "10 mm",
+        "booklets": "Kitapçık türü"
+      },
+      "flow": {
+        "title": "Üç tuşla bir test",
+        "paste": {
+          "key": "Ctrl+V",
+          "title": "Soruyu yapıştırın",
+          "body": "Kitaptan, PDF'ten ya da ekrandan aldığınız alıntı kırpılır ve teste yerleşir."
+        },
+        "answer": {
+          "key": "A–E",
+          "title": "Doğru cevabı işaretleyin",
+          "body": "Yapıştırdıktan hemen sonra tek tuşa basın. Cevap anahtarı siz ilerledikçe oluşur."
+        },
+        "export": {
+          "key": "Çıktı al",
+          "title": "PDF'i indirin",
+          "body": "Soru kâğıdı ve cevap anahtarı baskıya hazır iner. Ekranda gördüğünüz, kâğıda çıkan olur."
+        }
+      },
+      "showcase": {
+        "crop": {
+          "title": "PDF'ten soruları tek seferde kırpın",
+          "listTitle": "Kırpılan sorular",
+          "item": "Soru {number}",
+          "added": "Eklendi",
+          "selected": "Seçili",
+          "waiting": "Bekliyor"
+        },
+        "booklets": {
+          "title": "Kitapçık türlerini tek testten hazırlayın"
+        },
+        "omr": {
+          "title": "Optik formları telefonla okuyun",
+          "student": "Öğrenci",
+          "correct": "Doğru",
+          "row": "Öğrenci {number}",
+          "score": "{score} / {total}",
+          "review": "İnceleme bekliyor"
+        }
+      },
+      "pricingTitle": "Ücretsiz başlayın, ihtiyaç oldukça büyütün",
+      "pricingLead": "Planınızı istediğiniz zaman değiştirin ya da iptal edin.",
+      "faqTitle": "Sık sorulanlar",
+      "faq": {
+        "sources": {
+          "q": "Hangi kaynaklardan soru alabilirim?",
+          "a": "Ekranda görebildiğiniz her şeyden: PDF, kitap taraması, web sayfası ya da telefonla çektiğiniz fotoğraf. Alıntıyı kopyalayıp Ctrl+V ile yapıştırmanız yeterli."
+        },
+        "print": {
+          "q": "Çıktı gerçekten baskıya hazır mı?",
+          "a": "Evet. Önizleme ve PDF aynı yerleşimden üretilir. Sayfa boyutu, sütun sayısı ve soru aralığını siz seçersiniz."
+        }
+      },
+      "closingLead": "Hesap açmak bir dakika sürer, kredi kartı gerekmez."
     },
     "featureItems": {
       "capture": {

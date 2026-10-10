@@ -448,3 +448,5 @@ söyler.
 - Vektör PDF için ayrı bir Chromium servisi gerekir mi.
 - Masaüstü yardımcı: Tauri mi Electron mu.
 
+
+- Acilis sayfasi: gercek ogretmen gorusu gelince kullanici gorusu bolumu eklenecek (tasarim taslaginda yer tutucu olarak var: `docs/tasarim/landing/Main.dc.html`).

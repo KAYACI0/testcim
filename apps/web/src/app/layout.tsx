@@ -1,4 +1,4 @@
-import { IBM_Plex_Sans } from 'next/font/google';
+import { IBM_Plex_Sans, Source_Serif_4 } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
@@ -16,6 +16,18 @@ const plexSans = IBM_Plex_Sans({
   variable: '--font-plex-sans',
 });
 
+/**
+ * Marketing headlines only (docs/03 section 2). Not preloaded: the browser fetches it
+ * only on pages that use `font-display`, so the application never downloads it.
+ */
+const sourceSerif = Source_Serif_4({
+  subsets: ['latin', 'latin-ext'],
+  weight: ['500', '600'],
+  display: 'swap',
+  preload: false,
+  variable: '--font-source-serif',
+});
+
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations('common');
 
@@ -30,7 +42,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr" className={plexSans.variable}>
+    <html lang="tr" className={`${plexSans.variable} ${sourceSerif.variable}`}>
       <body>
         <NextIntlClientProvider>
           {children}

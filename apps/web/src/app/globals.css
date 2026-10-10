@@ -48,6 +48,15 @@
   animation: demo-settle var(--duration-base) var(--ease-out);
 }
 
+/* Marketing chrome: white focus ring on the blue desk, accent ring back on paper sheets. */
+.on-brand :focus-visible {
+  outline-color: var(--color-surface);
+}
+
+.on-brand .sheet :focus-visible {
+  outline-color: var(--color-accent);
+}
+
 /* Paper print copy: rendered off-screen so it can be exported, shown alone when printing. */
 #print-root {
   position: fixed;

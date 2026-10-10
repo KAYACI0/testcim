@@ -1174,7 +1174,84 @@
       "featuresMore": "See all features",
       "pricingLink": "See pricing",
       "closingTitle": "Prepare your first test now",
-      "closingAction": "Create a free account"
+      "closingAction": "Create a free account",
+      "primaryAction": "Create a free account",
+      "secondaryAction": "Try the example",
+      "heroNote": "No credit card required.",
+      "demoMore": {
+        "frameLabel": "Product example",
+        "sample": "Add a sample question",
+        "sampleAlt": "Sample question {number}",
+        "added": "Question {number} added.",
+        "count": "{count} questions",
+        "strip": "Question strip",
+        "questionLabel": "Question {number}",
+        "booklet": "Booklet A",
+        "studentLine": "Name and number",
+        "export": "Export",
+        "tabPage": "Page",
+        "tabBooklets": "Booklets",
+        "tabAnswers": "Answers",
+        "pageSize": "Page size",
+        "pageSizeValue": "A4 portrait",
+        "columns": "Columns",
+        "gap": "Question spacing",
+        "gapValue": "10 mm",
+        "booklets": "Booklet types"
+      },
+      "flow": {
+        "title": "A test in three keys",
+        "paste": {
+          "key": "Ctrl+V",
+          "title": "Paste the question",
+          "body": "A snippet from a book, a PDF or your screen is cropped and placed in the test."
+        },
+        "answer": {
+          "key": "A–E",
+          "title": "Mark the correct answer",
+          "body": "Press a single key right after pasting. The answer key builds up as you go."
+        },
+        "export": {
+          "key": "Export",
+          "title": "Download the PDF",
+          "body": "The question sheet and the answer key arrive ready to print. What you see on screen is what lands on paper."
+        }
+      },
+      "showcase": {
+        "crop": {
+          "title": "Crop every question from a PDF at once",
+          "listTitle": "Cropped questions",
+          "item": "Question {number}",
+          "added": "Added",
+          "selected": "Selected",
+          "waiting": "Waiting"
+        },
+        "booklets": {
+          "title": "Build booklet types from one test"
+        },
+        "omr": {
+          "title": "Read answer sheets with your phone",
+          "student": "Student",
+          "correct": "Correct",
+          "row": "Student {number}",
+          "score": "{score} / {total}",
+          "review": "Waiting for review"
+        }
+      },
+      "pricingTitle": "Start free, grow when you need to",
+      "pricingLead": "Change or cancel your plan at any time.",
+      "faqTitle": "Frequently asked questions",
+      "faq": {
+        "sources": {
+          "q": "Where can I take questions from?",
+          "a": "Anything you can see on screen: a PDF, a scanned book, a web page or a photo from your phone. Copy the snippet and paste it with Ctrl+V."
+        },
+        "print": {
+          "q": "Is the output really ready to print?",
+          "a": "Yes. The preview and the PDF come from the same layout. You choose the page size, the number of columns and the question spacing."
+        }
+      },
+      "closingLead": "Creating an account takes a minute, no credit card required."
     },
     "featureItems": {
       "capture": {

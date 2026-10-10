@@ -30,6 +30,8 @@
 | Hata | `--err` | `#B4322A` | Yanlış, hata |
 | Uyarı | `--warn` | `#9A6100` | Sınıra yaklaşma, dikkat |
 
+**Pazarlama sitesi istisnası (kullanıcı kararı, 2026-10-10):** Açılış ve diğer pazarlama sayfaları mavi zemin (`--color-brand`) üzerinde beyaz kâğıt yüzeylerle kurulur: "mavi masa, beyaz kâğıt". Mavi üzerindeki metin `--color-on-brand-2/3` token'larını kullanır ve AA kontrastını sağlar. Uygulamanın kendisi (editör, panel, öğrenci ekranı) beyaz kalır.
+
 Kural: Arayüzün büyük çoğunluğu beyaz, mürekkep ve çizgiden oluşur. Renk yalnızca anlam taşıdığı yerde görünür: eylem, seçim, doğru/yanlış. Gradyan yok, renkli arka plan şeritleri yok, dekoratif renk yok. Hex değerleri yalnızca token dosyasında yazılır; bileşenlerde hex kullanılmaz.
 
 **Tipografi**
@@ -134,7 +136,7 @@ Aşağıdakiler bu projede **yasak** varsayılanlardır. Tasarım incelemesinde 
 
 ## 7. Ekranlar ve tasarım notları
 
-**Açılış sayfası (pazarlama):** Kahraman alanı bir illüstrasyon değil, çalışan bir demo: "Bir görsel yapıştırın" alanı. Ziyaretçi Ctrl+V yaptığında görsel gerçekten bir sınav kâğıdına soru olarak yerleşir (kayıt gerektirmeden, yalnızca tarayıcıda). Altında tek satır: "Kaydetmek için ücretsiz hesap açın." Başlık büyük, sade, sola hizalı. Fiyatlandırma çizgili tablo olarak.
+**Açılış sayfası (pazarlama):** Mavi zemin, beyaz kâğıt yüzeyler (bkz. bölüm 2 istisnası). Bölümler: kahraman, editör görünümlü çalışan demo, "Üç tuşla bir test" akışı (Ctrl+V, A–E, Çıktı al), özellik satırları ve çizgili özellik listesi, fiyat tablosu, sık sorulanlar, kapanış. Diğer pazarlama sayfaları aynı mavi çerçevede tek beyaz sayfa üzerinde durur. Kahraman alanı bir illüstrasyon değil, çalışan bir demo: "Bir görsel yapıştırın" alanı. Ziyaretçi Ctrl+V yaptığında görsel gerçekten bir sınav kâğıdına soru olarak yerleşir (kayıt gerektirmeden, yalnızca tarayıcıda). Altında tek satır: "Kaydetmek için ücretsiz hesap açın." Başlık büyük, sade, sola hizalı. Fiyatlandırma çizgili tablo olarak.
 
 **Panel (Testler):** Üstte tek birincil eylem "Yeni test". Altında son testler çizgili liste (ad, tür, soru sayısı, son düzenleme). Sağ üstte arama. Karşılama metni yok; doğrudan iş.
 

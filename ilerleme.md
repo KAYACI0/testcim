@@ -40,6 +40,15 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Gunluk
 
+### 2026-10-10 (acilis sayfasi uygulandi)
+
+- Tasarim `apps/web` icine uygulandi. Pazarlama cercevesi mavi (`bg-brand`), ic sayfalar `(marketing)/(content)` grubunda tek beyaz sayfa uzerinde (URL degismedi).
+- Ana sayfa: kahraman, editor gorunumlu demo (`paste-demo.tsx`, gercek yapistirma korunuyor, "Ornek soru ekleyin"), akis, ozellik satirlari, fiyat tablosu (`pricing-data.server.ts` ile fiyat sayfasiyla ortak), SSS, kapanis. Metinler tr/en.
+- Token'lar: `--color-brand`, `--color-on-brand-2/3`, `--color-brand-line/fill/ghost`, `--color-sketch`, `--shadow-sheet/page/key`, `--font-display` (Source Serif 4, kok duzende onyuklemesiz).
+- docs/03 bolum 2 ve 7: pazarlama sitesi icin mavi zemin istisnasi yazildi (kullanici karari).
+- Dogrulama: typecheck temiz, lint temiz, check:design temiz (372 dosya), format temiz, birim testleri 364/364. Turbo bu konteynerde "Exec format error" verdi; `pnpm -r` ile calistirildi. 1440/1024/390 ekran goruntusu: yatay tasma yok.
+- Bilinen eksik: yerelde DB yoksa fiyat tablosu "yuklenemedi" yazar. Kullanici gorusu bolumu gercek alinti gelince eklenecek (backlog). E2E bu turda calistirilmadi.
+
 ### 2026-10-10 (acilis sayfasi tasarimi)
 
 - Acilis sayfasi tasarimi Design tuvalinde hazirlandi (heyretro.io referansli; site bu ortamdan erisilemedi, genel yapisi uyarlandi). Kaynak: `docs/tasarim/landing/Main.dc.html`.
