@@ -40,6 +40,14 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Gunluk
 
+### 2026-10-10 (acilis sayfasi tasarimi)
+
+- Acilis sayfasi tasarimi Design tuvalinde hazirlandi (heyretro.io referansli; site bu ortamdan erisilemedi, genel yapisi uyarlandi). Kaynak: `docs/tasarim/landing/Main.dc.html`.
+- Kurgu: mavi zemin (masa), beyaz yuzeyler (kagit). Bolumler: gezinme, kahraman, calisan editor ornegi (ornek soru yapistirma, imza oturma hareketi), Ctrl+V / A-E / Cikti al akisi, ozellik satirlari (kirpma, kitapcik, optik), cizgili ozellik listesi, kullanici gorusu yer tutucusu, cizgili fiyat tablosu (aylik/yillik), SSS, kapanis, alt bilgi.
+- Celiski (kullanici karari bekliyor): docs/03 "beyaz baskin, renkli arka plan yok" diyor; kullanici acikca mavi zemin istedi. Uygulamaya gecmeden once docs/03 bolum 2 ve 7 guncellenmeli.
+- Yer tutucular: fiyatlar, ogretmen gorusu, ogrenci adlari.
+- Dogrulama: yalnizca tasarim; kod degismedi, test calistirilmadi.
+
 ### 2026-10-06 (editor duzeltmeleri)
 
 - Sayfalama: soru sayisi tahmini yerine olculen yukseklikle A4 (794x1122 px) paketleme. Sol sutun yukaridan asagi dolar, sonra sag sutun, sonra yeni sayfa. Ilk sayfa tam baslik, sonrakiler kompakt baslik. Mantik `features/editor/paper/paginate.ts` (7 birim test).

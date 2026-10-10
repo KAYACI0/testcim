@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<title>Testcim açılış sayfası</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&amp;display=swap">
+<style>
+body{margin:0}
+a{color:#FFFFFF}a:hover{color:#D5DEFF}
+.tc-root *{box-sizing:border-box}
+.tc-root a:focus-visible,.tc-root button:focus-visible,.tc-root summary:focus-visible{outline:2px solid #FFFFFF;outline-offset:2px}
+.tc-paper a:focus-visible,.tc-paper button:focus-visible{outline:2px solid #23408F;outline-offset:2px}
+.tc-root summary{list-style:none;cursor:pointer}
+.tc-root summary::-webkit-details-marker{display:none}
+.tc-root details[open] .tc-plus-v{display:none}
+.tc-q-new{animation:tc-settle 160ms ease-out both}
+@keyframes tc-settle{from{transform:translateY(-6px);box-shadow:0 0 0 2px #23408F}to{transform:none;box-shadow:0 0 0 2px transparent}}
+@media (prefers-reduced-motion: reduce){.tc-q-new{animation:none}}
+@media (max-width: 860px){.tc-hide-sm{display:none !important}.tc-nav-links{display:none !important}}
+</style>
+</helmet>
+
+<div class="tc-root" style="background: {{bg}}; color: #FFFFFF; font-family: 'IBM Plex Sans', system-ui, sans-serif; font-size: 16px; line-height: 1.5; min-height: 100vh">
+
+<!-- Nav -->
+<header style="max-width: 1200px; margin: 0 auto; padding: 24px 24px 0; display: flex; align-items: center; justify-content: space-between; gap: 24px">
+<a href="#top" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #FFFFFF" aria-label="Testcim ana sayfa">
+<span style="width: 28px; height: 34px; background: #FFFFFF; border-radius: 2px; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 0 6px" aria-hidden="true">
+<span style="height: 2px; background: {{bg}}; display: block"></span>
+<span style="height: 2px; background: {{bg}}; display: block"></span>
+<span style="height: 2px; width: 60%; background: {{bg}}; display: block"></span>
+</span>
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Testcim</span>
+</a>
+<nav aria-label="Ana gezinme" class="tc-nav-links" style="display: flex; align-items: center; gap: 32px; font-size: 15px">
+<a href="#ozellikler" style="text-decoration: none">Özellikler</a>
+<a href="#fiyat" style="text-decoration: none">Fiyatlandırma</a>
+<a href="#sss" style="text-decoration: none">Yardım</a>
+</nav>
+<div style="display: flex; align-items: center; gap: 12px">
+<a href="#giris" style="text-decoration: none; font-size: 15px; padding: 10px 8px">Giriş yapın</a>
+<a href="#kayit" style="text-decoration: none; font-size: 15px; font-weight: 500; background: #FFFFFF; color: #1A3170; padding: 10px 18px; border-radius: 6px; min-height: 44px; display: inline-flex; align-items: center">Ücretsiz başlayın</a>
+</div>
+</header>
+
+<!-- Hero -->
+<section id="top" style="max-width: 1200px; margin: 0 auto; padding: 96px 24px 56px">
+<div style="max-width: 820px">
+<h1 style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; font-size: clamp(40px, 6vw, 76px); line-height: 1.05; letter-spacing: -0.02em">Sorunuzu yapıştırın, testiniz hazır olsun</h1>
+<p style="margin: 24px 0 0; font-size: clamp(18px, 2vw, 21px); line-height: 1.5; color: #DCE4FF; max-width: 620px">Ekran alıntısı alın, Ctrl+V yapın. Soru kâğıda yerleşir, sayfa düzeni kendiliğinden kurulur ve test baskıya hazır PDF olarak iner.</p>
+<div style="margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+<a href="#kayit" style="text-decoration: none; background: #FFFFFF; color: #1A3170; font-weight: 600; font-size: 17px; padding: 14px 24px; border-radius: 6px; min-height: 52px; display: inline-flex; align-items: center">Ücretsiz hesap açın</a>
+<a href="#demo" style="text-decoration: none; color: #FFFFFF; font-weight: 500; font-size: 17px; padding: 14px 22px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.55); min-height: 52px; display: inline-flex; align-items: center">Örneği deneyin</a>
+</div>
+<p style="margin: 16px 0 0; font-size: 14px; color: #C9D5FF">Kredi kartı gerekmez. Ücretsiz planda ayda 10 PDF çıktısı.</p>
+</div>
+</section>
+
+<!-- Product demo -->
+<section id="demo" aria-label="Ürün örneği" style="max-width: 1200px; margin: 0 auto; padding: 0 24px">
+<div class="tc-paper" style="background: #FFFFFF; color: #1C2230; border-radius: 12px; overflow: hidden; box-shadow: 0 24px 60px rgb(10 20 60 / 0.28)">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid #E5E8ED; font-size: 14px">
+<div style="display: flex; align-items: center; gap: 12px; min-width: 0">
+<span style="font-weight: 600">7-A Matematik yazılı</span>
+<span style="color: #6B7686">Kaydedildi</span>
+</div>
+<div style="display: flex; align-items: center; gap: 8px">
+<span class="tc-hide-sm" style="border: 1px solid #CDD3DC; border-radius: 6px; padding: 6px 12px">Önizle</span>
+<span style="background: #23408F; color: #FFFFFF; border-radius: 6px; padding: 6px 12px; font-weight: 500">Çıktı al</span>
+</div>
+</div>
+<div style="display: flex; background: #F5F6F8; min-height: 520px">
+<!-- strip -->
+<div class="tc-hide-sm" style="width: 168px; flex: none; background: #FFFFFF; border-right: 1px solid #E5E8ED; padding: 14px 12px; display: flex; flex-direction: column; gap: 10px">
+<span style="font-size: 13px; color: #556070">Soru şeridi</span>
+<sc-for list="{{questions}}" as="q" hint-placeholder-count="4">
+<div class="{{q.cls}}" style="border: 1px solid #E5E8ED; border-radius: 3px; padding: 8px; display: flex; flex-direction: column; gap: 5px; background: #FFFFFF">
+<div style="display: flex; justify-content: space-between; font-size: 12px; color: #556070"><span>{{q.n}}. soru</span><span style="font-weight: 600; color: #1D7A4B">{{q.answer}}</span></div>
+<span style="height: 4px; background: #DDE2EA; border-radius: 1px; display: block"></span>
+<span style="height: 4px; width: 70%; background: #DDE2EA; border-radius: 1px; display: block"></span>
+</div>
+</sc-for>
+</div>
+<!-- paper -->
+<div style="flex: 1 1 auto; min-width: 0; padding: 28px 20px; display: flex; justify-content: center">
+<div style="width: 100%; max-width: 560px; background: #FFFFFF; border-radius: 2px; box-shadow: 0 1px 3px rgb(20 28 45 / 0.12); padding: 28px 30px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; border-bottom: 1.5px solid #1C2230; padding-bottom: 10px">
+<div>
+<div style="font-weight: 600; font-size: 15px">7-A Matematik 1. dönem 1. yazılı</div>
+<div style="font-size: 12px; color: #556070; margin-top: 2px">Ad soyad: ______________  Numara: ______</div>
+</div>
+<span style="font-size: 12px; border: 1px solid #1C2230; padding: 2px 8px; border-radius: 2px">A kitapçığı</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; row-gap: 18px; margin-top: 18px">
+<sc-for list="{{questions}}" as="q" hint-placeholder-count="4">
+<div class="{{q.cls}}" style="display: flex; flex-direction: column; gap: 6px; border-radius: 2px">
+<div style="display: flex; gap: 6px; align-items: baseline"><span style="font-weight: 600; font-size: 13px">{{q.n}}.</span><span style="flex: 1; height: 5px; background: #DDE2EA; display: block"></span></div>
+<span style="height: 5px; background: #DDE2EA; display: block; margin-left: 18px"></span>
+<span style="height: 5px; width: 62%; background: #DDE2EA; display: block; margin-left: 18px"></span>
+<sc-if value="{{q.figure}}" hint-placeholder-val="{{ false }}">
+<span style="height: 54px; width: 54%; margin-left: 18px; border: 1px solid #CDD3DC; display: block; border-radius: 2px"></span>
+</sc-if>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 10px; margin-left: 18px; font-size: 11px; color: #556070">
+<span>A) <span style="display: inline-block; width: 60%; height: 4px; background: #E5E8ED; vertical-align: middle"></span></span>
+<span>B) <span style="display: inline-block; width: 60%; height: 4px; background: #E5E8ED; vertical-align: middle"></span></span>
+<span>C) <span style="display: inline-block; width: 60%; height: 4px; background: #E5E8ED; vertical-align: middle"></span></span>
+<span>D) <span style="display: inline-block; width: 60%; height: 4px; background: #E5E8ED; vertical-align: middle"></span></span>
+</div>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+<!-- inspector -->
+<div class="tc-hide-sm" style="width: 232px; flex: none; background: #FFFFFF; border-left: 1px solid #E5E8ED; padding: 14px 16px; font-size: 13px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; gap: 14px; border-bottom: 1px solid #E5E8ED; padding-bottom: 8px">
+<span style="font-weight: 600; color: #23408F">Sayfa</span><span style="color: #556070">Kitapçıklar</span><span style="color: #556070">Cevaplar</span>
+</div>
+<div style="display: flex; justify-content: space-between"><span style="color: #556070">Sayfa boyutu</span><span>A4 dikey</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: #556070">Sütun</span><span>2</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: #556070">Soru arası</span><span>10 mm</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: #556070">Kitapçık türü</span><span>A, B</span></div>
+<div style="border-top: 1px solid #E5E8ED; padding-top: 12px; display: flex; flex-direction: column; gap: 6px">
+<span style="color: #556070">Plan kullanımı</span>
+<span style="height: 3px; background: #E5E8ED; display: block; border-radius: 2px"><span style="display: block; height: 3px; width: {{usage}}; background: #23408F; border-radius: 2px"></span></span>
+<span style="color: #556070">{{count}} / 20 soru</span>
+</div>
+</div>
+</div>
+<!-- paste bar -->
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; border-top: 1px solid #E5E8ED; font-size: 14px; background: #FFFFFF">
+<span aria-live="polite" style="color: #1C2230">{{status}}</span>
+<button type="button" onClick="{{paste}}" disabled="{{full}}" style="font: inherit; font-weight: 500; background: #EEF1FA; color: #23408F; border: 1px solid #C7D0EA; border-radius: 6px; padding: 8px 14px; min-height: 40px; cursor: pointer">Örnek soru yapıştırın</button>
+</div>
+</div>
+<p style="margin: 16px 0 0; font-size: 14px; color: #C9D5FF">Gerçek sayfada görseliniz yalnızca tarayıcınızda kalır, sunucuya gönderilmez. Kaydetmek için ücretsiz hesap açın.</p>
+</section>
+
+<!-- How it works: real sequence, keys instead of numbers -->
+<section aria-labelledby="akis" style="max-width: 1200px; margin: 0 auto; padding: 128px 24px 0">
+<h2 id="akis" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4vw, 46px); line-height: 1.15; letter-spacing: -0.01em; max-width: 720px">Üç tuşla bir test</h2>
+<div style="margin-top: 48px; display: flex; flex-wrap: wrap; gap: 0; border-top: 1px solid rgba(255,255,255,0.28)">
+<div style="flex: 1 1 280px; padding: 28px 32px 8px 0; display: flex; flex-direction: column; gap: 12px">
+<kbd style="align-self: flex-start; font-family: inherit; font-size: 15px; font-weight: 600; background: #FFFFFF; color: #1A3170; border-radius: 6px; padding: 6px 12px; box-shadow: 0 2px 0 rgba(0,0,0,0.18)">Ctrl+V</kbd>
+<h3 style="margin: 0; font-size: 20px; font-weight: 600">Soruyu yapıştırın</h3>
+<p style="margin: 0; color: #DCE4FF; max-width: 340px">Kitaptan, PDF'ten ya da ekrandan aldığınız alıntı, kenar boşlukları temizlenmiş olarak teste girer.</p>
+</div>
+<div style="flex: 1 1 280px; padding: 28px 32px 8px 0; display: flex; flex-direction: column; gap: 12px">
+<kbd style="align-self: flex-start; font-family: inherit; font-size: 15px; font-weight: 600; background: #FFFFFF; color: #1A3170; border-radius: 6px; padding: 6px 12px; box-shadow: 0 2px 0 rgba(0,0,0,0.18)">A–E</kbd>
+<h3 style="margin: 0; font-size: 20px; font-weight: 600">Doğru cevabı işaretleyin</h3>
+<p style="margin: 0; color: #DCE4FF; max-width: 340px">Yapıştırdıktan hemen sonra tek tuşa basın. Cevap anahtarı siz ilerledikçe kendiliğinden oluşur.</p>
+</div>
+<div style="flex: 1 1 280px; padding: 28px 32px 8px 0; display: flex; flex-direction: column; gap: 12px">
+<kbd style="align-self: flex-start; font-family: inherit; font-size: 15px; font-weight: 600; background: #FFFFFF; color: #1A3170; border-radius: 6px; padding: 6px 12px; box-shadow: 0 2px 0 rgba(0,0,0,0.18)">Çıktı al</kbd>
+<h3 style="margin: 0; font-size: 20px; font-weight: 600">PDF'i indirin</h3>
+<p style="margin: 0; color: #DCE4FF; max-width: 340px">Soru kâğıdı, cevap anahtarı ve optik form aynı anda hazırlanır. Ekranda gördüğünüz, kâğıda çıkan olur.</p>
+</div>
+</div>
+</section>
+
+<!-- Feature showcases -->
+<section id="ozellikler" aria-labelledby="ozellik-baslik" style="max-width: 1200px; margin: 0 auto; padding: 128px 24px 0">
+<h2 id="ozellik-baslik" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4vw, 46px); line-height: 1.15; letter-spacing: -0.01em; max-width: 720px">Test hazırlığının tamamı tek yerde</h2>
+
+<!-- row: crop -->
+<div style="margin-top: 64px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px">
+<div style="flex: 1 1 340px; max-width: 440px">
+<h3 style="margin: 0; font-size: 26px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em">PDF'ten soruları tek seferde kırpın</h3>
+<p style="margin: 14px 0 0; color: #DCE4FF; font-size: 17px">Kitap ya da çıkmış soru PDF'ini açın. Sayfa soru bloklarına kendiliğinden bölünür, soru numaraları silinir, sorular numaralarıyla soru bankasına gider.</p>
+</div>
+<div class="tc-paper" style="flex: 1 1 480px; background: #FFFFFF; color: #1C2230; border-radius: 8px; padding: 28px; display: flex; gap: 20px; align-items: flex-start">
+<div style="flex: 1; background: #F5F6F8; border-radius: 2px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="border: 1.5px solid #23408F; background: #EEF1FA; border-radius: 2px; padding: 10px; display: flex; flex-direction: column; gap: 5px">
+<span style="height: 5px; background: #B7C3E3; display: block"></span><span style="height: 5px; width: 75%; background: #B7C3E3; display: block"></span><span style="height: 5px; width: 50%; background: #B7C3E3; display: block"></span>
+</div>
+<div style="border: 1.5px dashed #23408F; border-radius: 2px; padding: 10px; display: flex; flex-direction: column; gap: 5px">
+<span style="height: 5px; background: #DDE2EA; display: block"></span><span style="height: 5px; width: 66%; background: #DDE2EA; display: block"></span>
+</div>
+<div style="padding: 10px; display: flex; flex-direction: column; gap: 5px">
+<span style="height: 5px; background: #DDE2EA; display: block"></span><span style="height: 5px; width: 80%; background: #DDE2EA; display: block"></span>
+</div>
+</div>
+<div style="width: 150px; flex: none; display: flex; flex-direction: column; gap: 8px; font-size: 13px">
+<span style="color: #556070">Kırpılan sorular</span>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #E5E8ED; padding: 6px 0"><span>Soru 14</span><span style="color: #1D7A4B">Eklendi</span></div>
+<div style="display: flex; justify-content: space-between; border-bottom: 1px solid #E5E8ED; padding: 6px 0"><span>Soru 15</span><span style="color: #556070">Seçili</span></div>
+<div style="display: flex; justify-content: space-between; padding: 6px 0"><span>Soru 16</span><span style="color: #6B7686">Bekliyor</span></div>
+</div>
+</div>
+</div>
+
+<!-- row: booklets -->
+<div style="margin-top: 96px; display: flex; flex-wrap: wrap-reverse; align-items: center; gap: 48px">
+<div class="tc-paper" style="flex: 1 1 480px; background: #FFFFFF; color: #1C2230; border-radius: 8px; padding: 28px; display: flex; gap: 14px; justify-content: center; align-items: flex-end">
+<div style="width: 26%; aspect-ratio: 0.71; border: 1px solid #CDD3DC; border-radius: 2px; padding: 10px; display: flex; flex-direction: column; gap: 6px; font-size: 12px"><span style="font-weight: 600">A</span><span style="height: 4px; background: #DDE2EA; display: block"></span><span style="height: 4px; background: #DDE2EA; display: block"></span><span style="height: 4px; width: 60%; background: #DDE2EA; display: block"></span></div>
+<div style="width: 26%; aspect-ratio: 0.71; border: 1px solid #CDD3DC; border-radius: 2px; padding: 10px; display: flex; flex-direction: column; gap: 6px; font-size: 12px"><span style="font-weight: 600">B</span><span style="height: 4px; width: 60%; background: #DDE2EA; display: block"></span><span style="height: 4px; background: #DDE2EA; display: block"></span><span style="height: 4px; background: #DDE2EA; display: block"></span></div>
+<div style="width: 26%; aspect-ratio: 0.71; border: 1.5px solid #23408F; border-radius: 2px; padding: 10px; display: flex; flex-direction: column; gap: 6px; font-size: 12px"><span style="font-weight: 600; color: #23408F">C</span><span style="height: 4px; background: #DDE2EA; display: block"></span><span style="height: 4px; width: 60%; background: #DDE2EA; display: block"></span><span style="height: 4px; background: #DDE2EA; display: block"></span></div>
+</div>
+<div style="flex: 1 1 340px; max-width: 440px">
+<h3 style="margin: 0; font-size: 26px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em">Kitapçık türlerini tek tıkla hazırlayın</h3>
+<p style="margin: 14px 0 0; color: #DCE4FF; font-size: 17px">A, B, C ve D kitapçıkları A'daki sıraya göre karıştırılır. Soru grupları birbirinden ayrılmaz, sabitlediğiniz sorular yerinde kalır, cevap anahtarı her kitapçık için ayrı çıkar.</p>
+</div>
+</div>
+
+<!-- row: omr -->
+<div style="margin-top: 96px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px">
+<div style="flex: 1 1 340px; max-width: 440px">
+<h3 style="margin: 0; font-size: 26px; font-weight: 600; line-height: 1.25; letter-spacing: -0.01em">Optik formları telefonla okuyun</h3>
+<p style="margin: 14px 0 0; color: #DCE4FF; font-size: 17px">Testle birlikte basılan formu telefon kamerasıyla tarayın. Form QR ile teste kendiliğinden eşlenir, emin olunamayan işaretler inceleme kuyruğuna düşer.</p>
+</div>
+<div class="tc-paper" style="flex: 1 1 480px; background: #FFFFFF; color: #1C2230; border-radius: 8px; padding: 28px; font-size: 14px">
+<div style="display: flex; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid #E5E8ED; color: #556070"><span>Öğrenci</span><span>Doğru</span></div>
+<div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #E5E8ED"><span>[Öğrenci adı]</span><span style="font-variant-numeric: tabular-nums">17 / 20</span></div>
+<div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #E5E8ED"><span>[Öğrenci adı]</span><span style="font-variant-numeric: tabular-nums">14 / 20</span></div>
+<div style="display: flex; justify-content: space-between; padding: 10px 0"><span>[Öğrenci adı]</span><span style="color: #9A6100">İnceleme bekliyor</span></div>
+</div>
+</div>
+
+<!-- more: lined list -->
+<div style="margin-top: 112px; border-top: 1px solid rgba(255,255,255,0.28)">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 48px; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.28)">
+<span style="flex: 0 1 300px; font-weight: 600; font-size: 18px">Soru bankası</span>
+<span style="flex: 1 1 420px; color: #DCE4FF">Yakaladığınız her soru saklanır. Klasörlere ve kazanımlara göre düzenleyin, benzer soruları tekrar eklemeden önce görün.</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 48px; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.28)">
+<span style="flex: 0 1 300px; font-weight: 600; font-size: 18px">Word ve PowerPoint çıktısı</span>
+<span style="flex: 1 1 420px; color: #DCE4FF">Aynı testi düzenlenebilir Word dosyası ya da sınıfta göstermek için PowerPoint sunusu olarak indirin.</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 48px; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.28)">
+<span style="flex: 0 1 300px; font-weight: 600; font-size: 18px">Çevrimiçi sınav</span>
+<span style="flex: 1 1 420px; color: #DCE4FF">Testi süreli sınav olarak yayınlayın. Öğrenciler hesap açmadan katılır, sonuçlar madde analiziyle gelir.</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 48px; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.28)">
+<span style="flex: 0 1 300px; font-weight: 600; font-size: 18px">Kurum şablonları</span>
+<span style="flex: 1 1 420px; color: #DCE4FF">Okul logosu, üst bilgi, öğrenci bilgi kutusu ve yönerge metni her testte hazır gelir.</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 48px; padding: 22px 0; border-bottom: 1px solid rgba(255,255,255,0.28)">
+<span style="flex: 0 1 300px; font-weight: 600; font-size: 18px">Taslak soru üretimi</span>
+<span style="flex: 1 1 420px; color: #DCE4FF">Kazanımdan soru ya da çözüm üretin. Üretilen her içerik taslak olarak gelir, siz onaylamadan teste girmez.</span>
+</div>
+</div>
+</section>
+
+<!-- Testimonial placeholder -->
+<section aria-label="Kullanıcı görüşü" style="max-width: 1200px; margin: 0 auto; padding: 128px 24px 0">
+<figure style="margin: 0; max-width: 900px">
+<blockquote style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 500; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.3; letter-spacing: -0.01em">[Bir öğretmenin Testcim ile ilgili kendi sözleriyle görüşü buraya gelecek.]</blockquote>
+<figcaption style="margin-top: 24px; display: flex; align-items: center; gap: 14px">
+<span style="width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.55); display: block" aria-hidden="true"></span>
+<span style="display: flex; flex-direction: column"><span style="font-weight: 600">[Ad Soyad]</span><span style="color: #C9D5FF; font-size: 15px">[Branş ve okul]</span></span>
+</figcaption>
+</figure>
+</section>
+
+<!-- Pricing -->
+<section id="fiyat" aria-labelledby="fiyat-baslik" style="max-width: 1200px; margin: 0 auto; padding: 128px 24px 0">
+<div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px">
+<div>
+<h2 id="fiyat-baslik" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4vw, 46px); line-height: 1.15; letter-spacing: -0.01em">Ücretsiz başlayın, ihtiyaç oldukça büyütün</h2>
+<p style="margin: 14px 0 0; color: #DCE4FF; font-size: 17px">Planınızı istediğiniz zaman değiştirin ya da iptal edin.</p>
+</div>
+<div role="group" aria-label="Ödeme dönemi" style="display: inline-flex; background: rgba(255,255,255,0.14); border-radius: 8px; padding: 4px; gap: 4px">
+<button type="button" onClick="{{setMonthly}}" aria-pressed="{{monthlyPressed}}" style="font: inherit; font-size: 15px; border: 0; border-radius: 6px; padding: 8px 16px; min-height: 40px; cursor: pointer; background: {{monthlyBg}}; color: {{monthlyFg}}">Aylık</button>
+<button type="button" onClick="{{setYearly}}" aria-pressed="{{yearlyPressed}}" style="font: inherit; font-size: 15px; border: 0; border-radius: 6px; padding: 8px 16px; min-height: 40px; cursor: pointer; background: {{yearlyBg}}; color: {{yearlyFg}}">Yıllık</button>
+</div>
+</div>
+<div class="tc-paper" style="margin-top: 40px; background: #FFFFFF; color: #1C2230; border-radius: 8px; overflow-x: auto">
+<table style="width: 100%; min-width: 760px; border-collapse: collapse; font-size: 15px">
+<caption style="position: absolute; left: -9999px">Plan karşılaştırması</caption>
+<thead>
+<tr style="text-align: left; vertical-align: top">
+<th scope="col" style="padding: 28px 24px; width: 28%; border-bottom: 1px solid #E5E8ED"></th>
+<th scope="col" style="padding: 28px 16px; border-bottom: 1px solid #E5E8ED; font-weight: 400"><div style="font-weight: 600; font-size: 18px">Ücretsiz</div><div style="font-size: 26px; font-weight: 600; margin-top: 6px">0 TL</div><div style="color: #556070; font-size: 13px">her zaman</div></th>
+<th scope="col" style="padding: 28px 16px; border-bottom: 1px solid #E5E8ED; font-weight: 400; background: #EEF1FA"><div style="font-weight: 600; font-size: 18px; color: #23408F">Plus</div><div style="font-size: 26px; font-weight: 600; margin-top: 6px">{{pricePlus}}</div><div style="color: #556070; font-size: 13px">{{period}}</div></th>
+<th scope="col" style="padding: 28px 16px; border-bottom: 1px solid #E5E8ED; font-weight: 400"><div style="font-weight: 600; font-size: 18px">Pro</div><div style="font-size: 26px; font-weight: 600; margin-top: 6px">{{pricePro}}</div><div style="color: #556070; font-size: 13px">{{period}}</div></th>
+<th scope="col" style="padding: 28px 16px; border-bottom: 1px solid #E5E8ED; font-weight: 400"><div style="font-weight: 600; font-size: 18px">Kurum</div><div style="font-size: 26px; font-weight: 600; margin-top: 6px">Teklif alın</div><div style="color: #556070; font-size: 13px">okul ve dershaneler</div></th>
+</tr>
+</thead>
+<tbody style="font-variant-numeric: tabular-nums">
+<tr><th scope="row" style="text-align: left; font-weight: 400; color: #556070; padding: 14px 24px; border-bottom: 1px solid #E5E8ED">Test başına soru</th><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">20</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED; background: #EEF1FA">100</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">200</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">300</td></tr>
+<tr><th scope="row" style="text-align: left; font-weight: 400; color: #556070; padding: 14px 24px; border-bottom: 1px solid #E5E8ED">Aylık PDF çıktısı</th><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">10</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED; background: #EEF1FA">Sınırsız</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">Sınırsız</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">Sınırsız</td></tr>
+<tr><th scope="row" style="text-align: left; font-weight: 400; color: #556070; padding: 14px 24px; border-bottom: 1px solid #E5E8ED">Kitapçık türü</th><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">2</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED; background: #EEF1FA">4</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">4</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">4</td></tr>
+<tr><th scope="row" style="text-align: left; font-weight: 400; color: #556070; padding: 14px 24px; border-bottom: 1px solid #E5E8ED">Soru bankası</th><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">100</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED; background: #EEF1FA">5.000</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">25.000</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">100.000</td></tr>
+<tr><th scope="row" style="text-align: left; font-weight: 400; color: #556070; padding: 14px 24px; border-bottom: 1px solid #E5E8ED">Aylık optik okuma</th><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">30</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED; background: #EEF1FA">500</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">3.000</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">Adil kullanım</td></tr>
+<tr><th scope="row" style="text-align: left; font-weight: 400; color: #556070; padding: 14px 24px; border-bottom: 1px solid #E5E8ED">Word ve PowerPoint</th><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED; color: #6B7686">Yok</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED; background: #EEF1FA">Var</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">Var</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">Var</td></tr>
+<tr><th scope="row" style="text-align: left; font-weight: 400; color: #556070; padding: 14px 24px; border-bottom: 1px solid #E5E8ED">Testcim işareti</th><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">Kâğıtta görünür</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED; background: #EEF1FA">Kaldırılabilir</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">Kaldırılabilir</td><td style="padding: 14px 16px; border-bottom: 1px solid #E5E8ED">Kaldırılabilir</td></tr>
+<tr>
+<td style="padding: 20px 24px"></td>
+<td style="padding: 20px 16px"><a href="#kayit" style="color: #23408F; font-weight: 500">Ücretsiz başlayın</a></td>
+<td style="padding: 20px 16px; background: #EEF1FA"><a href="#kayit" style="display: inline-flex; align-items: center; min-height: 40px; background: #23408F; color: #FFFFFF; text-decoration: none; font-weight: 500; padding: 8px 16px; border-radius: 6px">Plus'a geçin</a></td>
+<td style="padding: 20px 16px"><a href="#kayit" style="color: #23408F; font-weight: 500">Pro'ya geçin</a></td>
+<td style="padding: 20px 16px"><a href="#iletisim" style="color: #23408F; font-weight: 500">Bize yazın</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- FAQ -->
+<section id="sss" aria-labelledby="sss-baslik" style="max-width: 1200px; margin: 0 auto; padding: 128px 24px 0; display: flex; flex-wrap: wrap; gap: 32px 64px">
+<h2 id="sss-baslik" style="margin: 0; flex: 1 1 280px; font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4vw, 46px); line-height: 1.15; letter-spacing: -0.01em">Sık sorulanlar</h2>
+<div style="flex: 999 1 560px; min-width: 0; border-top: 1px solid rgba(255,255,255,0.28)">
+<details style="border-bottom: 1px solid rgba(255,255,255,0.28)">
+<summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-size: 18px; font-weight: 500">Hangi kaynaklardan soru alabilirim?<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10h12"></path><path class="tc-plus-v" d="M10 4v12"></path></svg></summary>
+<p style="margin: 0 0 22px; color: #DCE4FF; max-width: 640px">Ekranda görebildiğiniz her şeyden: PDF, kitap taraması, web sayfası ya da telefonla çektiğiniz fotoğraf. Alıntıyı kopyalayıp Ctrl+V ile yapıştırmanız yeterli.</p>
+</details>
+<details style="border-bottom: 1px solid rgba(255,255,255,0.28)">
+<summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-size: 18px; font-weight: 500">Çıktı gerçekten baskıya hazır mı?<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10h12"></path><path class="tc-plus-v" d="M10 4v12"></path></svg></summary>
+<p style="margin: 0 0 22px; color: #DCE4FF; max-width: 640px">Evet. Önizleme ve PDF aynı yerleşimden üretilir. Sayfa boyutu, sütun sayısı ve soru aralığını siz seçersiniz, baskı kalitesini taslak, standart ya da yüksek olarak ayarlayabilirsiniz.</p>
+</details>
+<details style="border-bottom: 1px solid rgba(255,255,255,0.28)">
+<summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-size: 18px; font-weight: 500">Ücretsiz plan ne kadar süre geçerli?<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10h12"></path><path class="tc-plus-v" d="M10 4v12"></path></svg></summary>
+<p style="margin: 0 0 22px; color: #DCE4FF; max-width: 640px">Süresizdir. Ücretsiz planda test başına 20 soru ve ayda 10 PDF çıktısı alırsınız. Daha fazlasına ihtiyaç duyduğunuzda planınızı yükseltebilirsiniz.</p>
+</details>
+<details style="border-bottom: 1px solid rgba(255,255,255,0.28)">
+<summary style="display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 0; font-size: 18px; font-weight: 500">Öğrencilerimin verileri nasıl korunuyor?<svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10h12"></path><path class="tc-plus-v" d="M10 4v12"></path></svg></summary>
+<p style="margin: 0 0 22px; color: #DCE4FF; max-width: 640px">Veriler KVKK'ya uygun olarak işlenir ve her çalışma alanı birbirinden ayrı tutulur. Ayrıntılar için aydınlatma metnini inceleyin.</p>
+</details>
+</div>
+</section>
+
+<!-- Closing CTA -->
+<section id="kayit" aria-labelledby="kapanis" style="max-width: 1200px; margin: 0 auto; padding: 128px 24px 0">
+<div class="tc-paper" style="background: #FFFFFF; color: #1C2230; border-radius: 12px; padding: clamp(32px, 6vw, 72px); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px">
+<div style="max-width: 600px">
+<h2 id="kapanis" style="margin: 0; font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; font-size: clamp(30px, 4vw, 46px); line-height: 1.15; letter-spacing: -0.01em">İlk testinizi şimdi hazırlayın</h2>
+<p style="margin: 14px 0 0; color: #556070; font-size: 17px">Hesap açmak bir dakika sürer. İlk PDF'inizi birkaç dakika içinde alırsınız.</p>
+</div>
+<a href="#kayit" style="text-decoration: none; background: #23408F; color: #FFFFFF; font-weight: 600; font-size: 17px; padding: 14px 24px; border-radius: 6px; min-height: 52px; display: inline-flex; align-items: center">Ücretsiz hesap açın</a>
+</div>
+</section>
+
+<!-- Footer -->
+<footer style="max-width: 1200px; margin: 0 auto; padding: 96px 24px 48px; font-size: 15px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.28)">
+<div style="max-width: 300px">
+<span style="font-size: 20px; font-weight: 600">Testcim</span>
+<p style="margin: 10px 0 0; color: #C9D5FF">Testcim, öğretmenler için test ve sınav hazırlama aracıdır.</p>
+</div>
+<nav aria-label="Alt bağlantılar" style="display: flex; flex-wrap: wrap; gap: 40px 72px">
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-weight: 600">Ürün</span><a href="#ozellikler" style="text-decoration: none; color: #DCE4FF">Özellikler</a><a href="#fiyat" style="text-decoration: none; color: #DCE4FF">Fiyatlandırma</a><a href="#sss" style="text-decoration: none; color: #DCE4FF">Yardım</a><a href="#durum" style="text-decoration: none; color: #DCE4FF">Sistem durumu</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-weight: 600">Testcim</span><a href="#hakkimizda" style="text-decoration: none; color: #DCE4FF">Hakkımızda</a><a href="#iletisim" style="text-decoration: none; color: #DCE4FF">İletişim</a><a href="#surum" style="text-decoration: none; color: #DCE4FF">Sürüm notları</a></div>
+<div style="display: flex; flex-direction: column; gap: 10px"><span style="font-weight: 600">Hukuki</span><a href="#gizlilik" style="text-decoration: none; color: #DCE4FF">Gizlilik politikası</a><a href="#kvkk" style="text-decoration: none; color: #DCE4FF">KVKK aydınlatma metni</a><a href="#sartlar" style="text-decoration: none; color: #DCE4FF">Kullanım şartları</a></div>
+</nav>
+</div>
+<p style="margin: 24px 0 0; color: #C9D5FF; font-size: 14px">© 2026 Testcim</p>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"bg":{"editor":"color","default":"#2449C8","options":["#2449C8","#23408F","#1F5FD6","#1A3170"]},"$preview":{"width":1440,"height":5600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { count: 4, lastNew: 0, yearly: false };
+  }
+  renderVals() {
+    const answers = ['B', 'D', 'A', 'C', 'E', 'B', 'A', 'D'];
+    const count = this.state.count;
+    const max = 8;
+    const questions = [];
+    for (let i = 1; i <= count; i++) {
+      questions.push({
+        n: i,
+        answer: answers[(i - 1) % answers.length],
+        figure: i % 3 === 2,
+        cls: i === this.state.lastNew ? 'tc-q-new' : ''
+      });
+    }
+    const yearly = this.state.yearly;
+    const status = this.state.lastNew
+      ? 'Soru ' + this.state.lastNew + ' eklendi. Doğru cevap için A–E tuşuna basın.'
+      : 'Ctrl+V ile yapıştırın. ' + count + ' soru.';
+    return {
+      bg: this.props.bg ?? '#2449C8',
+      questions,
+      count,
+      full: count >= max,
+      usage: Math.round((count / 20) * 100) + '%',
+      status: count >= max ? 'Bu örnekte en fazla ' + max + ' soru yerleştirilir.' : status,
+      paste: () => {
+        if (this.state.count >= max) return;
+        const next = this.state.count + 1;
+        this.setState({ count: next, lastNew: next });
+      },
+      setMonthly: () => this.setState({ yearly: false }),
+      setYearly: () => this.setState({ yearly: true }),
+      monthlyPressed: yearly ? 'false' : 'true',
+      yearlyPressed: yearly ? 'true' : 'false',
+      monthlyBg: yearly ? 'transparent' : '#FFFFFF',
+      monthlyFg: yearly ? '#FFFFFF' : '#1A3170',
+      yearlyBg: yearly ? '#FFFFFF' : 'transparent',
+      yearlyFg: yearly ? '#1A3170' : '#FFFFFF',
+      pricePlus: yearly ? '[Yıllık fiyat]' : '[Aylık fiyat]',
+      pricePro: yearly ? '[Yıllık fiyat]' : '[Aylık fiyat]',
+      period: yearly ? 'yıllık, KDV dahil' : 'aylık, KDV dahil'
+    };
+  }
+}
+</script>
+</body>
+</html>
