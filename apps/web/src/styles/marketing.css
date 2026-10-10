@@ -1,0 +1,296 @@
+/*
+ * Marketing site motion (docs/03 section 2, marketing exception). The application never
+ * uses these classes. Every effect has a static fallback under prefers-reduced-motion,
+ * and revealed content is shown when scripts are off (see the marketing layout).
+ */
+
+/* Scroll reveal: `Reveal` sets data-shown once the element enters the viewport. */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 700ms var(--ease-out),
+    transform 700ms var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal[data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero headline: words rise in once on load. */
+@keyframes word-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.45em);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.word-rise {
+  display: inline-block;
+  animation: word-rise 700ms var(--ease-out) both;
+  animation-delay: var(--word-delay, 0ms);
+}
+
+.fade-up {
+  animation: word-rise 700ms var(--ease-out) both;
+  animation-delay: var(--fade-delay, 0ms);
+}
+
+/* Hero paper: questions settle in, then marks fill, then the PDF tag lands. */
+.hero-q {
+  opacity: 0;
+  transform: translateY(-18px);
+  transition:
+    opacity 260ms var(--ease-out),
+    transform 260ms var(--ease-out),
+    box-shadow 600ms var(--ease-out);
+  box-shadow: 0 0 0 1.5px transparent;
+}
+
+.hero-q[data-on] {
+  opacity: 1;
+  transform: none;
+}
+
+.hero-q[data-fresh] {
+  box-shadow: 0 0 0 1.5px var(--color-accent);
+}
+
+.hero-mark {
+  transform: scale(0.4);
+  opacity: 0;
+  transition:
+    transform 220ms var(--ease-out),
+    opacity 220ms var(--ease-out);
+}
+
+.hero-mark[data-on] {
+  transform: none;
+  opacity: 1;
+}
+
+.hero-tag {
+  opacity: 0;
+  transform: translateY(14px) scale(0.96);
+  transition:
+    opacity 320ms var(--ease-out),
+    transform 320ms var(--ease-out);
+}
+
+.hero-tag[data-on] {
+  opacity: 1;
+  transform: none;
+}
+
+.key-press {
+  transition:
+    transform 120ms var(--ease-out),
+    box-shadow 120ms var(--ease-out);
+}
+
+.key-press[data-on] {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 0 transparent;
+}
+
+/* Back sheets drift apart a little when the hero first paints. */
+@keyframes sheet-left {
+  from {
+    transform: rotate(0deg) translate(0, 0);
+  }
+
+  to {
+    transform: rotate(-7deg) translate(-34px, 18px);
+  }
+}
+
+@keyframes sheet-right {
+  from {
+    transform: rotate(0deg) translate(0, 0);
+  }
+
+  to {
+    transform: rotate(5deg) translate(30px, 10px);
+  }
+}
+
+.sheet-left {
+  animation: sheet-left 900ms var(--ease-out) 200ms both;
+}
+
+.sheet-right {
+  animation: sheet-right 900ms var(--ease-out) 300ms both;
+}
+
+/* Marquee strip of test types. Two copies, the track moves by half its width. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Flow story: layered visuals cross-fade as the active step changes. */
+.flow-layer {
+  opacity: 0;
+  transform: translateY(16px) scale(0.98);
+  transition:
+    opacity 450ms var(--ease-out),
+    transform 450ms var(--ease-out);
+  pointer-events: none;
+}
+
+.flow-layer[data-on] {
+  opacity: 1;
+  transform: none;
+}
+
+.flow-step {
+  opacity: 0.35;
+  transition: opacity 400ms var(--ease-out);
+}
+
+.flow-step[data-on] {
+  opacity: 1;
+}
+
+.flow-drop {
+  animation: flow-drop 1600ms var(--ease-out) infinite;
+}
+
+@keyframes flow-drop {
+  0% {
+    opacity: 0;
+    transform: translateY(-28px);
+  }
+
+  30%,
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.flow-fan > :nth-child(1) {
+  transform: rotate(-8deg) translate(-40px, 10px);
+}
+
+.flow-fan > :nth-child(3) {
+  transform: rotate(8deg) translate(40px, 10px);
+}
+
+.flow-fan > * {
+  transition: transform 600ms var(--ease-out);
+}
+
+/* Showcase visuals play once their Reveal wrapper is shown. */
+.crop-box {
+  transform-origin: left top;
+  transform: scale(0.35, 0.2);
+  opacity: 0;
+  transition:
+    transform 800ms var(--ease-out) 300ms,
+    opacity 300ms var(--ease-out) 300ms;
+}
+
+.reveal[data-shown] .crop-box {
+  transform: none;
+  opacity: 1;
+}
+
+.stagger-item {
+  opacity: 0;
+  transform: translateX(12px);
+  transition:
+    opacity 400ms var(--ease-out),
+    transform 400ms var(--ease-out);
+  transition-delay: calc(700ms + var(--i, 0) * 220ms);
+}
+
+.reveal[data-shown] .stagger-item {
+  opacity: 1;
+  transform: none;
+}
+
+.booklet {
+  transition: transform 900ms var(--ease-out) 300ms;
+}
+
+.reveal:not([data-shown]) .booklet {
+  transform: none !important;
+}
+
+.omr-dot {
+  transform: scale(0);
+  transition: transform 260ms var(--ease-out);
+  transition-delay: calc(500ms + var(--i, 0) * 120ms);
+}
+
+.reveal[data-shown] .omr-dot {
+  transform: none;
+}
+
+/* Blue bands: white focus ring. */
+.bg-brand :focus-visible {
+  outline-color: var(--color-surface);
+}
+
+/* Header progress line. */
+.read-progress {
+  transform-origin: left center;
+  transform: scaleX(var(--progress, 0));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .word-rise,
+  .fade-up,
+  .hero-q,
+  .hero-mark,
+  .hero-tag,
+  .sheet-left,
+  .sheet-right,
+  .flow-layer,
+  .crop-box,
+  .stagger-item,
+  .omr-dot {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .sheet-left {
+    transform: rotate(-7deg) translate(-34px, 18px);
+  }
+
+  .sheet-right {
+    transform: rotate(5deg) translate(30px, 10px);
+  }
+
+  .flow-layer:not([data-on]) {
+    opacity: 0;
+  }
+
+  .marquee-track,
+  .flow-drop {
+    animation: none;
+  }
+}

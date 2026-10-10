@@ -30,7 +30,7 @@
 | Hata | `--err` | `#B4322A` | Yanlış, hata |
 | Uyarı | `--warn` | `#9A6100` | Sınıra yaklaşma, dikkat |
 
-**Pazarlama sitesi istisnası (kullanıcı kararı, 2026-10-10):** Açılış ve diğer pazarlama sayfaları mavi zemin (`--color-brand`) üzerinde beyaz kâğıt yüzeylerle kurulur: "mavi masa, beyaz kâğıt". Mavi üzerindeki metin `--color-on-brand-2/3` token'larını kullanır ve AA kontrastını sağlar. Uygulamanın kendisi (editör, panel, öğrenci ekranı) beyaz kalır.
+**Pazarlama sitesi istisnası (kullanıcı kararı, 2026-10-10):** Pazarlama sayfalarının zemini beyazdır. Mavi (`--color-brand`) yalnızca vurgu bantlarında (güven bölümü, kapanış çağrısı) zemin olarak kullanılır; mavi üzerindeki ikincil metin `--color-on-brand-2` token'ını kullanır ve AA kontrastını sağlar. Uygulamanın kendisi (editör, panel, öğrenci ekranı) bu token'ları kullanmaz.
 
 Kural: Arayüzün büyük çoğunluğu beyaz, mürekkep ve çizgiden oluşur. Renk yalnızca anlam taşıdığı yerde görünür: eylem, seçim, doğru/yanlış. Gradyan yok, renkli arka plan şeritleri yok, dekoratif renk yok. Hex değerleri yalnızca token dosyasında yazılır; bileşenlerde hex kullanılmaz.
 
@@ -57,6 +57,7 @@ Kural: Arayüzün büyük çoğunluğu beyaz, mürekkep ve çizgiden oluşur. Re
 - Kullanıcı eylemine yanıt veren hareket serbest: 120–180 ms, ease-out.
 - **İmza hareket (tek):** yapıştırılan soru şeride 160 ms'lik kısa bir oturma hareketiyle girer ve kenarlığı bir kez `--accent` renginde yanıp söner. Başka giriş animasyonu yok.
 - Kaydırmayla beliren bölümler, her kartta hover geçişi, süs amaçlı hareketli arka plan yok. `prefers-reduced-motion` tam desteklenir.
+- **Pazarlama sitesi istisnası (kullanıcı kararı, 2026-10-10):** Açılış sayfasında kaydırmayla belirme, kahraman alanında kendi kendine dolan kâğıt çizimi, kaydırmaya bağlı akış anlatımı, kayan sınav türü şeridi ve okuma ilerleme çizgisi kullanılır. Bunlar yalnızca `styles/marketing.css` ve `features/marketing` içinde yaşar; uygulamaya taşınmaz. Hareket azaltma açıkken hepsi durağan son hâlinde görünür, betik kapalıyken içerik gizli kalmaz.
 
 ## 3. Yerleşim kavramı
 
@@ -136,7 +137,7 @@ Aşağıdakiler bu projede **yasak** varsayılanlardır. Tasarım incelemesinde 
 
 ## 7. Ekranlar ve tasarım notları
 
-**Açılış sayfası (pazarlama):** Mavi zemin, beyaz kâğıt yüzeyler (bkz. bölüm 2 istisnası). Bölümler: kahraman, editör görünümlü çalışan demo, "Üç tuşla bir test" akışı (Ctrl+V, A–E, Çıktı al), özellik satırları ve çizgili özellik listesi, fiyat tablosu, sık sorulanlar, kapanış. Diğer pazarlama sayfaları aynı mavi çerçevede tek beyaz sayfa üzerinde durur. Kahraman alanı bir illüstrasyon değil, çalışan bir demo: "Bir görsel yapıştırın" alanı. Ziyaretçi Ctrl+V yaptığında görsel gerçekten bir sınav kâğıdına soru olarak yerleşir (kayıt gerektirmeden, yalnızca tarayıcıda). Altında tek satır: "Kaydetmek için ücretsiz hesap açın." Başlık büyük, sade, sola hizalı. Fiyatlandırma çizgili tablo olarak.
+**Açılış sayfası (pazarlama):** Beyaz zemin, mavi vurgu bantları (bkz. bölüm 2 ve hareket istisnaları). Bölümler: kahraman (sola hizalı büyük başlık, sağda kendi kendine dolan kâğıt çizimi; uygulama ekranı değil), sınav türü şeridi, "Üç tuşla bir test" kaydırma anlatımı (Ctrl+V, A–E, Çıktı al), "Kendiniz deneyin" bölümünde çalışan yapıştırma demosu, özellik satırları ve çizgili özellik listesi, mavi güven bandı, fiyat tablosu, sık sorulanlar, mavi kapanış çağrısı. Demo kayıt gerektirmez, görseller yalnızca tarayıcıda kalır. Fiyatlandırma çizgili tablo olarak.
 
 **Panel (Testler):** Üstte tek birincil eylem "Yeni test". Altında son testler çizgili liste (ad, tür, soru sayısı, son düzenleme). Sağ üstte arama. Karşılama metni yok; doğrudan iş.
 

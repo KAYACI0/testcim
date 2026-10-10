@@ -1092,14 +1092,17 @@
       "pricing": "Fiyatlandırma",
       "help": "Yardım",
       "login": "Giriş yapın",
-      "signup": "Ücretsiz başlayın"
+      "signup": "Ücretsiz başlayın",
+      "menu": "Menüyü açın",
+      "closeMenu": "Menüyü kapatın"
     },
     "footer": {
       "label": "Alt bağlantılar",
       "productTitle": "Ürün",
       "companyTitle": "Testcim",
       "legalTitle": "Hukuki",
-      "note": "Testcim, öğretmenler için test ve sınav hazırlama aracıdır."
+      "note": "Testcim, öğretmenler için test ve sınav hazırlama aracıdır.",
+      "copyright": "© {year} Testcim"
     },
     "pages": {
       "home": {
@@ -1176,7 +1179,6 @@
       "closingTitle": "İlk testinizi şimdi hazırlayın",
       "closingAction": "Ücretsiz hesap açın",
       "primaryAction": "Ücretsiz hesap açın",
-      "secondaryAction": "Örneği deneyin",
       "heroNote": "Kredi kartı gerekmez.",
       "demoMore": {
         "frameLabel": "Ürün örneği",
@@ -1198,24 +1200,6 @@
         "gap": "Soru arası",
         "gapValue": "10 mm",
         "booklets": "Kitapçık türü"
-      },
-      "flow": {
-        "title": "Üç tuşla bir test",
-        "paste": {
-          "key": "Ctrl+V",
-          "title": "Soruyu yapıştırın",
-          "body": "Kitaptan, PDF'ten ya da ekrandan aldığınız alıntı kırpılır ve teste yerleşir."
-        },
-        "answer": {
-          "key": "A–E",
-          "title": "Doğru cevabı işaretleyin",
-          "body": "Yapıştırdıktan hemen sonra tek tuşa basın. Cevap anahtarı siz ilerledikçe oluşur."
-        },
-        "export": {
-          "key": "Çıktı al",
-          "title": "PDF'i indirin",
-          "body": "Soru kâğıdı ve cevap anahtarı baskıya hazır iner. Ekranda gördüğünüz, kâğıda çıkan olur."
-        }
       },
       "showcase": {
         "crop": {
@@ -1251,7 +1235,75 @@
           "a": "Evet. Önizleme ve PDF aynı yerleşimden üretilir. Sayfa boyutu, sütun sayısı ve soru aralığını siz seçersiniz."
         }
       },
-      "closingLead": "Hesap açmak bir dakika sürer, kredi kartı gerekmez."
+      "closingLead": "Hesap açmak bir dakika sürer, kredi kartı gerekmez.",
+      "heroKeysBefore": "Kısayollar:",
+      "heroPaper": {
+        "ready": "PDF hazır"
+      },
+      "marquee": {
+        "label": "Hazırlayabileceğiniz sınav türleri",
+        "items": [
+          "Yazılı",
+          "Deneme",
+          "Test kâğıdı",
+          "Çalışma kâğıdı",
+          "Quiz",
+          "LGS kalıbı",
+          "TYT kalıbı",
+          "AYT kalıbı",
+          "Kitapçık A, B, C, D",
+          "Cevap anahtarı",
+          "Optik form",
+          "Çevrimiçi sınav"
+        ]
+      },
+      "flow": {
+        "title": "Üç tuşla bir test",
+        "lead": "Ekran alıntısından baskıya hazır sayfaya kadar her adım klavyede.",
+        "paste": {
+          "key": "Ctrl+V",
+          "title": "Soruyu yapıştırın",
+          "body": "Kitaptan, PDF'ten ya da ekrandan aldığınız alıntı kırpılır ve teste yerleşir. Sayfa düzeni siz yapıştırdıkça kendiliğinden kurulur."
+        },
+        "answer": {
+          "key": "A–E",
+          "title": "Doğru cevabı işaretleyin",
+          "body": "Yapıştırdıktan hemen sonra tek tuşa basın. Cevap anahtarı siz ilerledikçe oluşur, ayrıca bir tablo doldurmanız gerekmez."
+        },
+        "export": {
+          "key": "Çıktı al",
+          "title": "PDF'i indirin",
+          "body": "Soru kâğıdı ve cevap anahtarı baskıya hazır iner. Önizleme ve PDF aynı yerleşimden üretilir; ekranda gördüğünüz, kâğıda çıkan olur."
+        },
+        "visual": {
+          "pasted": "Soru 4 eklendi",
+          "answer": "Doğru cevap C",
+          "pdf": "PDF indirildi"
+        }
+      },
+      "tryTitle": "Kendiniz deneyin",
+      "tryLead": "Bir ekran alıntısı kopyalayın ve bu sayfada Ctrl+V yapın. Kayıt gerekmez, görsel tarayıcınızdan çıkmaz.",
+      "trust": {
+        "title": "Öğretmenin kontrolünde",
+        "lead": "Testcim, son kararı her zaman size bırakacak şekilde tasarlandı.",
+        "draft": {
+          "title": "Taslak, onayınızla girer",
+          "body": "Yapay zekânın ürettiği her soru taslak olarak gelir. Siz onaylamadan teste girmez."
+        },
+        "workspace": {
+          "title": "Çalışma alanınız size ait",
+          "body": "Sorularınız ve sonuçlarınız yalnızca kendi çalışma alanınızda görünür."
+        },
+        "payment": {
+          "title": "Kart bilgisi bizde durmaz",
+          "body": "Ödeme, ödeme sağlayıcısının kendi sayfasında alınır ve Testcim'de saklanmaz."
+        },
+        "print": {
+          "title": "Gördüğünüz basılır",
+          "body": "Önizleme, PDF, Word ve PowerPoint aynı yerleşimden üretilir."
+        }
+      },
+      "secondaryAction": "Nasıl çalıştığını görün"
     },
     "featureItems": {
       "capture": {

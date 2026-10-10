@@ -1092,14 +1092,17 @@
       "pricing": "Pricing",
       "help": "Help",
       "login": "Sign in",
-      "signup": "Start free"
+      "signup": "Start free",
+      "menu": "Open menu",
+      "closeMenu": "Close menu"
     },
     "footer": {
       "label": "Footer links",
       "productTitle": "Product",
       "companyTitle": "Testcim",
       "legalTitle": "Legal",
-      "note": "Testcim is a test and exam preparation tool for teachers."
+      "note": "Testcim is a test and exam preparation tool for teachers.",
+      "copyright": "© {year} Testcim"
     },
     "pages": {
       "home": {
@@ -1176,7 +1179,6 @@
       "closingTitle": "Prepare your first test now",
       "closingAction": "Create a free account",
       "primaryAction": "Create a free account",
-      "secondaryAction": "Try the example",
       "heroNote": "No credit card required.",
       "demoMore": {
         "frameLabel": "Product example",
@@ -1198,24 +1200,6 @@
         "gap": "Question spacing",
         "gapValue": "10 mm",
         "booklets": "Booklet types"
-      },
-      "flow": {
-        "title": "A test in three keys",
-        "paste": {
-          "key": "Ctrl+V",
-          "title": "Paste the question",
-          "body": "A snippet from a book, a PDF or your screen is cropped and placed in the test."
-        },
-        "answer": {
-          "key": "A–E",
-          "title": "Mark the correct answer",
-          "body": "Press a single key right after pasting. The answer key builds up as you go."
-        },
-        "export": {
-          "key": "Export",
-          "title": "Download the PDF",
-          "body": "The question sheet and the answer key arrive ready to print. What you see on screen is what lands on paper."
-        }
       },
       "showcase": {
         "crop": {
@@ -1251,7 +1235,75 @@
           "a": "Yes. The preview and the PDF come from the same layout. You choose the page size, the number of columns and the question spacing."
         }
       },
-      "closingLead": "Creating an account takes a minute, no credit card required."
+      "closingLead": "Creating an account takes a minute, no credit card required.",
+      "heroKeysBefore": "Shortcuts:",
+      "heroPaper": {
+        "ready": "PDF ready"
+      },
+      "marquee": {
+        "label": "Test types you can prepare",
+        "items": [
+          "Written exam",
+          "Mock exam",
+          "Test sheet",
+          "Worksheet",
+          "Quiz",
+          "LGS format",
+          "TYT format",
+          "AYT format",
+          "Booklets A, B, C, D",
+          "Answer key",
+          "Answer sheet",
+          "Online exam"
+        ]
+      },
+      "flow": {
+        "title": "A test in three keys",
+        "lead": "Every step from a screenshot to a print-ready page happens on the keyboard.",
+        "paste": {
+          "key": "Ctrl+V",
+          "title": "Paste the question",
+          "body": "A snippet from a book, a PDF or your screen is cropped and placed in the test. The page layout builds itself as you paste."
+        },
+        "answer": {
+          "key": "A–E",
+          "title": "Mark the correct answer",
+          "body": "Press a single key right after pasting. The answer key builds up as you go, with no table to fill in."
+        },
+        "export": {
+          "key": "Export",
+          "title": "Download the PDF",
+          "body": "The question sheet and the answer key arrive ready to print. Preview and PDF come from the same layout; what you see on screen is what lands on paper."
+        },
+        "visual": {
+          "pasted": "Question 4 added",
+          "answer": "Correct answer C",
+          "pdf": "PDF downloaded"
+        }
+      },
+      "tryTitle": "Try it yourself",
+      "tryLead": "Copy a screenshot and press Ctrl+V on this page. No sign-up needed, and the image never leaves your browser.",
+      "trust": {
+        "title": "The teacher stays in control",
+        "lead": "Testcim is designed so the final decision is always yours.",
+        "draft": {
+          "title": "Drafts enter only with your approval",
+          "body": "Every AI-generated question arrives as a draft. It never enters a test until you approve it."
+        },
+        "workspace": {
+          "title": "Your workspace is yours",
+          "body": "Your questions and results are visible only inside your own workspace."
+        },
+        "payment": {
+          "title": "We never keep card details",
+          "body": "Payment is taken on the payment provider's own page and is not stored by Testcim."
+        },
+        "print": {
+          "title": "What you see is what prints",
+          "body": "Preview, PDF, Word and PowerPoint all come from the same layout."
+        }
+      },
+      "secondaryAction": "See how it works"
     },
     "featureItems": {
       "capture": {

@@ -6,8 +6,12 @@ import {
   FaqSection,
   FeaturesSection,
   FlowSection,
+  HeroSection,
+  MarqueeSection,
+  TrustSection,
+  TrySection,
 } from '@/features/marketing/landing-sections';
-import { PasteDemo } from '@/features/marketing/paste-demo';
+import { Reveal } from '@/features/marketing/motion';
 import { getPricingTableData } from '@/features/marketing/pricing-data.server';
 import { PricingTable } from '@/features/marketing/pricing-table';
 import { jsonLdString, marketingMetadata } from '@/lib/seo';
@@ -38,53 +42,37 @@ export default async function HomePage() {
   };
 
   return (
-    <>
+    <div className="text-lg">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdString(structuredData) }}
       />
 
-      <section className="mx-auto w-full max-w-6xl px-4 pt-24 pb-14 sm:px-6">
-        <h1 className="max-w-4xl font-display text-[clamp(40px,6vw,76px)] leading-[1.05] font-semibold tracking-[-0.02em]">
-          {t('title')}
-        </h1>
-        <p className="mt-6 max-w-2xl text-[clamp(18px,2vw,21px)] text-on-brand-2">{t('lead')}</p>
-        <div className="mt-9 flex flex-wrap items-center gap-3">
-          <Link
-            href="/login"
-            className="inline-flex h-13 items-center rounded-control bg-surface px-6 text-lg font-semibold text-accent-hover hover:bg-accent-tint"
-          >
-            {t('primaryAction')}
-          </Link>
-          <a
-            href="#demo"
-            className="inline-flex h-13 items-center rounded-control border border-brand-ghost px-6 text-lg font-medium hover:bg-brand-fill"
-          >
-            {t('secondaryAction')}
-          </a>
-        </div>
-        <p className="mt-4 text-sm text-on-brand-3">{t('heroNote')}</p>
-      </section>
-
-      <section id="demo" className="mx-auto w-full max-w-6xl scroll-mt-6 px-4 sm:px-6">
-        <PasteDemo />
-      </section>
-
+      <HeroSection />
+      <MarqueeSection />
       <FlowSection />
+      <TrySection />
       <FeaturesSection />
+      <TrustSection />
 
       <section
+        id="fiyat"
         aria-labelledby="pricing-heading"
-        className="mx-auto w-full max-w-6xl px-4 pt-32 sm:px-6"
+        className="mx-auto w-full max-w-6xl scroll-mt-16 px-4 pt-28 sm:px-6"
       >
-        <h2
-          id="pricing-heading"
-          className="font-display text-[clamp(30px,4vw,46px)] leading-[1.15] font-semibold tracking-[-0.01em]"
+        <Reveal className="max-w-3xl">
+          <h2
+            id="pricing-heading"
+            className="font-display text-[clamp(32px,4.4vw,52px)] leading-[1.1] font-semibold tracking-[-0.015em]"
+          >
+            {t('pricingTitle')}
+          </h2>
+          <p className="mt-4 text-xl text-ink-2">{t('pricingLead')}</p>
+        </Reveal>
+        <Reveal
+          delay={100}
+          className="mt-10 rounded-dialog border border-line p-6 text-base sm:p-8"
         >
-          {t('pricingTitle')}
-        </h2>
-        <p className="mt-3.5 text-on-brand-2">{t('pricingLead')}</p>
-        <div className="sheet mt-10 rounded-panel bg-surface p-6 text-base text-ink sm:p-8">
           {plans.length === 0 ? (
             <p className="text-ink-2">{tpr('unavailable')}</p>
           ) : (
@@ -95,11 +83,11 @@ export default async function HomePage() {
               {t('pricingLink')}
             </Link>
           </p>
-        </div>
+        </Reveal>
       </section>
 
       <FaqSection />
       <ClosingSection />
-    </>
+    </div>
   );
 }

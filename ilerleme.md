@@ -40,6 +40,16 @@ Format: en yeni kayit en ustte. Durumlar: tamam, devam ediyor, bekliyor, engelli
 
 ## Gunluk
 
+### 2026-10-10 (acilis sayfasi: beyaz zemin, animasyonlar)
+
+- Kullanici istegi: beyaz zemin, animasyonlar, kaydirma efektleri, kahramanda uygulama ekrani olmasin, bitmis tasarim.
+- Yapi: pazarlama cercevesi beyaz; sabit ust cubuk (kaydirinca cizgi, okuma ilerleme cizgisi, mobil menu); ic sayfalar `(content)` grubundan geri alindi.
+- Ana sayfa: kahraman (kelime kelime giris, kendi kendine dolan kagit cizimi `hero-paper.tsx`), sinav turu seridi, kaydirmaya bagli akis (`flow-story.tsx`), "Kendiniz deneyin" demosu, ekrana girince canlanan ozellik gorselleri, mavi guven bandi, fiyat tablosu, animasyonlu SSS (`faq-accordion.tsx`), mavi kapanis.
+- Hareket altyapisi: `styles/marketing.css`, `features/marketing/motion.tsx` (`Reveal`, `useInView`). Hareket azaltma: durağan son hal; betik kapali: icerik gorunur.
+- docs/03: pazarlama icin beyaz zemin + mavi bant ve hareket istisnasi yazildi (kullanici karari).
+- Dogrulama: lint, typecheck, format, check:design (378 dosya) temiz; web birim testleri 131/131. 1440/1024/390 ekran goruntusu: yatay tasma yok, konsol hatasi yok. Smoke testinin bekledigi H1 metni dogrulandi; hareket azaltma modunda kagit son halinde.
+- Bilinen eksik: E2E paketi calistirilmadi (bu ortamdaki Playwright surumunun tarayicisi yok). Yerelde DB yoksa fiyat tablosu "yuklenemedi" yazar.
+
 ### 2026-10-10 (acilis sayfasi uygulandi)
 
 - Tasarim `apps/web` icine uygulandi. Pazarlama cercevesi mavi (`bg-brand`), ic sayfalar `(marketing)/(content)` grubunda tek beyaz sayfa uzerinde (URL degismedi).

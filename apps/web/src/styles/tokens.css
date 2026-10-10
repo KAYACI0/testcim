@@ -22,14 +22,11 @@
   --color-warn: #9a6100;
   --color-warn-tint: #faf2e2;
 
-  /* Marketing site only (docs/03 section 7): a blue desk with white paper sheets on it.
-     The application itself stays white. Text on brand passes AA against --color-brand. */
+  /* Marketing site only (docs/03 section 7): white pages with blue bands for emphasis.
+     The application itself never uses these. Text on brand passes AA against --color-brand. */
   --color-brand: #2449c8;
   --color-on-brand-2: #dce4ff;
-  --color-on-brand-3: #c9d5ff;
   --color-brand-line: rgb(255 255 255 / 0.28);
-  --color-brand-fill: rgb(255 255 255 / 0.14);
-  --color-brand-ghost: rgb(255 255 255 / 0.55);
   --color-sketch: #dde2ea;
 
   /* Hierarchical radii: controls, panels, dialogs, paper, thumbnails. */
@@ -41,10 +38,10 @@
 
   /* Depth is drawn with lines. This is the single elevation, for floating layers. */
   --shadow-float: 0 8px 24px rgb(20 28 45 / 0.08);
-  /* Marketing only: a paper sheet lying on the blue desk. */
-  --shadow-sheet: 0 24px 60px rgb(10 20 60 / 0.28);
+  /* Marketing only: paper sheets and key caps in illustrations. */
   --shadow-page: 0 1px 3px rgb(20 28 45 / 0.12);
-  --shadow-key: 0 2px 0 rgb(0 0 0 / 0.18);
+  --shadow-key: 0 2px 0 rgb(20 28 45 / 0.12);
+  --shadow-lift: 0 18px 44px rgb(20 28 45 / 0.12);
 
   --font-sans: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
   /* Marketing headlines only; never inside the application (docs/03 section 2). */

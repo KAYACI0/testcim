@@ -99,7 +99,7 @@ export function PasteDemo() {
   return (
     <div className="flex flex-col gap-4">
       <div
-        className="sheet overflow-hidden rounded-dialog bg-surface text-base text-ink shadow-sheet"
+        className="overflow-hidden rounded-dialog border border-line bg-surface text-base text-ink shadow-lift"
         data-testid="paste-demo"
         role="group"
         aria-label={tm('frameLabel')}
@@ -226,7 +226,7 @@ export function PasteDemo() {
           </Button>
         </div>
       </div>
-      <p className="text-sm text-on-brand-3">{t('privacy')}</p>
+      <p className="text-sm text-ink-2">{t('privacy')}</p>
     </div>
   );
 }
